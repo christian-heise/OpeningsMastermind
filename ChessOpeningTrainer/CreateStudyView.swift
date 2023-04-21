@@ -17,9 +17,13 @@ struct CreateStudyView: View {
     
     @State private var gameTree: GameNode?
     
+    @State private var savedGameTree: GameNode?
+    
+    @State private var wasWrongMove: Bool = false
+    
     var body: some View {
         VStack {
-            ChessBoardView(game: $game, currentNode: $gameTree)
+            ChessBoardView(game: $game, currentNode: $gameTree, wasWrongMove: $wasWrongMove)
             
 //            HStack {
 //                Button(action:{
@@ -38,7 +42,15 @@ struct CreateStudyView: View {
 //                // Has to be disabled if position is actual present position
 //                .padding()
 //            }
-            // List with moves played to far; still has to be developed
+            if let gameTree = self.gameTree {
+                if gameTree.children.isEmpty || wasWrongMove {
+                    Button("Restart", action: {
+                        self.game = Game(position: startingGamePosition)
+                        self.gameTree = self.savedGameTree
+                        self.wasWrongMove = false
+                    })
+                }
+            }
             Text("Enter PGN below:")
             TextEditor(text: $text)
                 .frame(height: 200)
@@ -53,6 +65,9 @@ struct CreateStudyView: View {
             Button(action: {
                 do {
                     try self.gameTree = decodePGN(pgnString: text)
+                    self.savedGameTree = self.gameTree
+                    self.game = Game(position: startingGamePosition)
+                    self.wasWrongMove = false
                     print("Success")
                 } catch {
                     print("Failure")

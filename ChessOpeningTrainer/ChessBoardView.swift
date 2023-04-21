@@ -14,17 +14,22 @@ let italianGamePosition = FenSerialization.default.deserialize(fen: italianGameF
 struct ChessBoardView: View {
     @Binding var game: Game
     @Binding var currentNode: GameNode?
-//    {
-//        didSet {
-//            self.currentNode = self.rootNode
-//            print("currentNode should be set")
-//        }
-//    }
     
-//    @State private var currentNode: GameNode?
+    @Binding var wasWrongMove: Bool
     
     @State private var offsets = Array(repeating: CGSize.zero, count: 64)
     @State private var draggedSquare: Square? = nil
+    
+    @State private var rightMove: Move?
+    
+    var movingDisabled: Bool {
+        guard let currentNode = self.currentNode else {return true}
+        
+        if currentNode.children.isEmpty || self.wasWrongMove {
+            return true
+        }
+        return false
+    }
     
     var body: some View {
         GeometryReader { geo in
@@ -35,6 +40,15 @@ struct ChessBoardView: View {
                         .fill((row + col) % 2 == 0 ? Color.white : Color.brown)
                         .frame(width: squareLength(in: geo.size), height: squareLength(in: geo.size))
                         .position(x: (CGFloat(col) + 0.5) * squareLength(in: geo.size), y: (CGFloat(row) + 0.5) * squareLength(in: geo.size))
+                        if let lastMove = game.movesHistory.last {
+                            if lastMove.to == Square(file: col, rank: 7-row) || lastMove.from == Square(file: col, rank: 7-row) {
+                                Rectangle()
+                                    .fill(wasWrongMove ? Color.red : Color.yellow)
+                                    .frame(width: squareLength(in: geo.size), height: squareLength(in: geo.size))
+                                    .position(x: (CGFloat(col) + 0.5) * squareLength(in: geo.size), y: (CGFloat(row) + 0.5) * squareLength(in: geo.size))
+                                    .opacity(0.2)
+                            }
+                        }
                     }
                 }
                 
@@ -44,6 +58,19 @@ struct ChessBoardView: View {
             Rectangle()
                 .stroke(Color.black, lineWidth: 1)
             )
+            
+            if wasWrongMove {
+                if let rightMove = self.rightMove {
+                    ArrowShape()
+                        .frame(width: calcArrowWidth(for: rightMove, in: geo.size))
+                        .rotationEffect(.degrees(calcArrowAngleDeg(for: rightMove, in: geo.size)))
+//                        .position(CGPoint(x:0,y:0))
+                        .position(calcArrowPosition(for: rightMove, in: geo.size))
+                        .opacity(0.5)
+                        .foregroundColor(.green)
+                        
+                }
+            }
             
             ZStack {
                 let pieces = game.position.board.enumeratedPieces()
@@ -72,7 +99,13 @@ struct ChessBoardView: View {
                                                 game.make(move: move)
                                                 currentNode = makeBlackMove()
                                             } else {
+                                                
                                                 print("Move is NOT in Database")
+                                                if !currentNode!.children.isEmpty {
+                                                    wasWrongMove = true
+                                                    rightMove = determineRightMove()
+                                                } else {
+                                                }
                                                 game.make(move: move)
                                             }
                                         }
@@ -81,12 +114,16 @@ struct ChessBoardView: View {
                                 self.offsets[indexFromSquare(piece.0)] = .zero
                             }
                         )
-                        .disabled(currentNode == nil)
+                        .disabled(movingDisabled)
                         .zIndex(self.draggedSquare==piece.0 ? 1000:0)
                 }
             }
         }
         .padding()
+    }
+    
+    func endDragGesture() {
+        
     }
     
     func indexFromSquare(_ square: Square) -> Int {
@@ -97,6 +134,12 @@ struct ChessBoardView: View {
         let file = min(max(Int(point.x / (size.width / 8)), 0), 7)
         let rank = min(max(Int(8*(1 - point.y / size.width)), 0), 7)
         return Square(file: file, rank: rank)
+    }
+    
+    func pointFromSquare(_ square: Square, in size: CGSize) -> CGPoint {
+        let x = (CGFloat(square.file) + 0.5) * squareLength(in: size)
+        let y = (7.5 - CGFloat(square.rank)) * squareLength(in: size)
+        return CGPoint(x: x, y: y)
     }
     
     func squareLength(in size: CGSize) -> CGFloat {
@@ -110,6 +153,27 @@ struct ChessBoardView: View {
         let tupel = currentNode!.generateMove(game: game)
         self.game.make(move: tupel.0)
         return tupel.1
+    }
+    
+    func calcArrowPosition(for move: Move, in size: CGSize) -> CGPoint {
+        let x = (pointFromSquare(move.from, in: size).x + pointFromSquare(move.to, in: size).x) / 2
+        let y = (pointFromSquare(move.from, in: size).y + pointFromSquare(move.to, in: size).y) / 2
+        
+        return CGPoint(x: x, y: y)
+    }
+    func calcArrowWidth(for move: Move, in size: CGSize) -> CGFloat {
+        return sqrt(pow(pointFromSquare(move.from, in: size).x - pointFromSquare(move.to, in: size).x, 2) + pow(pointFromSquare(move.from, in: size).y - pointFromSquare(move.to, in: size).y, 2))
+    }
+    
+    func calcArrowAngleDeg(for move: Move, in size: CGSize) -> Double {
+        let xdiff = pointFromSquare(move.to, in: size).x - pointFromSquare(move.from, in: size).x
+        let ydiff = pointFromSquare(move.to, in: size).y - pointFromSquare(move.from, in: size).y
+        return atan(ydiff/xdiff) * 180 / Double.pi
+    }
+    
+    func determineRightMove() -> Move {
+        let decoder = SanSerialization.default
+        return decoder.move(for: self.currentNode!.children.first!.move, in: self.game)
     }
 }
 
@@ -135,6 +199,6 @@ let imageNames: [PieceColor: [PieceKind: String]] = [
 struct ChessBoardView_Previews: PreviewProvider {
     
     static var previews: some View {
-        ChessBoardView(game: .constant(Game(position: italianGamePosition)), currentNode: .constant(nil))
+        ChessBoardView(game: .constant(Game(position: italianGamePosition)), currentNode: .constant(nil), wasWrongMove: .constant(false))
     }
 }

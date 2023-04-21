@@ -19,6 +19,7 @@
 		AAA1A1AE29F12E67003F153F /* CreateStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1AD29F12E67003F153F /* CreateStudyView.swift */; };
 		AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1B629F14CAC003F153F /* MoveNode.swift */; };
 		AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1B829F14D33003F153F /* GameTree.swift */; };
+		AAA1A1CA29F2CC44003F153F /* ArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1C929F2CC44003F153F /* ArrowShape.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		AAA1A1AD29F12E67003F153F /* CreateStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStudyView.swift; sourceTree = "<group>"; };
 		AAA1A1B629F14CAC003F153F /* MoveNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveNode.swift; sourceTree = "<group>"; };
 		AAA1A1B829F14D33003F153F /* GameTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTree.swift; sourceTree = "<group>"; };
+		AAA1A1C929F2CC44003F153F /* ArrowShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowShape.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			children = (
 				AAA1A17B29F02351003F153F /* ChessOpeningTrainerApp.swift */,
 				AAA1A1A929F0263F003F153F /* ChessBoardView.swift */,
+				AAA1A1C929F2CC44003F153F /* ArrowShape.swift */,
 				AAA1A1AD29F12E67003F153F /* CreateStudyView.swift */,
 				AAA1A1B629F14CAC003F153F /* MoveNode.swift */,
 				AAA1A1B829F14D33003F153F /* GameTree.swift */,
@@ -285,6 +288,7 @@
 				AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */,
 				AAA1A1AA29F0263F003F153F /* ChessBoardView.swift in Sources */,
 				AAA1A17C29F02351003F153F /* ChessOpeningTrainerApp.swift in Sources */,
+				AAA1A1CA29F2CC44003F153F /* ArrowShape.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

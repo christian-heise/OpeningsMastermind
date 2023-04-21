@@ -10,7 +10,7 @@ import ChessKit
 
 func decodePGN(pgnString: String) throws -> GameNode {
     
-    let movesComponentPGN = pgnString.split(separator: "\n\n").last!
+    let movesComponentPGN = pgnString.split(separator: "\n").filter({$0.hasPrefix("1.")}).first!
     
     let regex = try! NSRegularExpression(pattern: "\\{.*?\\}", options: [])
     let range = NSMakeRange(0, movesComponentPGN.utf16.count)
