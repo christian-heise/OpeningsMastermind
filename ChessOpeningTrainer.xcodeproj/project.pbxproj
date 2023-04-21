@@ -14,6 +14,11 @@
 		AAA1A18E29F02352003F153F /* ChessOpeningTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A18D29F02352003F153F /* ChessOpeningTrainerTests.swift */; };
 		AAA1A19829F02352003F153F /* ChessOpeningTrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A19729F02352003F153F /* ChessOpeningTrainerUITests.swift */; };
 		AAA1A19A29F02352003F153F /* ChessOpeningTrainerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A19929F02352003F153F /* ChessOpeningTrainerUITestsLaunchTests.swift */; };
+		AAA1A1A829F02493003F153F /* ChessKit in Frameworks */ = {isa = PBXBuildFile; productRef = AAA1A1A729F02493003F153F /* ChessKit */; };
+		AAA1A1AA29F0263F003F153F /* ChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1A929F0263F003F153F /* ChessBoardView.swift */; };
+		AAA1A1AE29F12E67003F153F /* CreateStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1AD29F12E67003F153F /* CreateStudyView.swift */; };
+		AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1B629F14CAC003F153F /* MoveNode.swift */; };
+		AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1B829F14D33003F153F /* GameTree.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +50,10 @@
 		AAA1A19329F02352003F153F /* ChessOpeningTrainerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChessOpeningTrainerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA1A19729F02352003F153F /* ChessOpeningTrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessOpeningTrainerUITests.swift; sourceTree = "<group>"; };
 		AAA1A19929F02352003F153F /* ChessOpeningTrainerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessOpeningTrainerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		AAA1A1A929F0263F003F153F /* ChessBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardView.swift; sourceTree = "<group>"; };
+		AAA1A1AD29F12E67003F153F /* CreateStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStudyView.swift; sourceTree = "<group>"; };
+		AAA1A1B629F14CAC003F153F /* MoveNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveNode.swift; sourceTree = "<group>"; };
+		AAA1A1B829F14D33003F153F /* GameTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTree.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAA1A1A829F02493003F153F /* ChessKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +106,10 @@
 			isa = PBXGroup;
 			children = (
 				AAA1A17B29F02351003F153F /* ChessOpeningTrainerApp.swift */,
+				AAA1A1A929F0263F003F153F /* ChessBoardView.swift */,
+				AAA1A1AD29F12E67003F153F /* CreateStudyView.swift */,
+				AAA1A1B629F14CAC003F153F /* MoveNode.swift */,
+				AAA1A1B829F14D33003F153F /* GameTree.swift */,
 				AAA1A17D29F02351003F153F /* ContentView.swift */,
 				AAA1A17F29F02352003F153F /* Assets.xcassets */,
 				AAA1A18129F02352003F153F /* ChessOpeningTrainer.entitlements */,
@@ -145,6 +159,9 @@
 			dependencies = (
 			);
 			name = ChessOpeningTrainer;
+			packageProductDependencies = (
+				AAA1A1A729F02493003F153F /* ChessKit */,
+			);
 			productName = ChessOpeningTrainer;
 			productReference = AAA1A17829F02351003F153F /* ChessOpeningTrainer.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +234,9 @@
 				Base,
 			);
 			mainGroup = AAA1A16F29F02351003F153F;
+			packageReferences = (
+				AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */,
+			);
 			productRefGroup = AAA1A17929F02351003F153F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -259,7 +279,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */,
+				AAA1A1AE29F12E67003F153F /* CreateStudyView.swift in Sources */,
 				AAA1A17E29F02351003F153F /* ContentView.swift in Sources */,
+				AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */,
+				AAA1A1AA29F0263F003F153F /* ChessBoardView.swift in Sources */,
 				AAA1A17C29F02351003F153F /* ChessOpeningTrainerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,6 +439,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ChessOpeningTrainer/Preview Content\"";
+				DEVELOPMENT_TEAM = Q7XMYQ8965;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -451,6 +476,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ChessOpeningTrainer/Preview Content\"";
+				DEVELOPMENT_TEAM = Q7XMYQ8965;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -604,6 +630,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aperechnev/ChessKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AAA1A1A729F02493003F153F /* ChessKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */;
+			productName = ChessKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AAA1A17029F02351003F153F /* Project object */;
 }

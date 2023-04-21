@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChessKit
 
 @main
 struct ChessOpeningTrainerApp: App {
