@@ -28,15 +28,6 @@ class GameNode {
         }
     }
     
-    public func generateMove(game: Game) -> (Move, GameNode) {
-        let randomInt = Int.random(in: 0..<self.children.count)
-        
-        let decoder = SanSerialization.default
-        let newGameNode = self.children[randomInt]
-        let generatedMove = decoder.move(for: newGameNode.move, in: game)
-        return (generatedMove, newGameNode)
-    }
-    
     public func databaseContains(move: Move, in game: Game) -> (Bool, GameNode) {
         let decoder = SanSerialization.default
         let san = decoder.san(for: move, in: game)

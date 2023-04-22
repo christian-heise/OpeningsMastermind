@@ -9,11 +9,36 @@ import SwiftUI
 import ChessKit
 
 struct TrainView: View {
-    @State private var game = Game(position: startingGamePosition)
-    let gameTree: GameTree
+    @State var game = Game(position: startingGamePosition)
+    @StateObject var gameTree: GameTree
+    @State private var gameState = 0
 
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {
+                ChessBoardView(game: $game, gameTree: gameTree)
+                    .navigationTitle(Text("Training"))
+                if gameTree.gameState == 1 {
+                    Text("This was the wrong move!")
+                } else if gameTree.gameState == 2 {
+                    Text("This was the last move in this Study")
+                }
+                if gameTree.gameState > 0 {
+                    Button("Restart", action: {
+                        self.game = Game(position: startingGamePosition)
+                        self.gameTree.reset()
+                        print("Reset complete")
+                    })
+                }
+                Spacer()
+            }
+        }
+        .onAppear() {
+            self.game = Game(position: startingGamePosition)
+        }
+        .onDisappear() {
+            self.gameTree.reset()
+        }
     }
 }
 

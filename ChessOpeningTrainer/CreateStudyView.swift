@@ -13,17 +13,17 @@ let startingGamePosition = FenSerialization.default.deserialize(fen: startingFEN
 
 struct CreateStudyView: View {
     @State private var game = Game(position: startingGamePosition)
-    @State private var text = "1. e4 (1. d3 d5) 1... f6"
+    @State private var text = GameTree.examplePGN
     
-    @State private var gameTree: GameNode?
+    @State private var gameTree: GameTree?
     
-    @State private var savedGameTree: GameNode?
+    @State private var savedGameTree: GameTree?
     
     @State private var wasWrongMove: Bool = false
     
     var body: some View {
         VStack {
-            ChessBoardView(game: $game, currentNode: $gameTree, wasWrongMove: $wasWrongMove)
+//            ChessBoardView(game: $game, gameTree: $gameTree, wasWrongMove: $wasWrongMove)
             
 //            HStack {
 //                Button(action:{
@@ -43,12 +43,14 @@ struct CreateStudyView: View {
 //                .padding()
 //            }
             if let gameTree = self.gameTree {
-                if gameTree.children.isEmpty || wasWrongMove {
-                    Button("Restart", action: {
-                        self.game = Game(position: startingGamePosition)
-                        self.gameTree = self.savedGameTree
-                        self.wasWrongMove = false
-                    })
+                if let currentNode = gameTree.currentNode {
+                    if currentNode.children.isEmpty || wasWrongMove {
+                        Button("Restart", action: {
+                            self.game = Game(position: startingGamePosition)
+                            self.gameTree = self.savedGameTree
+                            self.wasWrongMove = false
+                        })
+                    }
                 }
             }
             Text("Enter PGN below:")
@@ -63,15 +65,11 @@ struct CreateStudyView: View {
                 )
                 .padding()
             Button(action: {
-                do {
-                    try self.gameTree = decodePGN(pgnString: text)
-                    self.savedGameTree = self.gameTree
-                    self.game = Game(position: startingGamePosition)
-                    self.wasWrongMove = false
-                    print("Success")
-                } catch {
-                    print("Failure")
-                }
+                self.gameTree = GameTree(name: "Some name", pgnString: text, userColor: .white)
+                self.savedGameTree = self.gameTree
+                self.game = Game(position: startingGamePosition)
+                self.wasWrongMove = false
+                print("Success")
             }) {
                 Text("Enter")
                     .foregroundColor(.white)

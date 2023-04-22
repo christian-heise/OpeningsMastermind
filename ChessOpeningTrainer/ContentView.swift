@@ -8,14 +8,39 @@
 import SwiftUI
 import ChessKit
 
-let pgnString = "1. e3 f6 2. Nf3 e5  3.d3 "
-
 struct ContentView: View {
+    @StateObject var database = DataBase()
+    @State private var showingPopover = false
+    
     var body: some View {
-        VStack {
-            CreateStudyView()
-
+        NavigationView {
+            VStack {
+                List {
+                    ForEach(database.gametrees) { gameTree in
+                        NavigationLink(destination: TrainView(gameTree: gameTree)) {
+                            Text(gameTree.name)
+                        }
+                    }
+                    .onDelete(perform: delete)
+                }
+                Button("Add Example GameTree", action: {
+                    self.database.addExampleGameTree()
+                })
+            }
+            .navigationTitle(Text("Opening Studies"))
+            .toolbar {
+                Button(action: {showingPopover = true}) {
+                    Image(systemName: "plus")
+                }
+            }
+            .popover(isPresented: $showingPopover) {
+                AddStudyView(database: database, showingPopover: $showingPopover)
+            }
         }
+    }
+    
+    func delete(at offsets: IndexSet) {
+        database.removeGameTree(at: offsets)
     }
     
 }

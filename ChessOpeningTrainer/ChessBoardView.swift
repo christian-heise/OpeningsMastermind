@@ -13,19 +13,13 @@ let italianGamePosition = FenSerialization.default.deserialize(fen: italianGameF
 
 struct ChessBoardView: View {
     @Binding var game: Game
-    @Binding var currentNode: GameNode?
-    
-    @Binding var wasWrongMove: Bool
+    @ObservedObject var gameTree: GameTree
     
     @State private var offsets = Array(repeating: CGSize.zero, count: 64)
     @State private var draggedSquare: Square? = nil
     
-    @State private var rightMove: Move?
-    
     var movingDisabled: Bool {
-        guard let currentNode = self.currentNode else {return true}
-        
-        if currentNode.children.isEmpty || self.wasWrongMove {
+        if self.gameTree.gameState > 0 {
             return true
         }
         return false
@@ -43,7 +37,7 @@ struct ChessBoardView: View {
                         if let lastMove = game.movesHistory.last {
                             if lastMove.to == Square(file: col, rank: 7-row) || lastMove.from == Square(file: col, rank: 7-row) {
                                 Rectangle()
-                                    .fill(wasWrongMove ? Color.red : Color.yellow)
+                                    .fill(gameTree.gameState == 1 ? Color.red : Color.yellow)
                                     .frame(width: squareLength(in: geo.size), height: squareLength(in: geo.size))
                                     .position(x: (CGFloat(col) + 0.5) * squareLength(in: geo.size), y: (CGFloat(row) + 0.5) * squareLength(in: geo.size))
                                     .opacity(0.2)
@@ -59,8 +53,8 @@ struct ChessBoardView: View {
                 .stroke(Color.black, lineWidth: 1)
             )
             
-            if wasWrongMove {
-                if let rightMove = self.rightMove {
+            if gameTree.gameState == 1 {
+                if let rightMove = self.gameTree.rightMove {
                     ArrowShape()
                         .frame(width: calcArrowWidth(for: rightMove, in: geo.size))
                         .rotationEffect(.degrees(calcArrowAngleDeg(for: rightMove, in: geo.size)))
@@ -68,7 +62,7 @@ struct ChessBoardView: View {
                         .position(calcArrowPosition(for: rightMove, in: geo.size))
                         .opacity(0.5)
                         .foregroundColor(.green)
-                        
+                        .zIndex(50)
                 }
             }
             
@@ -92,21 +86,20 @@ struct ChessBoardView: View {
                                     if newSquare != piece.0 {
                                         let move = Move(from: piece.0, to: newSquare)
                                         if game.legalMoves.contains(move) {
-                                            let tupel = currentNode!.databaseContains(move: move, in: game)
-                                            currentNode = tupel.1
-                                            if tupel.0 {
-                                                print("Move is in Database")
-                                                game.make(move: move)
-                                                currentNode = makeBlackMove()
-                                            } else {
-                                                
-                                                print("Move is NOT in Database")
-                                                if !currentNode!.children.isEmpty {
-                                                    wasWrongMove = true
-                                                    rightMove = determineRightMove()
+                                            if let tupel = gameTree.currentNode?.databaseContains(move: move, in: game) {
+                                                gameTree.currentNode = tupel.1
+                                                if tupel.0 {
+                                                    print("Move is in Database")
+                                                    game.make(move: move)
+                                                    gameTree.currentNode = makeBlackMove()
                                                 } else {
+                                                    print("Move is NOT in Database")
+                                                    if !gameTree.currentNode!.children.isEmpty {
+                                                        self.gameTree.gameState = 1
+                                                        self.gameTree.rightMove = determineRightMove()
+                                                    }
+                                                    game.make(move: move)
                                                 }
-                                                game.make(move: move)
                                             }
                                         }
                                     }
@@ -120,10 +113,6 @@ struct ChessBoardView: View {
             }
         }
         .padding()
-    }
-    
-    func endDragGesture() {
-        
     }
     
     func indexFromSquare(_ square: Square) -> Int {
@@ -147,12 +136,16 @@ struct ChessBoardView: View {
     }
     
     func makeBlackMove() -> GameNode {
-        if currentNode!.children.isEmpty {
-            return currentNode!
+        if self.gameTree.currentNode!.children.isEmpty {
+            return gameTree.currentNode!
         }
-        let tupel = currentNode!.generateMove(game: game)
-        self.game.make(move: tupel.0)
-        return tupel.1
+        let tupel = self.gameTree.generateMove(game: game)
+        
+        self.game.make(move: tupel.0!)
+        if tupel.1!.children.isEmpty {
+            self.gameTree.gameState = 2
+        }
+        return tupel.1!
     }
     
     func calcArrowPosition(for move: Move, in size: CGSize) -> CGPoint {
@@ -168,12 +161,12 @@ struct ChessBoardView: View {
     func calcArrowAngleDeg(for move: Move, in size: CGSize) -> Double {
         let xdiff = pointFromSquare(move.to, in: size).x - pointFromSquare(move.from, in: size).x
         let ydiff = pointFromSquare(move.to, in: size).y - pointFromSquare(move.from, in: size).y
-        return atan(ydiff/xdiff) * 180 / Double.pi
+        return atan2(ydiff,xdiff) * 180 / Double.pi
     }
     
     func determineRightMove() -> Move {
         let decoder = SanSerialization.default
-        return decoder.move(for: self.currentNode!.children.first!.move, in: self.game)
+        return decoder.move(for: self.gameTree.currentNode!.children.first!.move, in: self.game)
     }
 }
 
@@ -199,6 +192,6 @@ let imageNames: [PieceColor: [PieceKind: String]] = [
 struct ChessBoardView_Previews: PreviewProvider {
     
     static var previews: some View {
-        ChessBoardView(game: .constant(Game(position: italianGamePosition)), currentNode: .constant(nil), wasWrongMove: .constant(false))
+        ChessBoardView(game: .constant(Game(position: italianGamePosition)), gameTree: GameTree.example())
     }
 }
