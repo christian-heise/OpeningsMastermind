@@ -9,14 +9,13 @@
 import Foundation
 import ChessKit
 
-class GameTree: ObservableObject, Identifiable {
+class GameTree: ObservableObject, Identifiable, Codable {
     let name: String
     let id = UUID()
     let rootNode: GameNode?
     let userColor: PieceColor
     
     @Published var currentNode: GameNode?
-    
     @Published var gameState: Int = 0
     @Published var rightMove: Move? = nil
     
@@ -141,4 +140,30 @@ class GameTree: ObservableObject, Identifiable {
             return str.range(of: pattern, options: .regularExpression) != nil
         }
     }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        name = try container.decode(String.self, forKey: .name)
+        
+        rootNode =  try GameNode.decodeRecursively(from: decoder)
+        
+        let userColorString = try container.decode(String.self, forKey: .userColor)
+        userColor = userColorString=="white" ? .white : .black
+        
+        currentNode = rootNode
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        let userColorString = userColor == .white ? "white" : "black"
+        
+        try container.encode(name, forKey: .name)
+        try rootNode?.encodeRecursively(to: encoder)
+        try container.encode(userColorString, forKey: .userColor)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+            case name, rootNode, userColor
+        }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DataBase" representedClassName="DataBase" syncable="YES" codeGenerationType="class">
+        <attribute name="appVersionString" optional="YES" attributeType="String"/>
+        <attribute name="attribute" optional="YES" attributeType="Transformable"/>
+    </entity>
+</model>
