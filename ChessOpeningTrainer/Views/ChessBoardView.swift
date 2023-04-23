@@ -31,9 +31,9 @@ struct ChessBoardView: View {
                 ForEach(0..<8) {row in
                     ForEach(0..<8) {col in
                         Rectangle()
-                        .fill((row + col) % 2 == 0 ? Color.white : Color.brown)
-                        .frame(width: squareLength(in: geo.size), height: squareLength(in: geo.size))
-                        .position(x: (CGFloat(col) + 0.5) * squareLength(in: geo.size), y: (CGFloat(row) + 0.5) * squareLength(in: geo.size))
+                            .fill((row + col) % 2 == 0 ? Color.white : Color.brown)
+                            .frame(width: squareLength(in: geo.size), height: squareLength(in: geo.size))
+                            .position(x: (CGFloat(col) + 0.5) * squareLength(in: geo.size), y: (CGFloat(row) + 0.5) * squareLength(in: geo.size))
                         if let lastMove = game.movesHistory.last {
                             if lastMove.to == Square(file: col, rank: 7-row) || lastMove.from == Square(file: col, rank: 7-row) {
                                 Rectangle()
@@ -49,8 +49,8 @@ struct ChessBoardView: View {
             }
             .frame(width: squareLength(in: geo.size)*8, height: squareLength(in: geo.size)*8)
             .overlay(
-            Rectangle()
-                .stroke(Color.black, lineWidth: 1)
+                Rectangle()
+                    .stroke(Color.black, lineWidth: 1)
             )
             
             if gameTree.gameState == 1 {
@@ -58,7 +58,7 @@ struct ChessBoardView: View {
                     ArrowShape()
                         .frame(width: calcArrowWidth(for: rightMove, in: geo.size))
                         .rotationEffect(.degrees(calcArrowAngleDeg(for: rightMove, in: geo.size)))
-//                        .position(CGPoint(x:0,y:0))
+                    //                        .position(CGPoint(x:0,y:0))
                         .position(calcArrowPosition(for: rightMove, in: geo.size))
                         .opacity(0.5)
                         .foregroundColor(.green)
@@ -70,42 +70,43 @@ struct ChessBoardView: View {
                 let pieces = game.position.board.enumeratedPieces()
                 ForEach(pieces, id: \.0) { piece in
                     Image(imageNames[piece.1.color]?[piece.1.kind] ?? "")
+                        .rotationEffect(.degrees(gameTree.userColor == .white ? 0 : 180))
                         .scaleEffect(0.8)
                         .position(x: squareLength(in: geo.size) * (CGFloat(piece.0.file) + 0.5), y: squareLength(in: geo.size) * (8 - CGFloat(piece.0.rank) - 0.5))
                         .offset(offsets[indexFromSquare(piece.0)])
                         .gesture(
-                        DragGesture()
-                            .onChanged { value in
-                                self.draggedSquare = piece.0
-                                self.offsets[indexFromSquare(piece.0)] = value.translation
-                            }
-                            .onEnded { value in
-                                self.draggedSquare = nil
-                                if piece.1.color == .white {
-                                    let newSquare = squareFromPoint(value.location, in: geo.size)
-                                    if newSquare != piece.0 {
-                                        let move = Move(from: piece.0, to: newSquare)
-                                        if game.legalMoves.contains(move) {
-                                            if let tupel = gameTree.currentNode?.databaseContains(move: move, in: game) {
-                                                gameTree.currentNode = tupel.1
-                                                if tupel.0 {
-                                                    print("Move is in Database")
-                                                    game.make(move: move)
-                                                    gameTree.currentNode = makeBlackMove()
-                                                } else {
-                                                    print("Move is NOT in Database")
-                                                    if !gameTree.currentNode!.children.isEmpty {
-                                                        self.gameTree.gameState = 1
-                                                        self.gameTree.rightMove = determineRightMove()
+                            DragGesture()
+                                .onChanged { value in
+                                    self.draggedSquare = piece.0
+                                    self.offsets[indexFromSquare(piece.0)] = value.translation
+                                }
+                                .onEnded { value in
+                                    self.draggedSquare = nil
+                                    if piece.1.color == gameTree.userColor {
+                                        let newSquare = squareFromPoint(value.location, in: geo.size)
+                                        if newSquare != piece.0 {
+                                            let move = Move(from: piece.0, to: newSquare)
+                                            if game.legalMoves.contains(move) {
+                                                if let tupel = gameTree.currentNode?.databaseContains(move: move, in: game) {
+                                                    gameTree.currentNode = tupel.1
+                                                    if tupel.0 {
+                                                        print("Move is in Database")
+                                                        game.make(move: move)
+                                                        makeNextMove()
+                                                    } else {
+                                                        print("Move is NOT in Database")
+                                                        if !gameTree.currentNode!.children.isEmpty {
+                                                            self.gameTree.gameState = 1
+                                                            self.gameTree.rightMove = determineRightMove()
+                                                        }
+                                                        game.make(move: move)
                                                     }
-                                                    game.make(move: move)
                                                 }
                                             }
                                         }
                                     }
+                                    self.offsets[indexFromSquare(piece.0)] = .zero
                                 }
-                                self.offsets[indexFromSquare(piece.0)] = .zero
-                            }
                         )
                         .disabled(movingDisabled)
                         .zIndex(self.draggedSquare==piece.0 ? 1000:0)
@@ -113,6 +114,12 @@ struct ChessBoardView: View {
             }
         }
         .padding()
+        .onAppear() {
+            if gameTree.userColor == .black && gameTree.currentNode!.moveColor == .black {
+                makeNextMove()
+                print("Move was made")
+            }
+        }
     }
     
     func indexFromSquare(_ square: Square) -> Int {
@@ -135,17 +142,18 @@ struct ChessBoardView: View {
         return min(size.width, size.height) / 8
     }
     
-    func makeBlackMove() -> GameNode {
+    func makeNextMove() {
         if self.gameTree.currentNode!.children.isEmpty {
-            return gameTree.currentNode!
+            self.gameTree.gameState = 2
+            return
         }
-        let tupel = self.gameTree.generateMove(game: game)
+        let (newMove, newNode) = self.gameTree.generateMove(game: game)
         
-        self.game.make(move: tupel.0!)
-        if tupel.1!.children.isEmpty {
+        self.game.make(move: newMove!)
+        if newNode!.children.isEmpty {
             self.gameTree.gameState = 2
         }
-        return tupel.1!
+        self.gameTree.currentNode = newNode!
     }
     
     func calcArrowPosition(for move: Move, in size: CGSize) -> CGPoint {

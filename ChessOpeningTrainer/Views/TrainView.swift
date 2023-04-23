@@ -16,7 +16,11 @@ struct TrainView: View {
     var body: some View {
         NavigationView {
             VStack {
-                ChessBoardView(game: $game, gameTree: gameTree)
+                GeometryReader { geo in
+                    ChessBoardView(game: $game, gameTree: gameTree)
+                        .frame(width: geo.size.width, height: geo.size.width)
+                        .rotationEffect(.degrees(gameTree.userColor == .white ? 0 : 180))
+                }
                     .navigationTitle(Text("Training"))
                 if gameTree.gameState == 1 {
                     Text("This was the wrong move!")

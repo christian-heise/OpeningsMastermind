@@ -55,7 +55,7 @@ struct AddStudyView: View {
 //                    .padding()
                 Section {
                     Button(action: {
-                        database.addNewGameTree(name: nameString, pgnString: pgnString, userColor: .white)
+                        database.addNewGameTree(name: nameString, pgnString: pgnString, userColor: selectedPieceColor)
                         self.showingPopover = false
                     }) {
                         Text("Enter")
