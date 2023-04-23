@@ -67,7 +67,7 @@ struct AddStudyView: View {
                     }
                     Button(action: {
                         let pasteboard = UIPasteboard.general
-                        pasteboard.string = GameTree.examplePGN
+                        pasteboard.string = examplePGN
                         nameString = "Smith Morra Gambit"
                     }) {
                         Text("Enter Example PGN")

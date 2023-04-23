@@ -22,6 +22,8 @@
 		AAA1A1D129F2DF7D003F153F /* TrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D029F2DF7D003F153F /* TrainView.swift */; };
 		AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D429F415F9003F153F /* DataBase.swift */; };
 		AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D629F42E7F003F153F /* AddStudyView.swift */; };
+		AAA1A1E029F56F32003F153F /* examplePGN.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1DF29F56F32003F153F /* examplePGN.swift */; };
+		AAA1A1E329F574A3003F153F /* EndgameCore in Frameworks */ = {isa = PBXBuildFile; productRef = AAA1A1E229F574A3003F153F /* EndgameCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,7 @@
 		AAA1A1D029F2DF7D003F153F /* TrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainView.swift; sourceTree = "<group>"; };
 		AAA1A1D429F415F9003F153F /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		AAA1A1D629F42E7F003F153F /* AddStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStudyView.swift; sourceTree = "<group>"; };
+		AAA1A1DF29F56F32003F153F /* examplePGN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = examplePGN.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAA1A1A829F02493003F153F /* ChessKit in Frameworks */,
+				AAA1A1E329F574A3003F153F /* EndgameCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +95,7 @@
 		AAA1A16F29F02351003F153F = {
 			isa = PBXGroup;
 			children = (
+				AAA1A1DF29F56F32003F153F /* examplePGN.swift */,
 				AAA1A17A29F02351003F153F /* ChessOpeningTrainer */,
 				AAA1A18C29F02352003F153F /* ChessOpeningTrainerTests */,
 				AAA1A19629F02352003F153F /* ChessOpeningTrainerUITests */,
@@ -194,6 +199,7 @@
 			name = ChessOpeningTrainer;
 			packageProductDependencies = (
 				AAA1A1A729F02493003F153F /* ChessKit */,
+				AAA1A1E229F574A3003F153F /* EndgameCore */,
 			);
 			productName = ChessOpeningTrainer;
 			productReference = AAA1A17829F02351003F153F /* ChessOpeningTrainer.app */;
@@ -269,6 +275,7 @@
 			mainGroup = AAA1A16F29F02351003F153F;
 			packageReferences = (
 				AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */,
+				AAA1A1E129F574A3003F153F /* XCRemoteSwiftPackageReference "EndgameCore" */,
 			);
 			productRefGroup = AAA1A17929F02351003F153F /* Products */;
 			projectDirPath = "";
@@ -312,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAA1A1E029F56F32003F153F /* examplePGN.swift in Sources */,
 				AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */,
 				AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */,
 				AAA1A17E29F02351003F153F /* ContentView.swift in Sources */,
@@ -680,6 +688,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		AAA1A1E129F574A3003F153F /* XCRemoteSwiftPackageReference "EndgameCore" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Jelizondo/EndgameCore";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -687,6 +703,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */;
 			productName = ChessKit;
+		};
+		AAA1A1E229F574A3003F153F /* EndgameCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAA1A1E129F574A3003F153F /* XCRemoteSwiftPackageReference "EndgameCore" */;
+			productName = EndgameCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -18,6 +18,8 @@ class GameNode: Codable {
     var moveColor: PieceColor = .black
     weak var parent: GameNode?
     
+    var depth: Int? = nil
+    
     init(moveString: String, parent: GameNode? = nil) {
         self.move = moveString
         
@@ -43,6 +45,7 @@ class GameNode: Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
+        depth = try container.decode(Int.self, forKey: .depth)
         children = try container.decode([GameNode].self, forKey: .children)
         move = try container.decode(String.self, forKey: .move)
         moveNumber = try container.decode(Int.self, forKey: .moveNumber)
@@ -65,6 +68,7 @@ class GameNode: Codable {
         try container.encode(moveNumber, forKey: .moveNumber)
         try container.encode(moveColorString, forKey: .moveColor)
         try container.encode(move, forKey: .move)
+        try container.encode(depth, forKey: .depth)
     }
     
     func encodeRecursively(to encoder: Encoder) throws {
@@ -74,8 +78,8 @@ class GameNode: Codable {
         try container.encode(children, forKey: .children)
         try container.encode(moveNumber, forKey: .moveNumber)
         try container.encode(moveColorString, forKey: .moveColor)
-        try container.encode(move, forKey: .move)
-        
+        try container.encode(move, forKey: .depth)
+
 //        for child in children {
 //            try child.encodeRecursively(to: encoder)
 //        }
@@ -88,11 +92,13 @@ class GameNode: Codable {
         let move = try container.decode(String.self, forKey: .move)
         let moveNumber = try container.decode(Int.self, forKey: .moveNumber)
         let moveColorString = try container.decode(String.self, forKey: .moveColor)
+        let depth = try container.decode(Int.self, forKey: .depth)
         
         let node = GameNode(moveString: move)
         node.children = children
         node.moveNumber = moveNumber
         node.moveColor = moveColorString == "white" ? .white : .black
+        node.depth = depth
         
         for i in 0..<children.count {
             node.children[i].parent = node
@@ -101,6 +107,6 @@ class GameNode: Codable {
     }
     
     enum CodingKeys: String, CodingKey {
-            case move, children, moveNumber, moveColor, parent
+            case move, children, moveNumber, moveColor, parent, depth
         }
 }
