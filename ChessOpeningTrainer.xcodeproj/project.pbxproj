@@ -95,7 +95,6 @@
 		AAA1A16F29F02351003F153F = {
 			isa = PBXGroup;
 			children = (
-				AAA1A1DF29F56F32003F153F /* examplePGN.swift */,
 				AAA1A17A29F02351003F153F /* ChessOpeningTrainer */,
 				AAA1A18C29F02352003F153F /* ChessOpeningTrainerTests */,
 				AAA1A19629F02352003F153F /* ChessOpeningTrainerUITests */,
@@ -120,6 +119,7 @@
 				AAA1A1D829F44345003F153F /* Views */,
 				AAA1A1DA29F44360003F153F /* Shapes */,
 				AAA1A1D929F44353003F153F /* DataStructure */,
+				AAA1A1E429F66CB3003F153F /* Data */,
 				AAA1A17F29F02352003F153F /* Assets.xcassets */,
 				AAA1A18129F02352003F153F /* ChessOpeningTrainer.entitlements */,
 				AAA1A18229F02352003F153F /* Preview Content */,
@@ -179,6 +179,14 @@
 				AAA1A1C929F2CC44003F153F /* ArrowShape.swift */,
 			);
 			path = Shapes;
+			sourceTree = "<group>";
+		};
+		AAA1A1E429F66CB3003F153F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				AAA1A1DF29F56F32003F153F /* examplePGN.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

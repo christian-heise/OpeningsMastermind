@@ -7,6 +7,7 @@
 
 
 import Foundation
+import SwiftUI
 import ChessKit
 
 class GameTree: ObservableObject, Identifiable, Codable {
@@ -40,12 +41,30 @@ class GameTree: ObservableObject, Identifiable, Codable {
     public func generateMove(game: Game) -> (Move?, GameNode?) {
         guard let currentNode = self.currentNode else { return (nil, nil)}
         
-        let randomInt = Int.random(in: 0..<currentNode.children.count)
+        let depthArray: [Double] = currentNode.children.map({Double($0.depth) * Double($0.depth)})
+        let summedDepth = depthArray.reduce(0, +)
         
+        let probabilities: [Double] = depthArray.map({Double($0) / Double(summedDepth)})
+        
+        var randomInt = Int.random(in: 0..<1000)
+        
+        for i in 0 ..< probabilities.count {
+            if randomInt > Int(probabilities[i] * Double(1000)) {
+                randomInt -= Int(probabilities[i]*1000)
+                continue
+            } else {
+                let newNode = currentNode.children[i]
+                let decoder = SanSerialization.default
+                let generatedMove = decoder.move(for: newNode.move, in: game)
+                
+                return (generatedMove, newNode)
+            }
+        }
+        let newNode = currentNode.children.first!
         let decoder = SanSerialization.default
-        let newGameNode = currentNode.children[randomInt]
-        let generatedMove = decoder.move(for: newGameNode.move, in: game)
-        return (generatedMove, newGameNode)
+        let generatedMove = decoder.move(for: newNode.move, in: game)
+        
+        return (generatedMove, newNode)
     }
     
     func reset() {
@@ -77,6 +96,8 @@ class GameTree: ObservableObject, Identifiable, Codable {
         
         var modifiedMove = ""
         
+        var deepestMove = 1
+        
         for i in 0..<chapters.count {
             modifiedString = regex.stringByReplacingMatches(in: String(chapters[i]), options: [], range: NSRange(location: 0, length: chapters[i].utf16.count), withTemplate: "")
             print(modifiedString)
@@ -89,10 +110,10 @@ class GameTree: ObservableObject, Identifiable, Codable {
             variationMove = []
             
             counter = 0
-            
             newNode = rootNode
-            
+
             for move in moves {
+                deepestMove = max(deepestMove, currentNode.moveNumber)
                 if isMoveNumberWhite(String(move)) {
                     continue
                 } else if isMoveNumberBlack(String(move)) {
@@ -107,12 +128,15 @@ class GameTree: ObservableObject, Identifiable, Codable {
                 if move.last == ")" {
                     modifiedMove = String(move.dropLast())
                     if modifiedMove.isEmpty {
+                        newNode = currentNode
+                        counter -= 1
                         guard let lastVariationStart = variationStart.last else {return nil}
                         while counter > lastVariationStart {
                             currentNode = currentNode.parent!
                             counter -= 1
                         }
-                        currentNode = currentNode.children.first(where: {$0.move == variationMove.last!})!
+//                        currentNode.depth = newNode.moveNumber
+                        currentNode = currentNode.parent!.children.first(where: {$0.move == variationMove.last!})!
                         variationMove.removeLast()
                         variationStart.removeLast()
                     } else {
@@ -128,13 +152,14 @@ class GameTree: ObservableObject, Identifiable, Codable {
                             newNode = currentNode.children.first(where: {$0.move==modifiedMove})!
                         }
                         currentNode = newNode
-                        counter += 1
+//                        counter += 1
                         guard let lastVariationStart = variationStart.last else {return nil}
                         while counter > lastVariationStart {
                             currentNode = currentNode.parent!
                             counter -= 1
                         }
-                        currentNode = currentNode.children.first(where: {$0.move == variationMove.last!})!
+//                        currentNode.depth = newNode.moveNumber
+                        currentNode = currentNode.parent!.children.first(where: {$0.move == variationMove.last!})!
                         variationMove.removeLast()
                         variationStart.removeLast()
                     }
@@ -156,7 +181,9 @@ class GameTree: ObservableObject, Identifiable, Codable {
                 }
             }
         }
-        
+        deepestMove = max(deepestMove, currentNode.moveNumber)
+//        rootNode.depth = deepestMove
+        print(deepestMove)
         return rootNode
         
         func isMoveNumberWhite(_ str: String) -> Bool {

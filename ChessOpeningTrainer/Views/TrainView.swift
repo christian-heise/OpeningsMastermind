@@ -35,6 +35,7 @@ struct TrainView: View {
                     })
                 }
                 Spacer()
+                Text("Remaining max depth of current line: " + String(gameTree.currentNode!.depth))
             }
         }
         .onAppear() {
