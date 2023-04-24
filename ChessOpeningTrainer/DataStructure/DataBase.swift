@@ -68,6 +68,7 @@ class DataBase: ObservableObject, Codable {
     
     func removeGameTree(at offsets: IndexSet) {
         self.gametrees.remove(atOffsets: offsets)
+        self.save()
     }
     
     required init(from decoder: Decoder) throws {
