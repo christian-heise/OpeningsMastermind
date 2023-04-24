@@ -23,6 +23,8 @@
 		AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D429F415F9003F153F /* DataBase.swift */; };
 		AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D629F42E7F003F153F /* AddStudyView.swift */; };
 		AAA1A1E029F56F32003F153F /* examplePGN.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1DF29F56F32003F153F /* examplePGN.swift */; };
+		AAA1A1E829F6DB3F003F153F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1E729F6DB3F003F153F /* SettingsView.swift */; };
+		AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1E929F6DDD6003F153F /* Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,8 @@
 		AAA1A1D429F415F9003F153F /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		AAA1A1D629F42E7F003F153F /* AddStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStudyView.swift; sourceTree = "<group>"; };
 		AAA1A1DF29F56F32003F153F /* examplePGN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = examplePGN.swift; sourceTree = "<group>"; };
+		AAA1A1E729F6DB3F003F153F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AAA1A1E929F6DDD6003F153F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				AAA1A17D29F02351003F153F /* ContentView.swift */,
+				AAA1A1E729F6DB3F003F153F /* SettingsView.swift */,
 				AAA1A1D029F2DF7D003F153F /* TrainView.swift */,
 				AAA1A1A929F0263F003F153F /* ChessBoardView.swift */,
 				AAA1A1D629F42E7F003F153F /* AddStudyView.swift */,
@@ -166,6 +171,7 @@
 			children = (
 				AAA1A1D429F415F9003F153F /* DataBase.swift */,
 				AAA1A1B829F14D33003F153F /* GameTree.swift */,
+				AAA1A1E929F6DDD6003F153F /* Settings.swift */,
 				AAA1A1B629F14CAC003F153F /* MoveNode.swift */,
 			);
 			path = DataStructure;
@@ -329,10 +335,12 @@
 				AAA1A17E29F02351003F153F /* ContentView.swift in Sources */,
 				AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */,
 				AAA1A1AA29F0263F003F153F /* ChessBoardView.swift in Sources */,
+				AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */,
 				AAA1A1D129F2DF7D003F153F /* TrainView.swift in Sources */,
 				AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */,
 				AAA1A17C29F02351003F153F /* ChessOpeningTrainerApp.swift in Sources */,
 				AAA1A1CA29F2CC44003F153F /* ArrowShape.swift in Sources */,
+				AAA1A1E829F6DB3F003F153F /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

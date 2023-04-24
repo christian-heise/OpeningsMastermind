@@ -10,7 +10,10 @@ import ChessKit
 
 struct ContentView: View {
     @StateObject var database = DataBase()
-    @State private var showingSheet = false
+//    private var settings = Settings()
+    
+    @State private var showingAddSheet = false
+    @State private var showingSettingsSheet = false
     
     var body: some View {
         NavigationView {
@@ -23,18 +26,28 @@ struct ContentView: View {
                     }
                     .onDelete(perform: delete)
                 }
-                Button("Add Example GameTree", action: {
-                    self.database.addExampleGameTree()
-                })
+//                Button("Add Example GameTree", action: {
+//                    self.database.addExampleGameTree()
+//                })
             }
             .navigationTitle(Text("Opening Studies"))
             .toolbar {
-                Button(action: {showingSheet = true}) {
-                    Image(systemName: "plus")
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {showingSettingsSheet = true}) {
+                        Image(systemName: "gear")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {showingAddSheet = true}) {
+                        Image(systemName: "plus")
+                    }
                 }
             }
-            .sheet(isPresented: $showingSheet) {
+            .sheet(isPresented: $showingAddSheet) {
                 AddStudyView(database: database)
+            }
+            .sheet(isPresented: $showingSettingsSheet) {
+                SettingsView()
             }
         }
     }
