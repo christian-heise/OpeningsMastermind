@@ -73,138 +73,145 @@ class GameTree: ObservableObject, Identifiable, Codable {
         self.rightMove = nil
     }
     
-    static private func decodePGN(pgnString: String) -> GameNode? {
-        
-//        let movesComponentPGN = pgnString.split(separator: "\n").filter({$0.hasPrefix("1.")}).first!
-        
-        let chapters = pgnString.split(separator: "\n\n").filter({$0.hasPrefix("1.")})
-        
-        print(chapters.count)
-        
-        let rootNode = GameNode(moveString: "")
-        
-        let regex = try! NSRegularExpression(pattern: "\\{.*?\\}", options: [NSRegularExpression.Options.dotMatchesLineSeparators])
-        
-        var currentNode = rootNode
-        var variationStart: [Int] = []
-        var variationMove: [String] = []
-        var counter = 0
-        var newNode = rootNode
-        
-        var modifiedString = ""
-        var moves = [String]()
-        
-        var modifiedMove = ""
-        
-        var deepestMove = 1
-        
-        for i in 0..<chapters.count {
-            modifiedString = regex.stringByReplacingMatches(in: String(chapters[i]), options: [], range: NSRange(location: 0, length: chapters[i].utf16.count), withTemplate: "")
-            print(modifiedString)
-            
-            moves = modifiedString.components(separatedBy: " ").filter({$0 != ""})
-            
-            currentNode = rootNode
-            
-            variationStart = []
-            variationMove = []
-            
-            counter = 0
-            newNode = rootNode
-
-            for move in moves {
-                deepestMove = max(deepestMove, currentNode.moveNumber)
-                if isMoveNumberWhite(String(move)) {
-                    continue
-                } else if isMoveNumberBlack(String(move)) {
-                    continue
-                }
-                if isVariationMoveNumber(String(move)) {
-                    variationStart.append(counter)
-                    variationMove.append(currentNode.move)
-                    currentNode = currentNode.parent!
-                    continue
-                }
-                if move.last == ")" {
-                    modifiedMove = String(move.dropLast())
-                    if modifiedMove.isEmpty {
-                        newNode = currentNode
-                        counter -= 1
-                        guard let lastVariationStart = variationStart.last else {return nil}
-                        while counter > lastVariationStart {
-                            currentNode = currentNode.parent!
-                            counter -= 1
-                        }
-//                        currentNode.depth = newNode.moveNumber
-                        currentNode = currentNode.parent!.children.first(where: {$0.move == variationMove.last!})!
-                        variationMove.removeLast()
-                        variationStart.removeLast()
-                    } else {
-                        if modifiedMove.hasSuffix("!?") || modifiedMove.hasSuffix("?!") || modifiedMove.hasSuffix("!!") || modifiedMove.hasSuffix("??") {
-                            modifiedMove = String(modifiedMove.dropLast(2))
-                        } else if modifiedMove.hasSuffix("!") || modifiedMove.hasSuffix("?") {
-                            modifiedMove = String(modifiedMove.dropLast())
-                        }
-                        if !currentNode.children.contains(where: {$0.move==modifiedMove}) {
-                            newNode = GameNode(moveString: modifiedMove, parent: currentNode)
-                            currentNode.children.append(newNode)
-                        } else {
-                            newNode = currentNode.children.first(where: {$0.move==modifiedMove})!
-                        }
-                        currentNode = newNode
-//                        counter += 1
-                        guard let lastVariationStart = variationStart.last else {return nil}
-                        while counter > lastVariationStart {
-                            currentNode = currentNode.parent!
-                            counter -= 1
-                        }
-//                        currentNode.depth = newNode.moveNumber
-                        currentNode = currentNode.parent!.children.first(where: {$0.move == variationMove.last!})!
-                        variationMove.removeLast()
-                        variationStart.removeLast()
-                    }
-                } else if move == "*" {
-                    continue
-                 } else if move == "1-0" || move == "0-1"{
-                    continue
-                 } else if move.hasPrefix("$") {
-                     continue
-                 } else {
-                    if !currentNode.children.contains(where: {$0.move==move}) {
-                        newNode = GameNode(moveString: move, parent: currentNode)
-                        currentNode.children.append(newNode)
-                    } else {
-                        newNode = currentNode.children.first(where: {$0.move==move})!
-                    }
-                    currentNode = newNode
-                    counter += 1
-                }
-            }
-        }
-        deepestMove = max(deepestMove, currentNode.moveNumber)
-//        rootNode.depth = deepestMove
-        print(deepestMove)
-        return rootNode
-        
-        func isMoveNumberWhite(_ str: String) -> Bool {
-            let pattern = #"^\d+\.$"#
-            return str.range(of: pattern, options: .regularExpression) != nil
-        }
-        func isMoveNumberBlack(_ str: String) -> Bool {
-            let pattern = #"^\d+\.\.\.$"#
-            return str.range(of: pattern, options: .regularExpression) != nil
-        }
-
-        func isVariationMoveNumber(_ str: String) -> Bool {
-            let pattern = #"^\(\d+\."#
-            return str.range(of: pattern, options: .regularExpression) != nil
-        }
-        func isVariationEndMove(_ str: String) -> Bool {
-            let pattern = #"^\a\d\)$"#
-            return str.range(of: pattern, options: .regularExpression) != nil
-        }
-    }
-    
+//    static private func decodePGN(pgnString: String) -> GameNode? {
+//        
+////        let movesComponentPGN = pgnString.split(separator: "\n").filter({$0.hasPrefix("1.")}).first!
+//        
+//        let chapters = pgnString.split(separator: "\n\n").filter({$0.hasPrefix("1.")})
+//        
+//        print(chapters.count)
+//        
+//        let rootNode = GameNode(moveString: "")
+//        
+//        let regex = try! NSRegularExpression(pattern: "\\{.*?\\}", options: [NSRegularExpression.Options.dotMatchesLineSeparators])
+//        
+//        var currentNode = rootNode
+//        var variationStart: [Int] = []
+//        var variationMove: [String] = []
+//        var counter = 0
+//        var newNode = rootNode
+//        
+//        var modifiedString = ""
+//        var moves = [String]()
+//        
+//        var modifiedMove = ""
+//        
+//        var deepestMove = 1
+//        
+//        for i in 0..<chapters.count {
+//            modifiedString = regex.stringByReplacingMatches(in: String(chapters[i]), options: [], range: NSRange(location: 0, length: chapters[i].utf16.count), withTemplate: "")
+//            print(modifiedString)
+//            
+//            moves = modifiedString.components(separatedBy: " ").filter({$0 != ""})
+//            
+//            currentNode = rootNode
+//            
+//            variationStart = []
+//            variationMove = []
+//            
+//            counter = 0
+//            newNode = rootNode
+//
+//            for move in moves {
+//                deepestMove = max(deepestMove, currentNode.moveNumber)
+//                if isMoveNumberWhite(String(move)) {
+//                    continue
+//                } else if isMoveNumberBlack(String(move)) {
+//                    continue
+//                }
+//                if isVariationMoveNumber(String(move)) {
+//                    variationStart.append(counter)
+//                    variationMove.append(currentNode.move)
+//                    currentNode = currentNode.parent!
+//                    continue
+//                }
+//                if move.last == ")" {
+//                    modifiedMove = String(move.dropLast())
+//                    if modifiedMove.isEmpty {
+//                        newNode = currentNode
+//                        counter -= 1
+//                        guard let lastVariationStart = variationStart.last else {return nil}
+//                        while counter > lastVariationStart {
+//                            currentNode = currentNode.parent!
+//                            counter -= 1
+//                        }
+////                        currentNode.depth = newNode.moveNumber
+//                        currentNode = currentNode.parent!.children.first(where: {$0.move == variationMove.last!})!
+//                        variationMove.removeLast()
+//                        variationStart.removeLast()
+//                    } else {
+//                        if modifiedMove.hasSuffix("!?") || modifiedMove.hasSuffix("?!") || modifiedMove.hasSuffix("!!") || modifiedMove.hasSuffix("??") {
+//                            modifiedMove = String(modifiedMove.dropLast(2))
+//                        } else if modifiedMove.hasSuffix("!") || modifiedMove.hasSuffix("?") {
+//                            modifiedMove = String(modifiedMove.dropLast())
+//                        }
+//                        if !currentNode.children.contains(where: {$0.move==modifiedMove}) {
+//                            newNode = GameNode(moveString: modifiedMove, parent: currentNode)
+//                            currentNode.children.append(newNode)
+//                        } else {
+//                            newNode = currentNode.children.first(where: {$0.move==modifiedMove})!
+//                        }
+//                        currentNode = newNode
+////                        counter += 1
+//                        guard let lastVariationStart = variationStart.last else {return nil}
+//                        while counter > lastVariationStart {
+//                            currentNode = currentNode.parent!
+//                            counter -= 1
+//                        }
+////                        currentNode.depth = newNode.moveNumber
+//                        currentNode = currentNode.parent!.children.first(where: {$0.move == variationMove.last!})!
+//                        variationMove.removeLast()
+//                        variationStart.removeLast()
+//                    }
+//                } else if move == "*" {
+//                    continue
+//                } else if move == "1-0" || move == "0-1"{
+//                continue
+//                } else if move.hasPrefix("$") {
+//                 continue
+//                } else {
+//                    if modifiedMove.hasSuffix("!?") || modifiedMove.hasSuffix("?!") || modifiedMove.hasSuffix("!!") || modifiedMove.hasSuffix("??") {
+//                        modifiedMove = String(modifiedMove.dropLast(2))
+//                    } else if modifiedMove.hasSuffix("!") || modifiedMove.hasSuffix("?") {
+//                        modifiedMove = String(modifiedMove.dropLast())
+//                    } else {
+//                        modifiedMove = move
+//                    }
+//                    if !currentNode.children.contains(where: {$0.move==modifiedMove}) {
+//                        newNode = GameNode(moveString: modifiedMove, parent: currentNode)
+//                        currentNode.children.append(newNode)
+//                    } else {
+//                        newNode = currentNode.children.first(where: {$0.move==modifiedMove})!
+//                    }
+//                    currentNode = newNode
+//                    counter += 1
+//                }
+//            }
+//        }
+//        deepestMove = max(deepestMove, currentNode.moveNumber)
+////        rootNode.depth = deepestMove
+//        print(deepestMove)
+//        return rootNode
+//        
+//        func isMoveNumberWhite(_ str: String) -> Bool {
+//            let pattern = #"^\d+\.$"#
+//            return str.range(of: pattern, options: .regularExpression) != nil
+//        }
+//        func isMoveNumberBlack(_ str: String) -> Bool {
+//            let pattern = #"^\d+\.\.\.$"#
+//            return str.range(of: pattern, options: .regularExpression) != nil
+//        }
+//
+//        func isVariationMoveNumber(_ str: String) -> Bool {
+//            let pattern = #"^\(\d+\."#
+//            return str.range(of: pattern, options: .regularExpression) != nil
+//        }
+//        func isVariationEndMove(_ str: String) -> Bool {
+//            let pattern = #"^\a\d\)$"#
+//            return str.range(of: pattern, options: .regularExpression) != nil
+//        }
+//    }
+//    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
