@@ -23,7 +23,6 @@
 		AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D429F415F9003F153F /* DataBase.swift */; };
 		AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D629F42E7F003F153F /* AddStudyView.swift */; };
 		AAA1A1E029F56F32003F153F /* examplePGN.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1DF29F56F32003F153F /* examplePGN.swift */; };
-		AAA1A1E329F574A3003F153F /* EndgameCore in Frameworks */ = {isa = PBXBuildFile; productRef = AAA1A1E229F574A3003F153F /* EndgameCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +70,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAA1A1A829F02493003F153F /* ChessKit in Frameworks */,
-				AAA1A1E329F574A3003F153F /* EndgameCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,7 +205,6 @@
 			name = ChessOpeningTrainer;
 			packageProductDependencies = (
 				AAA1A1A729F02493003F153F /* ChessKit */,
-				AAA1A1E229F574A3003F153F /* EndgameCore */,
 			);
 			productName = ChessOpeningTrainer;
 			productReference = AAA1A17829F02351003F153F /* ChessOpeningTrainer.app */;
@@ -283,7 +280,6 @@
 			mainGroup = AAA1A16F29F02351003F153F;
 			packageReferences = (
 				AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */,
-				AAA1A1E129F574A3003F153F /* XCRemoteSwiftPackageReference "EndgameCore" */,
 			);
 			productRefGroup = AAA1A17929F02351003F153F /* Products */;
 			projectDirPath = "";
@@ -423,6 +419,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -475,6 +472,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -696,14 +694,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		AAA1A1E129F574A3003F153F /* XCRemoteSwiftPackageReference "EndgameCore" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Jelizondo/EndgameCore";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -711,11 +701,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */;
 			productName = ChessKit;
-		};
-		AAA1A1E229F574A3003F153F /* EndgameCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AAA1A1E129F574A3003F153F /* XCRemoteSwiftPackageReference "EndgameCore" */;
-			productName = EndgameCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
