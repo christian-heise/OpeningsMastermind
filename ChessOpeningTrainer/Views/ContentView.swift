@@ -10,7 +10,7 @@ import ChessKit
 
 struct ContentView: View {
     @StateObject var database = DataBase()
-    @State private var showingPopover = false
+    @State private var showingSheet = false
     
     var body: some View {
         NavigationView {
@@ -29,12 +29,12 @@ struct ContentView: View {
             }
             .navigationTitle(Text("Opening Studies"))
             .toolbar {
-                Button(action: {showingPopover = true}) {
+                Button(action: {showingSheet = true}) {
                     Image(systemName: "plus")
                 }
             }
-            .popover(isPresented: $showingPopover) {
-                AddStudyView(database: database, showingPopover: $showingPopover)
+            .sheet(isPresented: $showingSheet) {
+                AddStudyView(database: database)
             }
         }
     }

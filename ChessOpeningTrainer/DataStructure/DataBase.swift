@@ -56,9 +56,17 @@ class DataBase: ObservableObject, Codable {
         self.save()
     }
     
-    func addNewGameTree(name: String, pgnString: String, userColor: PieceColor) {
-        self.gametrees.append(GameTree(name: name, pgnString: pgnString, userColor: userColor))
-        self.save()
+    func addNewGameTree(name: String, pgnString: String, userColor: PieceColor) -> Bool {
+        let newGameTree = GameTree(name: name, pgnString: pgnString, userColor: userColor)
+        
+        if newGameTree.rootNode != nil {
+            self.gametrees.append(newGameTree)
+            self.save()
+            return true
+        }
+        else {
+            return false
+        }
     }
     
     func addExampleGameTree() {
