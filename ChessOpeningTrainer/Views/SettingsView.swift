@@ -49,7 +49,7 @@ struct SettingsView: View {
                         Text("Legal Notice & Impressum")
                     }
                     NavigationLink(destination: {AcknowledgementsView()}){
-                        Text("Acknoledgements")
+                        Text("Acknowledgements")
                     }
 
                 } header: {
@@ -58,7 +58,7 @@ struct SettingsView: View {
                         .foregroundColor(.black)
                 }
                 footer: {
-                    Text("Created by Christian Gleißner")
+                    Text("Copyright © 2023 Christian Gleißner")
                 }
                 Section() {
                     

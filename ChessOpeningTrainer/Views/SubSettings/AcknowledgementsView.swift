@@ -11,9 +11,9 @@ struct AcknowledgementsView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                Text("Acknowledgements")
-                    .font(.title)
-                    .fontWeight(.bold)
+//                Text("Acknowledgements")
+//                    .font(.title)
+//                    .fontWeight(.bold)
                 
                 VStack(alignment: .leading, spacing: 10) {
                     Text("ChessKit")
@@ -53,6 +53,7 @@ struct AcknowledgementsView: View {
             }
             
             .padding()
+            .navigationTitle(Text("Acknowledgements"))
         }
     }
 }
