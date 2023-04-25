@@ -5,6 +5,7 @@
 //  Created by Christian Gleißner on 22.04.23.
 //
 
+import Popovers
 import SwiftUI
 import ChessKit
 import UniformTypeIdentifiers
@@ -20,6 +21,8 @@ struct AddStudyView: View {
     
     @State private var nameError = false
     @State private var pgnError = false
+    
+    @State private var showingPGNHelp = false
     
     let colors = ["white", "black"]
     
@@ -48,8 +51,6 @@ struct AddStudyView: View {
                             nameError = false
                         }
                 }
-                .padding(.horizontal)
-                .padding(.vertical, 10)
                 
                 VStack(alignment: .leading) {
                     Text("Select your color:")
@@ -61,11 +62,35 @@ struct AddStudyView: View {
                         }
                     }.pickerStyle(.segmented)
                 }
-                .padding()
+                .padding(.top)
                 
-                VStack(alignment: .leading) {
-                    Text("Enter the PGN of your study:")
-                        .font(.headline)
+                VStack() {
+                    HStack {
+                        Text("Enter the PGN of your study:")
+                            .font(.headline)
+                        Button(action: {
+                            self.showingPGNHelp = true
+                        }) {
+                            Image(systemName: "questionmark.circle")
+                        }
+                        .popover(present: $showingPGNHelp, attributes: {
+                            $0.position = .absolute(
+                                originAnchor: .top,
+                                popoverAnchor: .bottom
+                            )
+                            $0.rubberBandingMode = .none
+                        }) {
+                            Templates.Container(
+                                arrowSide: .bottom(.centered),
+                                backgroundColor: [173, 216, 230].getColor()
+                                        )
+                            {
+                                PGNHelpView()
+                            }
+                            .frame(maxWidth: 200)
+                        }
+                        Spacer()
+                    }
                     ZStack(alignment: .topLeading) {
                         if pgnString.isEmpty {
                             Text("Enter PGN here")
@@ -76,6 +101,7 @@ struct AddStudyView: View {
                                 .zIndex(10)
                         }
                         TextEditor(text: $pgnString)
+                            .frame(minHeight: 40)
                             .padding(4)
                             .zIndex(0)
                             .onSubmit {
@@ -87,8 +113,7 @@ struct AddStudyView: View {
                     }
                     .overlay(RoundedRectangle(cornerRadius: 8).stroke(pgnError ? Color.red : Color.gray, lineWidth: pgnError ? 1 : 0.5))
                 }
-                .frame(minHeight: 50)
-                    .padding()
+                .padding(.top)
                 HStack {
                     Button(action: {
                         if let clipboardString = UIPasteboard.general.string {
@@ -107,8 +132,8 @@ struct AddStudyView: View {
                         Image(systemName: "plus.circle.fill")
                         Text("Add Study")
                     }
-                    .padding()
                     .foregroundColor(.green)
+                    .padding()
                 }
                 Button(action: {
                     pgnString = examplePGN
@@ -117,6 +142,7 @@ struct AddStudyView: View {
                     Text("Enter Example PGN")
                 }
             }
+            .padding()
             .navigationTitle(Text("Add Study"))
             .toolbar {
                 Button("Dismiss") {

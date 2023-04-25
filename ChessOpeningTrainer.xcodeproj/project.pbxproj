@@ -26,6 +26,12 @@
 		AAA1A1E829F6DB3F003F153F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1E729F6DB3F003F153F /* SettingsView.swift */; };
 		AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1E929F6DDD6003F153F /* Settings.swift */; };
 		AAA1A1EC29F6FD86003F153F /* decodePGN.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1EB29F6FD86003F153F /* decodePGN.swift */; };
+		AAC6430D29F811C200D1C12E /* StartTrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6430C29F811C200D1C12E /* StartTrainView.swift */; };
+		AAC6430F29F817B400D1C12E /* ImpressumPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6430E29F817B400D1C12E /* ImpressumPrivacyView.swift */; };
+		AAC6431129F8205D00D1C12E /* AcknowledgementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */; };
+		AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC889A229F7DD3A0079ECE5 /* Extension.swift */; };
+		AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC889A429F802450079ECE5 /* PGNHelpView.swift */; };
+		AAC889A829F805370079ECE5 /* Popovers in Frameworks */ = {isa = PBXBuildFile; productRef = AAC889A729F805370079ECE5 /* Popovers */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +74,11 @@
 		AAA1A1E729F6DB3F003F153F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AAA1A1E929F6DDD6003F153F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AAA1A1EB29F6FD86003F153F /* decodePGN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = decodePGN.swift; sourceTree = "<group>"; };
+		AAC6430C29F811C200D1C12E /* StartTrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTrainView.swift; sourceTree = "<group>"; };
+		AAC6430E29F817B400D1C12E /* ImpressumPrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressumPrivacyView.swift; sourceTree = "<group>"; };
+		AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgementsView.swift; sourceTree = "<group>"; };
+		AAC889A229F7DD3A0079ECE5 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		AAC889A429F802450079ECE5 /* PGNHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PGNHelpView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAC889A829F805370079ECE5 /* Popovers in Frameworks */,
 				AAA1A1A829F02493003F153F /* ChessKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,7 +111,6 @@
 		AAA1A16F29F02351003F153F = {
 			isa = PBXGroup;
 			children = (
-				AAA1A1EB29F6FD86003F153F /* decodePGN.swift */,
 				AAA1A17A29F02351003F153F /* ChessOpeningTrainer */,
 				AAA1A18C29F02352003F153F /* ChessOpeningTrainerTests */,
 				AAA1A19629F02352003F153F /* ChessOpeningTrainerUITests */,
@@ -125,6 +136,7 @@
 				AAA1A1DA29F44360003F153F /* Shapes */,
 				AAA1A1D929F44353003F153F /* DataStructure */,
 				AAA1A1E429F66CB3003F153F /* Data */,
+				AAC889A229F7DD3A0079ECE5 /* Extension.swift */,
 				AAA1A17F29F02352003F153F /* Assets.xcassets */,
 				AAA1A18129F02352003F153F /* ChessOpeningTrainer.entitlements */,
 				AAA1A18229F02352003F153F /* Preview Content */,
@@ -161,10 +173,13 @@
 			isa = PBXGroup;
 			children = (
 				AAA1A17D29F02351003F153F /* ContentView.swift */,
+				AAC6430C29F811C200D1C12E /* StartTrainView.swift */,
 				AAA1A1E729F6DB3F003F153F /* SettingsView.swift */,
 				AAA1A1D029F2DF7D003F153F /* TrainView.swift */,
 				AAA1A1A929F0263F003F153F /* ChessBoardView.swift */,
 				AAA1A1D629F42E7F003F153F /* AddStudyView.swift */,
+				AAC889A429F802450079ECE5 /* PGNHelpView.swift */,
+				AAC6431229F8206600D1C12E /* SubSettings */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -176,6 +191,7 @@
 				AAA1A1B829F14D33003F153F /* GameTree.swift */,
 				AAA1A1E929F6DDD6003F153F /* Settings.swift */,
 				AAA1A1B629F14CAC003F153F /* MoveNode.swift */,
+				AAA1A1EB29F6FD86003F153F /* decodePGN.swift */,
 			);
 			path = DataStructure;
 			sourceTree = "<group>";
@@ -196,6 +212,15 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		AAC6431229F8206600D1C12E /* SubSettings */ = {
+			isa = PBXGroup;
+			children = (
+				AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */,
+				AAC6430E29F817B400D1C12E /* ImpressumPrivacyView.swift */,
+			);
+			path = SubSettings;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -214,6 +239,7 @@
 			name = ChessOpeningTrainer;
 			packageProductDependencies = (
 				AAA1A1A729F02493003F153F /* ChessKit */,
+				AAC889A729F805370079ECE5 /* Popovers */,
 			);
 			productName = ChessOpeningTrainer;
 			productReference = AAA1A17829F02351003F153F /* ChessOpeningTrainer.app */;
@@ -289,6 +315,7 @@
 			mainGroup = AAA1A16F29F02351003F153F;
 			packageReferences = (
 				AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */,
+				AAC889A629F805370079ECE5 /* XCRemoteSwiftPackageReference "Popovers" */,
 			);
 			productRefGroup = AAA1A17929F02351003F153F /* Products */;
 			projectDirPath = "";
@@ -333,18 +360,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAA1A1E029F56F32003F153F /* examplePGN.swift in Sources */,
+				AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */,
 				AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */,
+				AAC6430F29F817B400D1C12E /* ImpressumPrivacyView.swift in Sources */,
 				AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */,
 				AAA1A17E29F02351003F153F /* ContentView.swift in Sources */,
 				AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */,
 				AAA1A1AA29F0263F003F153F /* ChessBoardView.swift in Sources */,
+				AAC6430D29F811C200D1C12E /* StartTrainView.swift in Sources */,
 				AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */,
 				AAA1A1D129F2DF7D003F153F /* TrainView.swift in Sources */,
 				AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */,
+				AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */,
 				AAA1A17C29F02351003F153F /* ChessOpeningTrainerApp.swift in Sources */,
 				AAA1A1CA29F2CC44003F153F /* ArrowShape.swift in Sources */,
 				AAA1A1E829F6DB3F003F153F /* SettingsView.swift in Sources */,
 				AAA1A1EC29F6FD86003F153F /* decodePGN.swift in Sources */,
+				AAC6431129F8205D00D1C12E /* AcknowledgementsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -706,6 +738,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		AAC889A629F805370079ECE5 /* XCRemoteSwiftPackageReference "Popovers" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aheze/Popovers";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -713,6 +753,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */;
 			productName = ChessKit;
+		};
+		AAC889A729F805370079ECE5 /* Popovers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAC889A629F805370079ECE5 /* XCRemoteSwiftPackageReference "Popovers" */;
+			productName = Popovers;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

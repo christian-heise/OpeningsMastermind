@@ -12,12 +12,14 @@ struct TrainView: View {
     @State var game = Game(position: startingGamePosition)
     @StateObject var gameTree: GameTree
     @State private var gameState = 0
+    
+    let settings: Settings
 
     var body: some View {
         NavigationView {
             VStack {
                 GeometryReader { geo in
-                    ChessBoardView(game: $game, gameTree: gameTree)
+                    ChessBoardView(game: $game, gameTree: gameTree, settings: settings)
                         .frame(width: geo.size.width, height: geo.size.width)
                         .rotationEffect(.degrees(gameTree.userColor == .white ? 0 : 180))
                 }
@@ -31,6 +33,9 @@ struct TrainView: View {
                     Button("Restart", action: {
                         self.game = Game(position: startingGamePosition)
                         self.gameTree.reset()
+                        if gameTree.userColor == .black {
+                            makeNextMove()
+                        }
                         print("Reset complete")
                     })
                 }
@@ -44,11 +49,26 @@ struct TrainView: View {
         .onDisappear() {
             self.gameTree.reset()
         }
+//        .toolbar(.hidden, for: .tabBar)
+    }
+    
+    func makeNextMove() {
+        if self.gameTree.currentNode!.children.isEmpty {
+            self.gameTree.gameState = 2
+            return
+        }
+        let (newMove, newNode) = self.gameTree.generateMove(game: game)
+        
+        self.game.make(move: newMove!)
+        if newNode!.children.isEmpty {
+            self.gameTree.gameState = 2
+        }
+        self.gameTree.currentNode = newNode!
     }
 }
 
 struct TrainView_Previews: PreviewProvider {
     static var previews: some View {
-        TrainView(gameTree: GameTree.example())
+        TrainView(gameTree: GameTree.example(), settings: Settings())
     }
 }

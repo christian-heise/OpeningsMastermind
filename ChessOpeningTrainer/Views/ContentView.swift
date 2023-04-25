@@ -10,52 +10,21 @@ import ChessKit
 
 struct ContentView: View {
     @StateObject var database = DataBase()
-//    private var settings = Settings()
-    
-    @State private var showingAddSheet = false
-    @State private var showingSettingsSheet = false
+    @StateObject var settings = Settings()
     
     var body: some View {
-        NavigationView {
-            VStack {
-                List {
-                    ForEach(database.gametrees) { gameTree in
-                        NavigationLink(destination: TrainView(gameTree: gameTree)) {
-                            Text(gameTree.name)
-                        }
-                    }
-                    .onDelete(perform: delete)
+        TabView {
+            StartTrainView(database: database, settings: settings)
+                .tabItem{
+                    Label("Train", systemImage: "graduationcap")
+                    
                 }
-//                Button("Add Example GameTree", action: {
-//                    self.database.addExampleGameTree()
-//                })
-            }
-            .navigationTitle(Text("Opening Studies"))
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {showingSettingsSheet = true}) {
-                        Image(systemName: "gear")
-                    }
+            SettingsView(settings: settings)
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {showingAddSheet = true}) {
-                        Image(systemName: "plus")
-                    }
-                }
-            }
-            .sheet(isPresented: $showingAddSheet) {
-                AddStudyView(database: database)
-            }
-            .sheet(isPresented: $showingSettingsSheet) {
-                SettingsView()
-            }
         }
     }
-    
-    func delete(at offsets: IndexSet) {
-        database.removeGameTree(at: offsets)
-    }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {

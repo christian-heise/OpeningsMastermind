@@ -9,7 +9,7 @@ import Foundation
 import ChessKit
 
 
-class GameNode: Codable {
+class GameNode: Codable, Equatable {
     let move: String
     
     var children: [GameNode] = []
@@ -44,6 +44,10 @@ class GameNode: Codable {
             self.moveColor = parent.moveColor == .white ? .black : .white
             self.parent = parent
         }
+    }
+    
+    static func ==(lhs: GameNode, rhs: GameNode) -> Bool {
+        return lhs.move == rhs.move && lhs.moveNumber == rhs.moveNumber && lhs.moveColor == rhs.moveColor && lhs.parent == rhs.parent
     }
     
     public func databaseContains(move: Move, in game: Game) -> (Bool, GameNode) {

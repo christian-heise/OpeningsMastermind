@@ -17,10 +17,9 @@ extension GameTree {
         let regex = try! NSRegularExpression(pattern: "\\{.*?\\}", options: [NSRegularExpression.Options.dotMatchesLineSeparators])
         
         var currentNode = rootNode
-        var variationStart: [Int] = []
-        var variationMove: [String] = []
-        var counter = 0
         var newNode = rootNode
+        
+        var variationNodes: [GameNode] = []
         
 //        var modifiedMove = ""
         
@@ -29,13 +28,10 @@ extension GameTree {
             
             let rawMoves = pgnWithoutComments.components(separatedBy: " ").filter({$0 != ""})
             
+            print(pgnWithoutComments)
+            
             currentNode = rootNode
-            
-            variationStart = []
-            variationMove = []
-            
-            counter = 1
-            newNode = rootNode
+//            newNode = rootNode
 
             for rawMove in rawMoves {
                 
@@ -45,32 +41,20 @@ extension GameTree {
                     continue
                 }
                 if isVariationMoveNumber(rawMove) {
-                    variationStart.append(counter)
-                    variationMove.append(currentNode.move)
+                    variationNodes.append(currentNode)
                     currentNode = currentNode.parent!
-//                    counter -= 1
                     continue
                 }
-                if rawMove.last == ")" {
-                    let modifiedMove = String(rawMove.dropLast())
-                    if !modifiedMove.isEmpty {
-                        currentNode = addMoveToTree(modifiedMove)
-                    } else {
-                        counter -= 1
+                if rawMove.hasSuffix(")") {
+                    var modifiedMove = rawMove
+                    while modifiedMove.hasSuffix(")") {
+                        modifiedMove = String(modifiedMove.dropLast())
+                        if !modifiedMove.isEmpty && !modifiedMove.hasPrefix("$") && !modifiedMove.hasSuffix(")") {
+                            currentNode = addMoveToTree(modifiedMove)
+                        }
+                        currentNode = variationNodes.last!
+                        variationNodes.removeLast()
                     }
-                    let lastVariationStart = variationStart.last!
-                    
-                    while counter > lastVariationStart {
-                        currentNode = currentNode.parent!
-                        counter -= 1
-                    }
-                    guard let node = currentNode.parent!.children.first(where: {$0.move == variationMove.last}) else {
-                        return nil
-                    }
-                    currentNode = node
-                    variationMove.removeLast()
-                    variationStart.removeLast()
-//                    counter += 1
                 } else if rawMove == "*" {
                     continue
                 } else if rawMove == "1-0" || rawMove == "0-1"{
@@ -79,7 +63,6 @@ extension GameTree {
                  continue
                 } else {
                     currentNode = addMoveToTree(rawMove)
-                    counter += 1
                 }
             }
         }
@@ -88,6 +71,9 @@ extension GameTree {
         
         func addMoveToTree(_ rawMove: String) -> GameNode {
             let move = clean(rawMove)
+            if move == ")" {
+                print("whaaat")
+            }
             if !currentNode.children.contains(where: {$0.move==move}) {
                 newNode = GameNode(moveString: move, parent: currentNode)
                 currentNode.children.append(newNode)

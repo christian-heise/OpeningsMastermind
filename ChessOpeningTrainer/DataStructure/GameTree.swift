@@ -41,11 +41,23 @@ class GameTree: ObservableObject, Identifiable, Codable {
     public func generateMove(game: Game) -> (Move?, GameNode?) {
         guard let currentNode = self.currentNode else { return (nil, nil)}
         
+        if currentNode.children.count == 1 {
+            let newNode = currentNode.children.first!
+            let decoder = SanSerialization.default
+            let generatedMove = decoder.move(for: newNode.move, in: game)
+            return (generatedMove, newNode)
+        }
+        
         let depthArray: [Double] = currentNode.children.map({Double($0.depth) * Double($0.depth)})
         let summedDepth = depthArray.reduce(0, +)
         
-        let probabilities: [Double] = depthArray.map({Double($0) / Double(summedDepth)})
+        var probabilities = [Double]()
         
+        if summedDepth == 0 {
+            probabilities = Array(repeating: 1000 / Double(currentNode.children.count), count: currentNode.children.count)
+        } else {
+            probabilities = depthArray.map({Double($0) / Double(summedDepth)})
+        }
         var randomInt = Int.random(in: 0..<1000)
         
         for i in 0 ..< probabilities.count {

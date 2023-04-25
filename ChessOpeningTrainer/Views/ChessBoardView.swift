@@ -14,6 +14,7 @@ let italianGamePosition = FenSerialization.default.deserialize(fen: italianGameF
 struct ChessBoardView: View {
     @Binding var game: Game
     @ObservedObject var gameTree: GameTree
+    let settings: Settings
     
     @State private var offsets = Array(repeating: CGSize.zero, count: 64)
     @State private var draggedSquare: Square? = nil
@@ -31,7 +32,7 @@ struct ChessBoardView: View {
                 ForEach(0..<8) {row in
                     ForEach(0..<8) {col in
                         Rectangle()
-                            .fill((row + col) % 2 == 0 ? Color.white : Color.brown)
+                            .fill((row + col) % 2 == 0 ? settings.boardColorRGB.white.getColor() : settings.boardColorRGB.black.getColor())
                             .frame(width: squareLength(in: geo.size), height: squareLength(in: geo.size))
                             .position(x: (CGFloat(col) + 0.5) * squareLength(in: geo.size), y: (CGFloat(row) + 0.5) * squareLength(in: geo.size))
                         if let lastMove = game.movesHistory.last {
@@ -60,7 +61,7 @@ struct ChessBoardView: View {
                         .rotationEffect(.degrees(calcArrowAngleDeg(for: rightMove, in: geo.size)))
                     //                        .position(CGPoint(x:0,y:0))
                         .position(calcArrowPosition(for: rightMove, in: geo.size))
-                        .opacity(0.5)
+                        .opacity(0.7)
                         .foregroundColor(.green)
                         .zIndex(50)
                 }
@@ -200,6 +201,6 @@ let imageNames: [PieceColor: [PieceKind: String]] = [
 struct ChessBoardView_Previews: PreviewProvider {
     
     static var previews: some View {
-        ChessBoardView(game: .constant(Game(position: italianGamePosition)), gameTree: GameTree.example())
+        ChessBoardView(game: .constant(Game(position: italianGamePosition)), gameTree: GameTree.example(), settings: Settings())
     }
 }
