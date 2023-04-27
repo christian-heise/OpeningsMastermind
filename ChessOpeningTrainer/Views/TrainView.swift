@@ -26,21 +26,47 @@ struct TrainView: View {
                     .navigationTitle(Text("Training"))
                 if gameTree.gameState == 1 {
                     Text("This was the wrong move!")
+                        .padding(.bottom, 20)
                 } else if gameTree.gameState == 2 {
                     Text("This was the last move in this Study")
+                        .padding(.bottom, 20)
                 }
-                if gameTree.gameState > 0 {
-                    Button("Restart", action: {
-                        self.game = Game(position: startingGamePosition)
-                        self.gameTree.reset()
-                        if gameTree.userColor == .black {
-                            makeNextMove()
+                    
+                HStack {
+                    if gameTree.gameState == 1 {
+                        Button(action: {
+                            self.game = gameTree.gameCopy ?? Game(position: startingGamePosition)
+                            gameTree.gameState = 0
+                            print("Should have reversed")
+                        }) {
+                            Text("Revert Last Move")
+                                .padding()
+                                .foregroundColor(.white)
+//                                .background([217,83,79].getColor())
+                                .background([223,110,107].getColor())
+                                .cornerRadius(10)
                         }
-                        print("Reset complete")
-                    })
+                    }
+                    if gameTree.gameState > 0 {
+                        Button(action: {
+                            self.game = Game(position: startingGamePosition)
+                            self.gameTree.reset()
+                            if gameTree.userColor == .black {
+                                makeNextMove()
+                            }
+                            print("Reset complete")
+                        }) {
+                            Text("Restart Training")
+                                .padding()
+                                .foregroundColor(.white)
+                                .background([79,147,206].getColor())
+                                .cornerRadius(10)
+                        }
+                    }
                 }
                 Spacer()
-                Text("Remaining max depth of current line: " + String(gameTree.currentNode!.depth))
+//                Text("Remaining max depth of current line: " + String(gameTree.currentNode!.depth))
+//                Text("Misstakes in the line: " + String(gameTree.currentNode!.misstakesSum))
             }
         }
         .onAppear() {

@@ -71,8 +71,11 @@ struct ChessBoardView: View {
                 let pieces = game.position.board.enumeratedPieces()
                 ForEach(pieces, id: \.0) { piece in
                     Image(imageNames[piece.1.color]?[piece.1.kind] ?? "")
+                        .resizable()
+//                        .scaledToFill()
+                        .frame(width: squareLength(in: geo.size),height: squareLength(in: geo.size))
                         .rotationEffect(.degrees(gameTree.userColor == .white ? 0 : 180))
-                        .scaleEffect(0.8)
+//                        .scaleEffect(0.8)
                         .position(x: squareLength(in: geo.size) * (CGFloat(piece.0.file) + 0.5), y: squareLength(in: geo.size) * (8 - CGFloat(piece.0.rank) - 0.5))
                         .offset(offsets[indexFromSquare(piece.0)])
                         .gesture(
@@ -96,6 +99,8 @@ struct ChessBoardView: View {
                                                         makeNextMove()
                                                     } else {
                                                         print("Move is NOT in Database")
+                                                        gameTree.gameCopy = self.game.deepCopy()
+                                                        gameTree.currentNode!.misstakeNextMove += 1
                                                         if !gameTree.currentNode!.children.isEmpty {
                                                             self.gameTree.gameState = 1
                                                             self.gameTree.rightMove = determineRightMove()
@@ -114,7 +119,7 @@ struct ChessBoardView: View {
                 }
             }
         }
-        .padding()
+//        .padding()
         .onAppear() {
             if gameTree.userColor == .black && gameTree.currentNode!.moveColor == .black {
                 makeNextMove()
@@ -181,20 +186,20 @@ struct ChessBoardView: View {
 
 let imageNames: [PieceColor: [PieceKind: String]] = [
     .white: [
-        .king: "Chess_klt60",
-        .queen: "Chess_qlt60",
-        .bishop: "Chess_blt60",
-        .knight: "Chess_nlt60",
-        .rook: "Chess_rlt60",
-        .pawn: "Chess_plt60"
+        .king: "Chess_klt45.svg",
+        .queen: "Chess_qlt45.svg",
+        .bishop: "Chess_blt45.svg",
+        .knight: "Chess_nlt45.svg",
+        .rook: "Chess_rlt45.svg",
+        .pawn: "Chess_plt45.svg"
     ],
     .black: [
-        .king: "Chess_kdt60",
-        .queen: "Chess_qdt60",
-        .bishop: "Chess_bdt60",
-        .knight: "Chess_ndt60",
-        .rook: "Chess_rdt60",
-        .pawn: "Chess_pdt60"
+        .king: "Chess_kdt45.svg",
+        .queen: "Chess_qdt45.svg",
+        .bishop: "Chess_bdt45.svg",
+        .knight: "Chess_ndt45.svg",
+        .rook: "Chess_rdt45.svg",
+        .pawn: "Chess_pdt45.svg"
     ]
 ]
 

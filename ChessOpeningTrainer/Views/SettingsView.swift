@@ -34,7 +34,7 @@ struct SettingsView: View {
                 } header: {
                     Text("General")
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
+//                        .foregroundColor(.black)
                 }
                 .onChange(of: self.colorWhite) { newValue in
                     self.settings.boardColorRGB.white = self.colorWhite.rgbValues
@@ -45,8 +45,11 @@ struct SettingsView: View {
                     self.settings.save()
                 }
                 Section() {
-                    NavigationLink(destination: {ImpressumPrivacyView()}) {
-                        Text("Legal Notice & Impressum")
+                    NavigationLink(destination: {ImpressumView()}) {
+                        Text("Impressum")
+                    }
+                    NavigationLink(destination: {PrivacyView()}) {
+                        Text("Privacy Policy")
                     }
                     NavigationLink(destination: {AcknowledgementsView()}){
                         Text("Acknowledgements")
@@ -55,17 +58,18 @@ struct SettingsView: View {
                 } header: {
                     Text("About")
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
+//                        .foregroundColor(.black)
                 }
                 footer: {
                     Text("Copyright © 2023 Christian Gleißner")
                 }
                 Section() {
-                    
+                    Text("[Send me feedback](mailto:feedback@appsbychristian.com)")
+                    Text("[Visit my website](https://appsbychristian.com/en/home-english/)")
                 } header: {
                     Text("Contact")
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
+//                        .foregroundColor(.black)
                 }
             }
             .navigationTitle(Text("Settings"))

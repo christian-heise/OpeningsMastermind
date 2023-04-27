@@ -97,7 +97,7 @@ struct AddStudyView: View {
                                 .foregroundColor(.gray)
                                 .opacity(0.7)
                                 .padding(.horizontal, 8)
-                                .padding(.vertical, 8)
+                                .padding(.vertical, 11)
                                 .zIndex(10)
                         }
                         TextEditor(text: $pgnString)
@@ -135,12 +135,12 @@ struct AddStudyView: View {
                     .foregroundColor(.green)
                     .padding()
                 }
-                Button(action: {
-                    pgnString = examplePGN
-                    nameString = "Smith Morra Gambit"
-                }) {
-                    Text("Enter Example PGN")
-                }
+//                Button(action: {
+//                    pgnString = examplePGN
+//                    nameString = "Smith Morra Gambit"
+//                }) {
+//                    Text("Enter Example PGN")
+//                }
             }
             .padding()
             .navigationTitle(Text("Add Study"))

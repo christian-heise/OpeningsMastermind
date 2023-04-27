@@ -20,7 +20,7 @@ struct ImpressumPrivacyView: View {
                 VStack(alignment: .leading) {
                     Text("Contact Information:")
                         .fontWeight(.bold)
-                    Text("Email:  cg.apps@posteo.de\nPhone: +49 9631 8692883\nMobile: +49 1579 2613741")
+                    Text("Email:  info@appsbychristian.com\nPhone: +49 9631 8692883\nMobile: +49 1579 2613741")
                         .lineLimit(nil)
                 }
                 .padding()

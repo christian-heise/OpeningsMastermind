@@ -16,6 +16,10 @@ class GameTree: ObservableObject, Identifiable, Codable {
     let rootNode: GameNode?
     let userColor: PieceColor
     
+    let pgnString: String
+    
+    var gameCopy: Game? = nil
+    
     @Published var currentNode: GameNode?
     @Published var gameState: Int = 0
     @Published var rightMove: Move? = nil
@@ -25,6 +29,7 @@ class GameTree: ObservableObject, Identifiable, Codable {
         self.rootNode = rootNode
         self.currentNode = rootNode
         self.userColor = userColor
+        self.pgnString = ""
     }
     
     init(name: String, pgnString: String, userColor: PieceColor) {
@@ -32,6 +37,7 @@ class GameTree: ObservableObject, Identifiable, Codable {
         self.userColor = userColor
         self.rootNode = GameTree.decodePGN(pgnString: pgnString)
         self.currentNode = self.rootNode
+        self.pgnString = pgnString
     }
     
     static func example() -> GameTree {
@@ -48,17 +54,34 @@ class GameTree: ObservableObject, Identifiable, Codable {
             return (generatedMove, newNode)
         }
         
+        // Probabilities based on Misstakes
+        let weightedMistakes: [Double] = currentNode.children.map({Double($0.mistakesSum) / Double($0.depth) / Double($0.depth) / Double($0.depth)})
+        let weightedMistakesSum: Double = weightedMistakes.reduce(0, +)
+        
+        var probabilitiesMistakes = [Double]()
+        if weightedMistakesSum == 0 {
+            probabilitiesMistakes = Array(repeating: 1000 / Double(currentNode.children.count), count: currentNode.children.count)
+        } else {
+            probabilitiesMistakes = weightedMistakes.map({$0 / Double(weightedMistakesSum)})
+        }
+        
+        // Probability based on Depth
         let depthArray: [Double] = currentNode.children.map({Double($0.depth) * Double($0.depth)})
         let summedDepth = depthArray.reduce(0, +)
         
-        var probabilities = [Double]()
+        var probabilitiesDepth = [Double]()
         
         if summedDepth == 0 {
-            probabilities = Array(repeating: 1000 / Double(currentNode.children.count), count: currentNode.children.count)
+            probabilitiesDepth = Array(repeating: 1000 / Double(currentNode.children.count), count: currentNode.children.count)
         } else {
-            probabilities = depthArray.map({Double($0) / Double(summedDepth)})
+            probabilitiesDepth = depthArray.map({$0 / Double(summedDepth)})
         }
-        var randomInt = Int.random(in: 0..<1000)
+        
+        // Combine probabilities
+        let probabilities = probabilitiesDepth
+        
+        // Make random Int between 0 and 1000
+        var randomInt = Int.random(in: 0...1000)
         
         for i in 0 ..< probabilities.count {
             if randomInt > Int(probabilities[i] * Double(1000)) {
@@ -85,149 +108,11 @@ class GameTree: ObservableObject, Identifiable, Codable {
         self.rightMove = nil
     }
     
-//    static private func decodePGN(pgnString: String) -> GameNode? {
-//        
-////        let movesComponentPGN = pgnString.split(separator: "\n").filter({$0.hasPrefix("1.")}).first!
-//        
-//        let chapters = pgnString.split(separator: "\n\n").filter({$0.hasPrefix("1.")})
-//        
-//        print(chapters.count)
-//        
-//        let rootNode = GameNode(moveString: "")
-//        
-//        let regex = try! NSRegularExpression(pattern: "\\{.*?\\}", options: [NSRegularExpression.Options.dotMatchesLineSeparators])
-//        
-//        var currentNode = rootNode
-//        var variationStart: [Int] = []
-//        var variationMove: [String] = []
-//        var counter = 0
-//        var newNode = rootNode
-//        
-//        var modifiedString = ""
-//        var moves = [String]()
-//        
-//        var modifiedMove = ""
-//        
-//        var deepestMove = 1
-//        
-//        for i in 0..<chapters.count {
-//            modifiedString = regex.stringByReplacingMatches(in: String(chapters[i]), options: [], range: NSRange(location: 0, length: chapters[i].utf16.count), withTemplate: "")
-//            print(modifiedString)
-//            
-//            moves = modifiedString.components(separatedBy: " ").filter({$0 != ""})
-//            
-//            currentNode = rootNode
-//            
-//            variationStart = []
-//            variationMove = []
-//            
-//            counter = 0
-//            newNode = rootNode
-//
-//            for move in moves {
-//                deepestMove = max(deepestMove, currentNode.moveNumber)
-//                if isMoveNumberWhite(String(move)) {
-//                    continue
-//                } else if isMoveNumberBlack(String(move)) {
-//                    continue
-//                }
-//                if isVariationMoveNumber(String(move)) {
-//                    variationStart.append(counter)
-//                    variationMove.append(currentNode.move)
-//                    currentNode = currentNode.parent!
-//                    continue
-//                }
-//                if move.last == ")" {
-//                    modifiedMove = String(move.dropLast())
-//                    if modifiedMove.isEmpty {
-//                        newNode = currentNode
-//                        counter -= 1
-//                        guard let lastVariationStart = variationStart.last else {return nil}
-//                        while counter > lastVariationStart {
-//                            currentNode = currentNode.parent!
-//                            counter -= 1
-//                        }
-////                        currentNode.depth = newNode.moveNumber
-//                        currentNode = currentNode.parent!.children.first(where: {$0.move == variationMove.last!})!
-//                        variationMove.removeLast()
-//                        variationStart.removeLast()
-//                    } else {
-//                        if modifiedMove.hasSuffix("!?") || modifiedMove.hasSuffix("?!") || modifiedMove.hasSuffix("!!") || modifiedMove.hasSuffix("??") {
-//                            modifiedMove = String(modifiedMove.dropLast(2))
-//                        } else if modifiedMove.hasSuffix("!") || modifiedMove.hasSuffix("?") {
-//                            modifiedMove = String(modifiedMove.dropLast())
-//                        }
-//                        if !currentNode.children.contains(where: {$0.move==modifiedMove}) {
-//                            newNode = GameNode(moveString: modifiedMove, parent: currentNode)
-//                            currentNode.children.append(newNode)
-//                        } else {
-//                            newNode = currentNode.children.first(where: {$0.move==modifiedMove})!
-//                        }
-//                        currentNode = newNode
-////                        counter += 1
-//                        guard let lastVariationStart = variationStart.last else {return nil}
-//                        while counter > lastVariationStart {
-//                            currentNode = currentNode.parent!
-//                            counter -= 1
-//                        }
-////                        currentNode.depth = newNode.moveNumber
-//                        currentNode = currentNode.parent!.children.first(where: {$0.move == variationMove.last!})!
-//                        variationMove.removeLast()
-//                        variationStart.removeLast()
-//                    }
-//                } else if move == "*" {
-//                    continue
-//                } else if move == "1-0" || move == "0-1"{
-//                continue
-//                } else if move.hasPrefix("$") {
-//                 continue
-//                } else {
-//                    if modifiedMove.hasSuffix("!?") || modifiedMove.hasSuffix("?!") || modifiedMove.hasSuffix("!!") || modifiedMove.hasSuffix("??") {
-//                        modifiedMove = String(modifiedMove.dropLast(2))
-//                    } else if modifiedMove.hasSuffix("!") || modifiedMove.hasSuffix("?") {
-//                        modifiedMove = String(modifiedMove.dropLast())
-//                    } else {
-//                        modifiedMove = move
-//                    }
-//                    if !currentNode.children.contains(where: {$0.move==modifiedMove}) {
-//                        newNode = GameNode(moveString: modifiedMove, parent: currentNode)
-//                        currentNode.children.append(newNode)
-//                    } else {
-//                        newNode = currentNode.children.first(where: {$0.move==modifiedMove})!
-//                    }
-//                    currentNode = newNode
-//                    counter += 1
-//                }
-//            }
-//        }
-//        deepestMove = max(deepestMove, currentNode.moveNumber)
-////        rootNode.depth = deepestMove
-//        print(deepestMove)
-//        return rootNode
-//        
-//        func isMoveNumberWhite(_ str: String) -> Bool {
-//            let pattern = #"^\d+\.$"#
-//            return str.range(of: pattern, options: .regularExpression) != nil
-//        }
-//        func isMoveNumberBlack(_ str: String) -> Bool {
-//            let pattern = #"^\d+\.\.\.$"#
-//            return str.range(of: pattern, options: .regularExpression) != nil
-//        }
-//
-//        func isVariationMoveNumber(_ str: String) -> Bool {
-//            let pattern = #"^\(\d+\."#
-//            return str.range(of: pattern, options: .regularExpression) != nil
-//        }
-//        func isVariationEndMove(_ str: String) -> Bool {
-//            let pattern = #"^\a\d\)$"#
-//            return str.range(of: pattern, options: .regularExpression) != nil
-//        }
-//    }
-//    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         name = try container.decode(String.self, forKey: .name)
+        pgnString = try container.decode(String.self, forKey: .pgnString)
         
         rootNode =  try GameNode.decodeRecursively(from: decoder)
         
@@ -242,11 +127,12 @@ class GameTree: ObservableObject, Identifiable, Codable {
         let userColorString = userColor == .white ? "white" : "black"
         
         try container.encode(name, forKey: .name)
+        try container.encode(pgnString, forKey: .pgnString)
         try rootNode?.encodeRecursively(to: encoder)
         try container.encode(userColorString, forKey: .userColor)
     }
     
     enum CodingKeys: String, CodingKey {
-            case name, rootNode, userColor
+            case name, rootNode, userColor, pgnString
         }
 }
