@@ -123,7 +123,7 @@ class GameNode: Codable, Equatable {
     static func decodeRecursively(from decoder: Decoder) throws -> GameNode {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        let misstakeNextMove = try container.decode(Int.self, forKey: .mistakeNextMove)
+        let mistakeNextMove = try container.decode(Int.self, forKey: .mistakeNextMove)
         let children = try container.decode([GameNode].self, forKey: .children)
         let move = try container.decode(String.self, forKey: .move)
         let moveNumber = try container.decode(Int.self, forKey: .moveNumber)

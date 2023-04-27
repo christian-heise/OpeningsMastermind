@@ -100,7 +100,7 @@ struct ChessBoardView: View {
                                                     } else {
                                                         print("Move is NOT in Database")
                                                         gameTree.gameCopy = self.game.deepCopy()
-                                                        gameTree.currentNode!.misstakeNextMove += 1
+                                                        gameTree.currentNode!.mistakeNextMove += 1
                                                         if !gameTree.currentNode!.children.isEmpty {
                                                             self.gameTree.gameState = 1
                                                             self.gameTree.rightMove = determineRightMove()
