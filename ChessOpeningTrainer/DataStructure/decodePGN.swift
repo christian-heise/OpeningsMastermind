@@ -8,7 +8,7 @@
 import Foundation
 
 extension GameTree {
-    static func decodePGN(pgnString: String) -> GameNode? {
+    static func decodePGN(pgnString: String) -> GameNode {
         
         let chapters = pgnString.split(separator: "\n\n").filter({$0.hasPrefix("1.")})
         

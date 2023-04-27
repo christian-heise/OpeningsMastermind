@@ -13,7 +13,7 @@ import ChessKit
 class GameTree: ObservableObject, Identifiable, Codable {
     let name: String
     let id = UUID()
-    let rootNode: GameNode?
+    let rootNode: GameNode
     let userColor: PieceColor
     
     let pgnString: String
@@ -128,7 +128,7 @@ class GameTree: ObservableObject, Identifiable, Codable {
         
         try container.encode(name, forKey: .name)
         try container.encode(pgnString, forKey: .pgnString)
-        try rootNode?.encodeRecursively(to: encoder)
+        try rootNode.encodeRecursively(to: encoder)
         try container.encode(userColorString, forKey: .userColor)
     }
     

@@ -27,7 +27,6 @@
 		AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1E929F6DDD6003F153F /* Settings.swift */; };
 		AAA1A1EC29F6FD86003F153F /* decodePGN.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1EB29F6FD86003F153F /* decodePGN.swift */; };
 		AAC6430D29F811C200D1C12E /* StartTrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6430C29F811C200D1C12E /* StartTrainView.swift */; };
-		AAC6430F29F817B400D1C12E /* ImpressumPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6430E29F817B400D1C12E /* ImpressumPrivacyView.swift */; };
 		AAC6431129F8205D00D1C12E /* AcknowledgementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */; };
 		AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431329F9374100D1C12E /* ImpressumView.swift */; };
 		AAC6431629F9374B00D1C12E /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431529F9374B00D1C12E /* PrivacyView.swift */; };
@@ -78,11 +77,11 @@
 		AAA1A1E929F6DDD6003F153F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AAA1A1EB29F6FD86003F153F /* decodePGN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = decodePGN.swift; sourceTree = "<group>"; };
 		AAC6430C29F811C200D1C12E /* StartTrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTrainView.swift; sourceTree = "<group>"; };
-		AAC6430E29F817B400D1C12E /* ImpressumPrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressumPrivacyView.swift; sourceTree = "<group>"; };
 		AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgementsView.swift; sourceTree = "<group>"; };
 		AAC6431329F9374100D1C12E /* ImpressumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressumView.swift; sourceTree = "<group>"; };
 		AAC6431529F9374B00D1C12E /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		AAC6431929F97B5000D1C12E /* BulletList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletList.swift; sourceTree = "<group>"; };
+		AAC6431D29FA821800D1C12E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AAC889A229F7DD3A0079ECE5 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		AAC889A429F802450079ECE5 /* PGNHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PGNHelpView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,6 +136,7 @@
 		AAA1A17A29F02351003F153F /* ChessOpeningTrainer */ = {
 			isa = PBXGroup;
 			children = (
+				AAC6431D29FA821800D1C12E /* Info.plist */,
 				AAA1A17B29F02351003F153F /* ChessOpeningTrainerApp.swift */,
 				AAA1A1D829F44345003F153F /* Views */,
 				AAA1A1DA29F44360003F153F /* Shapes */,
@@ -222,7 +222,6 @@
 			isa = PBXGroup;
 			children = (
 				AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */,
-				AAC6430E29F817B400D1C12E /* ImpressumPrivacyView.swift */,
 				AAC6431529F9374B00D1C12E /* PrivacyView.swift */,
 				AAC6431929F97B5000D1C12E /* BulletList.swift */,
 				AAC6431329F9374100D1C12E /* ImpressumView.swift */,
@@ -372,7 +371,6 @@
 				AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */,
 				AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */,
 				AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */,
-				AAC6430F29F817B400D1C12E /* ImpressumPrivacyView.swift in Sources */,
 				AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */,
 				AAA1A17E29F02351003F153F /* ContentView.swift in Sources */,
 				AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */,
@@ -475,7 +473,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -528,7 +526,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -541,14 +539,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = ChessOpeningTrainer/ChessOpeningTrainer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"ChessOpeningTrainer/Preview Content\"";
 				DEVELOPMENT_TEAM = Q7XMYQ8965;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.puzzle-games";
+				INFOPLIST_FILE = ChessOpeningTrainer/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -559,7 +558,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
@@ -581,14 +580,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = ChessOpeningTrainer/ChessOpeningTrainer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"ChessOpeningTrainer/Preview Content\"";
 				DEVELOPMENT_TEAM = Q7XMYQ8965;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.puzzle-games";
+				INFOPLIST_FILE = ChessOpeningTrainer/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -599,7 +599,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;

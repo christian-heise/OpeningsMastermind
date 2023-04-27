@@ -39,9 +39,9 @@ struct PrivacyView: View {
                     Text("I. Information about us as controllers of your data")
                         .font(.headline)
                     Text("The party responsible for the app „Openings Mastermind“ (the „controller“) for purposes of data protection law is:")
-                    Text("Christian, Gleißner\nFriedrichstr. 36\n95643, Tirschenreuth\nTelefon: [Telefonnummer]\nE-Mail: info@appsbychristian.com")
+                    Text("Christian, Gleißner\nFriedrichstr. 36\n95643 Tirschenreuth\nMobile: +49 1579 2613741\nPhone: +49 9631 8692883\nE-Mail: info@appsbychristian.com")
                     Text("The controller’s data protection officer is:")
-                    Text("Christian, Gleißner\nTelefon: [Telefonnummer]\nE-Mail: info@appsbychristian.com")
+                    Text("Christian, Gleißner\nMobile: +49 1579 2613741\nPhone: +49 9631 8692883\nE-Mail: info@appsbychristian.com")
                 }
                 Group {
                     Text("II. The rights of users and data subjects")
