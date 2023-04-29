@@ -34,25 +34,23 @@ struct ChessBoardView: View {
                         Rectangle()
                             .fill((row + col) % 2 == 0 ? settings.boardColorRGB.white.getColor() : settings.boardColorRGB.black.getColor())
                             .frame(width: squareLength(in: geo.size), height: squareLength(in: geo.size))
-                            .position(x: (CGFloat(col) + 0.5) * squareLength(in: geo.size), y: (CGFloat(row) + 0.5) * squareLength(in: geo.size))
+                            .position(x: geo.size.width/2 + (CGFloat(col) - 3.5) * squareLength(in: geo.size), y: (CGFloat(row) + 0.5) * squareLength(in: geo.size))
                         if let lastMove = game.movesHistory.last {
                             if lastMove.to == Square(file: col, rank: 7-row) || lastMove.from == Square(file: col, rank: 7-row) {
                                 Rectangle()
                                     .fill(gameTree.gameState == 1 ? Color.red : Color.yellow)
                                     .frame(width: squareLength(in: geo.size), height: squareLength(in: geo.size))
-                                    .position(x: (CGFloat(col) + 0.5) * squareLength(in: geo.size), y: (CGFloat(row) + 0.5) * squareLength(in: geo.size))
+                                    .position(x: geo.size.width/2 + (CGFloat(col) - 3.5) * squareLength(in: geo.size), y: ((CGFloat(row) + 0.5) * squareLength(in: geo.size)))
                                     .opacity(0.2)
                             }
                         }
                     }
                 }
-                
-            }
-            .frame(width: squareLength(in: geo.size)*8, height: squareLength(in: geo.size)*8)
-            .overlay(
                 Rectangle()
                     .stroke(Color.black, lineWidth: 1)
-            )
+                    .frame(width: 8 * squareLength(in: geo.size), height: 8 * squareLength(in: geo.size))
+                    .position(x: geo.size.width/2,y: 4 * squareLength(in: geo.size))
+            }
             
             if gameTree.gameState == 1 {
                 if let rightMove = self.gameTree.rightMove {
@@ -72,11 +70,10 @@ struct ChessBoardView: View {
                 ForEach(pieces, id: \.0) { piece in
                     Image(imageNames[piece.1.color]?[piece.1.kind] ?? "")
                         .resizable()
-//                        .scaledToFill()
                         .frame(width: squareLength(in: geo.size),height: squareLength(in: geo.size))
                         .rotationEffect(.degrees(gameTree.userColor == .white ? 0 : 180))
-//                        .scaleEffect(0.8)
-                        .position(x: squareLength(in: geo.size) * (CGFloat(piece.0.file) + 0.5), y: squareLength(in: geo.size) * (8 - CGFloat(piece.0.rank) - 0.5))
+//                        .position(x: squareLength(in: geo.size) * (CGFloat(piece.0.file) + 0.5), y: squareLength(in: geo.size) * (8 - CGFloat(piece.0.rank) - 0.5))
+                        .position(x: geo.size.width/2 + (CGFloat(piece.0.file) - 3.5) * squareLength(in: geo.size), y: squareLength(in: geo.size)*4 - (CGFloat(piece.0.rank) - 3.5) * squareLength(in: geo.size))
                         .offset(offsets[indexFromSquare(piece.0)])
                         .gesture(
                             DragGesture()
@@ -90,6 +87,7 @@ struct ChessBoardView: View {
                                         let newSquare = squareFromPoint(value.location, in: geo.size)
                                         if newSquare != piece.0 {
                                             let move = Move(from: piece.0, to: newSquare)
+                                            print(game.legalMoves)
                                             if game.legalMoves.contains(move) {
                                                 if let tupel = gameTree.currentNode?.databaseContains(move: move, in: game) {
                                                     gameTree.currentNode = tupel.1
@@ -119,13 +117,7 @@ struct ChessBoardView: View {
                 }
             }
         }
-//        .padding()
-        .onAppear() {
-            if gameTree.userColor == .black && gameTree.currentNode!.moveColor == .black {
-                makeNextMove()
-                print("Move was made")
-            }
-        }
+
     }
     
     func indexFromSquare(_ square: Square) -> Int {
@@ -133,14 +125,15 @@ struct ChessBoardView: View {
     }
     
     func squareFromPoint(_ point: CGPoint, in size: CGSize) -> Square {
-        let file = min(max(Int(point.x / (size.width / 8)), 0), 7)
-        let rank = min(max(Int(8*(1 - point.y / size.width)), 0), 7)
+        let file = min(max(Int(4 - (size.width/2 - point.x)/squareLength(in: size)), 0), 7)
+        let rank = min(max(Int(8*(1 - point.y / squareLength(in: size)/8)), 0), 7)
+        print("file: "+String(file)+", rank: "+String(rank))
         return Square(file: file, rank: rank)
     }
     
     func pointFromSquare(_ square: Square, in size: CGSize) -> CGPoint {
-        let x = (CGFloat(square.file) + 0.5) * squareLength(in: size)
-        let y = (7.5 - CGFloat(square.rank)) * squareLength(in: size)
+        let x = size.width/2 + (CGFloat(square.file) - 3.5) * squareLength(in: size)
+        let y = squareLength(in: size)*4 - (CGFloat(square.rank) - 3.5) * squareLength(in: size)
         return CGPoint(x: x, y: y)
     }
     
