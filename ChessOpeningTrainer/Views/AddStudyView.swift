@@ -127,12 +127,12 @@ struct AddStudyView: View {
                     .foregroundColor(.green)
                     .padding()
                 }
-//                Button(action: {
-//                    pgnString = examplePGN
-//                    nameString = "Smith Morra Gambit"
-//                }) {
-//                    Text("Enter Example PGN")
-//                }
+                Button(action: {
+                    pgnString = examplePGN
+                    nameString = "Smith Morra Gambit"
+                }) {
+                    Text("Add Example PGN")
+                }
             }
             .padding()
             .navigationTitle(Text("Add Study"))

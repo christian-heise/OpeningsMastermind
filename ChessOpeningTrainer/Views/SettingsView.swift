@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct SettingsView: View {
 //    @Environment(\.dismiss) private var dismiss
@@ -13,6 +14,8 @@ struct SettingsView: View {
     
     @State private var colorWhite: Color
     @State private var colorBlack: Color
+    
+    @Environment(\.requestReview) var requestReview
     
     init(settings: Settings) {
         self.settings = settings
@@ -64,6 +67,9 @@ struct SettingsView: View {
                     Text("Copyright © 2023 Christian Gleißner")
                 }
                 Section() {
+                    Button("Rate my App") {
+                        requestReview()
+                    }
                     Text("[Send me feedback](mailto:feedback@appsbychristian.com)")
                     Text("[Visit my website](https://appsbychristian.com/en/home-english/)")
                 } header: {
