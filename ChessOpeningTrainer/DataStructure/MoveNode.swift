@@ -18,6 +18,9 @@ class GameNode: Codable, Equatable {
     var moveColor: PieceColor = .black
     weak var parent: GameNode?
     
+    let comment: String?
+    let annotation: String?
+    
     var mistakeNextMove: Int
     
     var mistakesSum: Int {
@@ -46,9 +49,12 @@ class GameNode: Codable, Equatable {
         return _depth!
     }
     
-    init(moveString: String, parent: GameNode? = nil) {
+    init(moveString: String, comment: String? = nil, annotation: String? = nil, parent: GameNode? = nil) {
         self.move = moveString
         self.mistakeNextMove = 0
+        
+        self.comment = comment
+        self.annotation = annotation
         
         if let parent = parent {
             self.moveNumber = parent.moveColor == .white ? parent.moveNumber : parent.moveNumber + 1
@@ -80,6 +86,9 @@ class GameNode: Codable, Equatable {
         children = try container.decode([GameNode].self, forKey: .children)
         move = try container.decode(String.self, forKey: .move)
         moveNumber = try container.decode(Int.self, forKey: .moveNumber)
+        comment = try container.decode(String?.self, forKey: .comment)
+        annotation = try container.decode(String?.self, forKey: .annotation)
+        
         let moveColorString = try container.decode(String.self, forKey: .moveColor)
         
         if moveColorString == "white" {
@@ -101,7 +110,8 @@ class GameNode: Codable, Equatable {
         try container.encode(moveNumber, forKey: .moveNumber)
         try container.encode(moveColorString, forKey: .moveColor)
         try container.encode(move, forKey: .move)
-//        try container.encode(depth, forKey: .depth)
+        try container.encode(comment, forKey: .comment)
+        try container.encode(annotation, forKey: .annotation)
     }
     
     func encodeRecursively(to encoder: Encoder) throws {
@@ -113,11 +123,8 @@ class GameNode: Codable, Equatable {
         try container.encode(moveNumber, forKey: .moveNumber)
         try container.encode(moveColorString, forKey: .moveColor)
         try container.encode(move, forKey: .move)
-//        try container.encode(depth, forKey: .depth)
-
-//        for child in children {
-//            try child.encodeRecursively(to: encoder)
-//        }
+        try container.encode(comment, forKey: .comment)
+        try container.encode(annotation, forKey: .annotation)
     }
     
     static func decodeRecursively(from decoder: Decoder) throws -> GameNode {
@@ -128,14 +135,16 @@ class GameNode: Codable, Equatable {
         let move = try container.decode(String.self, forKey: .move)
         let moveNumber = try container.decode(Int.self, forKey: .moveNumber)
         let moveColorString = try container.decode(String.self, forKey: .moveColor)
-//        let depth = try container.decode(Int?.self, forKey: .depth)
         
-        let node = GameNode(moveString: move)
+        let comment = try container.decode(String?.self, forKey: .comment)
+        let annotation = try container.decode(String?.self, forKey: .annotation)
+        
+        let node = GameNode(moveString: move, comment: comment, annotation: annotation)
+        
         node.mistakeNextMove = mistakeNextMove
         node.children = children
         node.moveNumber = moveNumber
         node.moveColor = moveColorString == "white" ? .white : .black
-//        node.depth = depth
         
         for i in 0..<children.count {
             node.children[i].parent = node
@@ -144,6 +153,6 @@ class GameNode: Codable, Equatable {
     }
     
     enum CodingKeys: String, CodingKey {
-            case move, children, moveNumber, moveColor, parent, mistakeNextMove
+            case move, children, moveNumber, moveColor, parent, mistakeNextMove, comment, annotation
         }
 }

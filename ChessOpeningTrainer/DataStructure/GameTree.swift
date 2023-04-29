@@ -24,12 +24,12 @@ class GameTree: ObservableObject, Identifiable, Codable {
     @Published var gameState: Int = 0
     @Published var rightMove: Move? = nil
     
-    init(name: String, rootNode: GameNode, userColor: PieceColor) {
+    init(name: String, rootNode: GameNode, userColor: PieceColor, pgnString: String = "") {
         self.name = name
         self.rootNode = rootNode
         self.currentNode = rootNode
         self.userColor = userColor
-        self.pgnString = ""
+        self.pgnString = pgnString
     }
     
     init(name: String, pgnString: String, userColor: PieceColor) {

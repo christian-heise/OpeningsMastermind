@@ -20,6 +20,10 @@ class DataBase: ObservableObject, Codable {
         load()
     }
     
+    init(gameTrees: [GameTree]) {
+        self.gametrees = gameTrees
+    }
+    
     private func save() {
         let filename = getDocumentsDirectory().appendingPathComponent("gameTree.json")
         
