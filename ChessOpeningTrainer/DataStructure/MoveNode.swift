@@ -86,8 +86,8 @@ class GameNode: Codable, Equatable {
         children = try container.decode([GameNode].self, forKey: .children)
         move = try container.decode(String.self, forKey: .move)
         moveNumber = try container.decode(Int.self, forKey: .moveNumber)
-        comment = try container.decode(String?.self, forKey: .comment)
-        annotation = try container.decode(String?.self, forKey: .annotation)
+        comment = try container.decodeIfPresent(String.self, forKey: .comment)
+        annotation = try container.decodeIfPresent(String.self, forKey: .annotation)
         
         let moveColorString = try container.decode(String.self, forKey: .moveColor)
         
@@ -131,13 +131,15 @@ class GameNode: Codable, Equatable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         let mistakeNextMove = try container.decode(Int.self, forKey: .mistakeNextMove)
-        let children = try container.decode([GameNode].self, forKey: .children)
+        
         let move = try container.decode(String.self, forKey: .move)
         let moveNumber = try container.decode(Int.self, forKey: .moveNumber)
         let moveColorString = try container.decode(String.self, forKey: .moveColor)
         
-        let comment = try container.decode(String?.self, forKey: .comment)
-        let annotation = try container.decode(String?.self, forKey: .annotation)
+        let comment = try container.decodeIfPresent(String.self, forKey: .comment)
+        let annotation = try container.decodeIfPresent(String.self, forKey: .annotation)
+        
+        let children = try container.decode([GameNode].self, forKey: .children)
         
         let node = GameNode(moveString: move, comment: comment, annotation: annotation)
         

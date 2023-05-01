@@ -21,8 +21,6 @@ extension GameTree {
         
         var variationNodes: [GameNode] = []
         
-//        var modifiedMove = ""
-        
         for i in 0..<chapters.count {
             let pgnWithoutComments = regex.stringByReplacingMatches(in: String(chapters[i]), options: [], range: NSRange(location: 0, length: chapters[i].utf16.count), withTemplate: "")
             
@@ -31,7 +29,6 @@ extension GameTree {
             print(pgnWithoutComments)
             
             currentNode = rootNode
-//            newNode = rootNode
 
             for rawMove in rawMoves {
                 
@@ -70,27 +67,29 @@ extension GameTree {
         return rootNode
         
         func addMoveToTree(_ rawMove: String) -> GameNode {
-            let move = clean(rawMove)
+            var move = ""
+            var annotation: String = ""
+            
+            if rawMove.hasSuffix("!?") || rawMove.hasSuffix("?!") || rawMove.hasSuffix("!!") || rawMove.hasSuffix("??") {
+                annotation = String(rawMove.suffix(2))
+                move =  String(rawMove.dropLast(2))
+            } else if rawMove.hasSuffix("!") || rawMove.hasSuffix("?") {
+                annotation = String(rawMove.suffix(1))
+                move =  String(rawMove.dropLast())
+            } else {
+                move =  rawMove
+            }
+            
             if move == ")" {
                 print("whaaat")
             }
             if !currentNode.children.contains(where: {$0.move==move}) {
-                newNode = GameNode(moveString: move, parent: currentNode)
+                newNode = GameNode(moveString: move, annotation: annotation, parent: currentNode)
                 currentNode.children.append(newNode)
             } else {
                 newNode = currentNode.children.first(where: {$0.move==move})!
             }
             return newNode
-        }
-        
-        func clean(_ rawMove: String) -> String {
-            if rawMove.hasSuffix("!?") || rawMove.hasSuffix("?!") || rawMove.hasSuffix("!!") || rawMove.hasSuffix("??") {
-                return String(rawMove.dropLast(2))
-            } else if rawMove.hasSuffix("!") || rawMove.hasSuffix("?") {
-                return String(rawMove.dropLast())
-            } else {
-                return rawMove
-            }
         }
         
         func isMoveNumberWhite(_ str: String) -> Bool {

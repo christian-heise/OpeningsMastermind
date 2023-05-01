@@ -73,6 +73,7 @@ struct TrainView: View {
                     .disabled(gameTree.gameState > 0 ? false : true)
                 }
                 .padding(10)
+                Text("Annotation: " + (gameTree.currentNode!.annotation ?? "nix"))
             }
         }
         .onAppear() {

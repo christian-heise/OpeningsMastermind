@@ -116,6 +116,8 @@ class GameTree: ObservableObject, Identifiable, Codable {
         
         rootNode =  try GameNode.decodeRecursively(from: decoder)
         
+//        rootNode = try container.decode(GameNode.self, forKey: .rootNode)
+        
         let userColorString = try container.decode(String.self, forKey: .userColor)
         userColor = userColorString=="white" ? .white : .black
         

@@ -94,7 +94,9 @@ struct ChessBoardView: View {
                                                     if tupel.0 {
                                                         print("Move is in Database")
                                                         game.make(move: move)
-                                                        makeNextMove()
+                                                        Task {
+                                                            await makeNextMove()
+                                                        }
                                                     } else {
                                                         print("Move is NOT in Database")
                                                         gameTree.gameCopy = self.game.deepCopy()
@@ -141,13 +143,23 @@ struct ChessBoardView: View {
         return min(size.width, size.height) / 8
     }
     
-    func makeNextMove() {
+    func makeNextMove() async {
         if self.gameTree.currentNode!.children.isEmpty {
             self.gameTree.gameState = 2
             return
         }
         let (newMove, newNode) = self.gameTree.generateMove(game: game)
         
+        await delayMove(newMove: newMove, newNode: newNode)
+//        self.game.make(move: newMove!)
+//        if newNode!.children.isEmpty {
+//            self.gameTree.gameState = 2
+//        }
+//        self.gameTree.currentNode = newNode!
+    }
+    
+    func delayMove(newMove: Move?, newNode: GameNode?) async {
+        try? await Task.sleep(for: .milliseconds(500))
         self.game.make(move: newMove!)
         if newNode!.children.isEmpty {
             self.gameTree.gameState = 2
