@@ -193,8 +193,8 @@ struct AddStudyView: View {
     
     func addExamples() {
         if exampleSelection.isEmpty { return }
-        
-        for example in exampleSelection {
+        let examplesArray = Array(self.exampleSelection).sorted(by: {$0.gameTree!.name < $1.gameTree!.name})
+        for example in examplesArray {
             self.database.addNewGameTree(example.gameTree!)
         }
         dismiss()
