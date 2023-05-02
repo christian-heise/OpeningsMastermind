@@ -35,7 +35,7 @@ struct ExamplePGN: Hashable {
                        ExamplePGN(name: "Danish Gambit Refutation", userColor: .black, fileName: "exampleDanishRefutation"),
                        ExamplePGN(name: "Scotch Gambit", userColor: .white, fileName: "exampleScotchGambit"),
                        ExamplePGN(name: "Smith Morra Gambit", userColor: .white, fileName: "exampleSmithMorra"),
-                       ExamplePGN(name: "Englund Gambit Refutation", userColor: .white, fileName: "exampleEnglundRefutation")]
+                       ExamplePGN(name: "Englund Gambit Refutation", userColor: .white, fileName: "exampleEnglundRefutation")].sorted(by: {$0.gameTree!.name < $1.gameTree!.name})
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

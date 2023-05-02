@@ -196,7 +196,6 @@
 				AAA1A1D029F2DF7D003F153F /* TrainView.swift */,
 				AAA1A1A929F0263F003F153F /* ChessBoardView.swift */,
 				AAA1A1D629F42E7F003F153F /* AddStudyView.swift */,
-				AA87F3DC2A013A34009D7017 /* AnnotationView.swift */,
 				AAC889A429F802450079ECE5 /* PGNHelpView.swift */,
 				AAC6431229F8206600D1C12E /* SubSettings */,
 			);
@@ -218,6 +217,7 @@
 		AAA1A1DA29F44360003F153F /* Shapes */ = {
 			isa = PBXGroup;
 			children = (
+				AA87F3DC2A013A34009D7017 /* AnnotationView.swift */,
 				AAA1A1C929F2CC44003F153F /* ArrowShape.swift */,
 			);
 			path = Shapes;
