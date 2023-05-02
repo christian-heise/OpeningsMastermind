@@ -27,7 +27,7 @@ struct AddStudyView: View {
     
     @State private var showingPGNHelp = false
     
-    @State private var examplePicker = 0
+    @State private var examplePicker = 1
     
     @State private var exampleSelection = Set<ExamplePGN>()
     
@@ -139,8 +139,10 @@ struct AddStudyView: View {
                 } else {
                     List(selection: $exampleSelection) {
                         ForEach(ExamplePGN.list, id: \.self) { listItem in
-                            HStack {
+                            VStack(alignment: .leading) {
                                 Text(listItem.gameTree!.name)
+                                Text("created by " + listItem.creator)
+                                    .font(Font.caption2)
                             }
                         }
                         .listRowBackground(colorScheme == .dark ? [28,28,30].getColor():Color.white)
@@ -165,7 +167,6 @@ struct AddStudyView: View {
                     .padding(.bottom)
                 
             }
-//            .padding()
             .navigationTitle(Text("Add Study"))
             .environment(\.editMode, $editMode)
             .toolbar {

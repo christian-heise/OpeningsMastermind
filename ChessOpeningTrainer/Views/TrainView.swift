@@ -33,7 +33,6 @@ struct TrainView: View {
                 Spacer()
                 ChessBoardView(game: $game, gameTree: gameTree, settings: settings)
                     .rotationEffect(.degrees(gameTree.userColor == .white ? 0 : 180))
-                    .navigationTitle(Text("Training"))
                     .frame(maxHeight: geo.size.width)
                 Spacer()
                 Text(text)
@@ -50,7 +49,6 @@ struct TrainView: View {
                         Text("Revert Last Move")
                             .padding()
                             .foregroundColor(.white)
-                        //                          .background([217,83,79].getColor())
                             .background([223,110,107].getColor())
                             .cornerRadius(10)
                     }
@@ -76,6 +74,7 @@ struct TrainView: View {
                 }
                 .padding(10)
             }
+            .navigationTitle(Text(self.gameTree.name))
         }
         .navigationBarBackButtonHidden(true)
         .onAppear() {

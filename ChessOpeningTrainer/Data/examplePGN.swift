@@ -9,17 +9,14 @@ import Foundation
 import ChessKit
 
 struct ExamplePGN: Hashable {
-//    static let exampleGameTrees = [GameTree(name: "Smith Morra Gambit", pgnString: examplePGNSmithMorra, userColor: .white),
-//                            GameTree(name: "Scotch Gambit", pgnString: examplePGNScotchGambit, userColor: .white),
-//                            GameTree(name: "Danish Gambit Refutation", pgnString: examplePGNDanishRefutation, userColor: .black),
-//                            GameTree(name: "Englund Gambit Refuntation", pgnString: examplePGNEnglundRefutation, userColor: .white),
-//                            GameTree(name: "Caro Kann Goldman Variation", pgnString: examplePGNCaroKannGoldMan, userColor: .white)]
     
     let gameTree: GameTree?
+    let creator: String
     var isChecked = true
     let id = UUID()
     
-    init(name: String, userColor: PieceColor, fileName: String) {
+    init(name: String, userColor: PieceColor, fileName: String, creator: String) {
+        self.creator = creator
         if let startWordsURL = Bundle.main.url(forResource: fileName, withExtension: "pgn") {
             if let pgnString = try? String(contentsOf: startWordsURL) {
                 self.gameTree = GameTree(name: name, pgnString: pgnString, userColor: userColor)
@@ -31,11 +28,11 @@ struct ExamplePGN: Hashable {
         }
     }
     
-    static let list = [ExamplePGN(name: "Caro Kann Goldman Variation", userColor: .white, fileName: "exampleCaroKannGoldman"),
-                       ExamplePGN(name: "Danish Gambit Refutation", userColor: .black, fileName: "exampleDanishRefutation"),
-                       ExamplePGN(name: "Scotch Gambit", userColor: .white, fileName: "exampleScotchGambit"),
-                       ExamplePGN(name: "Smith Morra Gambit", userColor: .white, fileName: "exampleSmithMorra"),
-                       ExamplePGN(name: "Englund Gambit Refutation", userColor: .white, fileName: "exampleEnglundRefutation")].sorted(by: {$0.gameTree!.name < $1.gameTree!.name})
+    static let list = [ExamplePGN(name: "Caro Kann Goldman Variation", userColor: .white, fileName: "exampleCaroKannGoldman", creator: "xJimmyCx on Lichess.com"),
+                       ExamplePGN(name: "Danish Gambit Refutation", userColor: .black, fileName: "exampleDanishRefutation", creator: "RebeccaHarris on Lichess.com"),
+                       ExamplePGN(name: "Scotch Gambit", userColor: .white, fileName: "exampleScotchGambit", creator: "tgood on Lichess.com"),
+                       ExamplePGN(name: "Smith Morra Gambit", userColor: .white, fileName: "exampleSmithMorra", creator: "yooloo, mineriva, ThatRaisinTho on Lichess.com"),
+                       ExamplePGN(name: "Englund Gambit Refutation", userColor: .white, fileName: "exampleEnglundRefutation", creator: "RebeccaHarris on Lichess.com")].sorted(by: {$0.gameTree!.name < $1.gameTree!.name})
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
