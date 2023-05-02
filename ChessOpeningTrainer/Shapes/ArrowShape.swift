@@ -13,9 +13,9 @@ struct ArrowShape: Shape {
         var path = Path()
         var points = [CGPoint]()
         
-        let arrowWidth = min(rect.maxY, CGFloat(35))
-        let lineWidth = min(arrowWidth*0.5,CGFloat(15))
-        let arrowLength = min(rect.maxX*0.5, CGFloat(25))
+        let arrowWidth = rect.maxY
+        let lineWidth = arrowWidth*0.5
+        let arrowLength = rect.maxY*0.8
         
         // Define arrow points
         points.append(CGPoint(x: rect.minX, y: rect.midY + lineWidth/2))

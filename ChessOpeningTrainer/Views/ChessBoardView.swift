@@ -50,29 +50,24 @@ struct ChessBoardView: View {
                     .stroke(Color.black, lineWidth: 1)
                     .frame(width: 8 * squareLength(in: geo.size), height: 8 * squareLength(in: geo.size))
                     .position(x: geo.size.width/2,y: 4 * squareLength(in: geo.size))
-            }
-            
-            if gameTree.gameState == 1 {
-                if let rightMove = self.gameTree.rightMove {
-                    ArrowShape()
-                        .frame(width: calcArrowWidth(for: rightMove, in: geo.size))
-                        .rotationEffect(.degrees(calcArrowAngleDeg(for: rightMove, in: geo.size)))
-                    //                        .position(CGPoint(x:0,y:0))
-                        .position(calcArrowPosition(for: rightMove, in: geo.size))
-                        .opacity(0.7)
-                        .foregroundColor(.green)
-                        .zIndex(50)
+                if gameTree.gameState == 1 {
+                    if let rightMove = self.gameTree.rightMove {
+                        ArrowShape()
+                            .frame(width: calcArrowWidth(for: rightMove, in: geo.size), height: squareLength(in: geo.size)*0.6)
+                            .rotationEffect(.degrees(calcArrowAngleDeg(for: rightMove, in: geo.size)))
+                            .position(calcArrowPosition(for: rightMove, in: geo.size))
+                            .opacity(0.7)
+                            .foregroundColor(.green)
+                            .zIndex(50)
+                    }
                 }
-            }
-            
-            ZStack {
+
                 let pieces = game.position.board.enumeratedPieces()
                 ForEach(pieces, id: \.0) { piece in
                     Image(imageNames[piece.1.color]?[piece.1.kind] ?? "")
                         .resizable()
                         .frame(width: squareLength(in: geo.size),height: squareLength(in: geo.size))
                         .rotationEffect(.degrees(gameTree.userColor == .white ? 0 : 180))
-//                        .position(x: squareLength(in: geo.size) * (CGFloat(piece.0.file) + 0.5), y: squareLength(in: geo.size) * (8 - CGFloat(piece.0.rank) - 0.5))
                         .position(x: geo.size.width/2 + (CGFloat(piece.0.file) - 3.5) * squareLength(in: geo.size), y: squareLength(in: geo.size)*4 - (CGFloat(piece.0.rank) - 3.5) * squareLength(in: geo.size))
                         .offset(offsets[indexFromSquare(piece.0)])
                         .gesture(
@@ -181,15 +176,6 @@ struct ChessBoardView: View {
         }
         let (newMove, newNode) = self.gameTree.generateMove(game: game)
         
-        await delayMove(newMove: newMove, newNode: newNode)
-//        self.game.make(move: newMove!)
-//        if newNode!.children.isEmpty {
-//            self.gameTree.gameState = 2
-//        }
-//        self.gameTree.currentNode = newNode!
-    }
-    
-    func delayMove(newMove: Move?, newNode: GameNode?) async {
         try? await Task.sleep(for: .milliseconds(300))
         self.game.make(move: newMove!)
         if newNode!.children.isEmpty {
