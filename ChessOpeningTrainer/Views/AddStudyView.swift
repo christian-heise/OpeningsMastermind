@@ -109,6 +109,8 @@ struct AddStudyView: View {
                             }
                             .autocorrectionDisabled(true)
                             .keyboardType(.asciiCapable)
+                            .scrollContentBackground(.hidden)
+                            .background(RoundedRectangle(cornerRadius: 8).fill(colorScheme == .dark ? .black : .white))
                             .overlay(RoundedRectangle(cornerRadius: 8).stroke(pgnError ? Color.red : Color.gray, lineWidth: pgnError ? 1 : 0.5))
                     }
                     .padding(.top)
@@ -141,7 +143,7 @@ struct AddStudyView: View {
                                 Text(listItem.gameTree!.name)
                             }
                         }
-                        .listRowBackground(Color.white)
+                        .listRowBackground(colorScheme == .dark ? [28,28,30].getColor():Color.white)
                     }.listStyle(.inset)
                         
                     
