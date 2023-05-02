@@ -99,20 +99,30 @@ struct AddStudyView: View {
                             }
                             Spacer()
                         }
-                        TextEditor(text: $pgnString)
-                            .frame(minHeight: 40)
-                            .padding(4)
-                            .onSubmit {
-                                addStudy()
+                        ZStack(alignment: .topLeading) {
+                            if pgnString.isEmpty {
+                                Text("Enter PGN here")
+                                    .foregroundColor(.gray)
+                                    .opacity(0.7)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 11)
+                                    .zIndex(10)
                             }
-                            .onTapGesture {
-                                pgnError = false
-                            }
-                            .autocorrectionDisabled(true)
-                            .keyboardType(.asciiCapable)
-                            .scrollContentBackground(.hidden)
-                            .background(RoundedRectangle(cornerRadius: 8).fill(colorScheme == .dark ? .black : .white))
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(pgnError ? Color.red : Color.gray, lineWidth: pgnError ? 1 : 0.5))
+                            TextEditor(text: $pgnString)
+                                .frame(minHeight: 40)
+                                .padding(4)
+                                .onSubmit {
+                                    addStudy()
+                                }
+                                .onTapGesture {
+                                    pgnError = false
+                                }
+                                .autocorrectionDisabled(true)
+                                .keyboardType(.asciiCapable)
+                                .scrollContentBackground(.hidden)
+                                .background(RoundedRectangle(cornerRadius: 8).fill(colorScheme == .dark ? .black : .white))
+                                .overlay(RoundedRectangle(cornerRadius: 8).stroke(pgnError ? Color.red : Color.gray, lineWidth: pgnError ? 1 : 0.5))
+                        }
                     }
                     .padding(.top)
                     .padding(.horizontal)
