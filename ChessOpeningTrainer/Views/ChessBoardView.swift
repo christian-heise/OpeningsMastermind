@@ -118,8 +118,35 @@ struct ChessBoardView: View {
                         .zIndex(self.draggedSquare==piece.0 ? 1000:0)
                 }
             }
+            ZStack {
+                if let currentNode = gameTree.currentNode {
+                    if let annotation_current = currentNode.annotation {
+                        if annotation_current != "" {
+                            AnnotationView(annotation: annotation_current)
+                                .frame(width: squareLength(in: geo.size)*0.5)
+                                .position(positionAnnotation(game.movesHistory.last!.to, in: geo.size))
+                        }
+
+                    }
+                    if let parent = currentNode.parent {
+                        if let annotation_last = parent.annotation {
+                            if annotation_last != "" {
+                                AnnotationView(annotation: annotation_last)
+                                    .frame(width: squareLength(in: geo.size)*0.5)
+                                    .position(positionAnnotation(game.movesHistory.suffix(2).first!.to, in: geo.size))
+                            }
+                        }
+                    }
+                }
+            }
         }
 
+    }
+    
+    func positionAnnotation(_ square: Square, in size: CGSize) -> CGPoint {
+        let point_square = pointFromSquare(square, in: size)
+        
+        return CGPoint(x:point_square.x + squareLength(in: size)*0.35, y:point_square.y - squareLength(in: size)*0.35)
     }
     
     func indexFromSquare(_ square: Square) -> Int {
