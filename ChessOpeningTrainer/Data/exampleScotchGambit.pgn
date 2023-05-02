@@ -1,0 +1,195 @@
+[Event "Scotch Gambit: Scotch Gambit and Scotch Refused"]
+[Site "https://lichess.org/study/d05kyFwr/3l4fjbW8"]
+[Result "*"]
+[UTCDate "2021.11.30"]
+[UTCTime "16:15:03"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game: Scotch Gambit"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 { After the standard King's Knight opening, White opts for the Scotch Game. Black is forced to take, as any other move gives white an immediate advantage. } (3... f6 4. dxe5 (4. d5 Nce7) 4... fxe5 (4... Nxe5 { A major blunder, as } 5. Nxe5 fxe5 6. Qh5+ g6 (6... Ke7 7. Qxe5+ Kf7 8. Bc4+ d5 9. Bxd5+ { [%cal Gd8d5,Ge5d5,Gd5a8,Gd5g8,Gc8e6] } 9... Be6 10. Qxe6#) 7. Qxe5+ Qe7 8. Qxh8 { wins the rook. }) 5. Bc4 { As the f pawn was displaced, White's bishop is extremely powerful, preventing Black from castling. Apart from normal development, there is the idea to open the a2 square for the bishop, maintaining the restriction while removing the bishop as an exposed target. } { [%csl Ga2][%cal Gc4g8,Ga2a3,Gc4a2,Ge1g1] })  (3... d6 4. d5 Nce7 (4... Nb4 5. a3 Na6 6. b4) 5. c4 { White has won the center without losing momentum, as Black has had no opportunity to break ahead in development. } { [%cal Gf1e2,Gb1c3,Gc1e3,Ge1g1] })  (3... Bd6 4. d5 Nce7 5. Bg5 h6 6. Bh4 f6 (6... g5 7. Bg3) 7. a3 Bc5 8. b4 Bb6 9. c4 { Again White has a clear space advantage, with aims to complete development and claim the c-file with the rook to respond to Black's attempted pawn breaks. } { [%cal Gb1d2,Ga1c1] }) 4. Bc4!! { White enters the Scotch Gambit, the focus of this study. Black has many moves, all of which will be developed on. } { [%cal Gf8e7,Gf8c5,Gf8b4,Gg8f6,Gd7d6] } *
+
+
+[Event "Scotch Gambit: Scotch Gambit, Benima Defense - Be7"]
+[Site "https://lichess.org/study/d05kyFwr/IiBg9NGE"]
+[Result "*"]
+[UTCDate "2021.11.30"]
+[UTCTime "16:15:03"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game: Benima Defense"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Bc4 Be7 5. c3 dxc3 6. Qd5 { [%cal Gc4f7,Gd5f7] } 6... Nh6 $7 7. Bxh6 O-O 8. Bxg7 (8. Bc1? { As Black can play } 8... Nb4 { attacking White's queen and threatening a fork. } 9. Qd1 { does not work due to } 9... c2 { [%cal Gc2b1,Gc2d1] }) 8... Kxg7 9. Nxc3 { Generally not a fun position for Black; White has aims to bring in the rooks and rotate the bishop and queen, many ways to press their advantage. } { [%cal Ge1g1,Gd5d3,Gc4b3,Gb3c2,Gc2h7,Gd3h7] } *
+
+
+[Event "Scotch Gambit: Scotch Gambit, London Defense, Göring Variation - Bb4, cxb2"]
+[Site "https://lichess.org/study/d05kyFwr/LOeab1z6"]
+[Result "*"]
+[UTCDate "2021.11.30"]
+[UTCTime "16:15:03"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game: Scotch Gambit, London Defense"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Bc4 Bb4+ 5. c3 dxc3 6. O-O cxb2 7. Bxb2 { After Black takes the b2 pawn, White arrives in a situation similar to the Danish and Göring Gambits, controlling two long diagonals. Many ideas from those gambits can be used here. } { [%cal Gb2h8,Gb2a1,Gc4a2,Gc4g8] } 7... f6 8. Nh4 { Kf8 is the best move for Black, however this is so unnatural that few players will find it, everything else is a deadly mistake. } { [%csl Ge8][%cal Gh4g6,Gh4f5,Ge8f8] } 8... Nge7 (8... d6 9. Qh5+ g6 10. Nxg6 hxg6 11. Qxh8)  (8... Ne5 9. Bxe5 fxe5 10. Qh5+ g6 11. Qxe5+ { [%cal Ge5e8,Ge5h8] }) 9. Bxf6 gxf6 10. Qh5+ Ng6 11. Nxg6 hxg6 { Here begins the checkmate sequence of the Black king. } 12. Qxg6+ Ke7 13. Qf7+ Kd6 14. Rd1+ Bd2 15. Rxd2+ Nd4 16. Rxd4+ Kc5 17. Qd5+ Kb4 18. Qb5# *
+
+
+[Event "Scotch Gambit: Scotch Gambit h6"]
+[Site "https://lichess.org/study/d05kyFwr/n8Fncwiu"]
+[Result "*"]
+[UTCDate "2022.01.03"]
+[UTCTime "14:21:59"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game: Scotch Gambit"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Bc4 h6 5. O-O (5. Nxd4) 5... Nf6 6. e5 d5 7. Bb5 Ne4 8. Nxd4 *
+
+
+[Event "Scotch Gambit: Scotch Gambit, London Defense - Bb4, Ne7"]
+[Site "https://lichess.org/study/d05kyFwr/yq9pXRiU"]
+[Result "*"]
+[UTCDate "2021.11.30"]
+[UTCTime "16:15:03"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game: Scotch Gambit, London Defense"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Bc4 Bb4+ 5. c3 dxc3 6. O-O Nge7 { Nf6 is a main line, so its concepts will not be explored in this chapter. } (6... Nf6 7. bxc3 Bc5 8. e5 d5 9. exf6 dxc4 10. fxg7 Rg8 11. Qxd8+ Nxd8 12. Re1+ Ne6 13. Ba3 Bxa3 14. Nxa3 Rxg7 15. Nxc4 b6 16. Ne3 Bb7 17. Nh4 Rg5 18. Nhf5 Kf8 19. h4 Rg6 20. Ng3 Nc5 21. Rad1 Re8 22. Rd4 Bc8 23. Re2 Nb7 24. Rc4 Re7 25. Kh2 Nd6 26. Ra4 a6 27. Rd2 Re5 28. Rd3 Rh6 29. Kg1 Nb5 30. Rc4 Be6 31. Ra4 a5 32. Ne2 Rc5 33. f3 Ke8 34. Kf2 Nd6 35. Ng4 Rg6 36. Ne3 Nc4 37. Nxc4 Bxc4 38. Re3+ Kf8 39. Nd4 Ba6 40. g4 Rd6 41. h5 Rd8 42. h6 Re8 43. Nf5 Rxe3 44. Nxe3 Rxc3 45. Nd5 Rc6 { Cumming, David R. - Potrata, Janko, 1/2-1/2, WLS/SRCCC/19/D1 (WLS), 2019, https://lichess.org/VOfXG8oH }) 7. bxc3 { [%cal Gb4a5,Gb4c5] } 7... Bc5 { Regardless of Ba5 or Bc5, White plays the same. } 8. Ng5 O-O (8... Ne5 9. Nxf7 Nxf7 10. Bxf7+ Kxf7 11. Qh5+ Ng6 12. Qxc5)  (8... d5 9. Bxd5 Nxd5 10. exd5) 9. Qh5 { [%cal Gh5h7,Gh5f7] } 9... h6 10. Nxf7 Qe8 (10... Rxf7 11. Bxf7+ Kh7 12. Qxc5) 11. Nxh6+ Kh8 12. Nf7+ Kg8 13. Qh8# *
+
+
+[Event "Scotch Gambit: Scotch Gambit, Advance Variation - Nf6, Qe7"]
+[Site "https://lichess.org/study/d05kyFwr/fNYxZ5E8"]
+[Result "*"]
+[UTCDate "2021.11.30"]
+[UTCTime "16:15:03"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game: Scotch Gambit, Advance Variation"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Bc4 Nf6 5. e5 Qe7 { Black might try being smart with a pin, but this is easily avoided by castling. } { [%cal Ge7e1] } 6. O-O Nxe5 { Sometimes Black can be baited and 'win' the pawn, however this leads to } (6... Ng4 7. Re1) 7. Nxe5 Qxe5 8. Re1 { skewering the queen. } 8... Ne4 { is forced, to which we play } 9. f4 { [%csl Gf6][%cal Ge5f6,Ge1e4] } 9... Qe7 { , Black can barely save their knight, losing castling privileges and all development on the board. } { [%cal Ge5d7] } (9... Qf5 { Black is just plain worse } 10. g4 Qg6 11. f5 Qc6 12. Qd3 { [%cal Ge1e4,Ge4e8] } (12. Qxd4?? Bc5) 12... Be7 13. Rxe4) 10. Nd2 f5 11. Nxe4 fxe4 12. Qxd4 { [%cal Ge1e4,Ge4e8] } 12... Kd8 13. Rxe4 *
+
+
+[Event "Scotch Gambit: Scotch Gambit, Advance Variation - Nf6, Ne4"]
+[Site "https://lichess.org/study/d05kyFwr/a2TwKeMe"]
+[Result "*"]
+[UTCDate "2021.11.30"]
+[UTCTime "16:15:03"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game: Scotch Gambit, Advance Variation"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Bc4 Nf6 5. e5 Ne4 6. Qe2 Nc5 (6... d5 7. exd6 f5 8. dxc7 (8. Ng5 { [%csl Gd8] } 8... Bxd6 (8... Qxd6 9. Nf7 Qg6 10. O-O Rg8 11. Ng5 d3 12. Qxd3 Nxg5 13. Bxg5 Qxg5 14. Re1+ Be7 15. Bxg8)) 8... Qxc7 9. Nbd2 Be7 (9... Bb4 10. O-O Qe7 11. Re1 Nxd2 12. Bxd2 Qxe2 13. Rxe2+ Kd8 14. Bxb4 Nxb4 15. Nxd4 Re8 16. Rd2 { [%csl Gd7] } 16... b6 17. Nb5+ { [%csl Gd8] } 17... Bd7 (17... Ke7 18. Re1+ Kf8 19. Rxe8+ Kxe8 20. Nc7+ Ke7 21. Nxa8)) 10. Nxe4 fxe4 11. Qxe4 { [%cal Ge1g1,Gf3g5,Gg5f7] }) 7. O-O *
+
+
+[Event "Scotch Gambit: Scotch Gambit, Advance Variation - Nf6, Nh5"]
+[Site "https://lichess.org/study/d05kyFwr/f6dXRhvD"]
+[Result "*"]
+[UTCDate "2021.11.30"]
+[UTCTime "16:15:03"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game: Scotch Gambit, Advance Variation"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Bc4 Nf6 5. e5 Nh5 6. Ng5 { [%cal Gd1h5] } 6... Nxe5 { Often, Black will take the free pawn, offering what they see as an equal trade between their knight and our bishop. This is a mistake. } 7. O-O Nxc4 { Castling baits Black into capturing our bishop, however this allows White to unleash a devastating line. } 8. Re1+ Be7 9. Qxh5 g6 { We proceed to rotate our queen, not offering any chance for counterplay. } { [%cal Gh5h6,Gh6g7,Gg7f7] } 10. Qh6 d6 11. Qg7 Rf8 12. Nxh7 { White threatens to take Black's rook, but more importantly a classy smothered mate with the pinned bishop. } { [%cal Gh7f6,Gf6e8,Gf6d7] } 12... Be6 { Blocks pin on Black's dark-square bishop, preventing smothered mate. } (12... Ne5 { Attempts same block, however } 13. f4 Nf3+ 14. gxf3 { puts Black into practically the same position, just down a knight. })  (12... Kd7 13. Nxf8+ Qxf8 14. Qxd4 { No more traps,but a much better position for White. }) 13. Nxf8 Bxf8 14. Qxd4 { [%cal Gd4c4] } *
+
+
+[Event "Scotch Gambit: Scotch Gambit, Kingside Variation - Nf6, Ng4"]
+[Site "https://lichess.org/study/d05kyFwr/k4VkpxLu"]
+[Result "*"]
+[UTCDate "2021.11.30"]
+[UTCTime "16:15:03"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game: Scotch Gambit, Kingside Variation"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Bc4 Nf6 5. e5 Ng4 6. Qe2 Qe7 7. Bf4 { This position is much more difficult for White due to Black's strong defence. White must provoke trades before arriving in a manageable position. } 7... d6 8. exd6 Qxe2+ 9. Bxe2 Bxd6 10. Bxd6 cxd6 11. Na3 { [%cal Ga3b5,Gb5d6,Gb5d4,Gb5c7] } 11... O-O 12. Rd1 { [%cal Ga3c4,Gf3d4,Gd1d4,Ge1g1,Gh2h3] } *
+
+
+[Event "Scotch Gambit: Scotch Gambit, Haxo Gambit - Bc5"]
+[Site "https://lichess.org/study/d05kyFwr/JcqQ2orm"]
+[Result "*"]
+[UTCDate "2021.11.30"]
+[UTCTime "22:57:35"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game: Cochrane-Shumov Defense"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Bc4 Bc5 5. Ng5 Nh6 { [%cal Gd1h5] } (5... Ne5 6. Nxf7 { [%csl Gg7][%cal Ge5c4,Gf7h8,Gd1h5,Gh5c5] } (6. Bxf7+ Nxf7 7. Nxf7 Kxf7 8. Qh5+ g6 9. Qxc5) 6... Nxf7 7. Bxf7+ Kf8 (7... Kxf7 { [%cal Gd1h5,Gh5c5] } 8. Qh5+ { [%cal Gf7e7,Gf7f6,Gf7f8,Gh5c5,Gc5f8] } 8... g6 { [%csl Gc5][%cal Gh5c5] }) 8. O-O (8. Bc4 { [%cal Gg8f6,Gd7d5,Ge4d5] } 8... Nf6) 8... Qh4 { [%cal Gf7b3] } 9. Bb3 Qxe4 10. Re1 Qg6 11. Na3 d6 12. Nb5 Bg4 13. f3 Bh3 14. g3 Bb6 15. Nxd4 Nf6 16. Kh1 Nh5 17. Ne6+ Bxe6 18. Rxe6 Nf6 19. Bf4 Re8 20. Bxd6+ cxd6 21. Qxd6+ Re7 22. Qxe7+ Kg8 23. Qd8+ Ne8 24. Rxe8#)  (5... h6 6. Nxf7 Qe7) 6. Nxf7 (6. Qh5 Ne5 7. Ne6 dxe6 8. Qxe5 Qd6 9. Qxg7 Rg8 10. Qxh6) 6... Nxf7 7. Bxf7+ Kxf7 8. Qh5+ g6 9. Qxc5 d5 10. Bf4 dxe4 11. Nd2 e3 12. fxe3 { [%csl Ge3] } 12... Qe7 *
+
+
+[Event "Scotch Gambit: Scotch Gambit Refused f7"]
+[Site "https://lichess.org/study/d05kyFwr/LqXzfpJE"]
+[Result "*"]
+[UTCDate "2021.12.14"]
+[UTCTime "00:41:40"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 f5 4. Nxe5 fxe4 { [%cal Gg7g6] } (4... Nxe5 5. dxe5 fxe4 6. Nc3 { [%csl Gg5] } 6... Bb4 { [%cal Gd1d4,Gd4e4,Gd4b4] } (6... d6 7. Nxe4 dxe5 8. Qh5+ g6 9. Qxe5+)) 5. Nxc6 dxc6 6. Qh5+ g6 7. Qe5+ { [%cal Ge5e8,Ge5h8] } *
+
+
+[Event "Scotch Gambit: Scotch Gambit Refused (Philidor defense) Bxg4"]
+[Site "https://lichess.org/study/d05kyFwr/3mkJYZXr"]
+[Result "*"]
+[UTCDate "2021.12.10"]
+[UTCTime "21:29:31"]
+[Variant "Standard"]
+[ECO "C41"]
+[Opening "Philidor Defense"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 d6 3. d4 Bg4 4. dxe5 dxe5 5. Qxd8+ Kxd8 6. Nxe5 Bh5 { [%cal Gh5f7] } 7. Bc4 *
+
+
+[Event "Scotch Gambit: Scotch Gambit Refused"]
+[Site "https://lichess.org/study/d05kyFwr/OcP7IZIY"]
+[Result "*"]
+[UTCDate "2022.01.03"]
+[UTCTime "22:18:16"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 Bb4+ 4. c3 *
+
+
+[Event "Scotch Gambit: Scotch Gambit, Advanced Variation - Ng8 Ne7"]
+[Site "https://lichess.org/study/d05kyFwr/u03hun8j"]
+[Result "*"]
+[UTCDate "2022.01.04"]
+[UTCTime "14:49:35"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game: Scotch Gambit, Advance Variation"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Bc4 Nf6 5. e5 Ng8 6. O-O Bc5 7. Ng5 Nh6 { [%cal Gf1e1,Gd1h5] } (7... f6 8. Nf7 Qe7 9. Nxh8 Kf8 { [%csl Gf7] } 10. Qh5 Nxe5 11. Qxh7 d5 12. Bxd5 Be6 (12... Nh6 13. Bxh6 c6 14. Qg8#)) 8. Re1 Bb4 9. c3 dxc3 (9... Be7 10. Qh5 Bxg5 (10... O-O 11. Nxh7 Kxh7 12. Bd3+ Kh8 13. Bxh6 gxh6 14. Qxh6+ Kg8 15. Qh7#) 11. Bxg5 { [%cal Gc1g5,Gg5d8] }) 10. Nxc3 Bxc3 11. bxc3 *
+
+
+[Event "Scotch Gambit: Scotch Gambit Ne4 Nf6"]
+[Site "https://lichess.org/study/d05kyFwr/2g3kqTzq"]
+[Result "*"]
+[UTCDate "2022.01.16"]
+[UTCTime "01:59:40"]
+[Variant "Standard"]
+[ECO "C44"]
+[Opening "Scotch Game: Lolli Variation"]
+[Annotator "https://lichess.org/@/tgood"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 Nxd4 4. Nxd4 exd4 5. Qxd4 Nf6 6. e5 c5 7. Qf4 Nd5 8. Qf3 Nc7 9. Bc4 d5 *
+
+

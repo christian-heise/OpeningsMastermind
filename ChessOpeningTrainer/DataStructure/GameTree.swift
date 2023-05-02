@@ -41,7 +41,7 @@ class GameTree: ObservableObject, Identifiable, Codable {
     }
     
     static func example() -> GameTree {
-        return GameTree(name: "Example", pgnString: examplePGN, userColor: .white)
+        return ExamplePGN.list.randomElement()!.gameTree!
     }
     
     public func generateMove(game: Game) -> (Move?, GameNode?) {

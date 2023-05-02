@@ -24,7 +24,7 @@ struct SettingsView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section() {
                     ColorPicker("White board squares", selection: $colorWhite, supportsOpacity: false)

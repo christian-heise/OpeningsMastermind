@@ -120,20 +120,24 @@ struct ChessBoardView: View {
             }
             ZStack {
                 if let currentNode = gameTree.currentNode {
-                    if let annotation_current = currentNode.annotation {
-                        if annotation_current != "" {
-                            AnnotationView(annotation: annotation_current)
-                                .frame(width: squareLength(in: geo.size)*0.5)
-                                .position(positionAnnotation(game.movesHistory.last!.to, in: geo.size))
+                    if gameTree.gameState != 1 {
+                        if let annotation_current = currentNode.annotation {
+                            if annotation_current != "" {
+                                AnnotationView(annotation: annotation_current)
+                                    .frame(width: squareLength(in: geo.size)*0.5)
+                                    .position(positionAnnotation(game.movesHistory.last!.to, in: geo.size))
+                            }
+                            
                         }
-
                     }
                     if let parent = currentNode.parent {
-                        if let annotation_last = parent.annotation {
-                            if annotation_last != "" {
-                                AnnotationView(annotation: annotation_last)
-                                    .frame(width: squareLength(in: geo.size)*0.5)
-                                    .position(positionAnnotation(game.movesHistory.suffix(2).first!.to, in: geo.size))
+                        if game.movesHistory.suffix(2).first!.to != game.movesHistory.last!.to {
+                            if let annotation_last = parent.annotation {
+                                if annotation_last != "" {
+                                    AnnotationView(annotation: annotation_last)
+                                        .frame(width: squareLength(in: geo.size)*0.5)
+                                        .position(positionAnnotation(game.movesHistory.suffix(2).first!.to, in: geo.size))
+                                }
                             }
                         }
                     }
@@ -186,7 +190,7 @@ struct ChessBoardView: View {
     }
     
     func delayMove(newMove: Move?, newNode: GameNode?) async {
-        try? await Task.sleep(for: .milliseconds(500))
+        try? await Task.sleep(for: .milliseconds(300))
         self.game.make(move: newMove!)
         if newNode!.children.isEmpty {
             self.gameTree.gameState = 2
@@ -212,7 +216,9 @@ struct ChessBoardView: View {
     
     func determineRightMove() -> Move {
         let decoder = SanSerialization.default
-        return decoder.move(for: self.gameTree.currentNode!.children.first!.move, in: self.game)
+        let move = decoder.move(for: self.gameTree.currentNode!.children.first!.move, in: self.game)
+        gameTree.currentNode = gameTree.currentNode!.children.first!
+        return move
     }
 }
 

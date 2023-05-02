@@ -14,7 +14,9 @@ struct AddStudyView: View {
     @ObservedObject var database: DataBase
     
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
+    
+    @State private var editMode = EditMode.active
     
     @State private var pgnString = ""
     @State private var nameString = ""
@@ -24,6 +26,10 @@ struct AddStudyView: View {
     @State private var pgnError = false
     
     @State private var showingPGNHelp = false
+    
+    @State private var examplePicker = 0
+    
+    @State private var exampleSelection = Set<ExamplePGN>()
     
     let colors = ["white", "black"]
     
@@ -36,10 +42,9 @@ struct AddStudyView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
-                HStack {
-//                    Text("Name of Study:")
+                if examplePicker == 0 {
                     TextField("Name of Study", text: $nameString)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .overlay(
@@ -51,91 +56,116 @@ struct AddStudyView: View {
                         .onTapGesture {
                             nameError = false
                         }
-                }
-                
-                VStack(alignment: .leading) {
-                    Text("Select your color:")
-                        .font(.headline)
+                        .padding(.horizontal)
                     
-                    Picker("Your Piece Color", selection: $selectedColor) {
-                        ForEach(colors, id:\.self) {
-                            Text($0)
-                        }
-                    }.pickerStyle(.segmented)
-                }
-                .padding(.top)
-                
-                VStack() {
-                    HStack {
-                        Text("Enter the PGN of your study:")
+                    VStack(alignment: .leading) {
+                        Text("Select your color:")
                             .font(.headline)
-                        Button(action: {
-                            self.showingPGNHelp = true
-                        }) {
-                            Image(systemName: "questionmark.circle")
-                        }
-                        .popover(present: $showingPGNHelp, attributes: {
-                            $0.position = .absolute(
-                                originAnchor: .top,
-                                popoverAnchor: .bottom
-                            )
-                            $0.rubberBandingMode = .none
-                        }) {
-                            Templates.Container(
-                                arrowSide: .bottom(.centered),
-                                backgroundColor: [173, 216, 230].getColor()
-                                        )
-                            {
-                                PGNHelpView()
+                        
+                        Picker("Your Piece Color", selection: $selectedColor) {
+                            ForEach(colors, id:\.self) {
+                                Text($0)
                             }
-                            .frame(maxWidth: 200)
-                        }
-                        Spacer()
+                        }.pickerStyle(.segmented)
                     }
-                    TextEditor(text: $pgnString)
-                        .frame(minHeight: 40)
-                        .padding(4)
-                        .onSubmit {
+                    .padding(.top)
+                    .padding(.horizontal)
+                    
+                    VStack() {
+                        HStack {
+                            Text("Enter the PGN of your study:")
+                                .font(.headline)
+                            Button(action: {
+                                self.showingPGNHelp = true
+                            }) {
+                                Image(systemName: "questionmark.circle")
+                            }
+                            .popover(present: $showingPGNHelp, attributes: {
+                                $0.position = .absolute(
+                                    originAnchor: .top,
+                                    popoverAnchor: .bottom
+                                )
+                                $0.rubberBandingMode = .none
+                            }) {
+                                Templates.Container(
+                                    arrowSide: .bottom(.centered),
+                                    backgroundColor: [173, 216, 230].getColor()
+                                )
+                                {
+                                    PGNHelpView()
+                                }
+                                .frame(maxWidth: 200)
+                            }
+                            Spacer()
+                        }
+                        TextEditor(text: $pgnString)
+                            .frame(minHeight: 40)
+                            .padding(4)
+                            .onSubmit {
+                                addStudy()
+                            }
+                            .onTapGesture {
+                                pgnError = false
+                            }
+                            .autocorrectionDisabled(true)
+                            .keyboardType(.asciiCapable)
+                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(pgnError ? Color.red : Color.gray, lineWidth: pgnError ? 1 : 0.5))
+                    }
+                    .padding(.top)
+                    .padding(.horizontal)
+                    HStack {
+                        Button(action: {
+                            if let clipboardString = UIPasteboard.general.string {
+                                pgnString = clipboardString
+                                pgnError = false
+                            }
+                        }) {
+                            Image(systemName: "doc.on.clipboard")
+                            Text("Paste Clipboard")
+                        }
+                        .padding()
+                        
+                        Button(action: {
                             addStudy()
+                        }) {
+                            Image(systemName: "plus.circle.fill")
+                            Text("Add Study")
                         }
-                        .onTapGesture {
-                            pgnError = false
-                        }
-                        .autocorrectionDisabled(true)
-                        .keyboardType(.asciiCapable)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(pgnError ? Color.red : Color.gray, lineWidth: pgnError ? 1 : 0.5))
-                }
-                .padding(.top)
-                HStack {
-                    Button(action: {
-                        if let clipboardString = UIPasteboard.general.string {
-                            pgnString = clipboardString
-                            pgnError = false
-                        }
-                    }) {
-                        Image(systemName: "doc.on.clipboard")
-                        Text("Paste Clipboard")
+                        .foregroundColor(.green)
+                        .padding()
                     }
-                    .padding()
+                } else {
+                    List(selection: $exampleSelection) {
+                        ForEach(ExamplePGN.list, id: \.self) { listItem in
+                            HStack {
+                                Text(listItem.gameTree!.name)
+                            }
+                        }
+                        .listRowBackground(Color.white)
+                    }.listStyle(.inset)
+                        
                     
                     Button(action: {
-                        addStudy()
+                        addExamples()
                     }) {
                         Image(systemName: "plus.circle.fill")
-                        Text("Add Study")
+                        Text("Add selected Studies")
                     }
                     .foregroundColor(.green)
                     .padding()
+                    
                 }
-                Button(action: {
-                    pgnString = examplePGN
-                    nameString = "Smith Morra Gambit"
-                }) {
-                    Text("Add Example PGN")
-                }
+                Picker("awdawd", selection: $examplePicker) {
+                    Text("Custom PGN").tag(0)
+                    Text("Example PGNs").tag(1)
+                }.pickerStyle(.segmented)
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                
             }
-            .padding()
+//            .padding()
             .navigationTitle(Text("Add Study"))
+            .environment(\.editMode, $editMode)
             .toolbar {
                 Button("Dismiss") {
                     dismiss()
@@ -159,6 +189,15 @@ struct AddStudyView: View {
                 pgnError = true
             }
         }
+    }
+    
+    func addExamples() {
+        if exampleSelection.isEmpty { return }
+        
+        for example in exampleSelection {
+            self.database.addNewGameTree(example.gameTree!)
+        }
+        dismiss()
     }
 }
 

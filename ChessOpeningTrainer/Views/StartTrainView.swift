@@ -10,33 +10,26 @@ import SwiftUI
 struct StartTrainView: View {
     @ObservedObject var database: DataBase
     let settings: Settings
-//    @StateObject var settings = Settings()
     
     @State private var showingAddSheet = false
-//    @State private var showingSettingsSheet = false
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
-                List {
+                List() {
                     ForEach(database.gametrees) { gameTree in
                         NavigationLink(destination: TrainView(gameTree: gameTree, settings: settings)) {
                             Text(gameTree.name)
                         }
                     }
                     .onDelete(perform: delete)
+                    .onMove(perform: move)
+                    
                 }
-//                Button("Add Example GameTree", action: {
-//                    self.database.addExampleGameTree()
-//                })
+                
             }
             .navigationTitle(Text("Opening Studies"))
             .toolbar {
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    Button(action: {showingSettingsSheet = true}) {
-//                        Image(systemName: "gear")
-//                    }
-//                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {showingAddSheet = true}) {
                         Image(systemName: "plus")
@@ -46,15 +39,16 @@ struct StartTrainView: View {
             .sheet(isPresented: $showingAddSheet) {
                 AddStudyView(database: database)
             }
-//            .sheet(isPresented: $showingSettingsSheet) {
-//                SettingsView(settings: settings)
-//            }
         }
 //        .toolbar(.visible, for: .tabBar)
     }
     
     func delete(at offsets: IndexSet) {
         database.removeGameTree(at: offsets)
+    }
+    
+    func move(from source: IndexSet, to destination: Int) {
+        database.gametrees.move(fromOffsets: source, toOffset: destination)
     }
 }
 

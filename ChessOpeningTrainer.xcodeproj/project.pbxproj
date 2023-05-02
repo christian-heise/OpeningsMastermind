@@ -23,10 +23,15 @@
 		AAA1A1D129F2DF7D003F153F /* TrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D029F2DF7D003F153F /* TrainView.swift */; };
 		AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D429F415F9003F153F /* DataBase.swift */; };
 		AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D629F42E7F003F153F /* AddStudyView.swift */; };
-		AAA1A1E029F56F32003F153F /* examplePGN.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1DF29F56F32003F153F /* examplePGN.swift */; };
+		AAA1A1E029F56F32003F153F /* ExamplePGN.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1DF29F56F32003F153F /* ExamplePGN.swift */; };
 		AAA1A1E829F6DB3F003F153F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1E729F6DB3F003F153F /* SettingsView.swift */; };
 		AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1E929F6DDD6003F153F /* Settings.swift */; };
 		AAA1A1EC29F6FD86003F153F /* decodePGN.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1EB29F6FD86003F153F /* decodePGN.swift */; };
+		AAB3C3062A0157490094FAB2 /* exampleCaroKannGoldman.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C3052A0157490094FAB2 /* exampleCaroKannGoldman.pgn */; };
+		AAB3C3082A0159410094FAB2 /* exampleSmithMorra.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C3072A0159410094FAB2 /* exampleSmithMorra.pgn */; };
+		AAB3C30A2A01594F0094FAB2 /* exampleScotchGambit.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C3092A01594F0094FAB2 /* exampleScotchGambit.pgn */; };
+		AAB3C30C2A01595F0094FAB2 /* exampleDanishRefutation.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C30B2A01595F0094FAB2 /* exampleDanishRefutation.pgn */; };
+		AAB3C30E2A0159730094FAB2 /* exampleEnglundRefutation.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C30D2A0159730094FAB2 /* exampleEnglundRefutation.pgn */; };
 		AAC6430D29F811C200D1C12E /* StartTrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6430C29F811C200D1C12E /* StartTrainView.swift */; };
 		AAC6431129F8205D00D1C12E /* AcknowledgementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */; };
 		AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431329F9374100D1C12E /* ImpressumView.swift */; };
@@ -74,10 +79,15 @@
 		AAA1A1D029F2DF7D003F153F /* TrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainView.swift; sourceTree = "<group>"; };
 		AAA1A1D429F415F9003F153F /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		AAA1A1D629F42E7F003F153F /* AddStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStudyView.swift; sourceTree = "<group>"; };
-		AAA1A1DF29F56F32003F153F /* examplePGN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = examplePGN.swift; sourceTree = "<group>"; };
+		AAA1A1DF29F56F32003F153F /* ExamplePGN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplePGN.swift; sourceTree = "<group>"; };
 		AAA1A1E729F6DB3F003F153F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AAA1A1E929F6DDD6003F153F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AAA1A1EB29F6FD86003F153F /* decodePGN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = decodePGN.swift; sourceTree = "<group>"; };
+		AAB3C3052A0157490094FAB2 /* exampleCaroKannGoldman.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleCaroKannGoldman.pgn; sourceTree = "<group>"; };
+		AAB3C3072A0159410094FAB2 /* exampleSmithMorra.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleSmithMorra.pgn; sourceTree = "<group>"; };
+		AAB3C3092A01594F0094FAB2 /* exampleScotchGambit.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleScotchGambit.pgn; sourceTree = "<group>"; };
+		AAB3C30B2A01595F0094FAB2 /* exampleDanishRefutation.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleDanishRefutation.pgn; sourceTree = "<group>"; };
+		AAB3C30D2A0159730094FAB2 /* exampleEnglundRefutation.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleEnglundRefutation.pgn; sourceTree = "<group>"; };
 		AAC6430C29F811C200D1C12E /* StartTrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTrainView.swift; sourceTree = "<group>"; };
 		AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgementsView.swift; sourceTree = "<group>"; };
 		AAC6431329F9374100D1C12E /* ImpressumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressumView.swift; sourceTree = "<group>"; };
@@ -216,7 +226,12 @@
 		AAA1A1E429F66CB3003F153F /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				AAA1A1DF29F56F32003F153F /* examplePGN.swift */,
+				AAB3C30B2A01595F0094FAB2 /* exampleDanishRefutation.pgn */,
+				AAB3C30D2A0159730094FAB2 /* exampleEnglundRefutation.pgn */,
+				AAB3C3092A01594F0094FAB2 /* exampleScotchGambit.pgn */,
+				AAB3C3072A0159410094FAB2 /* exampleSmithMorra.pgn */,
+				AAB3C3052A0157490094FAB2 /* exampleCaroKannGoldman.pgn */,
+				AAA1A1DF29F56F32003F153F /* ExamplePGN.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -344,8 +359,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAB3C3062A0157490094FAB2 /* exampleCaroKannGoldman.pgn in Resources */,
+				AAB3C3082A0159410094FAB2 /* exampleSmithMorra.pgn in Resources */,
 				AAA1A18429F02352003F153F /* Preview Assets.xcassets in Resources */,
+				AAB3C30E2A0159730094FAB2 /* exampleEnglundRefutation.pgn in Resources */,
 				AAA1A18029F02352003F153F /* Assets.xcassets in Resources */,
+				AAB3C30C2A01595F0094FAB2 /* exampleDanishRefutation.pgn in Resources */,
+				AAB3C30A2A01594F0094FAB2 /* exampleScotchGambit.pgn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAA1A1E029F56F32003F153F /* examplePGN.swift in Sources */,
+				AAA1A1E029F56F32003F153F /* ExamplePGN.swift in Sources */,
 				AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */,
 				AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */,
 				AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */,
@@ -552,7 +572,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChessOpeningTrainer/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Openings Mastermind";
+				INFOPLIST_KEY_CFBundleDisplayName = Openings;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -594,7 +614,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChessOpeningTrainer/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Openings Mastermind";
+				INFOPLIST_KEY_CFBundleDisplayName = Openings;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

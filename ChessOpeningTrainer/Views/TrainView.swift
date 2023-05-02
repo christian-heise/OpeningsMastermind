@@ -41,6 +41,7 @@ struct TrainView: View {
                     .opacity(gameTree.gameState > 0 ? 1 : 0)
                 HStack {
                     Button(action: {
+                        self.gameTree.currentNode = self.gameTree.currentNode!.parent
                         self.game = gameTree.gameCopy ?? Game(position: startingGamePosition)
                         gameTree.gameState = 0
                         print("Should have reversed")
@@ -73,7 +74,6 @@ struct TrainView: View {
                     .disabled(gameTree.gameState > 0 ? false : true)
                 }
                 .padding(10)
-                Text("Annotation: " + (gameTree.currentNode!.annotation ?? "nix"))
             }
         }
         .onAppear() {
