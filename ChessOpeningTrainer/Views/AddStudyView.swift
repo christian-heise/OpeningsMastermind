@@ -156,8 +156,8 @@ struct AddStudyView: View {
                     
                 }
                 Picker("awdawd", selection: $examplePicker) {
-                    Text("Custom PGN").tag(0)
-                    Text("Example PGNs").tag(1)
+                    Text("Custom Study").tag(0)
+                    Text("Example Studies").tag(1)
                 }.pickerStyle(.segmented)
                     .padding(.horizontal)
                     .padding(.bottom)
