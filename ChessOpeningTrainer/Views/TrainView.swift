@@ -12,6 +12,7 @@ struct TrainView: View {
     @State var game = Game(position: startingGamePosition)
     @StateObject var gameTree: GameTree
     @State private var gameState = 0
+    @Environment(\.presentationMode) var presentationMode
     
     let settings: Settings
     
@@ -76,6 +77,7 @@ struct TrainView: View {
                 .padding(10)
             }
         }
+        .navigationBarBackButtonHidden(true)
         .onAppear() {
             self.game = Game(position: startingGamePosition)
             self.gameTree.reset()
@@ -87,7 +89,18 @@ struct TrainView: View {
         .onDisappear() {
             self.gameTree.reset()
         }
-//        .toolbar(.hidden, for: .tabBar)
+        .toolbar{
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    self.presentationMode.wrappedValue.dismiss()
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                        Text("Opening Studies")
+                    }
+                }
+            }
+        }
     }
     
     func makeNextMove() {
