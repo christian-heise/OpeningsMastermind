@@ -15,6 +15,7 @@ struct AddStudyView: View {
     
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.openURL) var openURL
     
     @State private var editMode = EditMode.active
     
@@ -27,7 +28,7 @@ struct AddStudyView: View {
     
     @State private var showingPGNHelp = false
     
-    @State private var examplePicker = 1
+    @State private var examplePicker = 0
     
     @State private var exampleSelection = Set<ExamplePGN>()
     
@@ -144,9 +145,14 @@ struct AddStudyView: View {
                                 Text("created by " + listItem.creator)
                                     .font(Font.caption2)
                             }
+                            .padding(.vertical, 3)
+                            .contextMenu {
+                                Button("Visit Source Website", action: {openURL(URL(string: listItem.url)!)})
+                            }
                         }
                         .listRowBackground(colorScheme == .dark ? [28,28,30].getColor():Color.white)
                     }.listStyle(.inset)
+                        .listRowSeparator(.hidden)
                         
                     
                     Button(action: {
