@@ -84,6 +84,8 @@ struct TrainView: View {
                 makeNextMove()
             }
             print("on Appear on Training view executed")
+            
+            UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
         }
         .onDisappear() {
             self.gameTree.reset()
