@@ -157,7 +157,9 @@ struct AddStudyView: View {
                             }
                             .padding(.vertical, 3)
                             .contextMenu {
-                                Button("Visit Source Website", action: {openURL(URL(string: listItem.url)!)})
+                                Button{openURL(URL(string: listItem.url)!)} label: {
+                                    Label("Visit Study on Lichess.com", systemImage: "safari")
+                                }
                             }
                         }
                         .listRowBackground(colorScheme == .dark ? [28,28,30].getColor():Color.white)
