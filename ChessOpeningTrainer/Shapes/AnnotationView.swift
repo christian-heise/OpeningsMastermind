@@ -29,13 +29,15 @@ struct AnnotationView: View {
         }
     }
     var body: some View {
-        ZStack {
-            Circle()
-                .foregroundColor(color)
-//                .frame(width: 50)
-            Text(annotation)
-                .foregroundColor(.white)
-                .fontWeight(.bold)
+        GeometryReader { geo in
+            ZStack {
+                Circle()
+                    .foregroundColor(color)
+                Text(annotation)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .font(.system(size: geo.size.width * 0.6))
+            }
         }
     }
 }

@@ -145,7 +145,8 @@ struct ChessBoardView: View {
     func positionAnnotation(_ square: Square, in size: CGSize) -> CGPoint {
         let point_square = pointFromSquare(square, in: size)
         
-        return CGPoint(x:point_square.x + squareLength(in: size)*0.35, y:point_square.y - squareLength(in: size)*0.35)
+//        return CGPoint(x:point_square.x + squareLength(in: size)*0.35, y:point_square.y - squareLength(in: size)*0.35)
+        return CGPoint(x:point_square.x + squareLength(in: size)*0.35, y:point_square.y + 3.35*squareLength(in: size))
     }
     
     func indexFromSquare(_ square: Square) -> Int {
