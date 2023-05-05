@@ -16,6 +16,8 @@ struct ChessBoardView: View {
     @ObservedObject var gameTree: GameTree
     let settings: Settings
     
+    @ObservedObject var database: DataBase
+    
     @State private var offsets = Array(repeating: CGSize.zero, count: 64)
     @State private var draggedSquare: Square? = nil
     
@@ -85,8 +87,13 @@ struct ChessBoardView: View {
                                             print(game.legalMoves)
                                             if game.legalMoves.contains(move) {
                                                 if let tupel = gameTree.currentNode?.databaseContains(move: move, in: game) {
-                                                    gameTree.currentNode = tupel.1
+                                                    if gameTree.currentNode!.mistakesLast10Moves.count == 10 {
+                                                        gameTree.currentNode!.mistakesLast10Moves.removeFirst()
+                                                    }
                                                     if tupel.0 {
+                                                        gameTree.currentNode!.mistakesLast10Moves.append(0)
+                                                        database.save()
+                                                        gameTree.currentNode = tupel.1
                                                         print("Move is in Database")
                                                         game.make(move: move)
                                                         Task {
@@ -95,9 +102,10 @@ struct ChessBoardView: View {
                                                     } else {
                                                         print("Move is NOT in Database")
                                                         gameTree.gameCopy = self.game.deepCopy()
-                                                        gameTree.currentNode!.mistakeNextMove += 1
                                                         if !gameTree.currentNode!.children.isEmpty {
+                                                            gameTree.currentNode!.mistakesLast10Moves.append(1)
                                                             self.gameTree.gameState = 1
+                                                            database.save()
                                                             self.gameTree.rightMove = determineRightMove()
                                                         }
                                                         game.make(move: move)
@@ -231,6 +239,6 @@ let imageNames: [PieceColor: [PieceKind: String]] = [
 struct ChessBoardView_Previews: PreviewProvider {
     
     static var previews: some View {
-        ChessBoardView(game: .constant(Game(position: italianGamePosition)), gameTree: GameTree.example(), settings: Settings())
+        ChessBoardView(game: .constant(Game(position: italianGamePosition)), gameTree: GameTree.example(), settings: Settings(), database: DataBase())
     }
 }

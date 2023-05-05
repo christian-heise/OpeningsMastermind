@@ -26,6 +26,23 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
+                HStack(alignment: .top){
+                    Image(uiImage: UIImage(named: "AppIcon") ?? UIImage())
+                        .resizable()
+                        .cornerRadius(80/6.4)
+                        .frame(width:80, height: 80)
+                    VStack(alignment: .leading) {
+                        Text("Openings Mastermind")
+                            .font(.title3)
+                            .padding(.vertical, 1)
+                        Text("Version: \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)")
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                        Text("Copyright © 2023 Christian Gleißner")
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                    }
+                }
                 Section() {
                     ColorPicker("White board squares", selection: $colorWhite, supportsOpacity: false)
                     ColorPicker("Black board squares", selection: $colorBlack, supportsOpacity: false)

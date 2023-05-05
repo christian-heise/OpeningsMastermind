@@ -24,7 +24,7 @@ class DataBase: ObservableObject, Codable {
         self.gametrees = gameTrees
     }
     
-    private func save() {
+    func save() {
         let filename = getDocumentsDirectory().appendingPathComponent("gameTree.json")
         
         let encoder = JSONEncoder()

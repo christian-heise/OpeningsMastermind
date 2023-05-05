@@ -16,13 +16,11 @@ struct ContentView: View {
         TabView {
             StartTrainView(database: database, settings: settings)
                 .tabItem{
-                    Label("Train", systemImage: "graduationcap")
-                    
+                    Label("Practise", systemImage: "checkerboard.rectangle")
                 }
             SettingsView(settings: settings)
                 .tabItem {
                     Label("Settings", systemImage: "gear")
-                    
                 }
         }
     }

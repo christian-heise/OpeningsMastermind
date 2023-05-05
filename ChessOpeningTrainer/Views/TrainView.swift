@@ -14,6 +14,8 @@ struct TrainView: View {
     @State private var gameState = 0
     @Environment(\.presentationMode) var presentationMode
     
+    @ObservedObject var database: DataBase
+    
     let settings: Settings
     
     var text: String {
@@ -31,7 +33,7 @@ struct TrainView: View {
             VStack() {
                 Spacer()
                 Spacer()
-                ChessBoardView(game: $game, gameTree: gameTree, settings: settings)
+                ChessBoardView(game: $game, gameTree: gameTree, settings: settings, database: database)
                     .rotationEffect(.degrees(gameTree.userColor == .white ? 0 : 180))
                     .frame(maxHeight: geo.size.width)
                 Spacer()
@@ -73,6 +75,7 @@ struct TrainView: View {
                     .disabled(gameTree.gameState > 0 ? false : true)
                 }
                 .padding(10)
+                Text("Mistake Rate: \(String(format: "%0.2f",gameTree.currentNode!.mistakesRate))")
             }
             .navigationTitle(Text(self.gameTree.name))
         }
@@ -121,6 +124,6 @@ struct TrainView: View {
 
 struct TrainView_Previews: PreviewProvider {
     static var previews: some View {
-        TrainView(gameTree: GameTree.example(), settings: Settings())
+        TrainView(gameTree: GameTree.example(), database: DataBase(), settings: Settings())
     }
 }

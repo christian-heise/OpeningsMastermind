@@ -55,15 +55,14 @@ class GameTree: ObservableObject, Identifiable, Codable {
         }
         
         // Probabilities based on Misstakes
-        let weightedMistakes: [Double] = currentNode.children.map({Double($0.mistakesSum) / Double($0.depth) / Double($0.depth) / Double($0.depth)})
-        let weightedMistakesSum: Double = weightedMistakes.reduce(0, +)
         
-        var probabilitiesMistakes = [Double]()
-        if weightedMistakesSum == 0 {
-            probabilitiesMistakes = Array(repeating: 1000 / Double(currentNode.children.count), count: currentNode.children.count)
-        } else {
-            probabilitiesMistakes = weightedMistakes.map({$0 / Double(weightedMistakesSum)})
-        }
+        let probabilitiesMistakes = currentNode.children.map({$0.mistakesRate / currentNode.children.map({$0.mistakesRate}).reduce(0, +)})
+        
+//        if weightedMistakesSum == 0 {
+//            probabilitiesMistakes = Array(repeating: 1 / Double(currentNode.children.count), count: currentNode.children.count)
+//        } else {
+//            probabilitiesMistakes = weightedMistakes.map({$0 / Double(weightedMistakesSum)})
+//        }
         
         // Probability based on Depth
         let depthArray: [Double] = currentNode.children.map({Double($0.depth) * Double($0.depth)})
@@ -72,13 +71,17 @@ class GameTree: ObservableObject, Identifiable, Codable {
         var probabilitiesDepth = [Double]()
         
         if summedDepth == 0 {
-            probabilitiesDepth = Array(repeating: 1000 / Double(currentNode.children.count), count: currentNode.children.count)
+            probabilitiesDepth = Array(repeating: 1 / Double(currentNode.children.count), count: currentNode.children.count)
         } else {
             probabilitiesDepth = depthArray.map({$0 / Double(summedDepth)})
         }
         
         // Combine probabilities
-        let probabilities = probabilitiesDepth
+//        let probabilities = probabilitiesDepth
+        let probabilities = zip(probabilitiesMistakes,probabilitiesDepth).map() {($0 + $1)/2}
+        print("Depth: \(probabilitiesDepth)")
+        print("Mistake: \(probabilitiesMistakes)")
+        print("Total: \(probabilities)")
         
         // Make random Int between 0 and 1000
         var randomInt = Int.random(in: 0...1000)
