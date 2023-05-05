@@ -81,7 +81,7 @@ class GameNode: Codable, Equatable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        mistakesLast10Moves = try container.decodeIfPresent([Int].self, forKey: .mistakesLast10Moves) ?? []
+        mistakesLast10Moves = try container.decodeIfPresent([Int].self, forKey: .mistakesLast10Moves) ?? Array(repeating: 1, count: 10)
         children = try container.decode([GameNode].self, forKey: .children)
         move = try container.decode(String.self, forKey: .move)
         moveNumber = try container.decode(Int.self, forKey: .moveNumber)
@@ -142,7 +142,7 @@ class GameNode: Codable, Equatable {
         
         let node = GameNode(moveString: move, comment: comment, annotation: annotation)
         
-        node.mistakesLast10Moves = mistakesLast10Moves ?? []
+        node.mistakesLast10Moves = mistakesLast10Moves ?? Array(repeating: 1, count: 10)
         node.children = children
         node.moveNumber = moveNumber
         node.moveColor = moveColorString == "white" ? .white : .black

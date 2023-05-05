@@ -92,7 +92,6 @@ struct ChessBoardView: View {
                                                     }
                                                     if tupel.0 {
                                                         gameTree.currentNode!.mistakesLast10Moves.append(0)
-                                                        database.save()
                                                         gameTree.currentNode = tupel.1
                                                         print("Move is in Database")
                                                         game.make(move: move)
@@ -105,7 +104,6 @@ struct ChessBoardView: View {
                                                         if !gameTree.currentNode!.children.isEmpty {
                                                             gameTree.currentNode!.mistakesLast10Moves.append(1)
                                                             self.gameTree.gameState = 1
-                                                            database.save()
                                                             self.gameTree.rightMove = determineRightMove()
                                                         }
                                                         game.make(move: move)

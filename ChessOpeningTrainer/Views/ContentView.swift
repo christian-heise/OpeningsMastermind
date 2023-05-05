@@ -12,6 +12,8 @@ struct ContentView: View {
     @StateObject var database = DataBase()
     @StateObject var settings = Settings()
     
+    @Environment(\.scenePhase) var scenePhase
+    
     var body: some View {
         TabView {
             StartTrainView(database: database, settings: settings)
@@ -23,6 +25,11 @@ struct ContentView: View {
                     Label("Settings", systemImage: "gear")
                 }
         }
+        .onChange(of: scenePhase) { phase in
+                if phase == .background {
+                    database.save()
+                }
+            }
     }
 }
 
