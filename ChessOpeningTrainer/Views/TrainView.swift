@@ -33,7 +33,7 @@ struct TrainView: View {
             VStack() {
                 Spacer()
                 Spacer()
-                ChessBoardView(game: $game, gameTree: gameTree, settings: settings, database: database)
+                ChessBoardViewOld(game: $game, gameTree: gameTree, settings: settings, database: database)
                     .rotationEffect(.degrees(gameTree.userColor == .white ? 0 : 180))
                     .frame(maxHeight: geo.size.width)
                 Spacer()

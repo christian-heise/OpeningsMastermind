@@ -18,7 +18,7 @@ struct StartTrainView: View {
             VStack {
                 List() {
                     ForEach(database.gametrees) { gameTree in
-                        NavigationLink(destination: TrainView(gameTree: gameTree, database: database, settings: settings)) {
+                        NavigationLink(destination: PractiseView(database: database, settings: settings)) {
                             Text(gameTree.name)
                         }
                     }

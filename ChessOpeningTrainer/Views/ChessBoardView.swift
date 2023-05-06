@@ -1,32 +1,19 @@
 //
-//  ChessBoardView.swift
+//  ChessboardViewNew.swift
 //  ChessOpeningTrainer
 //
-//  Created by Christian Gleißner on 19.04.23.
+//  Created by Christian Gleißner on 05.05.23.
 //
 
-import ChessKit
 import SwiftUI
+import ChessKit
 
-let italianGameFen = "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4"
-let italianGamePosition = FenSerialization.default.deserialize(fen: italianGameFen)
-
-struct ChessBoardView: View {
-    @Binding var game: Game
-    @ObservedObject var gameTree: GameTree
-    let settings: Settings
-    
-    @ObservedObject var database: DataBase
+struct ChessboardView: View {
+    @ObservedObject var settings: Settings
+    @EnvironmentObject private var vm: PractiseViewModel
     
     @State private var offsets = Array(repeating: CGSize.zero, count: 64)
     @State private var draggedSquare: Square? = nil
-    
-    var movingDisabled: Bool {
-        if self.gameTree.gameState > 0 {
-            return true
-        }
-        return false
-    }
     
     var body: some View {
         GeometryReader { geo in
@@ -37,10 +24,10 @@ struct ChessBoardView: View {
                             .fill((row + col) % 2 == 0 ? settings.boardColorRGB.white.getColor() : settings.boardColorRGB.black.getColor())
                             .frame(width: squareLength(in: geo.size), height: squareLength(in: geo.size))
                             .position(x: geo.size.width/2 + (CGFloat(col) - 3.5) * squareLength(in: geo.size), y: (CGFloat(row) + 0.5) * squareLength(in: geo.size))
-                        if let lastMove = game.movesHistory.last {
+                        if let lastMove = vm.lastMove {
                             if lastMove.to == Square(file: col, rank: 7-row) || lastMove.from == Square(file: col, rank: 7-row) {
                                 Rectangle()
-                                    .fill(gameTree.gameState == 1 ? Color.red : Color.yellow)
+                                    .fill(vm.gameState == 1 ? Color.red : Color.yellow)
                                     .frame(width: squareLength(in: geo.size), height: squareLength(in: geo.size))
                                     .position(x: geo.size.width/2 + (CGFloat(col) - 3.5) * squareLength(in: geo.size), y: ((CGFloat(row) + 0.5) * squareLength(in: geo.size)))
                                     .opacity(0.2)
@@ -52,8 +39,9 @@ struct ChessBoardView: View {
                     .stroke(Color.black, lineWidth: 1)
                     .frame(width: 8 * squareLength(in: geo.size), height: 8 * squareLength(in: geo.size))
                     .position(x: geo.size.width/2,y: 4 * squareLength(in: geo.size))
-                if gameTree.gameState == 1 {
-                    if let rightMove = self.gameTree.rightMove {
+                
+                if vm.gameState == 1 {
+                    ForEach(vm.rightMove, id: \.self) { rightMove in
                         ArrowShape()
                             .frame(width: calcArrowWidth(for: rightMove, in: geo.size), height: squareLength(in: geo.size)*0.6)
                             .rotationEffect(.degrees(calcArrowAngleDeg(for: rightMove, in: geo.size)))
@@ -63,179 +51,105 @@ struct ChessBoardView: View {
                             .zIndex(50)
                     }
                 }
-
-                let pieces = game.position.board.enumeratedPieces()
-                ForEach(pieces, id: \.0) { piece in
-                    Image(imageNames[piece.1.color]?[piece.1.kind] ?? "")
+                
+                ForEach(vm.pieces, id: \.0) { piece in
+                    Image.piece(color: piece.1.color, kind: piece.1.kind)
                         .resizable()
                         .frame(width: squareLength(in: geo.size),height: squareLength(in: geo.size))
-                        .rotationEffect(.degrees(gameTree.userColor == .white ? 0 : 180))
+                        .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                         .position(x: geo.size.width/2 + (CGFloat(piece.0.file) - 3.5) * squareLength(in: geo.size), y: squareLength(in: geo.size)*4 - (CGFloat(piece.0.rank) - 3.5) * squareLength(in: geo.size))
-                        .offset(offsets[indexFromSquare(piece.0)])
+                        .offset(offsets[indexOf(piece.0)])
                         .gesture(
                             DragGesture()
-                                .onChanged { value in
+                                .onChanged{ value in
                                     self.draggedSquare = piece.0
-                                    self.offsets[indexFromSquare(piece.0)] = value.translation
+                                    self.offsets[indexOf(piece.0)] = value.translation
                                 }
                                 .onEnded { value in
                                     self.draggedSquare = nil
-                                    if piece.1.color == gameTree.userColor {
-                                        let newSquare = squareFromPoint(value.location, in: geo.size)
-                                        if newSquare != piece.0 {
-                                            let move = Move(from: piece.0, to: newSquare)
-                                            print(game.legalMoves)
-                                            if game.legalMoves.contains(move) {
-                                                if let tupel = gameTree.currentNode?.databaseContains(move: move, in: game) {
-                                                    if gameTree.currentNode!.mistakesLast10Moves.count == 10 {
-                                                        gameTree.currentNode!.mistakesLast10Moves.removeFirst()
-                                                    }
-                                                    if tupel.0 {
-                                                        gameTree.currentNode!.mistakesLast10Moves.append(0)
-                                                        gameTree.currentNode = tupel.1
-                                                        print("Move is in Database")
-                                                        game.make(move: move)
-                                                        Task {
-                                                            await makeNextMove()
-                                                        }
-                                                    } else {
-                                                        print("Move is NOT in Database")
-                                                        gameTree.gameCopy = self.game.deepCopy()
-                                                        if !gameTree.currentNode!.children.isEmpty {
-                                                            gameTree.currentNode!.mistakesLast10Moves.append(1)
-                                                            self.gameTree.gameState = 1
-                                                            self.gameTree.rightMove = determineRightMove()
-                                                        }
-                                                        game.make(move: move)
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    self.offsets[indexFromSquare(piece.0)] = .zero
-                                }
-                        )
-                        .disabled(movingDisabled)
+                                    dragEnded(at: value, piece: piece.1, square: piece.0, in: geo.size)
+                                })
                         .zIndex(self.draggedSquare==piece.0 ? 1000:0)
                 }
-            }
-            ZStack {
-                if let currentNode = gameTree.currentNode {
-                    if gameTree.gameState != 1 {
-                        if let annotation_current = currentNode.annotation {
-                            if annotation_current != "" {
-                                AnnotationView(annotation: annotation_current)
-                                    .frame(width: squareLength(in: geo.size)*0.5)
-                                    .position(positionAnnotation(game.movesHistory.last!.to, in: geo.size))
-                            }
-                            
-                        }
-                    }
-                    if let parent = currentNode.parent {
-                        if game.movesHistory.suffix(2).first!.to != game.movesHistory.last!.to {
-                            if let annotation_last = parent.annotation {
-                                if annotation_last != "" {
-                                    AnnotationView(annotation: annotation_last)
-                                        .frame(width: squareLength(in: geo.size)*0.5)
-                                        .position(positionAnnotation(game.movesHistory.suffix(2).first!.to, in: geo.size))
-                                }
-                            }
-                        }
-                    }
+                if let move = vm.last2Moves.0, let annotation = vm.annotation.0, annotation != "" {
+                    AnnotationView(annotation: annotation)
+                        .frame(width: squareLength(in: geo.size)*0.5)
+                        .position(positionAnnotation(move.to, in: geo.size))
+                        .zIndex(500)
+                }
+                if let move = vm.last2Moves.1, let annotation = vm.annotation.1, annotation != "" {
+                    AnnotationView(annotation: annotation)
+                        .frame(width: squareLength(in: geo.size)*0.5)
+                        .position(positionAnnotation(move.to, in: geo.size))
+                        .zIndex(500)
+                }
+                if let move = vm.promotionMove {
+                    PawnPromotionView(color: vm.userColor, width: squareLength(in: geo.size)*1.2)
+                        .position(positionPawnPromotionView(move.to, in: geo.size))
+                        .zIndex(1000)
                 }
             }
         }
-
     }
     
-    func positionAnnotation(_ square: Square, in size: CGSize) -> CGPoint {
-        let point_square = pointFromSquare(square, in: size)
-        
-        return CGPoint(x:point_square.x + squareLength(in: size)*0.35, y:point_square.y + 3.35*squareLength(in: size))
-    }
-    
-    func indexFromSquare(_ square: Square) -> Int {
-        return square.file + square.rank * 8
-    }
-    
-    func squareFromPoint(_ point: CGPoint, in size: CGSize) -> Square {
-        let file = min(max(Int(4 - (size.width/2 - point.x)/squareLength(in: size)), 0), 7)
-        let rank = min(max(Int(8*(1 - point.y / squareLength(in: size)/8)), 0), 7)
-        print("file: "+String(file)+", rank: "+String(rank))
-        return Square(file: file, rank: rank)
-    }
-    
-    func pointFromSquare(_ square: Square, in size: CGSize) -> CGPoint {
-        let x = size.width/2 + (CGFloat(square.file) - 3.5) * squareLength(in: size)
-        let y = squareLength(in: size)*4 - (CGFloat(square.rank) - 3.5) * squareLength(in: size)
-        return CGPoint(x: x, y: y)
+    func dragEnded(at value: DragGesture.Value, piece: Piece, square: Square, in size: CGSize) {
+        self.offsets[indexOf(square)] = .zero
+        let newSquare = squareOf(value.location, in: size)
+        vm.processMove(piece: piece, from: square, to: newSquare)
     }
     
     func squareLength(in size: CGSize) -> CGFloat {
         return min(size.width, size.height) / 8
     }
     
-    func makeNextMove() async {
-        if self.gameTree.currentNode!.children.isEmpty {
-            self.gameTree.gameState = 2
-            return
-        }
-        let (newMove, newNode) = self.gameTree.generateMove(game: game)
-        
-        try? await Task.sleep(for: .milliseconds(300))
-        self.game.make(move: newMove!)
-        if newNode!.children.isEmpty {
-            self.gameTree.gameState = 2
-        }
-        self.gameTree.currentNode = newNode!
+    func indexOf(_ square: Square) -> Int {
+        return square.file + square.rank * 8
+    }
+    
+    func squareOf(_ point: CGPoint, in size: CGSize) -> Square {
+        let file = min(max(Int(4 - (size.width/2 - point.x)/squareLength(in: size)), 0), 7)
+        let rank = min(max(Int(8*(1 - point.y / squareLength(in: size)/8)), 0), 7)
+        return Square(file: file, rank: rank)
+    }
+    
+    func pointOf(_ square: Square, in size: CGSize) -> CGPoint {
+        let x = size.width/2 + (CGFloat(square.file) - 3.5) * squareLength(in: size)
+        let y = squareLength(in: size)*4 - (CGFloat(square.rank) - 3.5) * squareLength(in: size)
+        return CGPoint(x: x, y: y)
     }
     
     func calcArrowPosition(for move: Move, in size: CGSize) -> CGPoint {
-        let x = (pointFromSquare(move.from, in: size).x + pointFromSquare(move.to, in: size).x) / 2
-        let y = (pointFromSquare(move.from, in: size).y + pointFromSquare(move.to, in: size).y) / 2
+        let x = (pointOf(move.from, in: size).x + pointOf(move.to, in: size).x) / 2
+        let y = (pointOf(move.from, in: size).y + pointOf(move.to, in: size).y) / 2
         
         return CGPoint(x: x, y: y)
     }
     func calcArrowWidth(for move: Move, in size: CGSize) -> CGFloat {
-        return sqrt(pow(pointFromSquare(move.from, in: size).x - pointFromSquare(move.to, in: size).x, 2) + pow(pointFromSquare(move.from, in: size).y - pointFromSquare(move.to, in: size).y, 2))
+        return sqrt(pow(pointOf(move.from, in: size).x - pointOf(move.to, in: size).x, 2) + pow(pointOf(move.from, in: size).y - pointOf(move.to, in: size).y, 2))
     }
     
     func calcArrowAngleDeg(for move: Move, in size: CGSize) -> Double {
-        let xdiff = pointFromSquare(move.to, in: size).x - pointFromSquare(move.from, in: size).x
-        let ydiff = pointFromSquare(move.to, in: size).y - pointFromSquare(move.from, in: size).y
+        let xdiff = pointOf(move.to, in: size).x - pointOf(move.from, in: size).x
+        let ydiff = pointOf(move.to, in: size).y - pointOf(move.from, in: size).y
         return atan2(ydiff,xdiff) * 180 / Double.pi
     }
     
-    func determineRightMove() -> Move {
-        let decoder = SanSerialization.default
-        let move = decoder.move(for: self.gameTree.currentNode!.children.first!.move, in: self.game)
-        gameTree.currentNode = gameTree.currentNode!.children.first!
-        return move
+    func positionAnnotation(_ square: Square, in size: CGSize) -> CGPoint {
+        let point_square = pointOf(square, in: size)
+        
+        return CGPoint(x:point_square.x + squareLength(in: size)*0.35, y:point_square.y + 3.35*squareLength(in: size))
+    }
+    func positionPawnPromotionView(_ square: Square, in size: CGSize) -> CGPoint {
+        let point_square = pointOf(square, in: size)
+        let xPoint = max(min(point_square.x, size.width - 2.4*squareLength(in: size) - 20), 2.4*squareLength(in: size) + 20)
+        return CGPoint(x: xPoint, y: point_square.y + 1.3*squareLength(in: size))
     }
 }
 
-let imageNames: [PieceColor: [PieceKind: String]] = [
-    .white: [
-        .king: "Chess_klt45.svg",
-        .queen: "Chess_qlt45.svg",
-        .bishop: "Chess_blt45.svg",
-        .knight: "Chess_nlt45.svg",
-        .rook: "Chess_rlt45.svg",
-        .pawn: "Chess_plt45.svg"
-    ],
-    .black: [
-        .king: "Chess_kdt45.svg",
-        .queen: "Chess_qdt45.svg",
-        .bishop: "Chess_bdt45.svg",
-        .knight: "Chess_ndt45.svg",
-        .rook: "Chess_rdt45.svg",
-        .pawn: "Chess_pdt45.svg"
-    ]
-]
-
-struct ChessBoardView_Previews: PreviewProvider {
-    
+struct ChessboardView_Previews: PreviewProvider {
+    static let myEnvObject = PractiseViewModel()
     static var previews: some View {
-        ChessBoardView(game: .constant(Game(position: italianGamePosition)), gameTree: GameTree.example(), settings: Settings(), database: DataBase())
+        ChessboardView(settings: Settings())
+            .environmentObject(myEnvObject)
     }
 }

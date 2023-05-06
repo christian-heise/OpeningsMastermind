@@ -10,7 +10,14 @@ import Foundation
 import SwiftUI
 import ChessKit
 
-class GameTree: ObservableObject, Identifiable, Codable {
+class GameTree: ObservableObject, Identifiable, Codable, Hashable {
+    static func == (lhs: GameTree, rhs: GameTree) -> Bool {
+        return lhs.id == rhs.id
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     let name: String
     let id = UUID()
     let rootNode: GameNode

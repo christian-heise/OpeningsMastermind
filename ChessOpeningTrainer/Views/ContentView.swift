@@ -16,23 +16,24 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            StartTrainView(database: database, settings: settings)
-                .tabItem{
-                    Label("Practise", systemImage: "checkerboard.rectangle")
-                }
-            PractiseView(settings: settings)
+            
+            PractiseView(database: database, settings: settings)
                 .tabItem {
-                    Label("New", systemImage: "checkerboard.rectangle")
+                    Label("Practise", systemImage: "checkerboard.rectangle")
                 }
             ListView(database: database)
                 .tabItem {
-                    Label("Study List", systemImage: "list.bullet")
+                    Label("Library", systemImage: "list.bullet")
                 }
             
             SettingsView(settings: settings)
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
+//            StartTrainView(database: database, settings: settings)
+//                .tabItem{
+//                    Label("Practise Old", systemImage: "checkerboard.rectangle")
+//                }
         }
         .onChange(of: scenePhase) { phase in
                 if phase == .background {

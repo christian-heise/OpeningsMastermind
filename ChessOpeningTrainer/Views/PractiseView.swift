@@ -10,7 +10,12 @@ import ChessKit
 
 struct PractiseView: View {
     @StateObject private var vm = PractiseViewModel()
+    
+    @ObservedObject var database: DataBase
     @ObservedObject var settings: Settings
+    
+    @State private var isShowingSheet = false
+    @State private var selection: GameTree?
     
     var text: String {
         if vm.gameState == 1 {
@@ -27,7 +32,7 @@ struct PractiseView: View {
             GeometryReader { geo in
                 VStack {
                     Spacer()
-                    ChessboardViewNew(settings: settings)
+                    ChessboardView(settings: settings)
                         .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                         .frame(maxHeight: geo.size.width)
                     Spacer()
@@ -71,7 +76,19 @@ struct PractiseView: View {
             }
             .toolbar {
                 ToolbarItem {
-                    
+                    Button("Change Study") {
+                        isShowingSheet = true
+                    }
+                }
+            }
+            .sheet(isPresented: $isShowingSheet) {
+                List{
+                    ForEach(database.gametrees, id: \.id) { tree in
+                        Button(tree.name) {
+                            vm.resetGameTree(to: tree)
+                            isShowingSheet = false
+                        }
+                    }
                 }
             }
         }
@@ -80,6 +97,6 @@ struct PractiseView: View {
 
 struct PractiseView_Previews: PreviewProvider {
     static var previews: some View {
-        PractiseView(settings: Settings())
+        PractiseView(database: DataBase(), settings: Settings())
     }
 }
