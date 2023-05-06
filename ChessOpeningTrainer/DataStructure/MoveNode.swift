@@ -66,7 +66,7 @@ class GameNode: Codable, Equatable {
         return lhs.move == rhs.move && lhs.moveNumber == rhs.moveNumber && lhs.moveColor == rhs.moveColor && lhs.parent == rhs.parent
     }
     
-    public func databaseContains(move: Move, in game: Game) -> (Bool, GameNode) {
+    public func databaseContains(move: Move, in game: Game) -> (found: Bool, newNode: GameNode) {
         let decoder = SanSerialization.default
         let san = decoder.san(for: move, in: game)
         

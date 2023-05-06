@@ -40,7 +40,6 @@ struct StartTrainView: View {
                 AddStudyView(database: database)
             }
         }
-//        .toolbar(.visible, for: .tabBar)
     }
     
     func delete(at offsets: IndexSet) {

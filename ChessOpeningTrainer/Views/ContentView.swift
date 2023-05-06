@@ -20,6 +20,15 @@ struct ContentView: View {
                 .tabItem{
                     Label("Practise", systemImage: "checkerboard.rectangle")
                 }
+            PractiseView(settings: settings)
+                .tabItem {
+                    Label("New", systemImage: "checkerboard.rectangle")
+                }
+            ListView(database: database)
+                .tabItem {
+                    Label("Study List", systemImage: "list.bullet")
+                }
+            
             SettingsView(settings: settings)
                 .tabItem {
                     Label("Settings", systemImage: "gear")
