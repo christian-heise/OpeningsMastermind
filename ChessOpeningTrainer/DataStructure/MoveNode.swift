@@ -24,10 +24,20 @@ class GameNode: Codable, Equatable {
     var mistakesLast10Moves: [Int] = Array(repeating: 1, count: 10)
     
     var mistakesRate: Double {
+        var array: [Double] = []
         if children.isEmpty {
             return Double(mistakesLast10Moves.reduce(0, +))/10
         } else {
-            return (children.map({$0.mistakesRate}).reduce(0, +)/Double(children.count)*0.5 + Double(mistakesLast10Moves.reduce(0, +))/10)/1.5
+            for child in children {
+                if !child.children.isEmpty {
+                    array.append(child.children.map({$0.mistakesRate}).reduce(0, +)/Double(child.children.count))
+                }
+            }
+            if array.isEmpty {
+                return Double(mistakesLast10Moves.reduce(0, +))/10
+            } else {
+                return (array.reduce(0, +)/Double(array.count)*0.5 + Double(mistakesLast10Moves.reduce(0, +))/10) / 1.5
+            }
         }
     }
     

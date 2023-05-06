@@ -30,10 +30,6 @@ struct ContentView: View {
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
-//            StartTrainView(database: database, settings: settings)
-//                .tabItem{
-//                    Label("Practise Old", systemImage: "checkerboard.rectangle")
-//                }
         }
         .onChange(of: scenePhase) { phase in
                 if phase == .background {

@@ -84,7 +84,6 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
         }
         
         // Combine probabilities
-//        let probabilities = probabilitiesDepth
         let probabilities = zip(probabilitiesMistakes,probabilitiesDepth).map() {($0 + $1)/2}
         print("Depth: \(probabilitiesDepth)")
         print("Mistake: \(probabilitiesMistakes)")
