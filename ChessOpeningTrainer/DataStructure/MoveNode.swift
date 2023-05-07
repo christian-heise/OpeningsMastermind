@@ -21,12 +21,12 @@ class GameNode: Codable, Equatable {
     let comment: String?
     let annotation: String?
     
-    var mistakesLast10Moves: [Int] = Array(repeating: 1, count: 10)
+    var mistakesLast5Moves: [Int] = Array(repeating: 1, count: 5)
     
     var mistakesRate: Double {
         var array: [Double] = []
         if children.isEmpty {
-            return Double(mistakesLast10Moves.reduce(0, +))/10
+            return Double(mistakesLast5Moves.reduce(0, +))/5
         } else {
             for child in children {
                 if !child.children.isEmpty {
@@ -34,14 +34,53 @@ class GameNode: Codable, Equatable {
                 }
             }
             if array.isEmpty {
-                return Double(mistakesLast10Moves.reduce(0, +))/10
+                return Double(mistakesLast5Moves.reduce(0, +))/5
             } else {
-                return (array.reduce(0, +)/Double(array.count)*0.5 + Double(mistakesLast10Moves.reduce(0, +))/10) / 1.5
+                return (array.reduce(0, +)/Double(array.count)*1 + Double(mistakesLast5Moves.reduce(0, +))/5) / 2.0
             }
         }
     }
     
-    private var _depth: Int? // memoization cache
+    var nodesBelow: Int {
+        var array: [Int] = []
+        if self.children.isEmpty {
+            return 0
+        } else {
+            for child in self.children {
+                if !child.children.isEmpty {
+                    array.append(child.children.map({$0.nodesBelow + 1}).reduce(0,+))
+                }
+            }
+            if array.isEmpty {
+                return 0
+            } else {
+                return array.reduce(0,+)
+            }
+        }
+    }
+    var mistakesBelow: Int {
+        var array: [Int] = []
+        if self.children.isEmpty {
+            return 0
+        } else {
+            for child in self.children {
+                if !child.children.isEmpty {
+                    array.append(child.children.map({$0.mistakesBelow + $0.mistakesLast5Moves.suffix(2).reduce(0,+)}).reduce(0,+))
+                }
+            }
+            if array.isEmpty {
+                return 0
+            } else {
+                return array.reduce(0,+)
+            }
+        }
+    }
+    
+    var progress: Double {
+        return Double(mistakesBelow) / Double(nodesBelow) / 2
+    }
+    
+    private var _depth: Int? // memorization cache
     
     var depth: Int {
         if let cachedDepth = _depth {
@@ -91,7 +130,7 @@ class GameNode: Codable, Equatable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        mistakesLast10Moves = try container.decodeIfPresent([Int].self, forKey: .mistakesLast10Moves) ?? Array(repeating: 1, count: 10)
+        mistakesLast5Moves = try container.decodeIfPresent([Int].self, forKey: .mistakesLast5Moves) ?? Array(repeating: 1, count: 5)
         children = try container.decode([GameNode].self, forKey: .children)
         move = try container.decode(String.self, forKey: .move)
         moveNumber = try container.decode(Int.self, forKey: .moveNumber)
@@ -114,7 +153,7 @@ class GameNode: Codable, Equatable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         let moveColorString = moveColor == .white ? "white" : "black"
         
-        try container.encode(mistakesLast10Moves, forKey: .mistakesLast10Moves)
+        try container.encode(mistakesLast5Moves, forKey: .mistakesLast5Moves)
         try container.encode(children, forKey: .children)
         try container.encode(moveNumber, forKey: .moveNumber)
         try container.encode(moveColorString, forKey: .moveColor)
@@ -128,7 +167,7 @@ class GameNode: Codable, Equatable {
         let moveColorString = moveColor == .white ? "white" : "black"
         
         try container.encode(children, forKey: .children)
-        try container.encode(mistakesLast10Moves, forKey: .mistakesLast10Moves)
+        try container.encode(mistakesLast5Moves, forKey: .mistakesLast5Moves)
         try container.encode(moveNumber, forKey: .moveNumber)
         try container.encode(moveColorString, forKey: .moveColor)
         try container.encode(move, forKey: .move)
@@ -139,7 +178,7 @@ class GameNode: Codable, Equatable {
     static func decodeRecursively(from decoder: Decoder) throws -> GameNode {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        let mistakesLast10Moves = try container.decodeIfPresent([Int].self, forKey: .mistakesLast10Moves)
+        let mistakesLast5Moves = try container.decodeIfPresent([Int].self, forKey: .mistakesLast5Moves)
         
         let move = try container.decode(String.self, forKey: .move)
         let moveNumber = try container.decode(Int.self, forKey: .moveNumber)
@@ -152,7 +191,7 @@ class GameNode: Codable, Equatable {
         
         let node = GameNode(moveString: move, comment: comment, annotation: annotation)
         
-        node.mistakesLast10Moves = mistakesLast10Moves ?? Array(repeating: 1, count: 10)
+        node.mistakesLast5Moves = mistakesLast5Moves ?? Array(repeating: 1, count: 5)
         node.children = children
         node.moveNumber = moveNumber
         node.moveColor = moveColorString == "white" ? .white : .black
@@ -164,6 +203,6 @@ class GameNode: Codable, Equatable {
     }
     
     enum CodingKeys: String, CodingKey {
-            case move, children, moveNumber, moveColor, parent, mistakesLast10Moves, comment, annotation
+            case move, children, moveNumber, moveColor, parent, mistakesLast5Moves, comment, annotation
         }
 }

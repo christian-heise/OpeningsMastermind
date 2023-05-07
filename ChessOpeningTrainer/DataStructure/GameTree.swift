@@ -61,15 +61,9 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
             return (generatedMove, newNode)
         }
         
-        // Probabilities based on Misstakes
-        
+        // Probabilities based on Mistakes
         let probabilitiesMistakes = currentNode.children.map({$0.mistakesRate / currentNode.children.map({$0.mistakesRate}).reduce(0, +)})
         
-//        if weightedMistakesSum == 0 {
-//            probabilitiesMistakes = Array(repeating: 1 / Double(currentNode.children.count), count: currentNode.children.count)
-//        } else {
-//            probabilitiesMistakes = weightedMistakes.map({$0 / Double(weightedMistakesSum)})
-//        }
         
         // Probability based on Depth
         let depthArray: [Double] = currentNode.children.map({Double($0.depth) * Double($0.depth)})
@@ -84,7 +78,9 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
         }
         
         // Combine probabilities
-        let probabilities = zip(probabilitiesMistakes,probabilitiesDepth).map() {($0 + $1)/2}
+        var probabilities = zip(probabilitiesMistakes,probabilitiesDepth).map() {$0 * Double(probabilitiesMistakes.count) * $1}
+        probabilities = probabilities.map({$0 / probabilities.reduce(0,+)})
+//        let probabilities = zip(probabilitiesMistakes,probabilitiesDepth).map() {($0 + $1)/2}
         print("Depth: \(probabilitiesDepth)")
         print("Mistake: \(probabilitiesMistakes)")
         print("Total: \(probabilities)")

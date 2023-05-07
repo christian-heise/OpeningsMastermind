@@ -18,7 +18,16 @@ struct ListView: View {
                 List() {
                     ForEach(database.gametrees) { gameTree in
                         //                        NavigationLink(destination: TrainView(gameTree: gameTree, database: database, settings: settings)) {
-                        Text(gameTree.name)
+                        VStack(alignment: .leading) {
+                            Text(gameTree.name)
+                                .fontWeight(.medium)
+                            HStack {
+                                Text("Progress:")
+                                ProgressBarView(progress: gameTree.userColor == .white ? 1-gameTree.rootNode.progress : 1-gameTree.rootNode.children.first!.progress)
+                                    .frame(height: 20)
+                            }
+//                            Text("Progress: \(gameTree.userColor == .white ? gameTree.rootNode.progress : gameTree.rootNode.children.first!.progress)")
+                        }
                         //                        }
                     }
                     .onDelete(perform: delete)

@@ -21,11 +21,9 @@
 		AAA1A19829F02352003F153F /* ChessOpeningTrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A19729F02352003F153F /* ChessOpeningTrainerUITests.swift */; };
 		AAA1A19A29F02352003F153F /* ChessOpeningTrainerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A19929F02352003F153F /* ChessOpeningTrainerUITestsLaunchTests.swift */; };
 		AAA1A1A829F02493003F153F /* ChessKit in Frameworks */ = {isa = PBXBuildFile; productRef = AAA1A1A729F02493003F153F /* ChessKit */; };
-		AAA1A1AA29F0263F003F153F /* ChessBoardViewOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1A929F0263F003F153F /* ChessBoardViewOld.swift */; };
 		AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1B629F14CAC003F153F /* MoveNode.swift */; };
 		AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1B829F14D33003F153F /* GameTree.swift */; };
 		AAA1A1CA29F2CC44003F153F /* ArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1C929F2CC44003F153F /* ArrowShape.swift */; };
-		AAA1A1D129F2DF7D003F153F /* TrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D029F2DF7D003F153F /* TrainView.swift */; };
 		AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D429F415F9003F153F /* DataBase.swift */; };
 		AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D629F42E7F003F153F /* AddStudyView.swift */; };
 		AAA1A1E029F56F32003F153F /* ExamplePGN.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1DF29F56F32003F153F /* ExamplePGN.swift */; };
@@ -37,7 +35,6 @@
 		AAB3C30A2A01594F0094FAB2 /* exampleScotchGambit.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C3092A01594F0094FAB2 /* exampleScotchGambit.pgn */; };
 		AAB3C30C2A01595F0094FAB2 /* exampleDanishRefutation.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C30B2A01595F0094FAB2 /* exampleDanishRefutation.pgn */; };
 		AAB3C30E2A0159730094FAB2 /* exampleEnglundRefutation.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C30D2A0159730094FAB2 /* exampleEnglundRefutation.pgn */; };
-		AAC6430D29F811C200D1C12E /* StartTrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6430C29F811C200D1C12E /* StartTrainView.swift */; };
 		AAC6431129F8205D00D1C12E /* AcknowledgementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */; };
 		AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431329F9374100D1C12E /* ImpressumView.swift */; };
 		AAC6431629F9374B00D1C12E /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431529F9374B00D1C12E /* PrivacyView.swift */; };
@@ -45,6 +42,7 @@
 		AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC889A229F7DD3A0079ECE5 /* Extension.swift */; };
 		AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC889A429F802450079ECE5 /* PGNHelpView.swift */; };
 		AAC889A829F805370079ECE5 /* Popovers in Frameworks */ = {isa = PBXBuildFile; productRef = AAC889A729F805370079ECE5 /* Popovers */; };
+		AAF78B9B2A07B35B00FC8282 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,11 +80,9 @@
 		AAA1A19329F02352003F153F /* ChessOpeningTrainerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChessOpeningTrainerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA1A19729F02352003F153F /* ChessOpeningTrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessOpeningTrainerUITests.swift; sourceTree = "<group>"; };
 		AAA1A19929F02352003F153F /* ChessOpeningTrainerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessOpeningTrainerUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		AAA1A1A929F0263F003F153F /* ChessBoardViewOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardViewOld.swift; sourceTree = "<group>"; };
 		AAA1A1B629F14CAC003F153F /* MoveNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveNode.swift; sourceTree = "<group>"; };
 		AAA1A1B829F14D33003F153F /* GameTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTree.swift; sourceTree = "<group>"; };
 		AAA1A1C929F2CC44003F153F /* ArrowShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowShape.swift; sourceTree = "<group>"; };
-		AAA1A1D029F2DF7D003F153F /* TrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainView.swift; sourceTree = "<group>"; };
 		AAA1A1D429F415F9003F153F /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		AAA1A1D629F42E7F003F153F /* AddStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStudyView.swift; sourceTree = "<group>"; };
 		AAA1A1DF29F56F32003F153F /* ExamplePGN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplePGN.swift; sourceTree = "<group>"; };
@@ -98,7 +94,6 @@
 		AAB3C3092A01594F0094FAB2 /* exampleScotchGambit.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleScotchGambit.pgn; sourceTree = "<group>"; };
 		AAB3C30B2A01595F0094FAB2 /* exampleDanishRefutation.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleDanishRefutation.pgn; sourceTree = "<group>"; };
 		AAB3C30D2A0159730094FAB2 /* exampleEnglundRefutation.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleEnglundRefutation.pgn; sourceTree = "<group>"; };
-		AAC6430C29F811C200D1C12E /* StartTrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTrainView.swift; sourceTree = "<group>"; };
 		AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgementsView.swift; sourceTree = "<group>"; };
 		AAC6431329F9374100D1C12E /* ImpressumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressumView.swift; sourceTree = "<group>"; };
 		AAC6431529F9374B00D1C12E /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
@@ -106,6 +101,7 @@
 		AAC6431D29FA821800D1C12E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AAC889A229F7DD3A0079ECE5 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		AAC889A429F802450079ECE5 /* PGNHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PGNHelpView.swift; sourceTree = "<group>"; };
+		AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,17 +205,15 @@
 		AAA1A1D829F44345003F153F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */,
 				AAA1A17D29F02351003F153F /* ContentView.swift */,
 				AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */,
-				AAC6430C29F811C200D1C12E /* StartTrainView.swift */,
 				AA6960782A05460700A593BB /* PractiseView.swift */,
 				AA69607A2A05461700A593BB /* ChessboardView.swift */,
 				AAA1A1E729F6DB3F003F153F /* SettingsView.swift */,
 				AA6960762A05403F00A593BB /* ListView.swift */,
 				AAA1A1D629F42E7F003F153F /* AddStudyView.swift */,
 				AAC889A429F802450079ECE5 /* PGNHelpView.swift */,
-				AAA1A1A929F0263F003F153F /* ChessBoardViewOld.swift */,
-				AAA1A1D029F2DF7D003F153F /* TrainView.swift */,
 				AAC6431229F8206600D1C12E /* SubSettings */,
 			);
 			path = Views;
@@ -420,15 +414,13 @@
 				AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */,
 				AAA1A17E29F02351003F153F /* ContentView.swift in Sources */,
 				AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */,
-				AAA1A1AA29F0263F003F153F /* ChessBoardViewOld.swift in Sources */,
 				AA6960772A05403F00A593BB /* ListView.swift in Sources */,
 				AAC6431629F9374B00D1C12E /* PrivacyView.swift in Sources */,
-				AAC6430D29F811C200D1C12E /* StartTrainView.swift in Sources */,
 				AA87F3DD2A013A34009D7017 /* AnnotationView.swift in Sources */,
 				AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */,
 				AA69607B2A05461700A593BB /* ChessboardView.swift in Sources */,
-				AAA1A1D129F2DF7D003F153F /* TrainView.swift in Sources */,
 				AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */,
+				AAF78B9B2A07B35B00FC8282 /* ProgressBarView.swift in Sources */,
 				AA69607D2A06473800A593BB /* PractiseViewModel.swift in Sources */,
 				AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */,
 				AAA1A17C29F02351003F153F /* ChessOpeningTrainerApp.swift in Sources */,

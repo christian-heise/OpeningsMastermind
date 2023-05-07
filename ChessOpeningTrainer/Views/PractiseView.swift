@@ -72,7 +72,11 @@ struct PractiseView: View {
                 .navigationTitle(Text(vm.gameTree?.name ?? "No study"))
             }
             .onAppear() {
-                self.vm.gameTree = ExamplePGN.list[3].gameTree
+                if let gameTree = database.gametrees.randomElement() {
+                    self.vm.gameTree = gameTree
+                } else {
+                    self.vm.gameTree = ExamplePGN.list[3].gameTree
+                }
             }
             .toolbar {
                 ToolbarItem {

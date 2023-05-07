@@ -142,10 +142,10 @@ import ChessKit
             guard let gameTree = self.gameTree else { return }
             let (success, newNode) = gameTree.currentNode!.databaseContains(move: move, in: self.game)
             
-            gameTree.currentNode!.mistakesLast10Moves.removeFirst()
+            gameTree.currentNode!.mistakesLast5Moves.removeFirst()
             
             if success {
-                gameTree.currentNode!.mistakesLast10Moves.append(0)
+                gameTree.currentNode!.mistakesLast5Moves.append(0)
                 gameTree.currentNode = newNode
                 self.game.make(move: move)
                 gameTree.gameState = 0
@@ -155,7 +155,7 @@ import ChessKit
             } else {
                 gameTree.gameCopy = self.game.deepCopy()
                 if !gameTree.currentNode!.children.isEmpty {
-                    gameTree.currentNode!.mistakesLast10Moves.append(1)
+                    gameTree.currentNode!.mistakesLast5Moves.append(1)
                     gameTree.gameState = 1
                     
                     determineRightMove()
