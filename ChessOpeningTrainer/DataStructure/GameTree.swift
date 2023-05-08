@@ -12,20 +12,22 @@ import ChessKit
 
 class GameTree: ObservableObject, Identifiable, Codable, Hashable {
     static func == (lhs: GameTree, rhs: GameTree) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.name == rhs.name
     }
     func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+        hasher.combine(name)
     }
     
     let name: String
-    let id = UUID()
+
     let rootNode: GameNode
     let userColor: PieceColor
     
     let pgnString: String
     
     var gameCopy: Game? = nil
+    
+    let date: Date
     
     @Published var currentNode: GameNode?
     @Published var gameState: Int = 0
@@ -35,12 +37,24 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
         return self.userColor == .white ? 1-self.rootNode.progress : 1-self.rootNode.children.first!.progress
     }
     
+    init(with gametree: GameTree) {
+        self.name = gametree.name
+        self.rootNode = gametree.rootNode
+        self.currentNode = gametree.rootNode
+        self.userColor = gametree.userColor
+        self.pgnString = gametree.pgnString
+        
+        self.date = Date()
+    }
+    
     init(name: String, rootNode: GameNode, userColor: PieceColor, pgnString: String = "") {
         self.name = name
         self.rootNode = rootNode
         self.currentNode = rootNode
         self.userColor = userColor
         self.pgnString = pgnString
+        
+        self.date = Date()
     }
     
     init(name: String, pgnString: String, userColor: PieceColor) {
@@ -52,6 +66,8 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
         self.rootNode = rootNode
         self.currentNode = rootNode
         self.pgnString = pgnString
+        
+        self.date = Date()
     }
     
     static func example() -> GameTree {
@@ -125,6 +141,7 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
 
         self.name = try container.decode(String.self, forKey: .name)
         self.pgnString = try container.decode(String.self, forKey: .pgnString)
+        self.date = try container.decodeIfPresent(Date.self, forKey: .date) ?? Date()
         
         let rootNode =  try GameNode.decodeRecursively(from: decoder)
         self.rootNode = rootNode
@@ -142,9 +159,11 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
         try container.encode(pgnString, forKey: .pgnString)
         try rootNode.encodeRecursively(to: encoder)
         try container.encode(userColorString, forKey: .userColor)
+        
+        try container.encode(date, forKey: .date)
     }
     
     enum CodingKeys: String, CodingKey {
-            case name, rootNode, userColor, pgnString
+            case name, rootNode, userColor, pgnString, date
         }
 }

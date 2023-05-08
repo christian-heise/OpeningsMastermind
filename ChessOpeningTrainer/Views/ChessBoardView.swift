@@ -15,6 +15,8 @@ struct ChessboardView: View {
     @State private var offsets = Array(repeating: CGSize.zero, count: 64)
     @State private var draggedSquare: Square? = nil
     
+    let files = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -32,6 +34,22 @@ struct ChessboardView: View {
                                     .position(x: geo.size.width/2 + (CGFloat(col) - 3.5) * squareLength(in: geo.size), y: ((CGFloat(row) + 0.5) * squareLength(in: geo.size)))
                                     .opacity(0.2)
                             }
+                        }
+                        if row == (vm.userColor == .white ? 7 : 0) {
+                            Text(files[col])
+                                .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
+                                .position(x: geo.size.width/2 + (CGFloat(col) - 3.5) * squareLength(in: geo.size), y: ((CGFloat(row) + 0.5) * squareLength(in: geo.size)))
+                                .offset(x: (vm.userColor == .white ? 0.4 : -0.4)*squareLength(in: geo.size), y: (vm.userColor == .white ? 0.35 : -0.35)*squareLength(in: geo.size))
+                                .font(.footnote)
+                                .foregroundColor((row + col) % 2 == 0 ? settings.boardColorRGB.black.getColor() : settings.boardColorRGB.white.getColor())
+                        }
+                        if col == (vm.userColor == .white ? 0 : 7) {
+                            Text(String(8-row))
+                                .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
+                                .position(x: geo.size.width/2 + (CGFloat(col) - 3.5) * squareLength(in: geo.size), y: ((CGFloat(row) + 0.5) * squareLength(in: geo.size)))
+                                .offset(x: (vm.userColor == .white ? -0.4 : 0.4)*squareLength(in: geo.size), y: (vm.userColor == .white ? -0.35 : 0.35)*squareLength(in: geo.size))
+                                .font(.footnote)
+                                .foregroundColor((row + col) % 2 == 0 ? settings.boardColorRGB.black.getColor() : settings.boardColorRGB.white.getColor())
                         }
                     }
                 }
@@ -69,7 +87,7 @@ struct ChessboardView: View {
                                     self.draggedSquare = nil
                                     dragEnded(at: value, piece: piece.1, square: piece.0, in: geo.size)
                                 })
-                        .zIndex(self.draggedSquare==piece.0 ? 1000:0)
+                        .zIndex(self.draggedSquare==piece.0 ? 1000:10)
                 }
                 if let move = vm.last2Moves.0, let annotation = vm.annotation.0, annotation != "" && vm.gameState == 0 {
                     AnnotationView(annotation: annotation)

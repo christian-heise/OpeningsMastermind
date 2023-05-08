@@ -13,6 +13,8 @@
 		AA69607B2A05461700A593BB /* ChessboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA69607A2A05461700A593BB /* ChessboardView.swift */; };
 		AA69607D2A06473800A593BB /* PractiseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA69607C2A06473800A593BB /* PractiseViewModel.swift */; };
 		AA87F3DD2A013A34009D7017 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA87F3DC2A013A34009D7017 /* AnnotationView.swift */; };
+		AA930ED62A0920E500026712 /* SwitchStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA930ED52A0920E500026712 /* SwitchStudyView.swift */; };
+		AA930ED82A093D4100026712 /* BoxArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA930ED72A093D4100026712 /* BoxArrowShape.swift */; };
 		AAA1A17C29F02351003F153F /* ChessOpeningTrainerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A17B29F02351003F153F /* ChessOpeningTrainerApp.swift */; };
 		AAA1A17E29F02351003F153F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A17D29F02351003F153F /* ContentView.swift */; };
 		AAA1A18029F02352003F153F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAA1A17F29F02352003F153F /* Assets.xcassets */; };
@@ -69,6 +71,8 @@
 		AA69607A2A05461700A593BB /* ChessboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessboardView.swift; sourceTree = "<group>"; };
 		AA69607C2A06473800A593BB /* PractiseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PractiseViewModel.swift; sourceTree = "<group>"; };
 		AA87F3DC2A013A34009D7017 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
+		AA930ED52A0920E500026712 /* SwitchStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchStudyView.swift; sourceTree = SOURCE_ROOT; };
+		AA930ED72A093D4100026712 /* BoxArrowShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxArrowShape.swift; sourceTree = "<group>"; };
 		AAA1A17829F02351003F153F /* ChessOpeningTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessOpeningTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA1A17B29F02351003F153F /* ChessOpeningTrainerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessOpeningTrainerApp.swift; sourceTree = "<group>"; };
 		AAA1A17D29F02351003F153F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 		AAA1A1D829F44345003F153F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AA930ED52A0920E500026712 /* SwitchStudyView.swift */,
 				AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */,
 				AAA1A17D29F02351003F153F /* ContentView.swift */,
 				AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */,
@@ -236,6 +241,7 @@
 			children = (
 				AA87F3DC2A013A34009D7017 /* AnnotationView.swift */,
 				AAA1A1C929F2CC44003F153F /* ArrowShape.swift */,
+				AA930ED72A093D4100026712 /* BoxArrowShape.swift */,
 			);
 			path = Shapes;
 			sourceTree = "<group>";
@@ -414,6 +420,7 @@
 				AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */,
 				AAA1A17E29F02351003F153F /* ContentView.swift in Sources */,
 				AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */,
+				AA930ED62A0920E500026712 /* SwitchStudyView.swift in Sources */,
 				AA6960772A05403F00A593BB /* ListView.swift in Sources */,
 				AAC6431629F9374B00D1C12E /* PrivacyView.swift in Sources */,
 				AA87F3DD2A013A34009D7017 /* AnnotationView.swift in Sources */,
@@ -423,6 +430,7 @@
 				AAF78B9B2A07B35B00FC8282 /* ProgressBarView.swift in Sources */,
 				AA69607D2A06473800A593BB /* PractiseViewModel.swift in Sources */,
 				AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */,
+				AA930ED82A093D4100026712 /* BoxArrowShape.swift in Sources */,
 				AAA1A17C29F02351003F153F /* ChessOpeningTrainerApp.swift in Sources */,
 				AAA1A1CA29F2CC44003F153F /* ArrowShape.swift in Sources */,
 				AAA1A1E829F6DB3F003F153F /* SettingsView.swift in Sources */,

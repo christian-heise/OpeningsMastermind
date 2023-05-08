@@ -12,7 +12,24 @@ struct ListView: View {
     @EnvironmentObject var vm: PractiseViewModel
     @State private var showingAddSheet = false
     
+    @State private var sortingElements: [SortingMethod] = [.name, .date, .manual]
+    
     var body: some View {
+        let sortSelectionBinding = Binding<Int>(
+            get: {
+                database.sortSelection
+            },
+            set: {
+                if $0 == database.sortSelection && sortingElements[database.sortSelection] != .manual {
+                    database.sortingDirectionIncreasing.toggle()
+                } else {
+                    database.sortingDirectionIncreasing = true
+                    database.sortSelection = $0
+                }
+                database.sortGameTree()
+            }
+        )
+        
         NavigationStack {
             VStack {
                 List() {
@@ -30,17 +47,54 @@ struct ListView: View {
                     .onDelete(perform: delete)
                     .onMove(perform: move)
                 }
+
                 .navigationTitle(Text("Opening Studies"))
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        EditButton()
+                    }
+                    ToolbarItem {
+                        Menu {
+                            Picker(selection: sortSelectionBinding, label: Text("Sorting options")) {
+                                ForEach(sortingElements.indices, id: \.self) { index in
+                                    HStack {
+                                        Text(sortingElements[index].description)
+                                        if database.sortSelection == index && sortingElements[index] != .manual {
+                                            Image(systemName: database.sortingDirectionIncreasing ? "chevron.down" : "chevron.up")
+                                        }
+                                    }
+                                    .tag(index)
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "line.3.horizontal.decrease.circle")
+                        }
+                    }
+                    ToolbarItem() {
                         Button(action: {showingAddSheet = true}) {
                             Image(systemName: "plus")
                         }
+                        
                     }
                 }
                 .sheet(isPresented: $showingAddSheet) {
                     AddStudyView(database: database)
                 }
+            }
+        }
+    }
+    
+    enum SortingMethod: CustomStringConvertible {
+        case date, name, manual
+        
+        var description: String {
+            switch self {
+            case .date:
+                return "Date"
+            case .name:
+                return "Name"
+            case .manual:
+                return "Manually"
             }
         }
     }
@@ -51,6 +105,7 @@ struct ListView: View {
     
     func move(from source: IndexSet, to destination: Int) {
         database.gametrees.move(fromOffsets: source, toOffset: destination)
+        database.sortSelection = 2
     }
 }
 

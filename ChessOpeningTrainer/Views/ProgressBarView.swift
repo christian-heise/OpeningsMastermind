@@ -23,13 +23,20 @@ struct ProgressBarView: View {
                 RoundedRectangle(cornerRadius: 5)
                     .stroke()
                     .background(
-                        RoundedRectangle(cornerRadius: 5)
-                            .foregroundColor(.green)
-                            .mask(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .frame(width: barWidth(in: geo.size))
-                                    .position(CGPoint(x: barWidth(in: geo.size)/2, y: geo.size.height/2))
-                            )
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 5)
+                                .foregroundColor(.green)
+                                .mask(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .frame(width: barWidth(in: geo.size))
+                                        .position(CGPoint(x: barWidth(in: geo.size)/2, y: geo.size.height/2))
+                                )
+                                .zIndex(10)
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.gray)
+                                .zIndex(0)
+                                .opacity(0.15)
+                        }
                     )
                 Text(text)
                     .foregroundColor(progress > 0.6 ? .white : .green)
@@ -50,7 +57,7 @@ struct ProgressBarView: View {
 
 struct ProgressBarView_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressBarView(progress: 0.61)
+        ProgressBarView(progress: 0.2)
             .frame(height: 100)
             .padding()
     }

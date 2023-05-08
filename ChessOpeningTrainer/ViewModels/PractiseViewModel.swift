@@ -11,6 +11,8 @@ import ChessKit
 //extension PractiseView {
     @MainActor class PractiseViewModel: ObservableObject {
         @Published var gameTree: GameTree?
+        @Published var moveStringList: [String] = []
+        
         var game: Game = Game(position: startingGamePosition)
         
         var lastMove: Move? {
@@ -71,27 +73,22 @@ import ChessKit
         }
         
         func resetGameTree(to newGameTree: GameTree? = nil) {
+            self.moveStringList = []
+            self.game = Game(position: startingGamePosition)
+            
             if let newGameTree = newGameTree {
-                self.game = Game(position: startingGamePosition)
                 self.gameTree = newGameTree
-                if newGameTree.userColor == .black {
-                    Task {
-                        await makeNextMove(in: 0)
-                    }
-                } else {
-                    objectWillChange.send()
-                }
             } else {
                 guard let gameTree = self.gameTree else { return }
-                self.game = Game(position: startingGamePosition)
                 gameTree.reset()
-                if gameTree.userColor == .black {
-                    Task {
-                        await makeNextMove(in: 0)
-                    }
-                } else {
-                    objectWillChange.send()
+            }
+            
+            if self.userColor == .black {
+                Task {
+                    await makeNextMove(in: 0)
                 }
+            } else {
+                objectWillChange.send()
             }
         }
         func makeNextMove(in time_ms: Int) async {
@@ -106,6 +103,7 @@ import ChessKit
             try? await Task.sleep(for: .milliseconds(time_ms))
             
             await MainActor.run {
+                self.moveStringList.append(SanSerialization.default.san(for: newMove!, in: self.game))
                 self.game.make(move: newMove!)
                 if newNode!.children.isEmpty {
                     gameTree.gameState = 2
@@ -145,6 +143,7 @@ import ChessKit
             if success {
                 addMistake(0)
                 gameTree.currentNode = newNode
+                self.moveStringList.append(SanSerialization.default.san(for: move, in: self.game))
                 self.game.make(move: move)
                 gameTree.gameState = 0
                 Task {

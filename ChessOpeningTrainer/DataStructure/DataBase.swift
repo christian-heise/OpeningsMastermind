@@ -16,6 +16,9 @@ class DataBase: ObservableObject, Codable {
     
     @Published var gametrees: [GameTree] = []
     
+    @Published var sortSelection: Int = 2
+    @Published var sortingDirectionIncreasing: Bool = true
+    
     init() {
         load()
     }
@@ -49,15 +52,34 @@ class DataBase: ObservableObject, Codable {
             let decoder = JSONDecoder()
             let database = try decoder.decode(DataBase.self, from: data)
             self.appVersion = database.appVersion
+            self.sortSelection = database.sortSelection
+            self.sortingDirectionIncreasing = database.sortingDirectionIncreasing
             self.gametrees = database.gametrees
         } catch {
             print("Could not load database")
         }
     }
     
+    func sortGameTree() {
+        if self.sortSelection == 0 {
+            if self.sortingDirectionIncreasing {
+                self.gametrees.sort(by: {$0.name < $1.name})
+            } else {
+                self.gametrees.sort(by: {$0.name > $1.name})
+            }
+        } else if self.sortSelection == 1 {
+            if self.sortingDirectionIncreasing {
+                self.gametrees.sort(by: {$0.date > $1.date})
+            } else {
+                self.gametrees.sort(by: {$0.date < $1.date})
+            }
+        }
+        self.save()
+    }
+    
     func addNewGameTree(_ gameTree: GameTree) {
         self.gametrees.append(gameTree)
-        self.save()
+        self.sortGameTree()
     }
     
     func addNewGameTree(name: String, pgnString: String, userColor: PieceColor) -> Bool {
@@ -65,17 +87,12 @@ class DataBase: ObservableObject, Codable {
         
         if !newGameTree.rootNode.children.isEmpty {
             self.gametrees.append(newGameTree)
-            self.save()
+            self.sortGameTree()
             return true
         }
         else {
             return false
         }
-    }
-    
-    func addExampleGameTree() {
-        self.gametrees.append(GameTree.example())
-        self.save()
     }
     
     func removeGameTree(at offsets: IndexSet) {
@@ -86,9 +103,12 @@ class DataBase: ObservableObject, Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-//        appVersion = try container.decode(String.self, forKey: .appVersion)
-        appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-        gametrees = try container.decode([GameTree].self, forKey: .gameTrees)
+        self.appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        self.gametrees = try container.decode([GameTree].self, forKey: .gameTrees)
+        self.sortSelection = try container.decodeIfPresent(Int.self, forKey: .sortSelection) ?? 2
+        self.sortingDirectionIncreasing = try container.decodeIfPresent(Bool.self, forKey: .sortingDirectionIncreasing) ?? true
+        
+        self.sortGameTree()
     }
     
     func encode(to encoder: Encoder) throws {
@@ -96,9 +116,11 @@ class DataBase: ObservableObject, Codable {
         
         try container.encode(appVersion, forKey: .appVersion)
         try container.encode(gametrees, forKey: .gameTrees)
+        try container.encode(sortSelection, forKey: .sortSelection)
+        try container.encode(sortingDirectionIncreasing, forKey: .sortingDirectionIncreasing)
     }
     
     enum CodingKeys: String, CodingKey {
-            case appVersion, gameTrees
+            case appVersion, gameTrees, sortSelection, sortingDirectionIncreasing
     }
 }

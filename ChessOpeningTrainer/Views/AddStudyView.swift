@@ -25,6 +25,7 @@ struct AddStudyView: View {
     
     @State private var nameError = false
     @State private var pgnError = false
+    @State private var duplicateError = false
     
     @State private var showingPGNHelp = false
     
@@ -58,6 +59,9 @@ struct AddStudyView: View {
                             nameError = false
                         }
                         .padding(.horizontal)
+                        .onChange(of: nameString) { newValue in
+                            nameError = false
+                        }
                     
                     VStack(alignment: .leading) {
                         Text("Select your color:")
@@ -151,6 +155,9 @@ struct AddStudyView: View {
                         .foregroundColor(.green)
                         .padding()
                     }
+                    .alert(isPresented: $duplicateError) {
+                        Alert(title: Text("Duplicate"), message: Text("Library already contains study with this name"))
+                    }
                 } else {
                     List(selection: $exampleSelection) {
                         ForEach(ExamplePGN.list, id: \.self) { listItem in
@@ -159,17 +166,21 @@ struct AddStudyView: View {
                                 Text("created by " + listItem.creator)
                                     .font(Font.caption2)
                             }
+                            .opacity(database.gametrees.contains(listItem.gameTree!) ? 0.5 : 1.0)
                             .padding(.vertical, 3)
                             .contextMenu {
                                 Button{openURL(URL(string: listItem.url)!)} label: {
                                     Label("Visit Study on Lichess.com", systemImage: "safari")
                                 }
                             }
+                            .if(database.gametrees.contains(listItem.gameTree!)) { view in
+                                view._untagged()
+                            }
                         }
                         .listRowBackground(colorScheme == .dark ? [28,28,30].getColor():Color.white)
-                    }.listStyle(.inset)
-                        .listRowSeparator(.hidden)
-                        
+                    }
+                    .listStyle(.inset)
+                    .listRowSeparator(.hidden)
                     
                     Button(action: {
                         addExamples()
@@ -192,8 +203,10 @@ struct AddStudyView: View {
             .navigationTitle(Text("Add Study"))
             .environment(\.editMode, $editMode)
             .toolbar {
-                Button("Dismiss") {
+                Button(action:{
                     dismiss()
+                }) {
+                    Image(systemName: "xmark")
                 }
             }
         }
@@ -207,6 +220,9 @@ struct AddStudyView: View {
             nameError = true
         } else if pgnString.isEmpty {
             pgnError = true
+        } else if database.gametrees.contains(where: {$0.name == nameString}) {
+            duplicateError = true
+            nameError = true
         } else {
             if database.addNewGameTree(name: nameString, pgnString: pgnString, userColor: selectedPieceColor) {
                 dismiss()
@@ -220,7 +236,8 @@ struct AddStudyView: View {
         if exampleSelection.isEmpty { return }
         let examplesArray = Array(self.exampleSelection).sorted(by: {$0.gameTree!.name < $1.gameTree!.name})
         for example in examplesArray {
-            self.database.addNewGameTree(example.gameTree!)
+            
+            self.database.addNewGameTree(GameTree(with: example.gameTree!))
         }
         dismiss()
     }
