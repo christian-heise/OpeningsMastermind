@@ -9,13 +9,12 @@ import SwiftUI
 import ChessKit
 
 struct PractiseView: View {
-    @StateObject private var vm = PractiseViewModel()
+    @EnvironmentObject var vm: PractiseViewModel
     
     @ObservedObject var database: DataBase
     @ObservedObject var settings: Settings
     
-    @State private var isShowingSheet = false
-    @State private var selection: GameTree?
+    @State private var isShowingSheet = true
     
     var text: String {
         if vm.gameState == 1 {
@@ -66,17 +65,10 @@ struct PractiseView: View {
                         .disabled(vm.gameState > 0 ? false : true)
                     }
                     .padding(10)
-                    Text("Mistake Rate: \(String(format: "%0.2f",vm.gameTree?.currentNode?.mistakesRate ?? 0.0))")
+//                    Text("Mistake Rate: \(String(format: "%0.2f",vm.gameTree?.currentNode?.mistakesRate ?? 0.0))")
                 }
                 .environmentObject(vm)
                 .navigationTitle(Text(vm.gameTree?.name ?? "No study"))
-            }
-            .onAppear() {
-                if let gameTree = database.gametrees.randomElement() {
-                    self.vm.gameTree = gameTree
-                } else {
-                    self.vm.gameTree = ExamplePGN.list[3].gameTree
-                }
             }
             .toolbar {
                 ToolbarItem {
@@ -100,7 +92,9 @@ struct PractiseView: View {
 }
 
 struct PractiseView_Previews: PreviewProvider {
+    static let myEnvObject = PractiseViewModel()
     static var previews: some View {
         PractiseView(database: DataBase(), settings: Settings())
+            .environmentObject(myEnvObject)
     }
 }

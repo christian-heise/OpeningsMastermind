@@ -86,7 +86,8 @@ class DataBase: ObservableObject, Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        appVersion = try container.decode(String.self, forKey: .appVersion)
+//        appVersion = try container.decode(String.self, forKey: .appVersion)
+        appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         gametrees = try container.decode([GameTree].self, forKey: .gameTrees)
     }
     

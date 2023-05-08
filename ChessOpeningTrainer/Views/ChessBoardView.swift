@@ -71,13 +71,13 @@ struct ChessboardView: View {
                                 })
                         .zIndex(self.draggedSquare==piece.0 ? 1000:0)
                 }
-                if let move = vm.last2Moves.0, let annotation = vm.annotation.0, annotation != "" {
+                if let move = vm.last2Moves.0, let annotation = vm.annotation.0, annotation != "" && vm.gameState == 0 {
                     AnnotationView(annotation: annotation)
                         .frame(width: squareLength(in: geo.size)*0.5)
                         .position(positionAnnotation(move.to, in: geo.size))
                         .zIndex(500)
                 }
-                if let move = vm.last2Moves.1, let annotation = vm.annotation.1, annotation != "" {
+                if let move = vm.last2Moves.1, let annotation = vm.annotation.1, annotation != "" && vm.gameState == 0 {
                     AnnotationView(annotation: annotation)
                         .frame(width: squareLength(in: geo.size)*0.5)
                         .position(positionAnnotation(move.to, in: geo.size))

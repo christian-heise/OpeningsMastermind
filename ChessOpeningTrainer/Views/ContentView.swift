@@ -14,6 +14,8 @@ struct ContentView: View {
     
     @Environment(\.scenePhase) var scenePhase
     
+    @StateObject var vm = PractiseViewModel()
+    
     var body: some View {
         TabView {
             
@@ -31,6 +33,7 @@ struct ContentView: View {
                     Label("Settings", systemImage: "gear")
                 }
         }
+        .environmentObject(vm)
         .onChange(of: scenePhase) { phase in
                 if phase == .background {
                     database.save()

@@ -31,6 +31,10 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
     @Published var gameState: Int = 0
     @Published var rightMove: Move? = nil
     
+    var progress: Double {
+        return self.userColor == .white ? 1-self.rootNode.progress : 1-self.rootNode.children.first!.progress
+    }
+    
     init(name: String, rootNode: GameNode, userColor: PieceColor, pgnString: String = "") {
         self.name = name
         self.rootNode = rootNode
@@ -42,8 +46,11 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
     init(name: String, pgnString: String, userColor: PieceColor) {
         self.name = name
         self.userColor = userColor
-        self.rootNode = GameTree.decodePGN(pgnString: pgnString)
-        self.currentNode = self.rootNode
+        
+        let rootNode = GameTree.decodePGN(pgnString: pgnString)
+        
+        self.rootNode = rootNode
+        self.currentNode = rootNode
         self.pgnString = pgnString
     }
     
@@ -116,17 +123,15 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        name = try container.decode(String.self, forKey: .name)
-        pgnString = try container.decode(String.self, forKey: .pgnString)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.pgnString = try container.decode(String.self, forKey: .pgnString)
         
-        rootNode =  try GameNode.decodeRecursively(from: decoder)
-        
-//        rootNode = try container.decode(GameNode.self, forKey: .rootNode)
-        
+        let rootNode =  try GameNode.decodeRecursively(from: decoder)
+        self.rootNode = rootNode
         let userColorString = try container.decode(String.self, forKey: .userColor)
-        userColor = userColorString=="white" ? .white : .black
+        self.userColor = userColorString=="white" ? .white : .black
         
-        currentNode = rootNode
+        self.currentNode = rootNode
     }
     
     func encode(to encoder: Encoder) throws {

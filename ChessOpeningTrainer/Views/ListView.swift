@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListView: View {
     @ObservedObject var database: DataBase
-    
+    @EnvironmentObject var vm: PractiseViewModel
     @State private var showingAddSheet = false
     
     var body: some View {
@@ -17,18 +17,15 @@ struct ListView: View {
             VStack {
                 List() {
                     ForEach(database.gametrees) { gameTree in
-                        //                        NavigationLink(destination: TrainView(gameTree: gameTree, database: database, settings: settings)) {
                         VStack(alignment: .leading) {
                             Text(gameTree.name)
                                 .fontWeight(.medium)
                             HStack {
                                 Text("Progress:")
-                                ProgressBarView(progress: gameTree.userColor == .white ? 1-gameTree.rootNode.progress : 1-gameTree.rootNode.children.first!.progress)
+                                ProgressBarView(progress: gameTree.progress)
                                     .frame(height: 20)
                             }
-//                            Text("Progress: \(gameTree.userColor == .white ? gameTree.rootNode.progress : gameTree.rootNode.children.first!.progress)")
                         }
-                        //                        }
                     }
                     .onDelete(perform: delete)
                     .onMove(perform: move)

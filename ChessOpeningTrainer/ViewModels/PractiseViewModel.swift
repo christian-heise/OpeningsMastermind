@@ -142,10 +142,8 @@ import ChessKit
             guard let gameTree = self.gameTree else { return }
             let (success, newNode) = gameTree.currentNode!.databaseContains(move: move, in: self.game)
             
-            gameTree.currentNode!.mistakesLast5Moves.removeFirst()
-            
             if success {
-                gameTree.currentNode!.mistakesLast5Moves.append(0)
+                addMistake(0)
                 gameTree.currentNode = newNode
                 self.game.make(move: move)
                 gameTree.gameState = 0
@@ -155,7 +153,7 @@ import ChessKit
             } else {
                 gameTree.gameCopy = self.game.deepCopy()
                 if !gameTree.currentNode!.children.isEmpty {
-                    gameTree.currentNode!.mistakesLast5Moves.append(1)
+                    addMistake(1)
                     gameTree.gameState = 1
                     
                     determineRightMove()
@@ -182,6 +180,12 @@ import ChessKit
             guard let promotionMove = self.promotionMove else { return }
             self.promotionMove = nil
             makeMove(Move(from: promotionMove.from, to: promotionMove.to, promotion: kind))
+        }
+        
+        func addMistake(_ mistake: Int) {
+            guard let gameTree = self.gameTree else { return }
+            gameTree.currentNode!.mistakesLast5Moves.removeFirst()
+            gameTree.currentNode!.mistakesLast5Moves.append(mistake)
         }
     }
 
