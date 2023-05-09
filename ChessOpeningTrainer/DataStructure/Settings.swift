@@ -67,5 +67,8 @@ class Settings: ObservableObject, Codable {
 
 struct BoardColorRGB: Codable {
     var white = [255,255,255]
-    var black = [161, 132, 98]
+    var black = [171, 133, 102]
+    
+    // green: [93, 132, 101]
+    // orange: [207, 133, 102]
 }

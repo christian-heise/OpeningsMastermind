@@ -39,7 +39,7 @@ struct ContentView: View {
                 }
             }
         .onAppear() {
-            self.vm.gameTree = self.database.gametrees.first
+            self.vm.gameTree = self.database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})
         }
     }
 }

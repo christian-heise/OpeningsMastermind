@@ -40,7 +40,7 @@ struct ChessboardView: View {
                                 .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                                 .position(x: geo.size.width/2 + (CGFloat(col) - 3.5) * squareLength(in: geo.size), y: ((CGFloat(row) + 0.5) * squareLength(in: geo.size)))
                                 .offset(x: (vm.userColor == .white ? 0.4 : -0.4)*squareLength(in: geo.size), y: (vm.userColor == .white ? 0.35 : -0.35)*squareLength(in: geo.size))
-                                .font(.footnote)
+                                .font(.system(size: squareLength(in: geo.size)/4))
                                 .foregroundColor((row + col) % 2 == 0 ? settings.boardColorRGB.black.getColor() : settings.boardColorRGB.white.getColor())
                         }
                         if col == (vm.userColor == .white ? 0 : 7) {
@@ -48,7 +48,7 @@ struct ChessboardView: View {
                                 .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                                 .position(x: geo.size.width/2 + (CGFloat(col) - 3.5) * squareLength(in: geo.size), y: ((CGFloat(row) + 0.5) * squareLength(in: geo.size)))
                                 .offset(x: (vm.userColor == .white ? -0.4 : 0.4)*squareLength(in: geo.size), y: (vm.userColor == .white ? -0.35 : 0.35)*squareLength(in: geo.size))
-                                .font(.footnote)
+                                .font(.system(size: squareLength(in: geo.size)/4))
                                 .foregroundColor((row + col) % 2 == 0 ? settings.boardColorRGB.black.getColor() : settings.boardColorRGB.white.getColor())
                         }
                     }

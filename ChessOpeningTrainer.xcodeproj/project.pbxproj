@@ -145,6 +145,13 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		AA930EDF2A0A4C1B00026712 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AAA1A16F29F02351003F153F = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +159,7 @@
 				AAA1A18C29F02352003F153F /* ChessOpeningTrainerTests */,
 				AAA1A19629F02352003F153F /* ChessOpeningTrainerUITests */,
 				AAA1A17929F02351003F153F /* Products */,
+				AA930EDF2A0A4C1B00026712 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -283,6 +291,7 @@
 				AAA1A17429F02351003F153F /* Sources */,
 				AAA1A17529F02351003F153F /* Frameworks */,
 				AAA1A17629F02351003F153F /* Resources */,
+				AA930EDE2A0A4B9400026712 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -368,6 +377,7 @@
 			packageReferences = (
 				AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */,
 				AAC889A629F805370079ECE5 /* XCRemoteSwiftPackageReference "Popovers" */,
+				AA930EDB2A0A4B5700026712 /* XCRemoteSwiftPackageReference "Nine41" */,
 			);
 			productRefGroup = AAA1A17929F02351003F153F /* Products */;
 			projectDirPath = "";
@@ -410,6 +420,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AA930EDE2A0A4B9400026712 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/bin/xcrun --sdk macosx swift run --package-path \"${BUILD_ROOT}/../../SourcePackages/checkouts/Nine41\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AAA1A17429F02351003F153F /* Sources */ = {
@@ -804,6 +836,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		AA930EDB2A0A4B5700026712 /* XCRemoteSwiftPackageReference "Nine41" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jessesquires/Nine41";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/aperechnev/ChessKit";

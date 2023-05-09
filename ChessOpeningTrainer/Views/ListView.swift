@@ -14,6 +14,39 @@ struct ListView: View {
     
     @State private var sortingElements: [SortingMethod] = [.name, .date, .progress, .manual]
     
+    var sortedGameTrees: [GameTree] {
+        if database.sortSelection == .name {
+            if database.sortingDirectionIncreasing {
+                return database.gametrees.sorted(by: {$0.name < $1.name})
+            } else {
+                return database.gametrees.sorted(by: {$0.name > $1.name})
+            }
+        } else if database.sortSelection == .date {
+            if database.sortingDirectionIncreasing {
+                return database.gametrees.sorted(by: {
+                    if $0.date == $1.date {
+                        return $0.name > $1.name
+                    }
+                    return $0.date > $1.date
+                })
+            } else {
+                return database.gametrees.sorted(by: {
+                    if $0.date == $1.date {
+                        return $0.name < $1.name
+                    }
+                    return $0.date < $1.date
+                })
+            }
+        } else if database.sortSelection == .progress {
+            if database.sortingDirectionIncreasing {
+                return database.gametrees.sorted(by: {$0.progress > $1.progress})
+            } else {
+                return database.gametrees.sorted(by: {$0.progress < $1.progress})
+            }
+        }
+        return database.gametrees
+    }
+    
     var body: some View {
         let sortSelectionBinding = Binding<SortingMethod>(
             get: {
@@ -26,14 +59,13 @@ struct ListView: View {
                     database.sortingDirectionIncreasing = true
                     database.sortSelection = $0
                 }
-                database.sortGameTree()
             }
         )
         
         NavigationStack {
             VStack {
                 List() {
-                    ForEach(database.gametrees) { gameTree in
+                    ForEach(sortedGameTrees) { gameTree in
                         VStack(alignment: .leading) {
                             Text(gameTree.name)
                                 .fontWeight(.medium)
@@ -63,7 +95,6 @@ struct ListView: View {
                                             Image(systemName: database.sortingDirectionIncreasing ? "chevron.down" : "chevron.up")
                                         }
                                     }
-//                                    .tag(index)
                                 }
                             }
                         } label: {

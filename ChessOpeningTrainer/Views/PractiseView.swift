@@ -60,17 +60,19 @@ struct PractiseView: View {
                         Button("Select Study") {
                             isShowingSwitchingView = true
                         }
-                        .opacity(database.gametrees.isEmpty ? 0.0 : 1.0)
+//                        .opacity(database.gametrees.isEmpty ? 0.0 : 1.0)
                         .disabled(database.gametrees.isEmpty ? true : false)
                     }
                     .padding(.horizontal)
-                    .padding(.bottom, 5)
-                    
+                    .padding(.bottom, 1)
+                    .padding(.top, 5)
                     HStack {
                         Text(navigationTitle)
                             .font(.largeTitle)
                             .fontWeight(.bold)
                             .padding(.horizontal)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
                         Spacer()
                     }
                     Spacer()
@@ -145,6 +147,11 @@ struct PractiseView: View {
             }
             .sheet(isPresented: $isShowingSwitchingView) {
                 SwitchStudyView(database: database)
+            }
+            .onAppear() {
+                if vm.gameTree == nil {
+                    vm.gameTree = database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})
+                }
             }
         }
     }

@@ -60,42 +60,8 @@ class DataBase: ObservableObject, Codable {
         }
     }
     
-    func sortGameTree() {
-        if self.sortSelection == .name {
-            if self.sortingDirectionIncreasing {
-                self.gametrees.sort(by: {$0.name < $1.name})
-            } else {
-                self.gametrees.sort(by: {$0.name > $1.name})
-            }
-        } else if self.sortSelection == .date {
-            if self.sortingDirectionIncreasing {
-                self.gametrees.sort(by: {
-                    if $0.date == $1.date {
-                        return $0.name > $1.name
-                    }
-                    return $0.date > $1.date
-                })
-            } else {
-                self.gametrees.sort(by: {
-                    if $0.date == $1.date {
-                        return $0.name < $1.name
-                    }
-                    return $0.date < $1.date
-                })
-            }
-        } else if self.sortSelection == .progress {
-            if self.sortingDirectionIncreasing {
-                self.gametrees.sort(by: {$0.progress > $1.progress})
-            } else {
-                self.gametrees.sort(by: {$0.progress < $1.progress})
-            }
-        }
-        self.save()
-    }
-    
     func addNewGameTree(_ gameTree: GameTree) {
         self.gametrees.append(gameTree)
-        self.sortGameTree()
     }
     
     func addNewGameTree(name: String, pgnString: String, userColor: PieceColor) -> Bool {
@@ -103,7 +69,6 @@ class DataBase: ObservableObject, Codable {
         
         if !newGameTree.rootNode.children.isEmpty {
             self.gametrees.append(newGameTree)
-            self.sortGameTree()
             return true
         }
         else {
@@ -123,8 +88,6 @@ class DataBase: ObservableObject, Codable {
         self.gametrees = try container.decode([GameTree].self, forKey: .gameTrees)
         self.sortSelection = try container.decodeIfPresent(SortingMethod.self, forKey: .sortSelection) ?? .manual
         self.sortingDirectionIncreasing = try container.decodeIfPresent(Bool.self, forKey: .sortingDirectionIncreasing) ?? true
-        
-        self.sortGameTree()
     }
     
     func encode(to encoder: Encoder) throws {

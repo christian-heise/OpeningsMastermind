@@ -12,4 +12,5 @@ enum SortingMethod: String, Codable, Hashable, CaseIterable {
     case name = "Name"
     case manual = "Manual"
     case progress = "Progress"
+    case lastPlayed = "Last Played"
 }

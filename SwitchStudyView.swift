@@ -28,7 +28,7 @@ struct SwitchStudyView: View {
                     .padding(5)
                 }
                 
-                List(database.gametrees, id: \.self) { gametree in
+                List(database.gametrees.sorted(by: {$0.lastPlayed > $1.lastPlayed}), id: \.self) { gametree in
                     Button {
                         vm.resetGameTree(to: gametree)
                         dismiss()

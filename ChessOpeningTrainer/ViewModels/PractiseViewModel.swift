@@ -94,6 +94,7 @@ import ChessKit
             self.game = Game(position: startingGamePosition)
             
             if let newGameTree = newGameTree {
+                newGameTree.lastPlayed = Date()
                 self.gameTree = newGameTree
             } else {
                 guard let gameTree = self.gameTree else { return }

@@ -44,8 +44,8 @@ struct SettingsView: View {
                     }
                 }
                 Section() {
-                    ColorPicker("White board squares", selection: $colorWhite, supportsOpacity: false)
-                    ColorPicker("Black board squares", selection: $colorBlack, supportsOpacity: false)
+                    ColorPicker("Light board squares", selection: $colorWhite, supportsOpacity: false)
+                    ColorPicker("Dark board squares", selection: $colorBlack, supportsOpacity: false)
                     Button("Reset Colors") {
                         self.settings.resetColor()
                         self.colorWhite = settings.boardColorRGB.white.getColor()
