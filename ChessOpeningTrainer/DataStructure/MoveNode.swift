@@ -42,14 +42,14 @@ class GameNode: Codable, Equatable {
     }
     
     let mistakeFactor = 0.9
-    var nodesBelow: Int {
-        var array: [Int] = []
+    var nodesBelow: Double {
+        var array: [Double] = []
         if self.children.isEmpty {
             return 0
         } else {
             for child in self.children {
                 if !child.children.isEmpty {
-                    array.append(child.children.map({$0.nodesBelow * mistakeFactor + 1}).reduce(0,+))
+                    array.append(child.children.map({Double($0.nodesBelow) * mistakeFactor + 1}).reduce(0,+))
                 }
             }
             if array.isEmpty {
@@ -59,14 +59,14 @@ class GameNode: Codable, Equatable {
             }
         }
     }
-    var mistakesBelow: Int {
-        var array: [Int] = []
+    var mistakesBelow: Double {
+        var array: [Double] = []
         if self.children.isEmpty {
             return 0
         } else {
             for child in self.children {
                 if !child.children.isEmpty {
-                    array.append(child.children.map({$0.mistakesBelow * mistakeFactor + $0.mistakesLast5Moves.suffix(2).reduce(0,+)}).reduce(0,+))
+                    array.append(child.children.map({Double($0.mistakesBelow) * mistakeFactor + Double($0.mistakesLast5Moves.suffix(2).reduce(0,+))}).reduce(0,+))
                 }
             }
             if array.isEmpty {
