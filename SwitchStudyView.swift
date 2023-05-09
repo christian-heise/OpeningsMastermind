@@ -9,15 +9,10 @@ import SwiftUI
 
 struct SwitchStudyView: View {
     @ObservedObject var database: DataBase
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var vm: PractiseViewModel
-    @Binding var isShowingSwitchingView: Bool
-    @Binding var switchViewOffset: CGSize
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .fill([242,242, 247].getColor())
-                .shadow(radius: 2)
             VStack {
                 HStack(alignment: .top) {
                     Text("Select a Study")
@@ -26,7 +21,7 @@ struct SwitchStudyView: View {
                         .padding(.top, 7)
                     Spacer()
                     Button {
-                        isShowingSwitchingView = false
+                        dismiss()
                     } label: {
                         Image(systemName: "xmark")
                     }
@@ -36,7 +31,7 @@ struct SwitchStudyView: View {
                 List(database.gametrees, id: \.self) { gametree in
                     Button {
                         vm.resetGameTree(to: gametree)
-                        isShowingSwitchingView = false
+                        dismiss()
                     } label: {
                         HStack {
                             Text(gametree.name)
@@ -47,20 +42,11 @@ struct SwitchStudyView: View {
                         }
                         .padding(.vertical, 7)
                     }
-                    .listRowBackground(
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 5)
-                                .fill(.white)
-                                .padding(.vertical, 3)
-                        }
-                    )
-                    .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)
             }
             .padding(.horizontal)
             .padding(.vertical)
-        }
     }
 }
 

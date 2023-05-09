@@ -12,15 +12,15 @@ struct ListView: View {
     @EnvironmentObject var vm: PractiseViewModel
     @State private var showingAddSheet = false
     
-    @State private var sortingElements: [SortingMethod] = [.name, .date, .manual]
+    @State private var sortingElements: [SortingMethod] = [.name, .date, .progress, .manual]
     
     var body: some View {
-        let sortSelectionBinding = Binding<Int>(
+        let sortSelectionBinding = Binding<SortingMethod>(
             get: {
                 database.sortSelection
             },
             set: {
-                if $0 == database.sortSelection && sortingElements[database.sortSelection] != .manual {
+                if $0 == database.sortSelection && database.sortSelection != .manual {
                     database.sortingDirectionIncreasing.toggle()
                 } else {
                     database.sortingDirectionIncreasing = true
@@ -56,14 +56,14 @@ struct ListView: View {
                     ToolbarItem {
                         Menu {
                             Picker(selection: sortSelectionBinding, label: Text("Sorting options")) {
-                                ForEach(sortingElements.indices, id: \.self) { index in
+                                ForEach(sortingElements, id: \.self) { sorting in
                                     HStack {
-                                        Text(sortingElements[index].description)
-                                        if database.sortSelection == index && sortingElements[index] != .manual {
+                                        Text(sorting.rawValue)
+                                        if database.sortSelection == sorting && sorting != .manual {
                                             Image(systemName: database.sortingDirectionIncreasing ? "chevron.down" : "chevron.up")
                                         }
                                     }
-                                    .tag(index)
+//                                    .tag(index)
                                 }
                             }
                         } label: {
@@ -84,20 +84,7 @@ struct ListView: View {
         }
     }
     
-    enum SortingMethod: CustomStringConvertible {
-        case date, name, manual
-        
-        var description: String {
-            switch self {
-            case .date:
-                return "Date"
-            case .name:
-                return "Name"
-            case .manual:
-                return "Manually"
-            }
-        }
-    }
+
     
     func delete(at offsets: IndexSet) {
         database.removeGameTree(at: offsets)
@@ -105,7 +92,7 @@ struct ListView: View {
     
     func move(from source: IndexSet, to destination: Int) {
         database.gametrees.move(fromOffsets: source, toOffset: destination)
-        database.sortSelection = 2
+        database.sortSelection = .manual
     }
 }
 

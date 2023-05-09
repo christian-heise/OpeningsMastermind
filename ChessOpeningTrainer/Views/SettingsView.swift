@@ -29,8 +29,8 @@ struct SettingsView: View {
                 HStack(alignment: .top){
                     Image(uiImage: UIImage(named: "AppIcon") ?? UIImage())
                         .resizable()
-                        .cornerRadius(80/6.4)
-                        .frame(width:80, height: 80)
+                        .cornerRadius(60/6.4)
+                        .frame(width:60, height: 60)
                     VStack(alignment: .leading) {
                         Text("Openings Mastermind")
                             .font(.title3)
@@ -80,9 +80,9 @@ struct SettingsView: View {
                         .fontWeight(.bold)
 //                        .foregroundColor(.black)
                 }
-                footer: {
-                    Text("Copyright © 2023 Christian Gleißner")
-                }
+//                footer: {
+//                    Text("Copyright © 2023 Christian Gleißner")
+//                }
                 Section() {
                     Button("Rate my App") {
                         requestReview()

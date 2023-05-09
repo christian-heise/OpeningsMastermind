@@ -299,36 +299,3 @@ Note that some lines are analyzed far beyond the point of what you'd ever want t
 1. e4 c5 2. d4 d5 { Some weird countergambit. It should not be feared. } (2... g6 3. d5)  (2... Nf6 3. e5 Nd5 4. c4 Nb4 5. d5 e6 6. a3 N4a6 7. d6)  (2... Nc6 3. d5 Ne5 4. f4 Ng6 5. Nf3 d6 6. Nc3) 3. dxc5 Nf6 4. exd5 Qxd5 5. Qxd5 Nxd5 6. Bc4 e6 7. Bxd5 exd5 8. Be3 { Even if you can't keep the pawn, you have an advantage in the better pawn structure and slight lead in development. But also, it turns out that you can often keep the pawn anyways. } { [%csl Gc5][%cal Ge3c5] } 8... Na6 9. Nc3 Be6 10. O-O-O O-O-O 11. Nb5 Kb8 12. Bf4+ Ka8 13. b4 Nxb4 (13... b6 14. cxb6 Bxb4 15. bxa7) 14. Nc7+ Kb8 15. Nxe6+ *
 
 
-[Event "Smith-Morra Gambit In-Depth study: Master Sample Game 1: Lev Milman - Carlos Obregon, Villa Giardino 2002"]
-[Site "https://lichess.org/study/ccnOaWVC/eKppf6eC"]
-[Result "*"]
-[Annotator "ThatRaisinTho"]
-[UTCDate "2022.10.22"]
-[UTCTime "18:11:42"]
-[Variant "Standard"]
-[ECO "B21"]
-[Opening "Sicilian Defense: Smith-Morra Gambit Accepted, Scheveningen Formation"]
-
-1. e4 c5 2. d4 cxd4 3. c3 dxc3 4. Nxc3 Nc6 5. Nf3 d6 6. Bc4 e6 7. O-O Be7 8. Qe2 Nf6 9. Rd1 Qc7 { We see this inaccurate line of the Scheveningen Formation played. How will a master level player be able to take advantage? } 10. Nb5 Qb8 11. Bf4 Ne5 { Fearful of the weakness created by pushing the pawn to e5, Obregon instead interposes the attack on d6 with a knight. But similar to the tactic I missed in Lower-Level Sample Game 1, this doesn't prevent taking on d6 at all! } 12. Nxd6+! Bxd6! 13. Rxd6! { For the cost of an exchange, the usually solid Scheveningen pawn structure is shredded. } 13... Qxd6 (13... Nxf3+?? { After this trade, white no longer loses material and is completely winning with various discovered attacks possible on the black queen. } 14. Qxf3 O-O 15. Rxe6 { [%csl Gb8][%cal Gf4b8] }) 14. Nxe5 O-O 15. Ng6 Qc6 { Not the most impressive move for a master player. However, this goes to show just how quickly one can fall apart when playing against the Smith-Morra. Quick collapses such as this one are not uncommon in the Smith-Morra. } 16. Ne7+ { [%cal Ge7g8,Ge7c6] } 16... Kh8 17. Nxc6 bxc6 { Up a large amount of material, Milman goes on to convert in routine fashion. } 18. Rd1 a5 19. a4 Re8 20. Rd6 c5 21. Bb5 Rf8 22. Be5 Ng8 23. Qd3 f6 24. Bf4 e5 25. Be3 Bg4 26. h3 Bh5 27. Bxc5 Rac8 28. Rc6 Rxc6 29. Bxf8 Rc7 30. Qd8 Rb7 31. Bc4 Bf7 32. Qc8 Ra7 33. Bc5 Bxc4 34. Bxa7 Bf7 35. Bb6 { Milman, Lev - Obregon, Carlos Andres, 1-0, Pan American-ch U16, 2002, https://lichess.org/x5c9wuPt } *
-
-
-[Event "Rated Rapid game"]
-[Site "https://lichess.org/Z1RKFn3j"]
-[Date "2022.10.18"]
-[White "ThatRaisinTho"]
-[Black "Brochuck55"]
-[Result "1-0"]
-[WhiteElo "2008"]
-[BlackElo "2090"]
-[TimeControl "600+5"]
-[Termination "Normal"]
-[Annotator "ThatRaisinTho"]
-[UTCDate "2022.10.20"]
-[UTCTime "14:20:47"]
-[Variant "Standard"]
-[ECO "B21"]
-[Opening "Sicilian Defense: Smith-Morra Gambit Accepted, Scheveningen Formation"]
-
-1. e4 c5 2. d4 { I was very new in to learning the Smith-Morra when this game happened, in fact the majority of the chapters on this study still had no more than one or two lines. So I thought for a moment about playing a normal Open Sicillian, but I decided to do it at least once before learning theory super well. Why not? } 2... cxd4 3. c3 dxc3 4. Nxc3 { I was happy to see the gambit accepted, as I would have no clue what to do the Alapin transposition. } 4... Nc6 5. Nf3 d6 6. Bc4 e6 { Fortunately, my opponent played this Scheveningen Formation, one of the only lines I had seriously looked into yet in my analysis. } 7. O-O Be7 8. Qe2 { I go forward with the usual Qe2 Rd1 idea within this line. } 8... Nf6 9. Rd1 { Here, e5 is a threat and there's a few ways to take away its sting. } 9... Bd7 { My opponent plays a rare but fine one, simply breaking the connection between my d1 rook and their queen on the d file by interposing with the bishop. } 10. Nb5 Qb8 11. Bf4 { targeting the weak d6 pawn, trying to provoke e5. } 11... Ne5 { And here, I unfortunately mess up. I manage to miss the fact that it works out tactically for me if I take on d6, twice in a row. } 12. Rac1 (12. Nxd6+ Bxd6 13. Rxd6 Qxd6 (13... Nxf3+?? 14. Qxf3) 14. Nxe5) 12... a6 { WIth one more chance to take on d6, I miss it. } 13. Na3 { In playing this move, I realized I must have done something wrong. But I understand that the Smith-Morra is a tricky and aggressive opening, and I should still have some kind of chances. } 13... b5 14. Bb3 { Now for the life of me, I can't tell why opponent didn't just castle. But they blunder! } 14... Bc6 { The fact that a nearly 2100 player made this mistake goes to show the true challenge that it is to deal with the pressure of such an opening. Whether it seems to be going your way or not, there's always uncertainty as you try to hold on to your pawn advantage amidst the potentially raging attack from white. } 15. Bxe5 { Bxe5 simply removes the defender of the c6 bishop. They find the one way available to complicate things rather than just giving it up. } 15... Bxe4 16. Ng5 { Ng5 avoids any further tactical complications and ensures that I win material. } 16... Bb7 17. Bxf6 Bxf6 { Without too much thought, I could tell that a thematic sacrifice in the Smith-Morra was possible here, as nearly all of black's pieces lay stranded far from the king in the center. } 18. Nxe6! Kd7 { Sensing the danger, my opponent does not accept and rather gets out of the pin. } 19. Rc7+ { Not the most accurate move as Nc5+ was a cleaner win, but in such crushing positions, nearly anything that doesn't blunder something important wins. } 19... Qxc7 20. Nxc7 Kxc7 21. Bxf7 Rad8 22. Rc1+ Kb8 { Understanding that I'm up a large amount of material already and that the king for black is still quite weak, I realize there is no risk in sacking my second knight of the game. } 23. Nxb5! axb5 24. Qxb5 Rhf8 25. Bd5 { 1-0 Black resigns. } { Mate is unstoppable. Giving up a rook on d7 or f7 would simply prolong the inevitable. While being far from a perfect game, I hope that this example shows that this opening is a force to be reckoned with, and that even when things go wrong, There are ways you can turn it around if you stay alert. } 1-0
-
-

@@ -15,6 +15,7 @@
 		AA87F3DD2A013A34009D7017 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA87F3DC2A013A34009D7017 /* AnnotationView.swift */; };
 		AA930ED62A0920E500026712 /* SwitchStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA930ED52A0920E500026712 /* SwitchStudyView.swift */; };
 		AA930ED82A093D4100026712 /* BoxArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA930ED72A093D4100026712 /* BoxArrowShape.swift */; };
+		AA930EDA2A09765200026712 /* SortingMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA930ED92A09765200026712 /* SortingMethod.swift */; };
 		AAA1A17C29F02351003F153F /* ChessOpeningTrainerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A17B29F02351003F153F /* ChessOpeningTrainerApp.swift */; };
 		AAA1A17E29F02351003F153F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A17D29F02351003F153F /* ContentView.swift */; };
 		AAA1A18029F02352003F153F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAA1A17F29F02352003F153F /* Assets.xcassets */; };
@@ -73,6 +74,7 @@
 		AA87F3DC2A013A34009D7017 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		AA930ED52A0920E500026712 /* SwitchStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchStudyView.swift; sourceTree = SOURCE_ROOT; };
 		AA930ED72A093D4100026712 /* BoxArrowShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxArrowShape.swift; sourceTree = "<group>"; };
+		AA930ED92A09765200026712 /* SortingMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingMethod.swift; sourceTree = "<group>"; };
 		AAA1A17829F02351003F153F /* ChessOpeningTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessOpeningTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA1A17B29F02351003F153F /* ChessOpeningTrainerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessOpeningTrainerApp.swift; sourceTree = "<group>"; };
 		AAA1A17D29F02351003F153F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				AAA1A1D429F415F9003F153F /* DataBase.swift */,
+				AA930ED92A09765200026712 /* SortingMethod.swift */,
 				AAA1A1B829F14D33003F153F /* GameTree.swift */,
 				AAA1A1E929F6DDD6003F153F /* Settings.swift */,
 				AAA1A1B629F14CAC003F153F /* MoveNode.swift */,
@@ -430,6 +433,7 @@
 				AAF78B9B2A07B35B00FC8282 /* ProgressBarView.swift in Sources */,
 				AA69607D2A06473800A593BB /* PractiseViewModel.swift in Sources */,
 				AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */,
+				AA930EDA2A09765200026712 /* SortingMethod.swift in Sources */,
 				AA930ED82A093D4100026712 /* BoxArrowShape.swift in Sources */,
 				AAA1A17C29F02351003F153F /* ChessOpeningTrainerApp.swift in Sources */,
 				AAA1A1CA29F2CC44003F153F /* ArrowShape.swift in Sources */,

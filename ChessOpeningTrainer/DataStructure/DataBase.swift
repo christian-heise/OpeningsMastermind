@@ -16,7 +16,7 @@ class DataBase: ObservableObject, Codable {
     
     @Published var gametrees: [GameTree] = []
     
-    @Published var sortSelection: Int = 2
+    @Published var sortSelection: SortingMethod = .manual
     @Published var sortingDirectionIncreasing: Bool = true
     
     init() {
@@ -61,17 +61,33 @@ class DataBase: ObservableObject, Codable {
     }
     
     func sortGameTree() {
-        if self.sortSelection == 0 {
+        if self.sortSelection == .name {
             if self.sortingDirectionIncreasing {
                 self.gametrees.sort(by: {$0.name < $1.name})
             } else {
                 self.gametrees.sort(by: {$0.name > $1.name})
             }
-        } else if self.sortSelection == 1 {
+        } else if self.sortSelection == .date {
             if self.sortingDirectionIncreasing {
-                self.gametrees.sort(by: {$0.date > $1.date})
+                self.gametrees.sort(by: {
+                    if $0.date == $1.date {
+                        return $0.name > $1.name
+                    }
+                    return $0.date > $1.date
+                })
             } else {
-                self.gametrees.sort(by: {$0.date < $1.date})
+                self.gametrees.sort(by: {
+                    if $0.date == $1.date {
+                        return $0.name < $1.name
+                    }
+                    return $0.date < $1.date
+                })
+            }
+        } else if self.sortSelection == .progress {
+            if self.sortingDirectionIncreasing {
+                self.gametrees.sort(by: {$0.progress > $1.progress})
+            } else {
+                self.gametrees.sort(by: {$0.progress < $1.progress})
             }
         }
         self.save()
@@ -105,7 +121,7 @@ class DataBase: ObservableObject, Codable {
         
         self.appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         self.gametrees = try container.decode([GameTree].self, forKey: .gameTrees)
-        self.sortSelection = try container.decodeIfPresent(Int.self, forKey: .sortSelection) ?? 2
+        self.sortSelection = try container.decodeIfPresent(SortingMethod.self, forKey: .sortSelection) ?? .manual
         self.sortingDirectionIncreasing = try container.decodeIfPresent(Bool.self, forKey: .sortingDirectionIncreasing) ?? true
         
         self.sortGameTree()

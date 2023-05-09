@@ -13,6 +13,23 @@ import ChessKit
         @Published var gameTree: GameTree?
         @Published var moveStringList: [String] = []
         
+        var moveString: String {
+            var result = ""
+
+            for i in stride(from: 0, to: moveStringList.count, by: 2) {
+                let index = i / 2 + 1
+                let element1 = moveStringList[i]
+                let element2 = i + 1 < moveStringList.count ? moveStringList[i+1] : ""
+                result += "\(index). \(element1) \(element2) "
+            }
+
+            return result
+        }
+        
+        init(gameTree: GameTree? = nil) {
+            self.gameTree = gameTree
+        }
+        
         var game: Game = Game(position: startingGamePosition)
         
         var lastMove: Move? {

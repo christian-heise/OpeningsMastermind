@@ -9,11 +9,10 @@ import SwiftUI
 import ChessKit
 
 struct ContentView: View {
-    @StateObject var database = DataBase()
-    @StateObject var settings = Settings()
+    @StateObject var database: DataBase = DataBase()
+    @StateObject var settings: Settings = Settings()
     
     @Environment(\.scenePhase) var scenePhase
-    
     @StateObject var vm = PractiseViewModel()
     
     var body: some View {
@@ -39,6 +38,9 @@ struct ContentView: View {
                     database.save()
                 }
             }
+        .onAppear() {
+            self.vm.gameTree = self.database.gametrees.first
+        }
     }
 }
 
