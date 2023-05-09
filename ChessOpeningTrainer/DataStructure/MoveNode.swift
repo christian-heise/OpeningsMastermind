@@ -41,7 +41,7 @@ class GameNode: Codable, Equatable {
         }
     }
     
-    let mistakeFactor = 0.9
+    let mistakeFactor = 0.85
     var nodesBelow: Double {
         var array: [Double] = []
         if self.children.isEmpty {
