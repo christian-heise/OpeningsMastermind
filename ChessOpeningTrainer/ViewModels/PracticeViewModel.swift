@@ -85,20 +85,25 @@ import ChessKit
         func onAppear(database: DataBase) {
             if database.gametrees.isEmpty {
                 self.gameTree = nil
+                self.game = Game(position: startingGamePosition)
                 return
             }
+            
             guard let gametree = self.gameTree else {
+                self.game = Game(position: startingGamePosition)
                 self.gameTree = database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})
                 self.gameTree!.lastPlayed = Date()
                 return
             }
             
             if !database.gametrees.contains(gametree) {
+                self.game = Game(position: startingGamePosition)
                 self.gameTree = database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})
                 self.gameTree!.lastPlayed = Date()
                 return
             }
             if database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})!.lastPlayed < database.gametrees.max(by: {$0.date < $1.date})!.date {
+                self.game = Game(position: startingGamePosition)
                 self.gameTree = database.gametrees.max(by: {$0.date < $1.date})
                 self.gameTree!.lastPlayed = Date()
             }
