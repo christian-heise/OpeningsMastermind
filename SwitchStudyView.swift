@@ -10,7 +10,7 @@ import SwiftUI
 struct SwitchStudyView: View {
     @ObservedObject var database: DataBase
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var vm: PractiseViewModel
+    @EnvironmentObject var vm: PracticeViewModel
     
     var body: some View {
             VStack {
@@ -37,8 +37,8 @@ struct SwitchStudyView: View {
                             Text(gametree.name)
                                 .font(.title3)
                             Spacer()
-                            Image(systemName: "arrowtriangle.right")
-                                .foregroundColor(.green)
+                            Image(systemName: "arrow.right")
+//                                .foregroundColor(.green)
                         }
                         .padding(.vertical, 7)
                     }
@@ -51,7 +51,10 @@ struct SwitchStudyView: View {
 }
 
 struct SwitchStudyView_Previews: PreviewProvider {
+    static let vm = PracticeViewModel()
+    
     static var previews: some View {
-        ContentView()
+        SwitchStudyView(database: DataBase())
+            .environmentObject(vm)
     }
 }

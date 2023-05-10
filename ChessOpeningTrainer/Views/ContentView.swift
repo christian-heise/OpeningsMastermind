@@ -13,14 +13,14 @@ struct ContentView: View {
     @StateObject var settings: Settings = Settings()
     
     @Environment(\.scenePhase) var scenePhase
-    @StateObject var vm = PractiseViewModel()
+    @StateObject var vm = PracticeViewModel()
     
     var body: some View {
         TabView {
             
-            PractiseView(database: database, settings: settings)
+            PracticeView(database: database, settings: settings)
                 .tabItem {
-                    Label("Practise", systemImage: "checkerboard.rectangle")
+                    Label("Practice", systemImage: "checkerboard.rectangle")
                 }
             ListView(database: database)
                 .tabItem {

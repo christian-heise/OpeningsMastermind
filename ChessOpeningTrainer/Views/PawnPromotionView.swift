@@ -12,7 +12,7 @@ struct PawnPromotionView: View {
     let color: PieceColor
     let width: CGFloat
     
-    @EnvironmentObject var vm: PractiseViewModel
+    @EnvironmentObject var vm: PracticeViewModel
     
     let pieceKinds: [PieceKind] = [.queen, .rook, .knight ,.bishop]
     var body: some View {

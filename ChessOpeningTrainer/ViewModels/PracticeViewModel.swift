@@ -9,7 +9,7 @@ import Foundation
 import ChessKit
 
 //extension PractiseView {
-    @MainActor class PractiseViewModel: ObservableObject {
+    @MainActor class PracticeViewModel: ObservableObject {
         @Published var gameTree: GameTree?
         @Published var moveStringList: [String] = []
         
@@ -81,6 +81,28 @@ import ChessKit
         }
         
         var promotionMove: Move? = nil
+        
+        func onAppear(database: DataBase) {
+            if database.gametrees.isEmpty {
+                self.gameTree = nil
+                return
+            }
+            guard let gametree = self.gameTree else {
+                self.gameTree = database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})
+                self.gameTree!.lastPlayed = Date()
+                return
+            }
+            
+            if !database.gametrees.contains(gametree) {
+                self.gameTree = database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})
+                self.gameTree!.lastPlayed = Date()
+                return
+            }
+            if database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})!.lastPlayed < database.gametrees.max(by: {$0.date < $1.date})!.date {
+                self.gameTree = database.gametrees.max(by: {$0.date < $1.date})
+                self.gameTree!.lastPlayed = Date()
+            }
+        }
         
         func revertMove() {
             guard let gameTree = self.gameTree else { return }

@@ -23,10 +23,15 @@ class GameNode: Codable, Equatable {
     
     var mistakesLast5Moves: [Int] = Array(repeating: 1, count: 5)
     
+    var mistakesLastMoveCount: Double {
+        let exp = 1.4
+        return pow(Double(mistakesLast5Moves.reduce(0, +)),exp) / pow(5.0,exp-1)
+    }
+    
     var mistakesRate: Double {
         var array: [Double] = []
         if children.isEmpty {
-            return Double(mistakesLast5Moves.reduce(0, +))/5
+            return mistakesLastMoveCount/5
         } else {
             for child in children {
                 if !child.children.isEmpty {
@@ -36,7 +41,7 @@ class GameNode: Codable, Equatable {
             if array.isEmpty {
                 return Double(mistakesLast5Moves.reduce(0, +))/5
             } else {
-                return (array.reduce(0, +)/Double(array.count)*1 + Double(mistakesLast5Moves.reduce(0, +))/5) / 2.0
+                return (array.reduce(0, +)/Double(array.count)*1 + mistakesLastMoveCount/5) / 2.0
             }
         }
     }

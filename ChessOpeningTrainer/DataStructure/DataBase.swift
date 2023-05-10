@@ -62,6 +62,7 @@ class DataBase: ObservableObject, Codable {
     
     func addNewGameTree(_ gameTree: GameTree) {
         self.gametrees.append(gameTree)
+        self.save()
     }
     
     func addNewGameTree(name: String, pgnString: String, userColor: PieceColor) -> Bool {
@@ -69,6 +70,7 @@ class DataBase: ObservableObject, Codable {
         
         if !newGameTree.rootNode.children.isEmpty {
             self.gametrees.append(newGameTree)
+            self.save()
             return true
         }
         else {

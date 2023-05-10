@@ -10,7 +10,7 @@ import ChessKit
 
 struct ChessboardView: View {
     @ObservedObject var settings: Settings
-    @EnvironmentObject private var vm: PractiseViewModel
+    @EnvironmentObject private var vm: PracticeViewModel
     
     @State private var offsets = Array(repeating: CGSize.zero, count: 64)
     @State private var draggedSquare: Square? = nil
@@ -96,10 +96,12 @@ struct ChessboardView: View {
                         .zIndex(500)
                 }
                 if let move = vm.last2Moves.1, let annotation = vm.annotation.1, annotation != "" && vm.gameState == 0 {
-                    AnnotationView(annotation: annotation)
-                        .frame(width: squareLength(in: geo.size)*0.5)
-                        .position(positionAnnotation(move.to, in: geo.size))
-                        .zIndex(500)
+                    if vm.last2Moves.0!.to != vm.last2Moves.1!.to {
+                        AnnotationView(annotation: annotation)
+                            .frame(width: squareLength(in: geo.size)*0.5)
+                            .position(positionAnnotation(move.to, in: geo.size))
+                            .zIndex(500)
+                    }
                 }
                 if let move = vm.promotionMove {
                     PawnPromotionView(color: vm.userColor, width: squareLength(in: geo.size)*1.2)
@@ -165,7 +167,7 @@ struct ChessboardView: View {
 }
 
 struct ChessboardView_Previews: PreviewProvider {
-    static let myEnvObject = PractiseViewModel()
+    static let myEnvObject = PracticeViewModel()
     static var previews: some View {
         ChessboardView(settings: Settings())
             .environmentObject(myEnvObject)

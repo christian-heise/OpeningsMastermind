@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		AA5EA3CD2A067BCD0033AB7C /* PawnPromotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */; };
 		AA6960772A05403F00A593BB /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6960762A05403F00A593BB /* ListView.swift */; };
-		AA6960792A05460700A593BB /* PractiseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6960782A05460700A593BB /* PractiseView.swift */; };
+		AA6960792A05460700A593BB /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6960782A05460700A593BB /* PracticeView.swift */; };
 		AA69607B2A05461700A593BB /* ChessboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA69607A2A05461700A593BB /* ChessboardView.swift */; };
-		AA69607D2A06473800A593BB /* PractiseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA69607C2A06473800A593BB /* PractiseViewModel.swift */; };
+		AA69607D2A06473800A593BB /* PracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA69607C2A06473800A593BB /* PracticeViewModel.swift */; };
 		AA87F3DD2A013A34009D7017 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA87F3DC2A013A34009D7017 /* AnnotationView.swift */; };
 		AA930ED62A0920E500026712 /* SwitchStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA930ED52A0920E500026712 /* SwitchStudyView.swift */; };
 		AA930ED82A093D4100026712 /* BoxArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA930ED72A093D4100026712 /* BoxArrowShape.swift */; };
@@ -68,9 +68,9 @@
 /* Begin PBXFileReference section */
 		AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawnPromotionView.swift; sourceTree = "<group>"; };
 		AA6960762A05403F00A593BB /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
-		AA6960782A05460700A593BB /* PractiseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PractiseView.swift; sourceTree = "<group>"; };
+		AA6960782A05460700A593BB /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		AA69607A2A05461700A593BB /* ChessboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessboardView.swift; sourceTree = "<group>"; };
-		AA69607C2A06473800A593BB /* PractiseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PractiseViewModel.swift; sourceTree = "<group>"; };
+		AA69607C2A06473800A593BB /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModel.swift; sourceTree = "<group>"; };
 		AA87F3DC2A013A34009D7017 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		AA930ED52A0920E500026712 /* SwitchStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchStudyView.swift; sourceTree = SOURCE_ROOT; };
 		AA930ED72A093D4100026712 /* BoxArrowShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxArrowShape.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 		AA5EA3C92A0655430033AB7C /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				AA69607C2A06473800A593BB /* PractiseViewModel.swift */,
+				AA69607C2A06473800A593BB /* PracticeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -223,7 +223,7 @@
 				AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */,
 				AAA1A17D29F02351003F153F /* ContentView.swift */,
 				AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */,
-				AA6960782A05460700A593BB /* PractiseView.swift */,
+				AA6960782A05460700A593BB /* PracticeView.swift */,
 				AA69607A2A05461700A593BB /* ChessboardView.swift */,
 				AAA1A1E729F6DB3F003F153F /* SettingsView.swift */,
 				AA6960762A05403F00A593BB /* ListView.swift */,
@@ -439,7 +439,7 @@
 				AA69607B2A05461700A593BB /* ChessboardView.swift in Sources */,
 				AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */,
 				AAF78B9B2A07B35B00FC8282 /* ProgressBarView.swift in Sources */,
-				AA69607D2A06473800A593BB /* PractiseViewModel.swift in Sources */,
+				AA69607D2A06473800A593BB /* PracticeViewModel.swift in Sources */,
 				AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */,
 				AA930EDA2A09765200026712 /* SortingMethod.swift in Sources */,
 				AA930ED82A093D4100026712 /* BoxArrowShape.swift in Sources */,
@@ -447,7 +447,7 @@
 				AAA1A1CA29F2CC44003F153F /* ArrowShape.swift in Sources */,
 				AAA1A1E829F6DB3F003F153F /* SettingsView.swift in Sources */,
 				AAA1A1EC29F6FD86003F153F /* decodePGN.swift in Sources */,
-				AA6960792A05460700A593BB /* PractiseView.swift in Sources */,
+				AA6960792A05460700A593BB /* PracticeView.swift in Sources */,
 				AAC6431A29F97B5000D1C12E /* BulletList.swift in Sources */,
 				AA5EA3CD2A067BCD0033AB7C /* PawnPromotionView.swift in Sources */,
 				AAC6431129F8205D00D1C12E /* AcknowledgementsView.swift in Sources */,

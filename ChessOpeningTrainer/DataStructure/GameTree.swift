@@ -36,7 +36,7 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
     @Published var rightMove: Move? = nil
     
     var progress: Double {
-//        return Double.random(in: 0...1)
+//        return Double.random(in: 0...0.8)
         return self.userColor == .white ? 1-self.rootNode.progress : 1-self.rootNode.children.first!.progress
     }
     
@@ -48,7 +48,7 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
         self.pgnString = gametree.pgnString
         
         self.date = Date()
-        self.lastPlayed = Date()
+        self.lastPlayed = Date(timeIntervalSince1970: 0)
     }
     
     init(name: String, rootNode: GameNode, userColor: PieceColor, pgnString: String = "") {
@@ -59,7 +59,7 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
         self.pgnString = pgnString
         
         self.date = Date()
-        self.lastPlayed = Date()
+        self.lastPlayed = Date(timeIntervalSince1970: 0)
     }
     
     init(name: String, pgnString: String, userColor: PieceColor) {
@@ -73,7 +73,7 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
         self.pgnString = pgnString
         
         self.date = Date()
-        self.lastPlayed = Date()
+        self.lastPlayed = Date(timeIntervalSince1970: 0)
     }
     
     static func example() -> GameTree {
@@ -148,7 +148,7 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
         self.name = try container.decode(String.self, forKey: .name)
         self.pgnString = try container.decode(String.self, forKey: .pgnString)
         self.date = try container.decodeIfPresent(Date.self, forKey: .date) ?? Date()
-        self.lastPlayed = try container.decodeIfPresent(Date.self, forKey: .lastPlayed) ?? Date()
+        self.lastPlayed = try container.decodeIfPresent(Date.self, forKey: .lastPlayed) ?? Date(timeIntervalSince1970: 0)
         
         let rootNode =  try GameNode.decodeRecursively(from: decoder)
         self.rootNode = rootNode

@@ -8,8 +8,8 @@
 import SwiftUI
 import ChessKit
 
-struct PractiseView: View {
-    @EnvironmentObject var vm: PractiseViewModel
+struct PracticeView: View {
+    @EnvironmentObject var vm: PracticeViewModel
     
     @ObservedObject var database: DataBase
     @ObservedObject var settings: Settings
@@ -37,18 +37,15 @@ struct PractiseView: View {
     }
     
     var navigationTitle: String {
-//        if isShowingSwitchingView {
-//            return ""
+        return "Practice"
+//        if database.gametrees.isEmpty {
+//            return "Practise"
 //        }
-        if database.gametrees.isEmpty {
-            return "Practise"
-        }
-        if let name = vm.gameTree?.name {
-            return name
-        } else {
-            return "Select Study first"
-        }
-        
+//        if let name = vm.gameTree?.name {
+//            return name
+//        } else {
+//            return "Select Study first"
+//        }
     }
     
     var body: some View {
@@ -57,15 +54,28 @@ struct PractiseView: View {
                 VStack {
                     HStack{
                         Spacer()
-                        Button("Select Study") {
+                        Button() {
                             isShowingSwitchingView = true
+                            
+                        } label: {
+                            HStack {
+                                Text(vm.gameTree?.name ?? "")
+                                Image(systemName: "chevron.up.chevron.down")
+                            }
+                            .padding(.vertical, 5)
+                            .padding(.horizontal, 10)
                         }
-//                        .opacity(database.gametrees.isEmpty ? 0.0 : 1.0)
+                        .background() {
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.gray)
+                                .shadow(radius: 5)
+                                .opacity(0.2)
+                        }
+                        .opacity(database.gametrees.isEmpty ? 0.0 : 1.0)
                         .disabled(database.gametrees.isEmpty ? true : false)
                     }
                     .padding(.horizontal)
-                    .padding(.bottom, 1)
-                    .padding(.top, 5)
+                    .padding(.top, 10)
                     HStack {
                         Text(navigationTitle)
                             .font(.largeTitle)
@@ -136,7 +146,7 @@ struct PractiseView: View {
                             .multilineTextAlignment(.leading)
                             .padding()
                             .background() {
-                                BoxArrowShape()
+                                BoxArrowShape(cornerRadius: 5)
                                     .fill([242,242, 247].getColor())
                                     .shadow(radius: 2)
                             }
@@ -149,15 +159,13 @@ struct PractiseView: View {
                 SwitchStudyView(database: database)
             }
             .onAppear() {
-                if vm.gameTree == nil {
-                    vm.gameTree = database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})
-                }
+                vm.onAppear(database: database)
             }
         }
     }
 }
 
-struct PractiseView_Previews: PreviewProvider {
+struct PracticeView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }

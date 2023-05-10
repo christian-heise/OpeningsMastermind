@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListView: View {
     @ObservedObject var database: DataBase
-    @EnvironmentObject var vm: PractiseViewModel
+    @EnvironmentObject var vm: PracticeViewModel
     @State private var showingAddSheet = false
     
     @State private var sortingElements: [SortingMethod] = [.name, .date, .progress, .manual]
@@ -63,54 +63,83 @@ struct ListView: View {
         )
         
         NavigationStack {
-            VStack {
-                List() {
-                    ForEach(sortedGameTrees) { gameTree in
-                        VStack(alignment: .leading) {
-                            Text(gameTree.name)
-                                .fontWeight(.medium)
-                            HStack {
-                                Text("Progress:")
-                                ProgressBarView(progress: gameTree.progress)
-                                    .frame(height: 20)
+            Group {
+//                if !sortedGameTrees.isEmpty {
+                    List() {
+                        ForEach(sortedGameTrees) { gameTree in
+                            VStack(alignment: .leading) {
+                                Text(gameTree.name)
+                                    .fontWeight(.medium)
+                                HStack {
+                                    Text("Progress:")
+                                    ProgressBarView(progress: gameTree.progress)
+                                        .frame(height: 20)
+                                }
                             }
                         }
+                        .onDelete(perform: delete)
+                        .onMove(perform: move)
                     }
-                    .onDelete(perform: delete)
-                    .onMove(perform: move)
+//                } else {
+//                    GeometryReader { geo in
+//                        VStack() {
+//                            Text("Add a custom Study or choose from 5 example studies.")
+//                                .multilineTextAlignment(.leading)
+//                                .padding()
+//                                .background() {
+//                                    BoxArrowShape(cornerRadius: 5, arrowPosition: -0.85, arrowLength: 30)
+//                                        .fill([242,242, 247].getColor())
+//                                        .shadow(radius: 2)
+//                                        .rotationEffect(Angle(degrees: 180))
+//                                }
+//                                .padding(.vertical)
+//                                .frame(maxWidth: geo.size.width*3/5)
+//                                .offset(x: geo.size.width/5, y: -geo.size.width/100*6)
+//                            Spacer()
+//                        }
+//                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                    }
+////                    .background(){
+////                        RoundedRectangle(cornerRadius: 10).fill(.gray)
+////                    }
+//                }
+            }
+            .navigationTitle(Text("Opening Studies"))
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    EditButton()
                 }
-
-                .navigationTitle(Text("Opening Studies"))
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        EditButton()
-                    }
-                    ToolbarItem {
-                        Menu {
-                            Picker(selection: sortSelectionBinding, label: Text("Sorting options")) {
-                                ForEach(sortingElements, id: \.self) { sorting in
-                                    HStack {
-                                        Text(sorting.rawValue)
-                                        if database.sortSelection == sorting && sorting != .manual {
-                                            Image(systemName: database.sortingDirectionIncreasing ? "chevron.down" : "chevron.up")
-                                        }
+                ToolbarItem {
+                    Menu {
+                        Picker(selection: sortSelectionBinding, label: Text("Sorting options")) {
+                            ForEach(sortingElements, id: \.self) { sorting in
+                                HStack {
+                                    Text(sorting.rawValue)
+                                    if database.sortSelection == sorting && sorting != .manual {
+                                        Image(systemName: database.sortingDirectionIncreasing ? "chevron.down" : "chevron.up")
                                     }
                                 }
                             }
-                        } label: {
-                            Image(systemName: "line.3.horizontal.decrease.circle")
                         }
-                    }
-                    ToolbarItem() {
-                        Button(action: {showingAddSheet = true}) {
-                            Image(systemName: "plus")
-                        }
-                        
+                    } label: {
+                        Image(systemName: "line.3.horizontal.decrease.circle")
                     }
                 }
-                .sheet(isPresented: $showingAddSheet) {
-                    AddStudyView(database: database)
+                ToolbarItem() {
+                    Button(action: {showingAddSheet = true}) {
+                        Image(systemName: "plus")
+                    }
+                    
                 }
+            }
+            .sheet(isPresented: $showingAddSheet) {
+                AddStudyView(database: database)
+            }
+            
+        }
+        .onAppear() {
+            if database.gametrees.isEmpty {
+                showingAddSheet = true
             }
         }
     }
