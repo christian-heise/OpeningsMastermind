@@ -42,7 +42,7 @@ struct PracticeView: View {
                 ZStack {
                     VStack {
                         Spacer()
-                        ChessboardView(settings: settings)
+                        ChessboardView(vm: vm, settings: settings)
                             .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                             .frame(maxHeight: geo.size.width)
                         ZStack {
