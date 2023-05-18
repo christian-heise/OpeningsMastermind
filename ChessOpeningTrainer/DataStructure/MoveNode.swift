@@ -18,7 +18,7 @@ class GameNode: Codable, Equatable {
     var moveColor: PieceColor = .black
     weak var parent: GameNode?
     
-    let comment: String?
+    var comment: String?
     let annotation: String?
     
     var mistakesLast5Moves: [Int] = Array(repeating: 1, count: 5)
@@ -123,7 +123,7 @@ class GameNode: Codable, Equatable {
     
     public func databaseContains(move: Move, in game: Game) -> (found: Bool, newNode: GameNode) {
         let decoder = SanSerialization.default
-        let san = decoder.san(for: move, in: game)
+        let san = decoder.correctSan(for: move, in: game)
         
         let isInData = self.children.contains(where: {$0.move == san})
         if isInData {

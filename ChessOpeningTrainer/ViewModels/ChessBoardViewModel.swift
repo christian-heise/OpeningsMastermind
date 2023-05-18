@@ -10,13 +10,13 @@ import ChessKit
 import SwiftUI
 
 extension ChessboardView {
-    @MainActor class ChessBoardViewModel: ObservableObject {
-        let vm_parent: PracticeViewModel
+    @MainActor class ChessBoardViewModel<ParentVM: ParentChessBoardModelProtocol>: ObservableObject {
+        @Published var vm_parent: ParentVM
         
         @Published var offsets = Array(repeating: CGSize.zero, count: 64)
         @Published var draggedSquare: Square? = nil
         
-        init(vm_practiceView: PracticeViewModel) {
+        init(vm_practiceView: ParentVM) {
             self.vm_parent = vm_practiceView
         }
         
@@ -34,6 +34,30 @@ extension ChessboardView {
                 annotations.1 = nil
             }
             return annotations
+        }
+        
+        var last2Moves: (Move?,Move?) {
+            vm_parent.last2Moves
+        }
+        
+        var gameState: Int {
+            vm_parent.gameState
+        }
+        
+        var userColor: PieceColor {
+            vm_parent.userColor
+        }
+        
+        var rightMove: [Move] {
+            vm_parent.rightMove
+        }
+        
+        var pieces: [(Square, Piece)] {
+            vm_parent.pieces
+        }
+        
+        var promotionMove: Move? {
+            vm_parent.promotionMove
         }
         
         func indicatorPosition(in size: CGSize, col: Int, row: Int) -> CGPoint {

@@ -21,8 +21,13 @@ extension GameTree {
         
         var variationNodes: [GameNode] = []
         
+        var commentActive = false
+        
+        var comment: String = ""
+        
         for i in 0..<chapters.count {
-            let pgnWithoutComments = regex.stringByReplacingMatches(in: String(chapters[i]), options: [], range: NSRange(location: 0, length: chapters[i].utf16.count), withTemplate: "")
+//            let pgnWithoutComments = regex.stringByReplacingMatches(in: String(chapters[i]), options: [], range: NSRange(location: 0, length: chapters[i].utf16.count), withTemplate: "")
+            let pgnWithoutComments = String(chapters[i])
             
             let rawMoves = pgnWithoutComments.components(separatedBy: " ").filter({$0 != ""})
             
@@ -31,19 +36,61 @@ extension GameTree {
             currentNode = rootNode
 
             for rawMove in rawMoves {
+                var modifiedString = rawMove
                 
-                if isMoveNumberWhite(rawMove) {
-                    continue
-                } else if isMoveNumberBlack(rawMove) {
+                if modifiedString.hasPrefix("{") {
+                    commentActive = true
+                    modifiedString = String(modifiedString.dropFirst())
+                    if modifiedString.isEmpty {
+                        continue
+                    }
+                }
+                
+                if modifiedString.contains("}") {
+                    let rest = modifiedString.split(separator: "}")
+                    if rest.count == 2 {
+                        comment.append(String(rest.first!))
+                        finishComment()
+                        modifiedString = String(rest.last!)
+                    } else if rest.count == 1 {
+                        if modifiedString.hasPrefix("}") {
+                            modifiedString = String(modifiedString.dropFirst())
+                            comment.append(String(rest.first!))
+                            finishComment()
+                            continue
+                        } else if modifiedString.hasSuffix("}") {
+                            modifiedString = String(modifiedString.dropLast())
+                            comment.append(String(rest.first!))
+                            finishComment()
+                            continue
+                        } else {
+                            print("Whaaaat")
+                        }
+                    } else if rest.count == 0 {
+                        finishComment()
+                        continue
+                    } else {
+                        print("Really Whaaat")
+                    }
+                }
+                
+                if commentActive {
+                    comment.append(modifiedString + " ")
                     continue
                 }
-                if isVariationMoveNumber(rawMove) {
+                
+                if isMoveNumberWhite(modifiedString) {
+                    continue
+                } else if isMoveNumberBlack(modifiedString) {
+                    continue
+                }
+                if isVariationMoveNumber(modifiedString) {
                     variationNodes.append(currentNode)
                     currentNode = currentNode.parent!
                     continue
                 }
-                if rawMove.hasSuffix(")") {
-                    var modifiedMove = rawMove
+                if modifiedString.hasSuffix(")") {
+                    var modifiedMove = modifiedString
                     while modifiedMove.hasSuffix(")") {
                         modifiedMove = String(modifiedMove.dropLast())
                         if !modifiedMove.isEmpty && !modifiedMove.hasPrefix("$") && !modifiedMove.hasSuffix(")") {
@@ -52,19 +99,29 @@ extension GameTree {
                         currentNode = variationNodes.last!
                         variationNodes.removeLast()
                     }
-                } else if rawMove == "*" {
+                } else if modifiedString == "*" {
                     continue
-                } else if rawMove == "1-0" || rawMove == "0-1"{
+                } else if modifiedString == "1-0" || modifiedString == "0-1"{
                 continue
-                } else if rawMove.hasPrefix("$") {
+                } else if modifiedString.hasPrefix("$") {
                  continue
                 } else {
-                    currentNode = addMoveToTree(rawMove)
+                    currentNode = addMoveToTree(modifiedString)
                 }
             }
         }
         
         return rootNode
+        
+        func finishComment() {
+            commentActive = false
+            if currentNode.comment == nil {
+                currentNode.comment = comment
+            } else {
+                currentNode.comment!.append("\n" + comment)
+            }
+            comment = ""
+        }
         
         func addMoveToTree(_ rawMove: String) -> GameNode {
             var move = ""
@@ -110,4 +167,33 @@ extension GameTree {
             return str.range(of: pattern, options: .regularExpression) != nil
         }
     }
+    
+    
+//    static func decodePGNnew(pgnString: String) -> GameNode {
+//        let chapters = pgnString.split(separator: "\n\n").filter({$0.hasPrefix("1.")})
+//        let rootNode = GameNode(moveString: "")
+//
+//        var currentNode = rootNode
+//        var newNode = rootNode
+//
+//        var currentPartType: PGNpartType = .number
+//
+//        for i in 0..<chapters.count {
+//            currentNode = rootNode
+//        }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//        return GameNode(moveString: "efsfs")
+//    }
+//
+//    enum PGNpartType {
+//        case comment, move, number, annotation
+//    }
 }

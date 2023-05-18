@@ -78,3 +78,17 @@ extension View {
         }
     }
 }
+
+extension SanSerialization {
+    func correctSan(for move: Move, in game: Game) -> String {
+        var san = self.san(for: move, in: game)
+        
+        // Check if En Passant:
+        let targetSquare = game.position.board[move.to]
+        if move.to.file != move.from.file && targetSquare?.kind == nil && game.position.board[move.from]?.kind == .pawn {
+            san = "\(move.from.coordinate.first!)x\(move.to)"
+        }
+        
+        return san
+    }
+}

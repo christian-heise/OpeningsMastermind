@@ -7,10 +7,12 @@
 
 import SwiftUI
 
-struct SwitchStudyView: View {
+struct SwitchStudyView<ParentVM>: View where ParentVM: ParentChessBoardModelProtocol {
+    
+    @ObservedObject var vm: ParentVM
     @ObservedObject var database: DataBase
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var vm: PracticeViewModel
+    
     
     var body: some View {
             VStack {
@@ -51,10 +53,7 @@ struct SwitchStudyView: View {
 }
 
 struct SwitchStudyView_Previews: PreviewProvider {
-    static let vm = PracticeViewModel()
-    
     static var previews: some View {
-        SwitchStudyView(database: DataBase())
-            .environmentObject(vm)
+        SwitchStudyView(vm: PracticeViewModel(), database: DataBase())
     }
 }

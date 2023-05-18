@@ -45,6 +45,10 @@
 		AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC889A229F7DD3A0079ECE5 /* Extension.swift */; };
 		AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC889A429F802450079ECE5 /* PGNHelpView.swift */; };
 		AAC889A829F805370079ECE5 /* Popovers in Frameworks */ = {isa = PBXBuildFile; productRef = AAC889A729F805370079ECE5 /* Popovers */; };
+		AADF267E2A16169600CF40ED /* ParentChessBoardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF267D2A16169600CF40ED /* ParentChessBoardProtocol.swift */; };
+		AADF26802A16192400CF40ED /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF267F2A16192400CF40ED /* ExploreViewModel.swift */; };
+		AADF26822A161A7200CF40ED /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF26812A161A7200CF40ED /* ExploreView.swift */; };
+		AADF268C2A16708100CF40ED /* MoveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF268B2A16708100CF40ED /* MoveListView.swift */; };
 		AAE367F82A0BED95006A2574 /* ChessBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */; };
 		AAF78B9B2A07B35B00FC8282 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */; };
 /* End PBXBuildFile section */
@@ -108,6 +112,10 @@
 		AAC6431D29FA821800D1C12E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AAC889A229F7DD3A0079ECE5 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		AAC889A429F802450079ECE5 /* PGNHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PGNHelpView.swift; sourceTree = "<group>"; };
+		AADF267D2A16169600CF40ED /* ParentChessBoardProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChessBoardProtocol.swift; sourceTree = "<group>"; };
+		AADF267F2A16192400CF40ED /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
+		AADF26812A161A7200CF40ED /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
+		AADF268B2A16708100CF40ED /* MoveListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveListView.swift; sourceTree = "<group>"; };
 		AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardViewModel.swift; sourceTree = "<group>"; };
 		AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,7 +151,9 @@
 			isa = PBXGroup;
 			children = (
 				AA69607C2A06473800A593BB /* PracticeViewModel.swift */,
+				AADF267F2A16192400CF40ED /* ExploreViewModel.swift */,
 				AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */,
+				AADF267D2A16169600CF40ED /* ParentChessBoardProtocol.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -225,8 +235,10 @@
 				AA930ED52A0920E500026712 /* SwitchStudyView.swift */,
 				AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */,
 				AAA1A17D29F02351003F153F /* ContentView.swift */,
+				AADF268B2A16708100CF40ED /* MoveListView.swift */,
 				AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */,
 				AA6960782A05460700A593BB /* PracticeView.swift */,
+				AADF26812A161A7200CF40ED /* ExploreView.swift */,
 				AA69607A2A05461700A593BB /* ChessboardView.swift */,
 				AAA1A1E729F6DB3F003F153F /* SettingsView.swift */,
 				AA6960762A05403F00A593BB /* ListView.swift */,
@@ -431,7 +443,9 @@
 				AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */,
 				AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */,
 				AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */,
+				AADF267E2A16169600CF40ED /* ParentChessBoardProtocol.swift in Sources */,
 				AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */,
+				AADF26802A16192400CF40ED /* ExploreViewModel.swift in Sources */,
 				AAA1A17E29F02351003F153F /* ContentView.swift in Sources */,
 				AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */,
 				AA930ED62A0920E500026712 /* SwitchStudyView.swift in Sources */,
@@ -441,6 +455,7 @@
 				AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */,
 				AA69607B2A05461700A593BB /* ChessboardView.swift in Sources */,
 				AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */,
+				AADF26822A161A7200CF40ED /* ExploreView.swift in Sources */,
 				AAF78B9B2A07B35B00FC8282 /* ProgressBarView.swift in Sources */,
 				AA69607D2A06473800A593BB /* PracticeViewModel.swift in Sources */,
 				AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */,
@@ -451,6 +466,7 @@
 				AAA1A1E829F6DB3F003F153F /* SettingsView.swift in Sources */,
 				AAA1A1EC29F6FD86003F153F /* decodePGN.swift in Sources */,
 				AA6960792A05460700A593BB /* PracticeView.swift in Sources */,
+				AADF268C2A16708100CF40ED /* MoveListView.swift in Sources */,
 				AAC6431A29F97B5000D1C12E /* BulletList.swift in Sources */,
 				AA5EA3CD2A067BCD0033AB7C /* PawnPromotionView.swift in Sources */,
 				AAE367F82A0BED95006A2574 /* ChessBoardViewModel.swift in Sources */,

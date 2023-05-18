@@ -13,7 +13,6 @@ struct ContentView: View {
     @StateObject var settings: Settings = Settings()
     
     @Environment(\.scenePhase) var scenePhase
-    @StateObject var vm = PracticeViewModel()
     
     var body: some View {
         TabView {
@@ -21,6 +20,10 @@ struct ContentView: View {
             PracticeView(database: database, settings: settings)
                 .tabItem {
                     Label("Practice", systemImage: "checkerboard.rectangle")
+                }
+            ExploreView(database: database, settings: settings)
+                .tabItem {
+                    Label("Explorer", systemImage: "safari")
                 }
             ListView(database: database)
                 .tabItem {
@@ -32,15 +35,11 @@ struct ContentView: View {
                     Label("Settings", systemImage: "gear")
                 }
         }
-        .environmentObject(vm)
         .onChange(of: scenePhase) { phase in
                 if phase == .background {
                     database.save()
                 }
             }
-        .onAppear() {
-            self.vm.gameTree = self.database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})
-        }
     }
 }
 

@@ -9,23 +9,13 @@ import SwiftUI
 import ChessKit
 
 struct PracticeView: View {
-    @EnvironmentObject var vm: PracticeViewModel
+    @StateObject var vm = PracticeViewModel()
     
     @ObservedObject var database: DataBase
     @ObservedObject var settings: Settings
 
     @State private var isShowingSwitchingView = false
     
-    @State private var animationAmount: Double
-    @State private var switchViewOffset: CGSize
-    
-    init(database: DataBase, settings: Settings) {
-        self.database = database
-        self.settings = settings
-        
-        self.animationAmount = 1.0
-        self.switchViewOffset = .zero
-    }
     var text: String {
         if vm.gameState == 1 {
             return "This was the wrong move!"
@@ -97,6 +87,8 @@ struct PracticeView: View {
                         VStack {
                             Spacer()
                             Text("You can add custom Studies or pick from 5 Example Studies in the Library.")
+                                .foregroundColor(.black)
+                                
                                 .multilineTextAlignment(.leading)
                                 .padding()
                                 .background() {
@@ -106,6 +98,7 @@ struct PracticeView: View {
                                 }
                                 .padding(.vertical)
                                 .frame(maxWidth: geo.size.width*3/5)
+                                .offset(x: geo.size.width/8)
                         }
                     }
                 }
@@ -132,7 +125,7 @@ struct PracticeView: View {
                     .disabled(database.gametrees.isEmpty ? true : false)
                 }
                 .sheet(isPresented: $isShowingSwitchingView) {
-                    SwitchStudyView(database: database)
+                    SwitchStudyView(vm: vm, database: database)
                 }
                 .onAppear() {
                     vm.onAppear(database: database)

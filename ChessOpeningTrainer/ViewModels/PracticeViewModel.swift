@@ -9,7 +9,7 @@ import Foundation
 import ChessKit
 
 //extension PractiseView {
-    @MainActor class PracticeViewModel: ObservableObject {
+    class PracticeViewModel: ParentChessBoardModelProtocol {
         @Published var gameTree: GameTree?
         @Published var moveStringList: [String] = []
         
@@ -95,9 +95,7 @@ import ChessKit
             
             if !database.gametrees.contains(gametree) {
                 resetGameTree(to: database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed}))
-                return
-            }
-            if database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})!.lastPlayed < database.gametrees.max(by: {$0.date < $1.date})!.date {
+            } else if database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})!.lastPlayed < database.gametrees.max(by: {$0.date < $1.date})!.date {
                 resetGameTree(to: database.gametrees.max(by: {$0.date < $1.date}))
             }
         }
@@ -130,6 +128,7 @@ import ChessKit
                 objectWillChange.send()
             }
         }
+        
         func makeNextMove(in time_ms: Int) async {
             guard let gameTree = self.gameTree else { return }
             if gameTree.currentNode!.children.isEmpty {
@@ -142,7 +141,9 @@ import ChessKit
             try? await Task.sleep(for: .milliseconds(time_ms))
             
             await MainActor.run {
-                self.moveStringList.append(SanSerialization.default.san(for: newMove!, in: self.game))
+                let san = SanSerialization.default.correctSan(for: newMove!, in: self.game)
+
+                self.moveStringList.append(san)
                 self.game.make(move: newMove!)
                 if newNode!.children.isEmpty {
                     gameTree.gameState = 2
@@ -182,7 +183,7 @@ import ChessKit
             if success {
                 addMistake(0)
                 gameTree.currentNode = newNode
-                self.moveStringList.append(SanSerialization.default.san(for: move, in: self.game))
+                self.moveStringList.append(SanSerialization.default.correctSan(for: move, in: self.game))
                 self.game.make(move: move)
                 gameTree.gameState = 0
                 Task {
