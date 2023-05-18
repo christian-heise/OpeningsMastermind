@@ -106,7 +106,7 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
         
         if success {
             gameTree.currentNode = newNode
-            let moveString = SanSerialization.default.san(for: move, in: self.game)
+            let moveString = SanSerialization.default.correctSan(for: move, in: self.game)
             self.moveStringList.append(moveString)
             
             if self.positionIndex + 1 != self.positionHistory.count {

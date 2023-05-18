@@ -14,8 +14,6 @@ extension GameTree {
         
         let rootNode = GameNode(moveString: "")
         
-        let regex = try! NSRegularExpression(pattern: "\\{.*?\\}", options: [NSRegularExpression.Options.dotMatchesLineSeparators])
-        
         var currentNode = rootNode
         var newNode = rootNode
         
@@ -55,9 +53,7 @@ extension GameTree {
                     } else if rest.count == 1 {
                         if modifiedString.hasPrefix("}") {
                             modifiedString = String(modifiedString.dropFirst())
-                            comment.append(String(rest.first!))
                             finishComment()
-                            continue
                         } else if modifiedString.hasSuffix("}") {
                             modifiedString = String(modifiedString.dropLast())
                             comment.append(String(rest.first!))

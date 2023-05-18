@@ -22,12 +22,16 @@ struct AddStudyView: View {
     @State private var pgnString = ""
     @State private var nameString = ""
     @State private var selectedColor = "white"
+    @State private var lichessURL = ""
+    @State private var importProblemText = ""
     
     @State private var nameError = false
     @State private var pgnError = false
     @State private var duplicateError = false
     
     @State private var showingPGNHelp = false
+    @State private var showingLichessAlert = false
+    @State private var showingImportProblem = false
     
     @State private var examplePicker = 0
     
@@ -130,10 +134,10 @@ struct AddStudyView: View {
                             }
                             )
                             .overlay(RoundedRectangle(cornerRadius: 8).stroke(pgnError ? Color.red : Color.gray, lineWidth: pgnError ? 1 : 0.5))
-                        
                     }
                     .padding(.top)
                     .padding(.horizontal)
+                    
                     HStack {
                         Button(action: {
                             if let clipboardString = UIPasteboard.general.string {
@@ -145,6 +149,21 @@ struct AddStudyView: View {
                             Text("Paste Clipboard")
                         }
                         .padding()
+                        
+                        Button() {
+                            showingLichessAlert = true
+                        } label: {
+                            HStack{
+                                Image(systemName: "square.and.arrow.down")
+                                Text("Import PGN via Lichess url")
+                            }
+                        }
+                        .padding()
+                    }
+                    .alert(isPresented: $showingImportProblem) {
+                        Alert(title: Text(importProblemText))
+                    }
+                    HStack {
                         
                         Button(action: {
                             addStudy()
@@ -209,6 +228,33 @@ struct AddStudyView: View {
                     Image(systemName: "xmark")
                 }
             }
+            .alert("Enter the Lichess Study URL", isPresented: $showingLichessAlert) {
+                TextField("Lichess Study URL", text: $lichessURL)
+                Button("Import") {
+                    Task {
+                        do {
+                            self.pgnString = try await getPGNFromLichess(lichessURL)
+                        } catch let localError {
+                            switch localError {
+                            case LichessPGNError.urlInvalid:
+                                importProblemText = "The provided URL is not valid."
+                            case LichessPGNError.noLichessUrl:
+                                importProblemText = "The provided URL is not a lichess.com URL."
+                            case LichessPGNError.badResponse:
+                                importProblemText = "A problem occured while downloading. Please try again later."
+                            case LichessPGNError.createdUrlInvalid:
+                                importProblemText = "A problem occured while downloading. Please try again later."
+                            default:
+                                break
+                            }
+                            showingImportProblem = true
+                            lichessURL = ""
+                        }
+                    }
+                }
+            } message: {
+                Text("Paste in the exact lichess.com url of the study you want to import.")
+            }
         }
     }
     
@@ -240,6 +286,26 @@ struct AddStudyView: View {
             }
         }
         dismiss()
+    }
+    
+    func getPGNFromLichess(_ urlString: String) async throws -> String {
+        guard let url = URL(string: urlString) else { throw LichessPGNError.urlInvalid }
+        let expectedHost = "lichess.org"
+        let expectedPath = "/study/"
+        
+        // Check if the URL matches the expected format
+        guard url.host == expectedHost, url.path.starts(with: expectedPath) else { throw LichessPGNError.noLichessUrl }
+        
+        // Extract the id from the URL
+        let id = url.lastPathComponent
+        
+        guard let apiURL = URL(string: "https://lichess.org/api/study/\(id).pgn") else { throw LichessPGNError.createdUrlInvalid}
+        guard let (data, _) = try? await URLSession.shared.data(from: apiURL) else { throw LichessPGNError.badResponse}
+        return try String(data: data, encoding: .utf8) ?? {throw LichessPGNError.badResponse}()
+    }
+    
+    enum LichessPGNError: Error {
+        case urlInvalid, noLichessUrl, badResponse, createdUrlInvalid
     }
 }
 
