@@ -9,8 +9,10 @@ import Foundation
 import ChessKit
 
 class ExploreViewModel: ParentChessBoardModelProtocol {
-    init(gameTree: GameTree? = nil) {
+    init(gameTree: GameTree? = nil, settings: Settings) {
         self.gameTree = gameTree
+//        if let settings.play
+        self.userRating = settings.playerRating ?? 2000
     }
     
     @Published var gameTree: GameTree?
@@ -24,6 +26,8 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
     var moveHistory: [(Move, String)] = []
     var positionHistory: [Position] = []
     var positionIndex: Int = -1
+    
+    let userRating: Int
     
     var pieces: [(Square, Piece)] {
         return game.position.board.enumeratedPieces()
@@ -249,8 +253,9 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
     }
     
     func getLichessMoves() async -> LichessOpeningData? {
+        let ratingRange = (self.userRating - 300, self.userRating + 300)
         let fen = FenSerialization.default.serialize(position: self.game.position).replacingOccurrences(of: " ", with: "%20")
-        let urlString = "https://explorer.lichess.ovh/lichess?variant=standard&speeds=blitz,rapid,classical&ratings=2200,2500&fen=\(fen)"
+        let urlString = "https://explorer.lichess.ovh/lichess?variant=standard&speeds=blitz,rapid,classical&ratings=\(ratingRange.0),\(ratingRange.1)&fen=\(fen)"
         guard let url = URL(string: urlString) else {
             print("Bad URL: \(urlString)")
             return nil}

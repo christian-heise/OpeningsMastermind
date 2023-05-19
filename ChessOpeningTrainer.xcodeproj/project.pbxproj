@@ -52,6 +52,7 @@
 		AADF268E2A16B94E00CF40ED /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF268D2A16B94E00CF40ED /* HomeView.swift */; };
 		AADF269B2A178CF300CF40ED /* LichessExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF269A2A178CF300CF40ED /* LichessExplorerView.swift */; };
 		AADF269D2A178D3700CF40ED /* LichessOpeningData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF269C2A178D3700CF40ED /* LichessOpeningData.swift */; };
+		AADF269F2A17AF4300CF40ED /* LichessUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF269E2A17AF4300CF40ED /* LichessUserData.swift */; };
 		AAE367F82A0BED95006A2574 /* ChessBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */; };
 		AAF78B9B2A07B35B00FC8282 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */; };
 /* End PBXBuildFile section */
@@ -122,6 +123,7 @@
 		AADF268D2A16B94E00CF40ED /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		AADF269A2A178CF300CF40ED /* LichessExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessExplorerView.swift; sourceTree = "<group>"; };
 		AADF269C2A178D3700CF40ED /* LichessOpeningData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessOpeningData.swift; sourceTree = "<group>"; };
+		AADF269E2A17AF4300CF40ED /* LichessUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessUserData.swift; sourceTree = "<group>"; };
 		AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardViewModel.swift; sourceTree = "<group>"; };
 		AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -263,6 +265,7 @@
 				AAA1A1D429F415F9003F153F /* DataBase.swift */,
 				AA930ED92A09765200026712 /* SortingMethod.swift */,
 				AADF269C2A178D3700CF40ED /* LichessOpeningData.swift */,
+				AADF269E2A17AF4300CF40ED /* LichessUserData.swift */,
 				AAA1A1B829F14D33003F153F /* GameTree.swift */,
 				AAA1A1E929F6DDD6003F153F /* Settings.swift */,
 				AAA1A1B629F14CAC003F153F /* MoveNode.swift */,
@@ -456,6 +459,7 @@
 				AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */,
 				AADF267E2A16169600CF40ED /* ParentChessBoardProtocol.swift in Sources */,
 				AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */,
+				AADF269F2A17AF4300CF40ED /* LichessUserData.swift in Sources */,
 				AADF26802A16192400CF40ED /* ExploreViewModel.swift in Sources */,
 				AAA1A17E29F02351003F153F /* ContentView.swift in Sources */,
 				AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */,

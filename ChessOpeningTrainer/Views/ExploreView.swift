@@ -9,13 +9,19 @@ import SwiftUI
 
 struct ExploreView: View {
     
-    @StateObject var vm = ExploreViewModel()
+    @StateObject var vm: ExploreViewModel
     
     @ObservedObject var database: DataBase
     @ObservedObject var settings: Settings
     
     @State private var isShowingSwitchingView = false
     @State private var isShowingComment = false
+    
+    init(database: DataBase, settings: Settings) {
+        self._vm = StateObject(wrappedValue: ExploreViewModel(settings: settings))
+        self.database = database
+        self.settings = settings
+    }
     
     var body: some View {
         NavigationStack {
@@ -54,6 +60,7 @@ struct ExploreView: View {
                         ScrollView {
                             LichessExplorerView(openingData: vm.lichessResponse)
                         }
+                        .padding(.horizontal, 5)
 
                         MoveListView(vm: vm)
                             .padding(.vertical, 7)

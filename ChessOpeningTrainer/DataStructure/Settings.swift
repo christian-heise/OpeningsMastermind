@@ -11,12 +11,75 @@ import Foundation
 class Settings: ObservableObject, Codable {
     @Published var boardColorRGB = BoardColorRGB()
     
+    private var lichessName: String? = nil
+    private var chessComName: String? = nil
+    
+    private (set) var playerRating: Int? = nil
+    
     init() {
         self.load()
     }
     
     func resetColor() {
         self.boardColorRGB = BoardColorRGB()
+    }
+    
+    func setAccountName(to user: String, for platform: ChessPlatform) async {
+        guard await userCheck(of: user, for: platform) else { return }
+        
+        switch platform {
+        case .chessDotCom:
+            self.chessComName = user
+        case .lichess:
+            self.lichessName = user
+        }
+        await updateAllAccountDetails()
+    }
+    
+    func updateAllAccountDetails() async {
+        if self.lichessName != nil {
+            await updateAccountDetails(for: .lichess)
+        }
+        if self.chessComName != nil {
+            await updateAccountDetails(for: .chessDotCom)
+        }
+    }
+    
+    func updateAccountDetails(for platform: ChessPlatform) async {
+        switch platform {
+        case .chessDotCom:
+            print("Chess.com")
+        case .lichess:
+            let urlString = "https://lichess.org/api/user/\(lichessName!)"
+            guard let url = URL(string: urlString) else { return }
+            guard let (data, _) = try? await URLSession.shared.data(from: url) else { return }
+            
+            guard let decodedData = try? JSONDecoder().decode(LichessUserData.self, from: data) else { return }
+            
+            self.playerRating = decodedData.perfs.blitz.rating
+        }
+    }
+    
+    func userCheck(of user: String, for platform: ChessPlatform) async -> Bool {
+        switch platform {
+        case .chessDotCom:
+            return true
+        case .lichess:
+            let urlString = "https://lichess.org/api/users/status?ids=\(user)"
+            guard let url = URL(string: urlString) else { return false }
+            guard let (data, _) = try? await URLSession.shared.data(from: url) else { return false }
+            
+            guard let decodedData = try? JSONDecoder().decode([LichessUserResponse].self, from: data) else { return false }
+            
+            
+            return !(decodedData.first?.name.isEmpty ?? true)
+        }
+        
+        struct LichessUserResponse: Codable {
+            let name: String
+            let id: String
+            let online: Bool
+        }
     }
     
     func save() {
@@ -52,16 +115,24 @@ class Settings: ObservableObject, Codable {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        boardColorRGB = try container.decode(BoardColorRGB.self, forKey: .boardColorRGB)
+        self.boardColorRGB = try container.decode(BoardColorRGB.self, forKey: .boardColorRGB)
+        
+        self.playerRating = try container.decodeIfPresent(Int.self, forKey: .playerRating)
+        self.lichessName = try container.decodeIfPresent(String.self, forKey: .lichessName)
+        self.chessComName = try container.decodeIfPresent(String.self, forKey: .chessComName)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(boardColorRGB, forKey: .boardColorRGB)
+        
+        try container.encode(playerRating, forKey: .playerRating)
+        try container.encode(lichessName, forKey: .lichessName)
+        try container.encode(chessComName, forKey: .chessComName)
     }
     
     enum CodingKeys: String, CodingKey {
-            case boardColorRGB
+            case boardColorRGB, playerRating, lichessName, chessComName
     }
 }
 
@@ -71,4 +142,8 @@ struct BoardColorRGB: Codable {
     
     // green: [93, 132, 101]
     // orange: [207, 133, 102]
+}
+
+enum ChessPlatform {
+    case chessDotCom, lichess
 }

@@ -21,7 +21,7 @@ struct LichessExplorerView: View {
             VStack(alignment: .trailing) {
                 ForEach(openingData?.moves ?? [], id: \.self) { move in
                     Text(String(move.white + move.draws + move.black))
-                        .font(.system(size: 14, design: .monospaced))
+                        .font(.system(.body, design: .monospaced))
                         .frame(height: 20)
                 }
             }
@@ -34,20 +34,26 @@ struct LichessExplorerView: View {
                                     Rectangle()
                                         .fill([207, 199, 207].getColor())
                                         .frame(width: geo.size.width * CGFloat(move.white)/CGFloat(move.white + move.black + move.draws))
-                                    Text(String(format:"%.0f%%", Double(move.white)/Double(move.white + move.black + move.draws)*100))
+                                    if Double(move.white)/Double(move.white + move.black + move.draws)*100 > 15 {
+                                        Text(String(format:"%.0f%%", Double(move.white)/Double(move.white + move.black + move.draws)*100))
+                                    }
                                 }
                                 ZStack {
                                     Rectangle()
                                         .fill([128, 108, 128].getColor())
                                         .frame(width: geo.size.width * CGFloat(move.draws)/CGFloat(move.white + move.black + move.draws))
-                                    Text(String(format:"%.0f%%", Double(move.draws)/Double(move.white + move.black + move.draws)*100))
+                                    if Double(move.draws)/Double(move.white + move.black + move.draws)*100 > 15 {
+                                        Text(String(format:"%.0f%%", Double(move.draws)/Double(move.white + move.black + move.draws)*100))
+                                    }
                                 }
                                 ZStack {
                                     Rectangle()
                                         .fill([36, 30, 36].getColor())
                                         .frame(width: geo.size.width * CGFloat(move.black)/CGFloat(move.white + move.black + move.draws))
-                                    Text(String(format:"%.0f%%", Double(move.black)/Double(move.white + move.black + move.draws)*100))
-                                        .foregroundColor([239, 235, 239].getColor())
+                                    if Double(move.black)/Double(move.white + move.black + move.draws)*100 > 15 {
+                                        Text(String(format:"%.0f%%", Double(move.black)/Double(move.white + move.black + move.draws)*100))
+                                            .foregroundColor([239, 235, 239].getColor())
+                                    }
                                 }
                             }
                         }

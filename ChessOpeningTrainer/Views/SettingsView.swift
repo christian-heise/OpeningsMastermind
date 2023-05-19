@@ -15,6 +15,11 @@ struct SettingsView: View {
     @State private var colorWhite: Color
     @State private var colorBlack: Color
     
+    @State private var showingLichessConnect = false
+    @State private var showingChessComConnect = false
+    
+    @State private var userName = ""
+    
     @Environment(\.requestReview) var requestReview
     
     init(settings: Settings) {
@@ -54,7 +59,6 @@ struct SettingsView: View {
                 } header: {
                     Text("General")
                         .fontWeight(.bold)
-//                        .foregroundColor(.black)
                 }
                 .onChange(of: self.colorWhite) { newValue in
                     self.settings.boardColorRGB.white = self.colorWhite.rgbValues
@@ -63,6 +67,56 @@ struct SettingsView: View {
                 .onChange(of: self.colorBlack) { newValue in
                     self.settings.boardColorRGB.black = self.colorBlack.rgbValues
                     self.settings.save()
+                }
+                Section {
+                    Button {
+                        showingLichessConnect = true
+                    } label: {
+                        HStack {
+                            Text("Connect Lichess Account")
+                            Spacer()
+                            Image("lichess_logo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 30)
+                        }
+                    }
+                    .alert("Connect Lichess account", isPresented: $showingLichessConnect) {
+                        TextField("Lichess username", text: $userName)
+                            .textInputAutocapitalization(.never)
+                            .disableAutocorrection(true)
+                        Button("Connect") {
+                            Task {
+                                await settings.setAccountName(to: userName, for: .lichess)
+                            }
+                        }
+                        Button("Cancel", role: .cancel) { }
+                    }
+//                    Button {
+//                        showingChessComConnect = true
+//                    } label: {
+//                        HStack {
+//                            Text("Connect Chess.com Account")
+//                            Spacer()
+//                            Image("chess.com_logo")
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(height: 30)
+//                        }
+//                    }
+//                    .alert("Connect chess.com account", isPresented: $showingChessComConnect) {
+//                        TextField("Chess.com username", text: $userName)
+//                            .textInputAutocapitalization(.never)
+//                            .disableAutocorrection(true)
+//                        Button("Connect") {
+//                            print("Chess.com connected")
+//                        }
+//                        Button("Cancel", role: .cancel) { }
+//                    }
+
+                } header: {
+                    Text("Connect")
+                        .fontWeight(.bold)
                 }
                 Section() {
                     NavigationLink(destination: {ImpressumView()}) {
@@ -78,11 +132,7 @@ struct SettingsView: View {
                 } header: {
                     Text("About")
                         .fontWeight(.bold)
-//                        .foregroundColor(.black)
                 }
-//                footer: {
-//                    Text("Copyright © 2023 Christian Gleißner")
-//                }
                 Section() {
                     Button("Rate my App") {
                         requestReview()
@@ -92,7 +142,6 @@ struct SettingsView: View {
                 } header: {
                     Text("Contact")
                         .fontWeight(.bold)
-//                        .foregroundColor(.black)
                 }
             }
             .navigationTitle(Text("Settings"))
