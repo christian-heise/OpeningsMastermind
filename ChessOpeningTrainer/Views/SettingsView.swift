@@ -117,6 +117,16 @@ struct SettingsView: View {
                 } header: {
                     Text("Connect")
                         .fontWeight(.bold)
+                } footer: {
+                    if settings.lichessName == nil && settings.chessComName == nil {
+                        Text("Currently connected to no account.")
+                    } else if settings.lichessName == nil {
+                        Text("Currently connected to chess.com account \"" + settings.chessComName! + "\"")
+                    } else if settings.chessComName == nil {
+                        Text("Currently connected to Lichess account \"" + settings.lichessName! + "\"")
+                    } else {
+                        Text("Currently connected to Lichess account \"" + settings.lichessName! + "\" and chess.com account \"" + settings.chessComName! + "\"")
+                    }
                 }
                 Section() {
                     NavigationLink(destination: {ImpressumView()}) {

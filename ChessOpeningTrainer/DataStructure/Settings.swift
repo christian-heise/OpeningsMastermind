@@ -11,8 +11,8 @@ import Foundation
 class Settings: ObservableObject, Codable {
     @Published var boardColorRGB = BoardColorRGB()
     
-    private var lichessName: String? = nil
-    private var chessComName: String? = nil
+    @Published private (set) var lichessName: String?
+    @Published private (set) var chessComName: String?
     
     private (set) var playerRating: Int? = nil
     
@@ -27,12 +27,16 @@ class Settings: ObservableObject, Codable {
     func setAccountName(to user: String, for platform: ChessPlatform) async {
         guard await userCheck(of: user, for: platform) else { return }
         
-        switch platform {
-        case .chessDotCom:
-            self.chessComName = user
-        case .lichess:
-            self.lichessName = user
+        await MainActor.run {
+            switch platform {
+            case .chessDotCom:
+                self.chessComName = user
+            case .lichess:
+                self.lichessName = user
+            }
+            objectWillChange.send()
         }
+        self.save()
         await updateAllAccountDetails()
     }
     
@@ -66,10 +70,17 @@ class Settings: ObservableObject, Codable {
             return true
         case .lichess:
             let urlString = "https://lichess.org/api/users/status?ids=\(user)"
-            guard let url = URL(string: urlString) else { return false }
-            guard let (data, _) = try? await URLSession.shared.data(from: url) else { return false }
+            guard let url = URL(string: urlString) else {
+                print("bad url")
+                return false }
+            guard let (data, _) = try? await URLSession.shared.data(from: url) else {
+                print("URL Session failed")
+                return false
+            }
             
-            guard let decodedData = try? JSONDecoder().decode([LichessUserResponse].self, from: data) else { return false }
+            guard let decodedData = try? JSONDecoder().decode([LichessUserResponse].self, from: data) else {
+                print("Decoding Failed")
+                return false }
             
             
             return !(decodedData.first?.name.isEmpty ?? true)
@@ -78,7 +89,6 @@ class Settings: ObservableObject, Codable {
         struct LichessUserResponse: Codable {
             let name: String
             let id: String
-            let online: Bool
         }
     }
     
@@ -102,8 +112,11 @@ class Settings: ObservableObject, Codable {
             let decoder = JSONDecoder()
             let settings = try decoder.decode(Settings.self, from: data)
             self.boardColorRGB = settings.boardColorRGB
+            self.playerRating = settings.playerRating
+            self.lichessName = settings.lichessName
+            self.chessComName = settings.chessComName
         } catch {
-            print("Could not load database")
+            print("Could not load settings")
             self.save()
         }
     }

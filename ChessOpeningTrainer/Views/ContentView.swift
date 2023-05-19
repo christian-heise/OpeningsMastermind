@@ -38,6 +38,7 @@ struct ContentView: View {
         .onChange(of: scenePhase) { phase in
                 if phase == .background {
                     database.save()
+                    settings.save()
                 }
             }
     }

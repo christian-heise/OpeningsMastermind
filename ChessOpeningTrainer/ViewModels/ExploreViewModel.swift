@@ -29,6 +29,11 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
     
     let userRating: Int
     
+    
+    private var dataTask: URLSessionDataTask?
+    private var lichessCache: [String: LichessOpeningData] = [:]
+    private var currentLichessTask: Task<(), Never>?
+    
     var pieces: [(Square, Piece)] {
         return game.position.board.enumeratedPieces()
     }
@@ -124,17 +129,8 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
             self.game.make(move: move)
             gameTree.gameState = 0
             determineRightMove()
-            
-            lichessResponse = nil
             objectWillChange.send()
-            
-            Task {
-                let lichessResponse = await getLichessMoves()
-                
-                await MainActor.run {
-                    self.lichessResponse = lichessResponse
-                }
-            }
+            updateLichessExplorer()
         } else {
 
         }
@@ -174,15 +170,8 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
             
             self.game.make(move: self.moveHistory[positionIndex].0)
             determineRightMove()
-            lichessResponse = nil
             objectWillChange.send()
-            Task {
-                let lichessResponse = await getLichessMoves()
-                
-                await MainActor.run {
-                    self.lichessResponse = lichessResponse
-                }
-            }
+            updateLichessExplorer()
         } else {
             makeMainLineMove()
             objectWillChange.send()
@@ -200,16 +189,8 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
         
         gameTree.currentNode = gameTree.currentNode?.parent
         determineRightMove()
-        lichessResponse = nil
+        updateLichessExplorer()
         objectWillChange.send()
-        
-        Task {
-            let lichessResponse = await getLichessMoves()
-            
-            await MainActor.run {
-                self.lichessResponse = lichessResponse
-            }
-        }
     }
     
     func onAppear(database: DataBase) {
@@ -252,9 +233,31 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
         objectWillChange.send()
     }
     
+    func updateLichessExplorer() {
+        currentLichessTask?.cancel()
+        lichessResponse = nil
+        let task = Task {
+            let lichessResponse = await getLichessMoves()
+            
+            await MainActor.run {
+                self.lichessResponse = lichessResponse
+            }
+        }
+        currentLichessTask = task
+    }
+    
     func getLichessMoves() async -> LichessOpeningData? {
         let ratingRange = (self.userRating - 300, self.userRating + 300)
         let fen = FenSerialization.default.serialize(position: self.game.position).replacingOccurrences(of: " ", with: "%20")
+        if let cachedResult = lichessCache[fen] {
+            return cachedResult
+        }
+        do {
+            try await Task.sleep(for: .milliseconds(200))
+        } catch {
+            print("Sleeping somehow failed")
+        }
+        
         let urlString = "https://explorer.lichess.ovh/lichess?variant=standard&speeds=blitz,rapid,classical&ratings=\(ratingRange.0),\(ratingRange.1)&fen=\(fen)"
         guard let url = URL(string: urlString) else {
             print("Bad URL: \(urlString)")
@@ -268,8 +271,9 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
             print("Decoding failed")
             return nil}
         
-        
         decodedData.moves = decodedData.moves.filter({Double($0.white + $0.black + $0.draws) > (0.01 * Double(decodedData.white + decodedData.black + decodedData.draws))})
+        
+        lichessCache[fen] = decodedData
         return decodedData
     }
 }

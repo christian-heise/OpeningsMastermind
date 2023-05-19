@@ -21,7 +21,7 @@ struct LichessUserData: Codable {
             let rating: Int
             let rd: Int
             let prog: Int
-            let prov: Bool
+            let prov: Bool?
         }
     }
 }

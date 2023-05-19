@@ -20,8 +20,8 @@ struct LichessExplorerView: View {
             }
             VStack(alignment: .trailing) {
                 ForEach(openingData?.moves ?? [], id: \.self) { move in
-                    Text(String(move.white + move.draws + move.black))
-                        .font(.system(.body, design: .monospaced))
+                    Text(Int(move.white + move.draws + move.black).formattedWithSeparator)
+                        .font(.system(size: 12, design: .monospaced))
                         .frame(height: 20)
                 }
             }
@@ -63,6 +63,20 @@ struct LichessExplorerView: View {
                 }
             }
         }
+    }
+}
+
+extension Formatter {
+    static let withSeparator: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.groupingSeparator = ","
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+}
+extension Int {
+    var formattedWithSeparator: String {
+        return Formatter.withSeparator.string(for: self) ?? ""
     }
 }
 
