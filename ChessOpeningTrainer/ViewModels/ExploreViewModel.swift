@@ -15,7 +15,7 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
     
     @Published var gameTree: GameTree?
     @Published var moveStringList: [String] = []
-    
+    @Published var lichessResponse: LichessOpeningData?
     
     
     var rightMove: [Move] = []
@@ -120,20 +120,19 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
             self.game.make(move: move)
             gameTree.gameState = 0
             determineRightMove()
+            
+            lichessResponse = nil
             objectWillChange.send()
+            
+            Task {
+                let lichessResponse = await getLichessMoves()
+                
+                await MainActor.run {
+                    self.lichessResponse = lichessResponse
+                }
+            }
         } else {
-//            gameTree.gameCopy = self.game.deepCopy()
-//            if !gameTree.currentNode!.children.isEmpty {
-//                gameTree.gameState = 1
-//
-////                determineRightMove()
-//                game.make(move: move)
-//
-//            } else {
-//                print("Hä")
-//                gameTree.gameState = 2
-//            }
-//            objectWillChange.send()
+
         }
     }
     
@@ -170,12 +169,21 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
             gameTree.currentNode = gameTree.currentNode?.children.first(where: {$0.move == moveString})
             
             self.game.make(move: self.moveHistory[positionIndex].0)
-            
             determineRightMove()
+            lichessResponse = nil
             objectWillChange.send()
+            Task {
+                let lichessResponse = await getLichessMoves()
+                
+                await MainActor.run {
+                    self.lichessResponse = lichessResponse
+                }
+            }
         } else {
             makeMainLineMove()
+            objectWillChange.send()
         }
+        
     }
     
     func reverseMove() {
@@ -188,7 +196,16 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
         
         gameTree.currentNode = gameTree.currentNode?.parent
         determineRightMove()
+        lichessResponse = nil
         objectWillChange.send()
+        
+        Task {
+            let lichessResponse = await getLichessMoves()
+            
+            await MainActor.run {
+                self.lichessResponse = lichessResponse
+            }
+        }
     }
     
     func onAppear(database: DataBase) {
@@ -229,5 +246,25 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
             gameTree.reset()
         }
         objectWillChange.send()
+    }
+    
+    func getLichessMoves() async -> LichessOpeningData? {
+        let fen = FenSerialization.default.serialize(position: self.game.position).replacingOccurrences(of: " ", with: "%20")
+        let urlString = "https://explorer.lichess.ovh/lichess?variant=standard&speeds=blitz,rapid,classical&ratings=2200,2500&fen=\(fen)"
+        guard let url = URL(string: urlString) else {
+            print("Bad URL: \(urlString)")
+            return nil}
+        
+        guard let (data, _) = try? await URLSession.shared.data(from: url) else {
+            print("URL Session Failed")
+            return nil}
+        
+        guard var decodedData = try? JSONDecoder().decode(LichessOpeningData.self, from: data) else {
+            print("Decoding failed")
+            return nil}
+        
+        
+        decodedData.moves = decodedData.moves.filter({Double($0.white + $0.black + $0.draws) > (0.01 * Double(decodedData.white + decodedData.black + decodedData.draws))})
+        return decodedData
     }
 }

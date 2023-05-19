@@ -51,6 +51,7 @@ struct HomeView: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill([110, 159, 82].getColor())
+                                .shadow(radius: 2)
                             VStack {
                                 Image(systemName: "list.bullet")
                                     .resizable()

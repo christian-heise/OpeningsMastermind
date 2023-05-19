@@ -64,45 +64,21 @@ struct ListView: View {
         
         NavigationStack {
             Group {
-//                if !sortedGameTrees.isEmpty {
-                    List() {
-                        ForEach(sortedGameTrees) { gameTree in
-                            VStack(alignment: .leading) {
-                                Text(gameTree.name)
-                                    .fontWeight(.medium)
-                                HStack {
-                                    Text("Progress:")
-                                    ProgressBarView(progress: gameTree.progress)
-                                        .frame(height: 20)
-                                }
+                List() {
+                    ForEach(sortedGameTrees) { gameTree in
+                        VStack(alignment: .leading) {
+                            Text(gameTree.name)
+                                .fontWeight(.medium)
+                            HStack {
+                                Text("Progress:")
+                                ProgressBarView(progress: gameTree.progress)
+                                    .frame(height: 20)
                             }
                         }
-                        .onDelete(perform: delete)
-                        .onMove(perform: move)
                     }
-//                } else {
-//                    GeometryReader { geo in
-//                        VStack() {
-//                            Text("Add a custom Study or choose from 5 example studies.")
-//                                .multilineTextAlignment(.leading)
-//                                .padding()
-//                                .background() {
-//                                    BoxArrowShape(cornerRadius: 5, arrowPosition: -0.85, arrowLength: 30)
-//                                        .fill([242,242, 247].getColor())
-//                                        .shadow(radius: 2)
-//                                        .rotationEffect(Angle(degrees: 180))
-//                                }
-//                                .padding(.vertical)
-//                                .frame(maxWidth: geo.size.width*3/5)
-//                                .offset(x: geo.size.width/5, y: -geo.size.width/100*6)
-//                            Spacer()
-//                        }
-//                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                    }
-////                    .background(){
-////                        RoundedRectangle(cornerRadius: 10).fill(.gray)
-////                    }
-//                }
+                    .onDelete(perform: delete)
+                    .onMove(perform: move)
+                }
             }
             .navigationTitle(Text("Opening Studies"))
             .toolbar {
@@ -147,7 +123,13 @@ struct ListView: View {
 
     
     func delete(at offsets: IndexSet) {
-        database.removeGameTree(at: offsets)
+        let array = Array(offsets)
+        for i in array {
+            let deleteIndex = IndexSet(integer: database.gametrees.firstIndex(where: {$0 == sortedGameTrees[i]}) ?? .zero)
+            database.removeGameTree(at: deleteIndex)
+        }
+        
+        
     }
     
     func move(from source: IndexSet, to destination: Int) {

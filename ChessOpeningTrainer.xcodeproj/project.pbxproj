@@ -50,6 +50,8 @@
 		AADF26822A161A7200CF40ED /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF26812A161A7200CF40ED /* ExploreView.swift */; };
 		AADF268C2A16708100CF40ED /* MoveListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF268B2A16708100CF40ED /* MoveListView.swift */; };
 		AADF268E2A16B94E00CF40ED /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF268D2A16B94E00CF40ED /* HomeView.swift */; };
+		AADF269B2A178CF300CF40ED /* LichessExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF269A2A178CF300CF40ED /* LichessExplorerView.swift */; };
+		AADF269D2A178D3700CF40ED /* LichessOpeningData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF269C2A178D3700CF40ED /* LichessOpeningData.swift */; };
 		AAE367F82A0BED95006A2574 /* ChessBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */; };
 		AAF78B9B2A07B35B00FC8282 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */; };
 /* End PBXBuildFile section */
@@ -118,6 +120,8 @@
 		AADF26812A161A7200CF40ED /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		AADF268B2A16708100CF40ED /* MoveListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveListView.swift; sourceTree = "<group>"; };
 		AADF268D2A16B94E00CF40ED /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		AADF269A2A178CF300CF40ED /* LichessExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessExplorerView.swift; sourceTree = "<group>"; };
+		AADF269C2A178D3700CF40ED /* LichessOpeningData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessOpeningData.swift; sourceTree = "<group>"; };
 		AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardViewModel.swift; sourceTree = "<group>"; };
 		AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -237,6 +241,7 @@
 				AA930ED52A0920E500026712 /* SwitchStudyView.swift */,
 				AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */,
 				AAA1A17D29F02351003F153F /* ContentView.swift */,
+				AADF269A2A178CF300CF40ED /* LichessExplorerView.swift */,
 				AADF268B2A16708100CF40ED /* MoveListView.swift */,
 				AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */,
 				AA6960782A05460700A593BB /* PracticeView.swift */,
@@ -257,6 +262,7 @@
 			children = (
 				AAA1A1D429F415F9003F153F /* DataBase.swift */,
 				AA930ED92A09765200026712 /* SortingMethod.swift */,
+				AADF269C2A178D3700CF40ED /* LichessOpeningData.swift */,
 				AAA1A1B829F14D33003F153F /* GameTree.swift */,
 				AAA1A1E929F6DDD6003F153F /* Settings.swift */,
 				AAA1A1B629F14CAC003F153F /* MoveNode.swift */,
@@ -443,6 +449,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAA1A1E029F56F32003F153F /* ExamplePGN.swift in Sources */,
+				AADF269D2A178D3700CF40ED /* LichessOpeningData.swift in Sources */,
+				AADF269B2A178CF300CF40ED /* LichessExplorerView.swift in Sources */,
 				AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */,
 				AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */,
 				AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */,

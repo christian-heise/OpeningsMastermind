@@ -26,31 +26,35 @@ struct ExploreView: View {
                             .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                             .frame(height: geo.size.width)
                         Spacer()
-                        ScrollViewReader { value in
-                            if !vm.comment.isEmpty {
-                                ScrollView(showsIndicators: false) {
-                                    Text(vm.comment)
-                                        .padding(.horizontal)
-                                        .padding(.vertical, 5)
-                                        .onTapGesture {
-                                            isShowingComment = true
-                                            print("tapped")
-                                        }
-                                        .onChange(of: vm.comment) { newValue in
-                                            value.scrollTo(0)
-                                        }
-                                }
-                                .background() {
-                                    ZStack{
-                                        RoundedRectangle(cornerRadius: 10).fill(Color.gray).opacity(0.1)
-                                        RoundedRectangle(cornerRadius: 10).stroke().opacity(0.5)
-                                    }
-                                    .padding(.horizontal, 5)
-                                }
-                                .frame(width: geo.size.width)
-                            }
-                        }
+//                        ScrollViewReader { value in
+//                            if !vm.comment.isEmpty {
+//                                ScrollView(showsIndicators: false) {
+//                                    Text(vm.comment)
+//                                        .padding(.horizontal)
+//                                        .padding(.vertical, 5)
+//                                        .onTapGesture {
+//                                            isShowingComment = true
+//                                            print("tapped")
+//                                        }
+//                                        .onChange(of: vm.comment) { newValue in
+//                                            value.scrollTo(0)
+//                                        }
+//                                }
+//                                .background() {
+//                                    ZStack{
+//                                        RoundedRectangle(cornerRadius: 10).fill(Color.gray).opacity(0.1)
+//                                        RoundedRectangle(cornerRadius: 10).stroke().opacity(0.5)
+//                                    }
+//                                    .padding(.horizontal, 5)
+//                                }
+//                                .frame(width: geo.size.width)
+//                            }
+//                        }
                         
+                        ScrollView {
+                            LichessExplorerView(openingData: vm.lichessResponse)
+                        }
+
                         MoveListView(vm: vm)
                             .padding(.vertical, 7)
                             .padding(.trailing, 7)
@@ -92,7 +96,6 @@ struct ExploreView: View {
                                         }
                                 }
                                 .disabled(vm.gameTree?.currentNode?.children.isEmpty ?? true)
-                                //                            .padding()
                             }
                             .padding(.vertical, 0)
                             .padding(.horizontal)
