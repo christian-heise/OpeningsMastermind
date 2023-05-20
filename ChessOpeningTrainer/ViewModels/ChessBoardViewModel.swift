@@ -11,7 +11,7 @@ import SwiftUI
 
 extension ChessboardView {
     @MainActor class ChessBoardViewModel<ParentVM: ParentChessBoardModelProtocol>: ObservableObject {
-        @Published var vm_parent: ParentVM
+        var vm_parent: ParentVM
         
         @Published var offsets = Array(repeating: CGSize.zero, count: 64)
         @Published var draggedSquare: Square? = nil
@@ -53,7 +53,7 @@ extension ChessboardView {
         }
         
         var pieces: [(Square, Piece)] {
-            vm_parent.pieces
+            return vm_parent.pieces
         }
         
         var promotionMove: Move? {

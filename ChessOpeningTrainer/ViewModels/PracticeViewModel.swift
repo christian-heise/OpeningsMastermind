@@ -9,10 +9,7 @@ import Foundation
 import ChessKit
 
 @MainActor class PracticeViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
-    
     @Published var currentNode: GameNode
-//    @Published var moveStringList: [String] = []
-    
     let gameTree: GameTree
     
     init(gameTree: GameTree) {
@@ -22,19 +19,6 @@ import ChessKit
     }
     
     var gameCopy: Game? = nil
-
-//    var moveString: String {
-//        var result = ""
-//
-//        for i in stride(from: 0, to: moveStringList.count, by: 2) {
-//            let index = i / 2 + 1
-//            let element1 = moveStringList[i]
-//            let element2 = i + 1 < moveStringList.count ? moveStringList[i+1] : ""
-//            result += "\(index). \(element1) \(element2) "
-//        }
-//
-//        return result
-//    }
     
     var userColor: PieceColor {
         self.gameTree.userColor
