@@ -38,59 +38,54 @@ struct PracticeView: View {
                 ZStack {
                     VStack {
                         Spacer()
+                        Text(text)
+                            .font(.headline)
+                            .frame(height: 20)
+                            .padding()
+                            .opacity(vm.gameState > 0 ? 1 : 0)
                         ChessboardView(vm: vm, settings: settings)
                             .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                             .frame(maxHeight: geo.size.width)
-                        ZStack {
-                            if vm.gameState == 0 {
-                                ScrollView {
-                                    HStack {
-                                        Text(vm.moveString)
-                                            .multilineTextAlignment(.leading)
-                                        Spacer()
-                                    }
-                                }
-                                .padding(.horizontal)
-                                .frame(width: geo.size.width, height: 100)
+                        MoveListView(vm: vm)
+                            .padding(.vertical, 7)
+                            .padding(.trailing, 7)
+                            .background(){
+                                Color.gray.opacity(0.1)
+                                    .shadow(radius: 5)
                             }
-                            VStack {
-                                Text(text)
-                                    .frame(height: 20)
+                        
+                        HStack {
+                            Button(action: {
+                                vm.revertMove()
+                            }) {
+                                Text("Revert Last Move")
                                     .padding()
-                                    .opacity(vm.gameState > 0 ? 1 : 0)
-                                HStack {
-                                    Button(action: {
-                                        vm.revertMove()
-                                    }) {
-                                        Text("Revert Last Move")
-                                            .padding()
-                                            .foregroundColor(.white)
-                                            .background([223,110,107].getColor())
-                                            .cornerRadius(10)
-                                    }
-                                    .opacity(vm.gameState == 1 ? 1 : 0)
-                                    .disabled(vm.gameState == 1 ? false : true)
-                                    
-                                    Button(action: {
-                                        vm.reset()
-                                    }) {
-                                        Text("Restart Training")
-                                            .padding()
-                                            .foregroundColor(.white)
-                                            .background([79,147,206].getColor())
-                                            .cornerRadius(10)
-                                    }
-                                    .opacity(vm.gameState > 0 ? 1 : 0)
-                                    .disabled(vm.gameState > 0 ? false : true)
-                                    
-                                    
-                                }
-                                .padding(10)
+                                    .foregroundColor(.white)
+                                    .background([223,110,107].getColor())
+                                    .cornerRadius(10)
                             }
+                            .opacity(vm.gameState == 1 ? 1 : 0)
+                            .disabled(vm.gameState == 1 ? false : true)
+                            
+                            Button(action: {
+                                vm.reset()
+                            }) {
+                                Text("Restart Training")
+                                    .padding()
+                                    .foregroundColor(.white)
+                                    .background([79,147,206].getColor())
+                                    .cornerRadius(10)
+                            }
+                            .opacity(vm.gameState > 0 ? 1 : 0)
+                            .disabled(vm.gameState > 0 ? false : true)
+                            
+                            
                         }
+                        .padding(10)
+                    
                     }
                 }
-                .navigationTitle(Text("Practice"))
+                .navigationTitle(vm.gameTree.name)
                 .navigationBarTitleDisplayMode(.inline)
             }
         }

@@ -61,7 +61,7 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                     .frame(width: 8 * vm.squareLength(in: geo.size), height: 8 * vm.squareLength(in: geo.size))
                     .position(x: geo.size.width/2,y: 4 * vm.squareLength(in: geo.size))
                 
-                if vm.gameState == 1 || vm.gameState == 3 {
+                if vm.gameState == 1 || vm.gameState == 4 {
                     ForEach(vm.rightMove, id: \.self) { rightMove in
                         ArrowShape()
                             .frame(width: vm.calcArrowWidth(for: rightMove, in: geo.size), height: vm.squareLength(in: geo.size)*0.6)

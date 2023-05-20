@@ -30,11 +30,16 @@ struct ContentView: View {
                 }
         }
         .onChange(of: scenePhase) { phase in
-                if phase == .background {
-                    database.save()
-                    settings.save()
-                }
+            if phase == .background {
+                database.save()
+                settings.save()
             }
+        }
+        .onAppear() {
+            Task {
+                await settings.updateAllAccountDetails()
+            }
+        }
     }
 }
 

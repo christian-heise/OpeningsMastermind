@@ -16,9 +16,13 @@ protocol ParentChessBoardModelProtocol: ObservableObject {
     var rightMove: [Move] { get }
     var pieces: [(Square, Piece)] { get }
     var promotionMove: Move? { get }
+    var moveHistory: [(Move, String)] { get }
+    var positionHistory: [Position] { get }
+    var positionIndex: Int { get }
     
     func processMoveAction(piece: Piece, from oldSquare: Square, to newSquare: Square)
     func reset()
+    func jump(to index: Int)
 }
 
 class ParentChessBoardModel {
@@ -29,6 +33,9 @@ class ParentChessBoardModel {
     var promotionPending: Bool = false
     var promotionMove: Move? = nil
     
+    var moveHistory: [(Move, String)] = []
+    var positionHistory: [Position] = []
+    var positionIndex: Int = -1
 
     var pieces: [(Square, Piece)] {
         return game.position.board.enumeratedPieces()

@@ -22,6 +22,16 @@ class ExploreViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
     @Published var currentExploreNode: ExploreNode
     
     var rootExploreNode: ExploreNode
+    
+    let userRating: Int?
+    
+    private var dataTask: URLSessionDataTask?
+    private var lichessCache: [String: LichessOpeningData] = [:]
+    private var currentLichessTask: Task<(), Never>?
+    
+    var comment: String {
+        return currentExploreNode.gameNode?.comment ?? ""
+    }
 
     init(database: DataBase, settings: Settings) {
         self.database = database
@@ -61,8 +71,11 @@ class ExploreViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
         self.positionHistory = []
         self.positionIndex = -1
         self.promotionMove = nil
-        self.rightMove = []
         self.showingComment = false
+        gameState = 4
+        
+        self.updateLichessExplorer()
+        determineRightMove()
         
         objectWillChange.send()
     }
@@ -79,24 +92,25 @@ class ExploreViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
         self.positionHistory = []
         self.positionIndex = -1
         self.promotionMove = nil
-        self.rightMove = []
         self.showingComment = false
+        gameState = 4
+        
+        self.updateLichessExplorer()
+        determineRightMove()
         
         objectWillChange.send()
     }
     
-    var moveHistory: [(Move, String)] = []
-    var positionHistory: [Position] = []
-    var positionIndex: Int = -1
-    
-    let userRating: Int?
-    
-    private var dataTask: URLSessionDataTask?
-    private var lichessCache: [String: LichessOpeningData] = [:]
-    private var currentLichessTask: Task<(), Never>?
-    
-    var comment: String {
-        return currentExploreNode.gameNode?.comment ?? ""
+    func determineRightMove() {
+        self.rightMove = []
+        
+        guard let gameNode = currentExploreNode.gameNode else { return }
+        
+        let decoder = SanSerialization.default
+        
+        for node in gameNode.children {
+            self.rightMove.append(decoder.move(for: node.move, in: self.game))
+        }
     }
     
     override func performMove(_ move: Move) {
@@ -130,9 +144,9 @@ class ExploreViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
         }
         
         self.game.make(move: move)
-        gameState = 0
+        gameState = 4
         showingComment = false
-//        determineRightMove()
+        determineRightMove()
         objectWillChange.send()
         updateLichessExplorer()
     }
@@ -171,7 +185,7 @@ class ExploreViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
             currentExploreNode = currentExploreNode.children.first(where: {$0.move == moveString})!
             
             self.game.make(move: self.moveHistory[positionIndex].0)
-//            determineRightMove()
+            determineRightMove()
             showingComment = false
             objectWillChange.send()
             updateLichessExplorer()
@@ -189,7 +203,7 @@ class ExploreViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
         self.positionIndex -= 1
         
         currentExploreNode = currentExploreNode.parent!
-//        determineRightMove()
+        determineRightMove()
         showingComment = false
         updateLichessExplorer()
         objectWillChange.send()

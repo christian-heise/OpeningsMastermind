@@ -9,8 +9,9 @@ import Foundation
 import ChessKit
 
 class PracticeViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
+    
     @Published var currentNode: GameNode
-    @Published var moveStringList: [String] = []
+//    @Published var moveStringList: [String] = []
     
     let gameTree: GameTree
     
@@ -22,18 +23,18 @@ class PracticeViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
     
     var gameCopy: Game? = nil
 
-    var moveString: String {
-        var result = ""
-
-        for i in stride(from: 0, to: moveStringList.count, by: 2) {
-            let index = i / 2 + 1
-            let element1 = moveStringList[i]
-            let element2 = i + 1 < moveStringList.count ? moveStringList[i+1] : ""
-            result += "\(index). \(element1) \(element2) "
-        }
-
-        return result
-    }
+//    var moveString: String {
+//        var result = ""
+//
+//        for i in stride(from: 0, to: moveStringList.count, by: 2) {
+//            let index = i / 2 + 1
+//            let element1 = moveStringList[i]
+//            let element2 = i + 1 < moveStringList.count ? moveStringList[i+1] : ""
+//            result += "\(index). \(element1) \(element2) "
+//        }
+//
+//        return result
+//    }
     
     var userColor: PieceColor {
         self.gameTree.userColor
@@ -49,6 +50,9 @@ class PracticeViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
     
     func revertMove() {
         self.game = gameCopy ?? Game(position: startingGamePosition)
+        self.positionHistory.removeLast()
+        self.moveHistory.removeLast()
+        self.positionIndex = self.positionIndex - 1
         gameState = 0
         objectWillChange.send()
     }
@@ -61,11 +65,17 @@ class PracticeViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
         }
     }
     
+    func jump(to index: Int) {}
+    
     func reset() {
         self.game = Game(position: startingGamePosition)
         self.currentNode = gameTree.rootNode
-        self.moveStringList = []
+//        self.moveStringList = []
         self.gameState = 0
+        
+        self.moveHistory = []
+        self.positionHistory = []
+        self.positionIndex = -1
         
         if self.userColor == .black {
             Task {
@@ -89,7 +99,11 @@ class PracticeViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
         await MainActor.run {
             let san = SanSerialization.default.correctSan(for: newMove!, in: self.game)
 
-            self.moveStringList.append(san)
+//            self.moveStringList.append(san)
+            self.positionHistory.append(self.game.position)
+            self.moveHistory.append((newMove!, san))
+            self.positionIndex = self.positionIndex + 1
+            
             self.game.make(move: newMove!)
             if newNode!.children.isEmpty {
                 gameState = 2
@@ -100,16 +114,18 @@ class PracticeViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
     }
     
     override func performMove(_ move: Move) {
-        if !game.legalMoves.contains(move) {
-            return
-        }
+        if !game.legalMoves.contains(move) || gameState != 0 { return }
         
         let (success, newNode) = currentNode.databaseContains(move: move, in: self.game)
+        
+        self.positionHistory.append(self.game.position)
+        self.moveHistory.append((move, SanSerialization.default.correctSan(for: move, in: game)))
+        self.positionIndex = self.positionIndex + 1
         
         if success {
             addMistake(0)
             currentNode = newNode
-            self.moveStringList.append(SanSerialization.default.correctSan(for: move, in: self.game))
+//            self.moveStringList.append(SanSerialization.default.correctSan(for: move, in: self.game))
             self.game.make(move: move)
             gameState = 0
             Task {

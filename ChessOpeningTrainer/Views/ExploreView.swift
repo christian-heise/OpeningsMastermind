@@ -16,6 +16,8 @@ struct ExploreView: View {
     
     @State private var isShowingSwitchingView = false
     
+    @Environment(\.colorScheme) private var colorScheme
+    
     init(database: DataBase, settings: Settings) {
         self._vm = StateObject(wrappedValue: ExploreViewModel(database: database, settings: settings))
         self.database = database
@@ -55,8 +57,8 @@ struct ExploreView: View {
                                 .padding(.vertical, 7)
                                 .padding(.trailing, 7)
                                 .background(){
-                                    Color.gray.opacity(0.1)
-                                        .shadow(radius: 5)
+                                    (colorScheme == .dark ? [50,50,50] : [233,233,233]).getColor()
+                                        .shadow(radius: 1)
                                 }
                         }
                         HStack {
@@ -82,7 +84,7 @@ struct ExploreView: View {
                                         .padding(10)
                                         .background(){
                                             ZStack {
-                                                RoundedRectangle(cornerRadius: 10).opacity(0.1)
+                                                RoundedRectangle(cornerRadius: 10).opacity(0.5)
                                             }
                                             .shadow(radius: 5)
                                         }
@@ -97,7 +99,7 @@ struct ExploreView: View {
                                         .padding(10)
                                         .background(){
                                             ZStack {
-                                                RoundedRectangle(cornerRadius: 10).opacity(0.1)
+                                                RoundedRectangle(cornerRadius: 10).opacity(0.5)
                                             }
                                             .shadow(radius: 5)
                                         }
@@ -116,7 +118,7 @@ struct ExploreView: View {
 //                            Spacer()
 //                            Text("You can add custom Studies or pick from 5 Example Studies in the Library.")
 //                                .foregroundColor(.black)
-//                            
+//
 //                                .multilineTextAlignment(.leading)
 //                                .padding()
 //                                .background() {

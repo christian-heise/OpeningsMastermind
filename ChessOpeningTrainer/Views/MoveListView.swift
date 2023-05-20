@@ -8,8 +8,10 @@
 import SwiftUI
 import ChessKit
 
-struct MoveListView: View {
-    @ObservedObject var vm: ExploreViewModel
+struct MoveListView<ParentVM>: View where ParentVM: ParentChessBoardModelProtocol {
+    @ObservedObject var vm: ParentVM
+    
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -26,16 +28,13 @@ struct MoveListView: View {
                             } label: {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 5)
-                                        .fill(vm.positionIndex == index ? Color.black : Color.black)
-                                        .opacity(vm.positionIndex == index ? 0.6 : 0.1)
+                                        .fill(vm.positionIndex == index ? (colorScheme == .light ? [76,76,76].getColor() : [200,200,200].getColor()) : (colorScheme == .light ? [202,202,202].getColor() : [100,100,100].getColor()))
                                     Text(vm.moveHistory[index].1)
-                                        .foregroundColor(vm.positionIndex == index ? .white : .black)
+                                        .foregroundColor(vm.positionIndex == index ? (colorScheme == .light ? .white : .black) : (colorScheme == .light ? .black : .white))
                                 }
                                 .frame(width: 60)
                             }
-                            
-                            
-                            
+                            .disabled(vm is PracticeViewModel)
                         }
                         .rotationEffect(Angle(radians: .pi))
                     }

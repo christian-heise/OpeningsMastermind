@@ -11,7 +11,6 @@ struct PGNHelpView: View {
     var body: some View {
         VStack {
             Text("Copy a PGN text e.g. from a lichess study. Paste a single chapter or all chapters at once.")
-//                .padding(10)
         }
     }
 }

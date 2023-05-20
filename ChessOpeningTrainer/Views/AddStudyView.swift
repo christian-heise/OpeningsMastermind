@@ -101,7 +101,8 @@ struct AddStudyView: View {
                                     backgroundColor: [173, 216, 230].getColor()
                                 )
                                 {
-                                    PGNHelpView()
+                                    Text("Paste a custom PGN, or use the button below to import a lichess study with its URL. You also have the option to choose from 5 exmaple studies.")
+                                        .foregroundColor(.black)
                                 }
                                 .frame(maxWidth: 200)
                             }
@@ -138,7 +139,7 @@ struct AddStudyView: View {
                     .padding(.top)
                     .padding(.horizontal)
                     
-                    HStack {
+                    HStack(spacing: 20) {
                         Button(action: {
                             if let clipboardString = UIPasteboard.general.string {
                                 pgnString = clipboardString
@@ -148,32 +149,31 @@ struct AddStudyView: View {
                             Image(systemName: "doc.on.clipboard")
                             Text("Paste Clipboard")
                         }
-                        .padding()
+//                        .padding(.horizon)
                         
                         Button() {
                             showingLichessAlert = true
                         } label: {
                             HStack{
                                 Image(systemName: "square.and.arrow.down")
-                                Text("Import PGN via Lichess url")
+                                Text("Import PGN via Lichess URL")
                             }
                         }
-                        .padding()
+//                        .padding()
                     }
+                    .padding(.vertical, 5)
                     .alert(isPresented: $showingImportProblem) {
                         Alert(title: Text(importProblemText))
                     }
-                    HStack {
                         
-                        Button(action: {
-                            addStudy()
-                        }) {
-                            Image(systemName: "plus.circle.fill")
-                            Text("Add Study")
-                        }
-                        .foregroundColor(.green)
-                        .padding()
+                    Button(action: {
+                        addStudy()
+                    }) {
+                        Image(systemName: "plus.circle.fill")
+                        Text("Add Study")
                     }
+                    .foregroundColor(.green)
+                    .padding(.bottom, 10)
                     .alert(isPresented: $duplicateError) {
                         Alert(title: Text("Duplicate"), message: Text("Library already contains study with this name"))
                     }
@@ -252,6 +252,7 @@ struct AddStudyView: View {
                         }
                     }
                 }
+                Button("Cancel", role: .cancel) { }
             } message: {
                 Text("Paste in the exact lichess.com url of the study you want to import.")
             }
