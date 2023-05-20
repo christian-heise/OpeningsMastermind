@@ -76,8 +76,6 @@ import ChessKit
         
         self.updateLichessExplorer()
         determineRightMove()
-        
-        objectWillChange.send()
     }
     
     func reset(to newGameTree: GameTree) {
@@ -97,8 +95,6 @@ import ChessKit
         
         self.updateLichessExplorer()
         determineRightMove()
-        
-        objectWillChange.send()
     }
     
     func determineRightMove() {
@@ -147,7 +143,6 @@ import ChessKit
         gameState = 4
         showingComment = false
         determineRightMove()
-        objectWillChange.send()
         updateLichessExplorer()
     }
     
@@ -187,11 +182,9 @@ import ChessKit
             self.game.make(move: self.moveHistory[positionIndex].0)
             determineRightMove()
             showingComment = false
-            objectWillChange.send()
             updateLichessExplorer()
         } else {
             makeMainLineMove()
-            objectWillChange.send()
         }
         
     }
@@ -206,7 +199,6 @@ import ChessKit
         determineRightMove()
         showingComment = false
         updateLichessExplorer()
-        objectWillChange.send()
     }
     
     func updateLichessExplorer() {

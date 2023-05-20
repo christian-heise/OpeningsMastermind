@@ -36,6 +36,7 @@ struct LichessExplorerView: View {
                                         .frame(width: geo.size.width * CGFloat(move.white)/CGFloat(move.white + move.black + move.draws))
                                     if Double(move.white)/Double(move.white + move.black + move.draws)*100 > 15 {
                                         Text(String(format:"%.0f%%", Double(move.white)/Double(move.white + move.black + move.draws)*100))
+                                            .foregroundColor(.black)
                                     }
                                 }
                                 ZStack {

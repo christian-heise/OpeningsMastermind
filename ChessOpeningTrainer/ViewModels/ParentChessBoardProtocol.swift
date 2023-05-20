@@ -58,7 +58,6 @@ import ChessKit
                 if game.legalMoves.contains(move) {
                     gameState = 3
                     self.promotionMove = move
-                    objectWillChange.send()
                     return
                 }
             }

@@ -38,7 +38,6 @@ import ChessKit
         self.moveHistory.removeLast()
         self.positionIndex = self.positionIndex - 1
         gameState = 0
-        objectWillChange.send()
     }
     
     func determineRightMove() {
@@ -65,8 +64,6 @@ import ChessKit
             Task {
                 await performComputerMove(in: 0)
             }
-        } else {
-            objectWillChange.send()
         }
     }
     
@@ -74,7 +71,6 @@ import ChessKit
         if currentNode.children.isEmpty {
             await MainActor.run {
                 gameState = 2
-                objectWillChange.send()
             }
             return
         }
@@ -95,7 +91,6 @@ import ChessKit
                 gameState = 2
             }
             currentNode = newNode!
-            objectWillChange.send()
         }
     }
     
@@ -130,7 +125,6 @@ import ChessKit
                 print("Hä")
                 gameState = 2
             }
-            objectWillChange.send()
         }
     }
     func processPromotion(_ kind: PieceKind) {
