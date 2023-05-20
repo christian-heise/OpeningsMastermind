@@ -84,7 +84,7 @@ struct ExploreView: View {
                                         .padding(10)
                                         .background(){
                                             ZStack {
-                                                RoundedRectangle(cornerRadius: 10).opacity(0.5)
+                                                RoundedRectangle(cornerRadius: 10).opacity(0.4)
                                             }
                                             .shadow(radius: 5)
                                         }
@@ -99,7 +99,7 @@ struct ExploreView: View {
                                         .padding(10)
                                         .background(){
                                             ZStack {
-                                                RoundedRectangle(cornerRadius: 10).opacity(0.5)
+                                                RoundedRectangle(cornerRadius: 10).opacity(0.4)
                                             }
                                             .shadow(radius: 5)
                                         }

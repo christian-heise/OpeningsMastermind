@@ -88,8 +88,10 @@ class PracticeViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
     
     func performComputerMove(in time_ms: Int) async {
         if currentNode.children.isEmpty {
-            gameState = 2
-            objectWillChange.send()
+            await MainActor.run {
+                gameState = 2
+                objectWillChange.send()
+            }
             return
         }
         let (newMove, newNode) = generateMove(game: game)

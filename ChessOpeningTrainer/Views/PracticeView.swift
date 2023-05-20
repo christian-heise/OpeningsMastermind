@@ -13,14 +13,14 @@ struct PracticeView: View {
     @ObservedObject var settings: Settings
     
     @StateObject var vm: PracticeViewModel
+    
+    @Environment(\.presentationMode) var presentationMode
 
     init(database: DataBase, settings: Settings, gameTree: GameTree) {
         self._vm = StateObject(wrappedValue: PracticeViewModel(gameTree: gameTree))
         self.database = database
         self.settings = settings
     }
-
-//    @State private var isShowingSwitchingView = false
     
     var text: String {
         if vm.gameState == 1 {
@@ -87,6 +87,18 @@ struct PracticeView: View {
                 }
                 .navigationTitle(vm.gameTree.name)
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden(true)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button(){self.presentationMode.wrappedValue.dismiss()} label: {
+                            HStack(spacing: 5) {
+                                Image(systemName: "chevron.left")
+                                    .fontWeight(.semibold)
+                                Text("Back")
+                            }
+                        }
+                    }
+                }
             }
         }
     }
