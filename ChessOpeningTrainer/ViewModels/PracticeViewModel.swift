@@ -8,7 +8,7 @@
 import Foundation
 import ChessKit
 
-class PracticeViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
+@MainActor class PracticeViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
     
     @Published var currentNode: GameNode
 //    @Published var moveStringList: [String] = []

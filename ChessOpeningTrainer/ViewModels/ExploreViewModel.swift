@@ -8,7 +8,7 @@
 import Foundation
 import ChessKit
 
-class ExploreViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
+@MainActor class ExploreViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
     
     @Published var userColor = PieceColor.white
     @Published var showingComment = false

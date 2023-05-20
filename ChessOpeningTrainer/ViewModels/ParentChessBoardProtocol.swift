@@ -8,7 +8,7 @@
 import Foundation
 import ChessKit
 
-protocol ParentChessBoardModelProtocol: ObservableObject {
+@MainActor protocol ParentChessBoardModelProtocol: ObservableObject {
     var annotation: (String?, String?) { get }
     var gameState: Int { get }
     var last2Moves: (Move?, Move?) { get }
@@ -25,7 +25,7 @@ protocol ParentChessBoardModelProtocol: ObservableObject {
     func jump(to index: Int)
 }
 
-class ParentChessBoardModel {
+@MainActor class ParentChessBoardModel: ObservableObject {
     @Published var gameState: Int = 0
     
     var game: Game = Game(position: startingGamePosition)
@@ -58,7 +58,7 @@ class ParentChessBoardModel {
                 if game.legalMoves.contains(move) {
                     gameState = 3
                     self.promotionMove = move
-//                    objectWillChange.send()
+                    objectWillChange.send()
                     return
                 }
             }
