@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ListView: View {
     @ObservedObject var database: DataBase
-    @EnvironmentObject var vm: PracticeViewModel
-    @State private var showingAddSheet = false
+    @ObservedObject var settings: Settings
     
+    @State private var showingAddSheet = false
     @State private var sortingElements: [SortingMethod] = [.name, .date, .progress, .manual]
     
     var sortedGameTrees: [GameTree] {
@@ -65,14 +65,16 @@ struct ListView: View {
         NavigationStack {
             Group {
                 List() {
-                    ForEach(sortedGameTrees) { gameTree in
-                        VStack(alignment: .leading) {
-                            Text(gameTree.name)
-                                .fontWeight(.medium)
-                            HStack {
-                                Text("Progress:")
-                                ProgressBarView(progress: gameTree.progress)
-                                    .frame(height: 20)
+                    ForEach(sortedGameTrees, id: \.name) { gameTree in
+                        NavigationLink(destination: PracticeView(database: database, settings: settings, gameTree: gameTree)) {
+                            VStack(alignment: .leading) {
+                                Text(gameTree.name)
+                                    .fontWeight(.medium)
+                                HStack {
+                                    Text("Progress:")
+                                    ProgressBarView(progress: gameTree.progress)
+                                        .frame(height: 20)
+                                }
                             }
                         }
                     }
@@ -80,6 +82,9 @@ struct ListView: View {
                     .onMove(perform: move)
                 }
             }
+//            .navigationDestination(for: GameTree.self, destination: { gameTree in
+//                PracticeView(database: database, settings: settings, gameTree: gameTree)
+//            })
             .navigationTitle(Text("Opening Studies"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -140,6 +145,6 @@ struct ListView: View {
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        ListView(database: DataBase())
+        ListView(database: DataBase(), settings: Settings())
     }
 }

@@ -9,12 +9,18 @@ import SwiftUI
 import ChessKit
 
 struct PracticeView: View {
-    @StateObject var vm = PracticeViewModel()
-    
     @ObservedObject var database: DataBase
     @ObservedObject var settings: Settings
+    
+    @StateObject var vm: PracticeViewModel
 
-    @State private var isShowingSwitchingView = false
+    init(database: DataBase, settings: Settings, gameTree: GameTree) {
+        self._vm = StateObject(wrappedValue: PracticeViewModel(gameTree: gameTree))
+        self.database = database
+        self.settings = settings
+    }
+
+//    @State private var isShowingSwitchingView = false
     
     var text: String {
         if vm.gameState == 1 {
@@ -66,7 +72,7 @@ struct PracticeView: View {
                                     .disabled(vm.gameState == 1 ? false : true)
                                     
                                     Button(action: {
-                                        vm.resetGameTree()
+                                        vm.reset()
                                     }) {
                                         Text("Restart Training")
                                             .padding()
@@ -83,53 +89,9 @@ struct PracticeView: View {
                             }
                         }
                     }
-                    if database.gametrees.isEmpty {
-                        VStack {
-                            Spacer()
-                            Text("You can add custom Studies or pick from 5 Example Studies in the Library.")
-                                .foregroundColor(.black)
-                                
-                                .multilineTextAlignment(.leading)
-                                .padding()
-                                .background() {
-                                    BoxArrowShape(cornerRadius: 5)
-                                        .fill([242,242, 247].getColor())
-                                        .shadow(radius: 2)
-                                }
-                                .padding(.vertical)
-                                .frame(maxWidth: geo.size.width*3/5)
-                                .offset(x: geo.size.width/8)
-                        }
-                    }
                 }
                 .navigationTitle(Text("Practice"))
-                .toolbar() {
-                    Button() {
-                        isShowingSwitchingView = true
-                        
-                    } label: {
-                        HStack {
-                            Text(vm.gameTree?.name ?? "")
-                            Image(systemName: "chevron.up.chevron.down")
-                        }
-                        .padding(.vertical, 1)
-                        .padding(.trailing, 5)
-                    }
-                    .background() {
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(Color.gray)
-                            .shadow(radius: 5)
-                            .opacity(0.2)
-                    }
-                    .opacity(database.gametrees.isEmpty ? 0.0 : 1.0)
-                    .disabled(database.gametrees.isEmpty ? true : false)
-                }
-                .sheet(isPresented: $isShowingSwitchingView) {
-                    SwitchStudyView(vm: vm, database: database)
-                }
-                .onAppear() {
-                    vm.onAppear(database: database)
-                }
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
     }
@@ -137,6 +99,6 @@ struct PracticeView: View {
 
 struct PracticeView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        PracticeView(database: DataBase(), settings: Settings(), gameTree: GameTree.example())
     }
 }

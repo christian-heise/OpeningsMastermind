@@ -24,6 +24,15 @@ class Settings: ObservableObject, Codable {
         self.boardColorRGB = BoardColorRGB()
     }
     
+    func resetAccount(for platform: ChessPlatform) {
+        switch platform {
+        case .chessDotCom:
+            self.chessComName = nil
+        case .lichess:
+            self.lichessName = nil
+        }
+    }
+    
     func setAccountName(to user: String, for platform: ChessPlatform) async {
         guard await userCheck(of: user, for: platform) else { return }
         

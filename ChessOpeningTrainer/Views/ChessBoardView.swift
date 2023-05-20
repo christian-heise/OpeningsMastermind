@@ -116,6 +116,6 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
 
 struct ChessboardView_Previews: PreviewProvider {
     static var previews: some View {
-        ChessboardView(vm: PracticeViewModel(), settings: Settings())
+        ChessboardView(vm: PracticeViewModel(gameTree: GameTree.example()), settings: Settings())
     }
 }

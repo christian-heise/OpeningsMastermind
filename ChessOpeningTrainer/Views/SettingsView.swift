@@ -69,16 +69,34 @@ struct SettingsView: View {
                     self.settings.save()
                 }
                 Section {
-                    Button {
-                        showingLichessConnect = true
-                    } label: {
-                        HStack {
-                            Text("Connect Lichess Account")
-                            Spacer()
-                            Image("lichess_logo")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
+                    Group {
+                        if let lichessName = settings.lichessName {
+                            Button {
+                                settings.resetAccount(for: .lichess)
+                            } label: {
+                                HStack {
+                                    Text("Disconnect \"" + lichessName + "\"")
+                                    Spacer()
+                                    Image("lichess_logo")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(height: 30)
+                                }
+                            }
+                            
+                        } else {
+                            Button {
+                                showingLichessConnect = true
+                            } label: {
+                                HStack {
+                                    Text("Connect Lichess Account")
+                                    Spacer()
+                                    Image("lichess_logo")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(height: 30)
+                                }
+                            }
                         }
                     }
                     .alert("Connect Lichess account", isPresented: $showingLichessConnect) {
@@ -117,17 +135,18 @@ struct SettingsView: View {
                 } header: {
                     Text("Connect")
                         .fontWeight(.bold)
-                } footer: {
-                    if settings.lichessName == nil && settings.chessComName == nil {
-                        Text("Currently connected to no account.")
-                    } else if settings.lichessName == nil {
-                        Text("Currently connected to chess.com account \"" + settings.chessComName! + "\"")
-                    } else if settings.chessComName == nil {
-                        Text("Currently connected to Lichess account \"" + settings.lichessName! + "\"")
-                    } else {
-                        Text("Currently connected to Lichess account \"" + settings.lichessName! + "\" and chess.com account \"" + settings.chessComName! + "\"")
-                    }
                 }
+//            footer: {
+//                    if settings.lichessName == nil && settings.chessComName == nil {
+//                        Text("Currently connected to no account.")
+//                    } else if settings.lichessName == nil {
+//                        Text("Currently connected to chess.com account \"" + settings.chessComName! + "\"")
+//                    } else if settings.chessComName == nil {
+//                        Text("Currently connected to Lichess account \"" + settings.lichessName! + "\"")
+//                    } else {
+//                        Text("Currently connected to Lichess account \"" + settings.lichessName! + "\" and chess.com account \"" + settings.chessComName! + "\"")
+//                    }
+//                }
                 Section() {
                     NavigationLink(destination: {ImpressumView()}) {
                         Text("Impressum")

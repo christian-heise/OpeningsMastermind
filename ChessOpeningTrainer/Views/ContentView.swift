@@ -16,20 +16,14 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            
-            PracticeView(database: database, settings: settings)
+            ExploreView(database: database, settings: settings)
+                .tabItem {
+                    Label("Explorer", systemImage: "book")
+                }
+            ListView(database: database, settings: settings)
                 .tabItem {
                     Label("Practice", systemImage: "checkerboard.rectangle")
                 }
-            ExploreView(database: database, settings: settings)
-                .tabItem {
-                    Label("Explorer", systemImage: "safari")
-                }
-            ListView(database: database)
-                .tabItem {
-                    Label("Library", systemImage: "list.bullet")
-                }
-            
             SettingsView(settings: settings)
                 .tabItem {
                     Label("Settings", systemImage: "gear")

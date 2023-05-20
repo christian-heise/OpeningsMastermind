@@ -79,7 +79,7 @@ extension ChessboardView {
         func dragEnded(at value: DragGesture.Value, piece: Piece, square: Square, in size: CGSize) {
             self.offsets[indexOf(square)] = .zero
             let newSquare = squareOf(value.location, in: size)
-            vm_parent.processMove(piece: piece, from: square, to: newSquare)
+            vm_parent.processMoveAction(piece: piece, from: square, to: newSquare)
         }
         
         func squareLength(in size: CGSize) -> CGFloat {

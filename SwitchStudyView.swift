@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-struct SwitchStudyView<ParentVM>: View where ParentVM: ParentChessBoardModelProtocol {
+struct SwitchStudyView: View {
     
-    @ObservedObject var vm: ParentVM
+    @ObservedObject var vm: ExploreViewModel
     @ObservedObject var database: DataBase
     @Environment(\.dismiss) private var dismiss
-    
     
     var body: some View {
             VStack {
@@ -32,7 +31,7 @@ struct SwitchStudyView<ParentVM>: View where ParentVM: ParentChessBoardModelProt
                 
                 List(database.gametrees.sorted(by: {$0.lastPlayed > $1.lastPlayed}), id: \.self) { gametree in
                     Button {
-                        vm.resetGameTree(to: gametree)
+                        vm.reset(to: gametree)
                         dismiss()
                     } label: {
                         HStack {
@@ -54,6 +53,6 @@ struct SwitchStudyView<ParentVM>: View where ParentVM: ParentChessBoardModelProt
 
 struct SwitchStudyView_Previews: PreviewProvider {
     static var previews: some View {
-        SwitchStudyView(vm: PracticeViewModel(), database: DataBase())
+        SwitchStudyView(vm: ExploreViewModel(database: DataBase(), settings: Settings()), database: DataBase())
     }
 }

@@ -17,7 +17,47 @@ protocol ParentChessBoardModelProtocol: ObservableObject {
     var pieces: [(Square, Piece)] { get }
     var promotionMove: Move? { get }
     
-    func processMove(piece: Piece, from oldSquare: Square, to newSquare: Square)
+    func processMoveAction(piece: Piece, from oldSquare: Square, to newSquare: Square)
+    func reset()
+}
+
+class ParentChessBoardModel {
+    @Published var gameState: Int = 0
     
-    func resetGameTree(to newGameTree: GameTree?)
+    var game: Game = Game(position: startingGamePosition)
+    var rightMove: [Move] = []
+    var promotionPending: Bool = false
+    var promotionMove: Move? = nil
+    
+
+    var pieces: [(Square, Piece)] {
+        return game.position.board.enumeratedPieces()
+    }
+    var last2Moves: (Move?, Move?) {
+        if self.game.movesHistory.count > 1 {
+            return (game.movesHistory.suffix(2).last, game.movesHistory.suffix(2).first)
+        } else if self.game.movesHistory.count == 1 {
+            return (game.movesHistory.first, nil)
+        } else {
+            return (nil, nil)
+        }
+    }
+    
+    func processMoveAction(piece: Piece, from oldSquare: Square, to newSquare: Square) {
+        // Promotion Logic
+        if piece.kind == .pawn {
+            if newSquare.rank == 7 || newSquare.rank == 0 {
+                let move = Move(from: oldSquare, to: newSquare, promotion: .queen)
+                if game.legalMoves.contains(move) {
+                    gameState = 3
+                    self.promotionMove = move
+//                    objectWillChange.send()
+                    return
+                }
+            }
+        }
+        performMove(Move(from: oldSquare, to: newSquare))
+    }
+    
+    func performMove(_ move: Move) {}
 }

@@ -8,132 +8,133 @@
 import Foundation
 import ChessKit
 
-class ExploreViewModel: ParentChessBoardModelProtocol {
-    init(gameTree: GameTree? = nil, settings: Settings) {
-        self.gameTree = gameTree
-//        if let settings.play
-        self.userRating = settings.playerRating ?? 2000
+class ExploreViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
+    
+    @Published var userColor = PieceColor.white
+    @Published var showingComment = false
+    
+    var annotation: (String?, String?)
+    
+    let database: DataBase
+    var gameTree: GameTree?
+    
+    @Published var lichessResponse: LichessOpeningData?
+    @Published var currentExploreNode: ExploreNode
+    
+    var rootExploreNode: ExploreNode
+
+    init(database: DataBase, settings: Settings) {
+        self.database = database
+        self.userRating = settings.playerRating
+        
+        self.rootExploreNode = ExploreNode()
+        self.currentExploreNode = self.rootExploreNode
+        super.init()
+        onAppear()
     }
     
-    @Published var gameTree: GameTree?
-    @Published var moveStringList: [String] = []
-    @Published var lichessResponse: LichessOpeningData?
+    func onAppear() {
+        if database.gametrees.isEmpty {
+            self.gameTree = nil
+            self.reset()
+            return
+        }
+
+        guard let gametree = self.gameTree else {
+            reset(to: database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})!)
+            return
+        }
+
+        if !database.gametrees.contains(gametree) {
+            reset(to: database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})!)
+        }
+    }
     
+    func reset() {
+        self.rootExploreNode = ExploreNode(gameNode: gameTree?.rootNode)
+        self.currentExploreNode = self.rootExploreNode
+        self.game = Game(position: startingGamePosition)
+        
+        self.userColor = self.gameTree?.userColor ?? .white
+        
+        self.moveHistory = []
+        self.positionHistory = []
+        self.positionIndex = -1
+        self.promotionMove = nil
+        self.rightMove = []
+        self.showingComment = false
+        
+        objectWillChange.send()
+    }
     
-    var rightMove: [Move] = []
-    var game: Game = Game(position: startingGamePosition)
-    var promotionMove: Move? = nil
+    func reset(to newGameTree: GameTree) {
+        self.gameTree = newGameTree
+        self.rootExploreNode = ExploreNode(gameNode: newGameTree.rootNode)
+        self.currentExploreNode = self.rootExploreNode
+
+        self.game = Game(position: startingGamePosition)
+        self.userColor = newGameTree.userColor
+        
+        self.moveHistory = []
+        self.positionHistory = []
+        self.positionIndex = -1
+        self.promotionMove = nil
+        self.rightMove = []
+        self.showingComment = false
+        
+        objectWillChange.send()
+    }
+    
     var moveHistory: [(Move, String)] = []
     var positionHistory: [Position] = []
     var positionIndex: Int = -1
     
-    let userRating: Int
-    
+    let userRating: Int?
     
     private var dataTask: URLSessionDataTask?
     private var lichessCache: [String: LichessOpeningData] = [:]
     private var currentLichessTask: Task<(), Never>?
     
-    var pieces: [(Square, Piece)] {
-        return game.position.board.enumeratedPieces()
-    }
-    
     var comment: String {
-        return gameTree?.currentNode?.comment ?? ""
+        return currentExploreNode.gameNode?.comment ?? ""
     }
     
-    var annotation: (String?, String?) {
-        guard let currentNode = self.gameTree?.currentNode else { return (nil,nil) }
+    override func performMove(_ move: Move) {
+        if !game.legalMoves.contains(move) { return }
         
-        if let parentNode = currentNode.parent {
-            return (currentNode.annotation, parentNode.annotation)
-        } else {
-            return (currentNode.annotation, nil)
-        }
-    }
-    
-    var gameState: Int {
-        return 3
-    }
-    
-    var last2Moves: (Move?, Move?) {
-        if self.game.movesHistory.count > 1 {
-            return (game.movesHistory.suffix(2).last, game.movesHistory.suffix(2).first)
-        } else if self.game.movesHistory.count == 1 {
-            return (game.movesHistory.first, nil)
-        } else {
-            return (nil, nil)
-        }
-    }
-    
-    var userColor: PieceColor {
-        if let gameTree = self.gameTree {
-            return gameTree.userColor
-        } else {
-            return .white
-        }
-    }
-    
-    func determineRightMove() {
-        guard let currentNode = self.gameTree?.currentNode else { return }
-        self.rightMove = []
-        let decoder = SanSerialization.default
-        for node in currentNode.children {
-            self.rightMove.append(decoder.move(for: node.move, in: self.game))
-        }
-    }
-    
-    func processMove(piece: Piece, from oldSquare: Square, to newSquare: Square) {
-        guard let gameTree = self.gameTree else { return }
-
-        if piece.kind == .pawn {
-            if newSquare.rank == 7 || newSquare.rank == 0 {
-                let move = Move(from: oldSquare, to: newSquare, promotion: .queen)
-                if game.legalMoves.contains(move) {
-                    gameTree.gameState = 3
-                    self.promotionMove = move
-                    objectWillChange.send()
-                    return
-                }
-            }
-        }
-        
-        let move = Move(from: oldSquare, to: newSquare)
-        if !game.legalMoves.contains(move) {
-            print(game.legalMoves)
-            return
-        }
         self.moveHistory = Array(self.moveHistory.prefix(self.positionIndex+1))
         self.positionHistory = Array(self.positionHistory.prefix(self.positionIndex+1))
-        makeMove(move)
         
-    }
-    
-    func makeMove(_ move: Move) {
-        guard let gameTree = self.gameTree else { return }
-        let (success, newNode) = gameTree.currentNode!.databaseContains(move: move, in: self.game)
+        let moveString = SanSerialization.default.correctSan(for: move, in: self.game)
         
-        if success {
-            gameTree.currentNode = newNode
-            let moveString = SanSerialization.default.correctSan(for: move, in: self.game)
-            self.moveStringList.append(moveString)
-            
-            if self.positionIndex + 1 != self.positionHistory.count {
-                self.positionHistory = Array(self.positionHistory.prefix(self.positionIndex+1))
-            }
-            self.positionHistory.append(self.game.position)
-            self.moveHistory.append((move, moveString))
-            self.positionIndex = self.positionIndex + 1
-            
-            
-            self.game.make(move: move)
-            gameTree.gameState = 0
-            determineRightMove()
-            objectWillChange.send()
-            updateLichessExplorer()
-        } else {
-
+        if self.positionIndex + 1 != self.positionHistory.count {
+            self.positionHistory = Array(self.positionHistory.prefix(self.positionIndex+1))
         }
+        self.positionHistory.append(self.game.position)
+        self.moveHistory.append((move, moveString))
+        self.positionIndex = self.positionIndex + 1
+        
+        if currentExploreNode.children.first(where: {$0.move == moveString}) != nil {
+            currentExploreNode = currentExploreNode.children.first(where: {$0.move == moveString})!
+        } else {
+            if ((currentExploreNode.gameNode?.children.first(where: {$0.move == moveString})) != nil) {
+                let gameNode = currentExploreNode.gameNode!.children.first(where: {$0.move == moveString})
+                let newNode = ExploreNode(gameNode: gameNode, move: moveString, parentNode: currentExploreNode)
+                currentExploreNode.children.append(newNode)
+                currentExploreNode = newNode
+            } else {
+                let newNode = ExploreNode(gameNode: nil, move: moveString, parentNode: currentExploreNode)
+                currentExploreNode.children.append(newNode)
+                currentExploreNode = newNode
+            }
+        }
+        
+        self.game.make(move: move)
+        gameState = 0
+        showingComment = false
+//        determineRightMove()
+        objectWillChange.send()
+        updateLichessExplorer()
     }
     
     func jump(to index: Int) {
@@ -155,21 +156,23 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
     func makeMainLineMove() {
         let decoder = SanSerialization.default
         
-        guard let moveString = gameTree?.currentNode?.children.first?.move else {return}
+        guard let moveString = currentExploreNode.gameNode?.children.first?.move else {return}
+        
         let move = decoder.move(for: moveString, in: self.game)
-        self.makeMove(move)
+        self.performMove(move)
     }
     
     func forwardMove() {
-        guard let gameTree = self.gameTree else {return}
         if self.positionIndex + 1 != self.positionHistory.count {
             self.positionIndex += 1
             
             let moveString = self.moveHistory[positionIndex].1
-            gameTree.currentNode = gameTree.currentNode?.children.first(where: {$0.move == moveString})
+            
+            currentExploreNode = currentExploreNode.children.first(where: {$0.move == moveString})!
             
             self.game.make(move: self.moveHistory[positionIndex].0)
-            determineRightMove()
+//            determineRightMove()
+            showingComment = false
             objectWillChange.send()
             updateLichessExplorer()
         } else {
@@ -181,55 +184,14 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
     
     func reverseMove() {
         guard self.positionIndex >= 0 else {return}
-        guard let gameTree = self.gameTree else {return}
         
         self.game = Game(position: positionHistory[positionIndex], moves: Array(self.game.movesHistory.prefix(positionIndex)))
         self.positionIndex -= 1
-        print()
         
-        gameTree.currentNode = gameTree.currentNode?.parent
-        determineRightMove()
+        currentExploreNode = currentExploreNode.parent!
+//        determineRightMove()
+        showingComment = false
         updateLichessExplorer()
-        objectWillChange.send()
-    }
-    
-    func onAppear(database: DataBase) {
-        if database.gametrees.isEmpty {
-            self.resetGameTree()
-            self.gameTree = nil
-            return
-        }
-        
-        guard let gametree = self.gameTree else {
-            resetGameTree(to: database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed}))
-            return
-        }
-        
-        if !database.gametrees.contains(gametree) {
-            resetGameTree(to: database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed}))
-        } else if database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})!.lastPlayed < database.gametrees.max(by: {$0.date < $1.date})!.date {
-            resetGameTree(to: database.gametrees.max(by: {$0.date < $1.date}))
-        }
-    }
-    
-    func resetGameTree(to newGameTree: GameTree? = nil) {
-        self.moveStringList = []
-        self.game = Game(position: startingGamePosition)
-        
-        self.moveHistory = []
-        self.positionHistory = []
-        self.positionIndex = -1
-        self.promotionMove = nil
-        self.rightMove = []
-        
-        if let newGameTree = newGameTree {
-            newGameTree.lastPlayed = Date()
-            newGameTree.reset()
-            self.gameTree = newGameTree
-        } else {
-            guard let gameTree = self.gameTree else { return }
-            gameTree.reset()
-        }
         objectWillChange.send()
     }
     
@@ -247,7 +209,7 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
     }
     
     func getLichessMoves() async -> LichessOpeningData? {
-        let ratingRange = (self.userRating - 300, self.userRating + 300)
+        let ratingRange = (self.userRating ?? 1800 - 300, self.userRating ?? 2200 + 300)
         let fen = FenSerialization.default.serialize(position: self.game.position).replacingOccurrences(of: " ", with: "%20")
         if let cachedResult = lichessCache[fen] {
             return cachedResult
@@ -275,5 +237,21 @@ class ExploreViewModel: ParentChessBoardModelProtocol {
         
         lichessCache[fen] = decodedData
         return decodedData
+    }
+    
+    class ExploreNode {
+        let parent: ExploreNode?
+        let move: String
+        var children: [ExploreNode]
+        let gameNode: GameNode?
+        let position: Position
+        
+        init(gameNode: GameNode? = nil, move: String="", parentNode: ExploreNode? = nil) {
+            self.parent = parentNode
+            self.children = []
+            self.gameNode = gameNode
+            self.position = startingGamePosition
+            self.move = move
+        }
     }
 }

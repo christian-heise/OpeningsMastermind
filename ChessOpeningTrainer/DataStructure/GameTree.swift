@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import ChessKit
 
-class GameTree: ObservableObject, Identifiable, Codable, Hashable {
+struct GameTree: Codable, Hashable {
     static func == (lhs: GameTree, rhs: GameTree) -> Bool {
         return lhs.name == rhs.name
     }
@@ -19,21 +19,12 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
     }
     
     let name: String
-
     let rootNode: GameNode
     let userColor: PieceColor
-    
     let pgnString: String
-    
-    var gameCopy: Game? = nil
-    
     let date: Date
     
     var lastPlayed: Date
-    
-    @Published var currentNode: GameNode?
-    @Published var gameState: Int = 0
-    @Published var rightMove: Move? = nil
     
     var progress: Double {
 //        return Double.random(in: 0...0.8)
@@ -43,7 +34,6 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
     init(with gametree: GameTree) {
         self.name = gametree.name
         self.rootNode = gametree.rootNode
-        self.currentNode = gametree.rootNode
         self.userColor = gametree.userColor
         self.pgnString = gametree.pgnString
         
@@ -54,7 +44,6 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
     init(name: String, rootNode: GameNode, userColor: PieceColor, pgnString: String = "") {
         self.name = name
         self.rootNode = rootNode
-        self.currentNode = rootNode
         self.userColor = userColor
         self.pgnString = pgnString
         
@@ -69,7 +58,6 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
         let rootNode = GameTree.decodePGN(pgnString: pgnString)
         
         self.rootNode = rootNode
-        self.currentNode = rootNode
         self.pgnString = pgnString
         
         self.date = Date()
@@ -80,69 +68,7 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
         return ExamplePGN.list.randomElement()!.gameTree!
     }
     
-    public func generateMove(game: Game) -> (Move?, GameNode?) {
-        guard let currentNode = self.currentNode else { return (nil, nil)}
-        
-        if currentNode.children.count == 1 {
-            let newNode = currentNode.children.first!
-            let decoder = SanSerialization.default
-            let generatedMove = decoder.move(for: newNode.move, in: game)
-            return (generatedMove, newNode)
-        }
-        
-        // Probabilities based on Mistakes
-        let probabilitiesMistakes = currentNode.children.map({$0.mistakesRate / currentNode.children.map({$0.mistakesRate}).reduce(0, +)})
-        
-        
-        // Probability based on Depth
-        let depthArray: [Double] = currentNode.children.map({Double($0.depth) * Double($0.depth)})
-        let summedDepth = depthArray.reduce(0, +)
-        
-        var probabilitiesDepth = [Double]()
-        
-        if summedDepth == 0 {
-            probabilitiesDepth = Array(repeating: 1 / Double(currentNode.children.count), count: currentNode.children.count)
-        } else {
-            probabilitiesDepth = depthArray.map({$0 / Double(summedDepth)})
-        }
-        
-        // Combine probabilities
-        var probabilities = zip(probabilitiesMistakes,probabilitiesDepth).map() {$0 * Double(probabilitiesMistakes.count) * $1}
-        probabilities = probabilities.map({$0 / probabilities.reduce(0,+)})
-//        let probabilities = zip(probabilitiesMistakes,probabilitiesDepth).map() {($0 + $1)/2}
-        print("Depth: \(probabilitiesDepth)")
-        print("Mistake: \(probabilitiesMistakes)")
-        print("Total: \(probabilities)")
-        
-        // Make random Int between 0 and 1000
-        var randomInt = Int.random(in: 0...1000)
-        
-        for i in 0 ..< probabilities.count {
-            if randomInt > Int(probabilities[i] * Double(1000)) {
-                randomInt -= Int(probabilities[i]*1000)
-                continue
-            } else {
-                let newNode = currentNode.children[i]
-                let decoder = SanSerialization.default
-                let generatedMove = decoder.move(for: newNode.move, in: game)
-                
-                return (generatedMove, newNode)
-            }
-        }
-        let newNode = currentNode.children.first!
-        let decoder = SanSerialization.default
-        let generatedMove = decoder.move(for: newNode.move, in: game)
-        
-        return (generatedMove, newNode)
-    }
-    
-    func reset() {
-        self.currentNode = self.rootNode
-        self.gameState = 0
-        self.rightMove = nil
-    }
-    
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         self.name = try container.decode(String.self, forKey: .name)
@@ -154,8 +80,6 @@ class GameTree: ObservableObject, Identifiable, Codable, Hashable {
         self.rootNode = rootNode
         let userColorString = try container.decode(String.self, forKey: .userColor)
         self.userColor = userColorString=="white" ? .white : .black
-        
-        self.currentNode = rootNode
     }
     
     func encode(to encoder: Encoder) throws {
