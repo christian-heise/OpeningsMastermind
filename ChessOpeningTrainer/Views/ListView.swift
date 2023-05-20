@@ -65,7 +65,7 @@ struct ListView: View {
         NavigationStack {
             Group {
                 List() {
-                    ForEach(sortedGameTrees, id: \.name) { gameTree in
+                    ForEach(sortedGameTrees, id: \.self) { gameTree in
                         NavigationLink(destination: PracticeView(database: database, settings: settings, gameTree: gameTree)) {
                             VStack(alignment: .leading) {
                                 Text(gameTree.name)

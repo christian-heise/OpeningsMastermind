@@ -19,6 +19,12 @@ struct ExploreView: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
+    @State private var orientation = UIDeviceOrientation.unknown
+    
+    var landscape: Bool {
+        return orientation == .landscapeLeft || orientation == .landscapeRight
+    }
+    
     init(database: DataBase, settings: Settings) {
         self._vm = StateObject(wrappedValue: ExploreViewModel(database: database, settings: settings))
         self.database = database
@@ -26,98 +32,116 @@ struct ExploreView: View {
     }
     
     var body: some View {
+        let layout = landscape ? AnyLayout(HStackLayout()) : AnyLayout(VStackLayout())
         NavigationStack {
             GeometryReader { geo in
-                VStack {
+                layout {
                     ChessboardView(vm: vm, settings: settings)
                         .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
-                        .frame(height: geo.size.width)
-                    if vm.showingComment {
-                        ScrollView(showsIndicators: false) {
-                            Text(vm.comment)
-                                .padding(.horizontal)
-                                .padding(.vertical, 5)
+                        .if(!landscape) { view in
+                            view.frame(height: min(geo.size.width, max(geo.size.height - 50 - 40 - 85, 300)))
                         }
-                        .background() {
-                            ZStack{
-                                RoundedRectangle(cornerRadius: 10).fill(Color.gray).opacity(0.1)
-                                RoundedRectangle(cornerRadius: 10).stroke().opacity(0.5)
+                        
+                    VStack {
+                        if vm.showingComment {
+                            ScrollView(showsIndicators: false) {
+                                Text(vm.comment)
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 5)
                             }
+                            .clipped()
+                            .background() {
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 10).fill(Color.gray).opacity(0.1)
+                                    RoundedRectangle(cornerRadius: 10).stroke().opacity(0.5)
+                                }
+                                .padding(.horizontal, 5)
+                            }
+                            .frame(width: geo.size.width)
+                            
+                        } else {
+                            ScrollView {
+                                LichessExplorerView(openingData: vm.lichessResponse)
+                            }
+                            .clipped()
                             .padding(.horizontal, 5)
+                            .frame(minHeight: 40)
+                            
+                            MoveListView(vm: vm)
+                                .padding(.vertical, 7)
+                                .padding(.trailing, 7)
+                                .background(){
+                                    (colorScheme == .dark ? [50,50,50] : [233,233,233]).getColor()
+                                        .shadow(radius: 1)
+                                }
+                            
                         }
-                        .frame(width: geo.size.width)
-                        
-                    } else {
-                        ScrollView {
-                            LichessExplorerView(openingData: vm.lichessResponse)
-                        }
-                        .padding(.horizontal, 5)
-                        .frame(minHeight: 40)
-                        
-                        MoveListView(vm: vm)
-                            .padding(.vertical, 7)
-                            .padding(.trailing, 7)
-                            .background(){
-                                (colorScheme == .dark ? [50,50,50] : [233,233,233]).getColor()
-                                    .shadow(radius: 1)
-                            }
-                        
-                    }
-                    HStack {
-                        Button {
-                            vm.showingComment.toggle()
-                        } label: {
-                            Image(systemName: "ellipsis.bubble")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 40)
-                        }
-                        .disabled(vm.comment == "")
-                        .padding(.horizontal)
-                        
-                        Spacer()
                         HStack {
                             Button {
-                                vm.reverseMove()
+                                vm.showingComment.toggle()
                             } label: {
-                                Image(systemName: "arrow.backward")
+                                Image(systemName: "ellipsis.bubble")
                                     .resizable()
                                     .scaledToFit()
-                                    .padding(10)
-                                    .background(){
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 10).opacity(0.4)
-                                        }
-                                        .shadow(radius: 5)
-                                    }
-                                    .frame(height: 40)
                             }
-                            .disabled(vm.currentExploreNode.parent == nil)
-                            Button {
-                                vm.forwardMove()
-                            } label: {
-                                Image(systemName: "arrow.forward")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding(10)
-                                    .background(){
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 10).opacity(0.4)
+                            .disabled(vm.comment == "")
+                            .padding(.horizontal)
+                            
+                            Spacer()
+                            HStack(spacing: 15) {
+                                Button {
+                                    print(geo.size.height)
+                                    vm.reverseMove()
+                                } label: {
+                                    Image(systemName: "arrow.backward")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .padding(10)
+                                        .background(){
+                                            ZStack {
+                                                RoundedRectangle(cornerRadius: 10).opacity(0.4)
+                                            }
+                                            .shadow(radius: 5)
                                         }
-                                        .shadow(radius: 5)
-                                    }
-                                    .frame(height: 40)
+                                }
+                                .disabled(vm.currentExploreNode.parent == nil)
+                                Button {
+                                    vm.forwardMove()
+                                } label: {
+                                    Image(systemName: "arrow.forward")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .padding(10)
+                                        .background(){
+                                            ZStack {
+                                                RoundedRectangle(cornerRadius: 10).opacity(0.4)
+                                            }
+                                            .shadow(radius: 5)
+                                        }
+                                }
+                                .disabled(vm.currentExploreNode.children.isEmpty && vm.currentExploreNode.gameNode?.children.isEmpty ?? true)
                             }
-                            .disabled(vm.currentExploreNode.children.isEmpty && vm.currentExploreNode.gameNode?.children.isEmpty ?? true)
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
+                        
+                        .frame(height: 47)
+                        .padding(.bottom,5)
+                    }
+                    .if(landscape) { view in
+                        view.frame(width: geo.size.width / 3)
                     }
                 }
             }
             .sheet(isPresented: $showingHelp, content: {
                 HelpExplorerView()
             })
+            .onRotate { newOrientation in
+                orientation = newOrientation
+            }
             .environmentObject(vm)
+            .if(landscape) { view in
+                view.navigationBarTitleDisplayMode(.inline)
+            }
             .navigationTitle("Explorer")
             .toolbar() {
                 ToolbarItem() {
@@ -168,5 +192,10 @@ struct ExploreView: View {
 struct ExploreView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(database: DataBase(), settings: Settings())
+//            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro"))
+//        ContentView(database: DataBase(), settings: Settings())
+//            .previewDevice(PreviewDevice(rawValue: "iPhone SE (3rd generation)"))
+//        ContentView(database: DataBase(), settings: Settings())
+//            .previewDevice(PreviewDevice(rawValue: "iPad Pro (11-inch) (4th generation)"))
     }
 }

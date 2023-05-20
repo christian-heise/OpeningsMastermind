@@ -15,6 +15,12 @@ struct PracticeView: View {
     @StateObject var vm: PracticeViewModel
     
     @Environment(\.presentationMode) var presentationMode
+    
+    @State private var orientation = UIDeviceOrientation.unknown
+    
+    var landscape: Bool {
+        return orientation == .landscapeLeft || orientation == .landscapeRight
+    }
 
     init(database: DataBase, settings: Settings, gameTree: GameTree) {
         self._vm = StateObject(wrappedValue: PracticeViewModel(gameTree: gameTree))
@@ -33,19 +39,31 @@ struct PracticeView: View {
     }
     
     var body: some View {
+        let layout = landscape ? AnyLayout(HStackLayout()) : AnyLayout(VStackLayout())
         NavigationStack {
             GeometryReader { geo in
-                ZStack {
-                    VStack {
+                layout {
+                    if !landscape {
                         Spacer()
                         Text(text)
                             .font(.headline)
                             .frame(height: 20)
                             .padding()
                             .opacity(vm.gameState > 0 ? 1 : 0)
-                        ChessboardView(vm: vm, settings: settings)
-                            .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
-                            .frame(maxHeight: geo.size.width)
+                    }
+                    ChessboardView(vm: vm, settings: settings)
+                        .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
+                        .if(!landscape) { view in
+                            view.frame(height: min(geo.size.width, max(geo.size.height - 50 - 40 - 85, 300)))
+                                
+                        }
+                        .if(landscape) { view in
+                            view.padding(.horizontal)
+                        }
+                    VStack {
+                        if landscape {
+                            Spacer()
+                        }
                         MoveListView(vm: vm)
                             .padding(.vertical, 7)
                             .padding(.trailing, 7)
@@ -53,7 +71,14 @@ struct PracticeView: View {
                                 Color.gray.opacity(0.1)
                                     .shadow(radius: 5)
                             }
-                        
+                            
+                        if landscape {
+                            Text(text)
+                                .font(.headline)
+                                .frame(height: 20)
+                                .padding()
+                                .opacity(vm.gameState > 0 ? 1 : 0)
+                        }
                         HStack {
                             Button(action: {
                                 vm.revertMove()
@@ -66,7 +91,7 @@ struct PracticeView: View {
                             }
                             .opacity(vm.gameState == 1 ? 1 : 0)
                             .disabled(vm.gameState == 1 ? false : true)
-                            
+    
                             Button(action: {
                                 vm.reset()
                             }) {
@@ -78,12 +103,17 @@ struct PracticeView: View {
                             }
                             .opacity(vm.gameState > 0 ? 1 : 0)
                             .disabled(vm.gameState > 0 ? false : true)
-                            
-                            
+    
+    
                         }
                         .padding(10)
-                    
                     }
+                    .if(landscape) { view in
+                        view.frame(width: geo.size.width/3)
+                    }
+                }
+                .onRotate { newOrientation in
+                    orientation = newOrientation
                 }
                 .navigationTitle(vm.gameTree.name)
                 .navigationBarTitleDisplayMode(.inline)

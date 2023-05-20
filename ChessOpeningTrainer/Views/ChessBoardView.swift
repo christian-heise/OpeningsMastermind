@@ -12,10 +12,12 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
     @ObservedObject private var settings: Settings
     
     @StateObject private var vm: ChessBoardViewModel<ParentVM>
+    @ObservedObject private var parentVM: ParentVM
     
     init(vm vm_parent: ParentVM, settings: Settings) where ParentVM: ParentChessBoardModelProtocol {
         self._vm = StateObject(wrappedValue: ChessBoardViewModel(vm_practiceView: vm_parent))
         self.settings = settings
+        self.parentVM = vm_parent
     }
     
     let files = ["a", "b", "c", "d", "e", "f", "g", "h"]

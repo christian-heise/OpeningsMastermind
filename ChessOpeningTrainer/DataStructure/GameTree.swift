@@ -11,8 +11,9 @@ import SwiftUI
 import ChessKit
 
 struct GameTree: Codable, Hashable {
+    let id = UUID()
     static func == (lhs: GameTree, rhs: GameTree) -> Bool {
-        return lhs.name == rhs.name
+        return lhs.id == rhs.id
     }
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)

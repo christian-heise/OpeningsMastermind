@@ -185,14 +185,14 @@ struct AddStudyView: View {
                                 Text("created by " + listItem.creator)
                                     .font(Font.caption2)
                             }
-                            .opacity(database.gametrees.contains(listItem.gameTree!) ? 0.5 : 1.0)
+                            .opacity(database.gametrees.contains(where: {$0.name == listItem.gameTree!.name}) ? 0.5 : 1.0)
                             .padding(.vertical, 3)
                             .contextMenu {
                                 Button{openURL(URL(string: listItem.url)!)} label: {
                                     Label("Visit Study on Lichess.com", systemImage: "safari")
                                 }
                             }
-                            .if(database.gametrees.contains(listItem.gameTree!)) { view in
+                            .if(database.gametrees.contains(where: {$0.name == listItem.gameTree!.name})) { view in
                                 view._untagged()
                             }
                         }
