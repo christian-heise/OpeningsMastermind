@@ -65,9 +65,13 @@ struct ExploreView: View {
                             ScrollView {
                                 LichessExplorerView(openingData: vm.lichessResponse)
                             }
+                            .scrollIndicators(.hidden)
                             .clipped()
                             .padding(.horizontal, 5)
                             .frame(minHeight: 40)
+                            .if(landscape) { view in
+                                view.padding(.top, 10)
+                            }
                             
                             MoveListView(vm: vm)
                                 .padding(.vertical, 7)
@@ -130,7 +134,7 @@ struct ExploreView: View {
                         .padding(.bottom,5)
                     }
                     .if(landscape) { view in
-                        view.frame(width: geo.size.width / 3).padding(.trailing)
+                        view.frame(width: max(geo.size.width / 3, geo.size.width - geo.size.height - 70)).padding(.trailing)
                     }
                 }
             }

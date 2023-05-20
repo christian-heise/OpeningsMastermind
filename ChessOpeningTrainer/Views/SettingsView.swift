@@ -9,7 +9,6 @@ import SwiftUI
 import StoreKit
 
 struct SettingsView: View {
-//    @Environment(\.dismiss) private var dismiss
     @ObservedObject var settings: Settings
     
     @State private var colorWhite: Color
@@ -174,12 +173,6 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle(Text("Settings"))
-//            .toolbar {
-//                Button("Dismiss") {
-//                    dismiss()
-//                    settings.save()
-//                }
-//            }
             
         }
     }

@@ -13,7 +13,7 @@ import UniformTypeIdentifiers
 struct AddStudyView: View {
     @ObservedObject var database: DataBase
     
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.openURL) var openURL
     
@@ -223,7 +223,7 @@ struct AddStudyView: View {
             .environment(\.editMode, $editMode)
             .toolbar {
                 Button(action:{
-                    dismiss()
+                    self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "xmark")
                 }
@@ -272,7 +272,7 @@ struct AddStudyView: View {
             nameError = true
         } else {
             if database.addNewGameTree(name: nameString, pgnString: pgnString, userColor: selectedPieceColor) {
-                dismiss()
+                self.presentationMode.wrappedValue.dismiss()
             } else {
                 pgnError = true
             }
@@ -286,7 +286,7 @@ struct AddStudyView: View {
                 self.database.addNewGameTree(GameTree(with: example.gameTree!))
             }
         }
-        dismiss()
+        self.presentationMode.wrappedValue.dismiss()
     }
     
     func getPGNFromLichess(_ urlString: String) async throws -> String {
