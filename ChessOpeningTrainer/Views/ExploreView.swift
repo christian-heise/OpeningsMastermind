@@ -25,6 +25,8 @@ struct ExploreView: View {
         return orientation == .landscapeLeft || orientation == .landscapeRight
     }
     
+    var orientationCache: UIDeviceOrientation = .unknown
+    
     init(database: DataBase, settings: Settings) {
         self._vm = StateObject(wrappedValue: ExploreViewModel(database: database, settings: settings))
         self.database = database
@@ -128,7 +130,7 @@ struct ExploreView: View {
                         .padding(.bottom,5)
                     }
                     .if(landscape) { view in
-                        view.frame(width: geo.size.width / 3)
+                        view.frame(width: geo.size.width / 3).padding(.trailing)
                     }
                 }
             }
@@ -136,7 +138,9 @@ struct ExploreView: View {
                 HelpExplorerView()
             })
             .onRotate { newOrientation in
-                orientation = newOrientation
+                if newOrientation == .landscapeLeft || newOrientation == .landscapeRight || newOrientation == .portrait || newOrientation == .portraitUpsideDown {
+                    orientation = newOrientation
+                }
             }
             .environmentObject(vm)
             .if(landscape) { view in
