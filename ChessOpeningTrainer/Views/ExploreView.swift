@@ -15,6 +15,7 @@ struct ExploreView: View {
     @ObservedObject var settings: Settings
     
     @State private var isShowingSwitchingView = false
+    @State private var showingHelp = false
     
     @Environment(\.colorScheme) private var colorScheme
     
@@ -27,12 +28,11 @@ struct ExploreView: View {
     var body: some View {
         NavigationStack {
             GeometryReader { geo in
-                ZStack {
+//                ZStack {
                     VStack {
                         ChessboardView(vm: vm, settings: settings)
                             .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                             .frame(height: geo.size.width)
-                        Spacer()
                         if vm.showingComment {
                             ScrollView(showsIndicators: false) {
                                 Text(vm.comment)
@@ -53,6 +53,8 @@ struct ExploreView: View {
                                 LichessExplorerView(openingData: vm.lichessResponse)
                             }
                             .padding(.horizontal, 5)
+                            .frame(minHeight: 40)
+                            
                             MoveListView(vm: vm)
                                 .padding(.vertical, 7)
                                 .padding(.trailing, 7)
@@ -60,6 +62,7 @@ struct ExploreView: View {
                                     (colorScheme == .dark ? [50,50,50] : [233,233,233]).getColor()
                                         .shadow(radius: 1)
                                 }
+                            
                         }
                         HStack {
                             Button {
@@ -88,6 +91,7 @@ struct ExploreView: View {
                                             }
                                             .shadow(radius: 5)
                                         }
+                                        .frame(height: 40)
                                 }
                                 .disabled(vm.currentExploreNode.parent == nil)
                                 Button {
@@ -103,36 +107,18 @@ struct ExploreView: View {
                                             }
                                             .shadow(radius: 5)
                                         }
+                                        .frame(height: 40)
                                 }
                                 .disabled(vm.currentExploreNode.children.isEmpty && vm.currentExploreNode.gameNode?.children.isEmpty ?? true)
                             }
-                            .padding(.vertical, 0)
                             .padding(.horizontal)
-                            .frame(width: geo.size.width / 10*4)
                         }
-                        .padding(.bottom, 7)
-                        
-                    }
-//                    if database.gametrees.isEmpty {
-//                        VStack {
-//                            Spacer()
-//                            Text("You can add custom Studies or pick from 5 Example Studies in the Library.")
-//                                .foregroundColor(.black)
-//
-//                                .multilineTextAlignment(.leading)
-//                                .padding()
-//                                .background() {
-//                                    BoxArrowShape(cornerRadius: 5)
-//                                        .fill([242,242, 247].getColor())
-//                                        .shadow(radius: 2)
-//                                }
-//                                .padding(.vertical)
-//                                .frame(maxWidth: geo.size.width*3/5)
-//                                .offset(x: geo.size.width/8)
-//                        }
 //                    }
                 }
             }
+            .sheet(isPresented: $showingHelp, content: {
+                HelpExplorerView()
+            })
             .environmentObject(vm)
             .navigationTitle("Explorer")
             .toolbar() {
@@ -161,8 +147,13 @@ struct ExploreView: View {
                         vm.userColor = vm.userColor == .white ? .black : .white
                     } label: {
                         Image(systemName: "arrow.triangle.2.circlepath")
-                            .resizable()
-                            .scaledToFit()
+                    }
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        showingHelp = true
+                    } label: {
+                        Image(systemName: "questionmark.circle")
                     }
                 }
             }
@@ -179,6 +170,5 @@ struct ExploreView: View {
 struct ExploreView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(database: DataBase(), settings: Settings())
-//        ExploreView(database: DataBase(), settings: Settings())
     }
 }

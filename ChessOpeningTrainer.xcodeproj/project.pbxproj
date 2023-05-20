@@ -38,6 +38,8 @@
 		AAB3C30A2A01594F0094FAB2 /* exampleScotchGambit.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C3092A01594F0094FAB2 /* exampleScotchGambit.pgn */; };
 		AAB3C30C2A01595F0094FAB2 /* exampleDanishRefutation.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C30B2A01595F0094FAB2 /* exampleDanishRefutation.pgn */; };
 		AAB3C30E2A0159730094FAB2 /* exampleEnglundRefutation.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C30D2A0159730094FAB2 /* exampleEnglundRefutation.pgn */; };
+		AAB5A6E22A18FCD3007F1302 /* HelpExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5A6E12A18FCD3007F1302 /* HelpExplorerView.swift */; };
+		AAB5A6E42A1916E2007F1302 /* HelpExplorerPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5A6E32A1916E2007F1302 /* HelpExplorerPageView.swift */; };
 		AAC6431129F8205D00D1C12E /* AcknowledgementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */; };
 		AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431329F9374100D1C12E /* ImpressumView.swift */; };
 		AAC6431629F9374B00D1C12E /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431529F9374B00D1C12E /* PrivacyView.swift */; };
@@ -109,6 +111,8 @@
 		AAB3C3092A01594F0094FAB2 /* exampleScotchGambit.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleScotchGambit.pgn; sourceTree = "<group>"; };
 		AAB3C30B2A01595F0094FAB2 /* exampleDanishRefutation.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleDanishRefutation.pgn; sourceTree = "<group>"; };
 		AAB3C30D2A0159730094FAB2 /* exampleEnglundRefutation.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleEnglundRefutation.pgn; sourceTree = "<group>"; };
+		AAB5A6E12A18FCD3007F1302 /* HelpExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpExplorerView.swift; sourceTree = "<group>"; };
+		AAB5A6E32A1916E2007F1302 /* HelpExplorerPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpExplorerPageView.swift; sourceTree = "<group>"; };
 		AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgementsView.swift; sourceTree = "<group>"; };
 		AAC6431329F9374100D1C12E /* ImpressumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressumView.swift; sourceTree = "<group>"; };
 		AAC6431529F9374B00D1C12E /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
@@ -253,6 +257,7 @@
 				AA6960762A05403F00A593BB /* ListView.swift */,
 				AAA1A1D629F42E7F003F153F /* AddStudyView.swift */,
 				AADF268D2A16B94E00CF40ED /* HomeView.swift */,
+				AAB5A6E02A18FCBC007F1302 /* HelpViews */,
 				AAC889A429F802450079ECE5 /* PGNHelpView.swift */,
 				AAC6431229F8206600D1C12E /* SubSettings */,
 			);
@@ -295,6 +300,15 @@
 				AAA1A1DF29F56F32003F153F /* ExamplePGN.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		AAB5A6E02A18FCBC007F1302 /* HelpViews */ = {
+			isa = PBXGroup;
+			children = (
+				AAB5A6E32A1916E2007F1302 /* HelpExplorerPageView.swift */,
+				AAB5A6E12A18FCD3007F1302 /* HelpExplorerView.swift */,
+			);
+			path = HelpViews;
 			sourceTree = "<group>";
 		};
 		AAC6431229F8206600D1C12E /* SubSettings */ = {
@@ -456,6 +470,7 @@
 				AADF269B2A178CF300CF40ED /* LichessExplorerView.swift in Sources */,
 				AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */,
 				AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */,
+				AAB5A6E42A1916E2007F1302 /* HelpExplorerPageView.swift in Sources */,
 				AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */,
 				AADF267E2A16169600CF40ED /* ParentChessBoardProtocol.swift in Sources */,
 				AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */,
@@ -487,6 +502,7 @@
 				AA5EA3CD2A067BCD0033AB7C /* PawnPromotionView.swift in Sources */,
 				AAE367F82A0BED95006A2574 /* ChessBoardViewModel.swift in Sources */,
 				AAC6431129F8205D00D1C12E /* AcknowledgementsView.swift in Sources */,
+				AAB5A6E22A18FCD3007F1302 /* HelpExplorerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
