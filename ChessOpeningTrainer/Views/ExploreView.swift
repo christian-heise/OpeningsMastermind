@@ -38,11 +38,15 @@ struct ExploreView: View {
         NavigationStack {
             GeometryReader { geo in
                 layout {
-                    ChessboardView(vm: vm, settings: settings)
-                        .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
-                        .if(!landscape) { view in
-                            view.frame(height: min(geo.size.width, max(geo.size.height - 50 - 40 - 85, 300)))
-                        }
+                    HStack(spacing: 0) {
+                        EvalBarView(eval: vm.evaluation, color: vm.turnColor)
+                            .frame(width: 20)
+                        ChessboardView(vm: vm, settings: settings)
+                            .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
+                    }
+                    .if(!landscape) { view in
+                        view.frame(height: max(min(geo.size.width-20, max(geo.size.height - 50 - 40 - 85, 300)), 30))
+                    }
                         
                     VStack {
                         if vm.showingComment {

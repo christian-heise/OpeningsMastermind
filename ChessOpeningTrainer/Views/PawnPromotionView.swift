@@ -8,11 +8,11 @@
 import SwiftUI
 import ChessKit
 
-struct PawnPromotionView: View {
+struct PawnPromotionView<ParentVM>: View where ParentVM: ParentChessBoardModelProtocol {
     let color: PieceColor
     let width: CGFloat
     
-    @EnvironmentObject var vm: PracticeViewModel
+    @ObservedObject var parentVM: ParentVM
     
     let pieceKinds: [PieceKind] = [.queen, .rook, .knight ,.bishop]
     var body: some View {
@@ -20,7 +20,7 @@ struct PawnPromotionView: View {
             Group {
                 ForEach(pieceKinds, id: \.self) { kind in
                     Button {
-                        vm.processPromotion(kind)
+                        parentVM.processPromotion(kind)
                     } label: {
                         Image.piece(color: color, kind: kind)
                             .pawnPromotionPiece(width:width, height:width)
@@ -41,7 +41,7 @@ struct PawnPromotionView: View {
 
 struct PawnPromotionView_Previews: PreviewProvider {
     static var previews: some View {
-        PawnPromotionView(color: .white, width: 70)
+        PawnPromotionView(color: .white, width: 70, parentVM: PracticeViewModel(gameTree: GameTree.example()))
     }
 }
 

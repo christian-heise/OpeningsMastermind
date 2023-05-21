@@ -127,11 +127,6 @@ import ChessKit
             }
         }
     }
-    func processPromotion(_ kind: PieceKind) {
-        guard let promotionMove = self.promotionMove else { return }
-        self.promotionMove = nil
-        performMove(Move(from: promotionMove.from, to: promotionMove.to, promotion: kind))
-    }
     
     func addMistake(_ mistake: Int) {
         currentNode.mistakesLast5Moves.removeFirst()

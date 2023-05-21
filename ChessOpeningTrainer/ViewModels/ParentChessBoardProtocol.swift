@@ -23,6 +23,7 @@ import ChessKit
     func processMoveAction(piece: Piece, from oldSquare: Square, to newSquare: Square)
     func reset()
     func jump(to index: Int)
+    func processPromotion(_ kind: PieceKind)
 }
 
 @MainActor class ParentChessBoardModel: ObservableObject {
@@ -48,6 +49,12 @@ import ChessKit
         } else {
             return (nil, nil)
         }
+    }
+    
+    func processPromotion(_ kind: PieceKind) {
+        guard let promotionMove = self.promotionMove else { return }
+        self.promotionMove = nil
+        performMove(Move(from: promotionMove.from, to: promotionMove.to, promotion: kind))
     }
     
     func processMoveAction(piece: Piece, from oldSquare: Square, to newSquare: Square) {
