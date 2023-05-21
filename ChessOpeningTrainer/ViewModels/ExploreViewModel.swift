@@ -258,7 +258,6 @@ import ChessKitEngine
     func getEngineMoves(for position: Position) {
         let fen = FenSerialization.default.serialize(position: position)
         DispatchQueue.global(qos: .userInitiated).async {
-            self.engine.send(command: .stop)
             self.engine.send(command: .position(.fen(fen)))
             self.engine.send(command: .go(depth: 20))
             self.engine.receiveResponse = { response in
@@ -266,7 +265,11 @@ import ChessKitEngine
                     switch response {
                     case let .info(info):
                         if let score = info.score?.cp {
-                            self.evaluation = score / 100.0
+                            if self.turnColor == .white {
+                                self.evaluation = score / 100.0
+                            } else {
+                                self.evaluation = -score / 100.0
+                            }
                         }
                     default:
                         break
@@ -277,10 +280,11 @@ import ChessKitEngine
     }
     
     func postMoveStuff() {
+        self.engine.send(command: .stop)
+        toggleTurnColor()
+        getEngineMoves(for: self.game.position)
         determineRightMove()
         updateLichessExplorer()
-        getEngineMoves(for: self.game.position)
-        toggleTurnColor()
         showingComment = false
         gameState = 4
     }
