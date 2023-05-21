@@ -25,6 +25,7 @@ import ChessKitEngine
     @Published var lichessResponse: LichessOpeningData?
     @Published var currentExploreNode: ExploreNode
     @Published var evaluation: Double?
+    @Published var mateInXMoves: Int?
     
     var rootExploreNode: ExploreNode
     
@@ -265,10 +266,28 @@ import ChessKitEngine
                     switch response {
                     case let .info(info):
                         if let score = info.score?.cp {
+                            self.mateInXMoves = nil
                             if self.turnColor == .white {
                                 self.evaluation = score / 100.0
                             } else {
                                 self.evaluation = -score / 100.0
+                            }
+                        }
+                        if let mateInXMoves = info.score?.mate {
+                            if self.turnColor == .white {
+                                if mateInXMoves == 0 {
+                                    self.evaluation = -50
+                                } else {
+                                    self.evaluation = 10 * Double(mateInXMoves)
+                                }
+                                self.mateInXMoves = mateInXMoves
+                            } else {
+                                if mateInXMoves == 0 {
+                                    self.evaluation = 50
+                                } else {
+                                    self.evaluation = -10 * Double(mateInXMoves)
+                                }
+                                self.mateInXMoves = -mateInXMoves
                             }
                         }
                     default:
