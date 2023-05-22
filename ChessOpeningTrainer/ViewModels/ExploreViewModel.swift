@@ -48,7 +48,7 @@ import ChessKitEngine
         self.currentExploreNode = self.rootExploreNode
         super.init()
         
-        engine.start(coreCount: 4)
+        engine.start(coreCount: 1)
         engine.loggingEnabled = true
         onAppear()
     }
@@ -272,10 +272,10 @@ import ChessKitEngine
             return
         }
         
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .default).async {
             self.engine.send(command: .stop)
             self.engine.send(command: .position(.fen(fen)))
-            self.engine.send(command: .go(depth: 20))
+            self.engine.send(command: .go(depth: 18))
             self.engine.receiveResponse = { response in
                 DispatchQueue.main.async {
                     switch response {

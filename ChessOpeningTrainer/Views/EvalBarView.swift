@@ -11,6 +11,9 @@ import ChessKit
 struct EvalBarView: View {
     let eval: Double?
     let mate: Int?
+    let userColor: PieceColor
+    
+    let limit: Double = 6
     
     var text: String {
         if let mate = mate {
@@ -39,31 +42,31 @@ struct EvalBarView: View {
         GeometryReader { geo in
             VStack {
                 ZStack {
-                    
                     Rectangle().fill([50,50,50].getColor())
-                        .frame(height: geo.size.height / 2 * (1 - max(min(eval ?? 0, 10), -10)/10))
-                        .position(CGPoint(x: geo.size.width / 2, y: geo.size.height / 4 * (1 - max(min(eval ?? 0, 10), -10)/10)))
+                        .frame(height: geo.size.height / 2 * (1 - max(min(eval ?? 0, limit), -limit)/limit))
+                        .position(CGPoint(x: geo.size.width / 2, y: geo.size.height / 4 * (1 - max(min(eval ?? 0, limit), -limit)/limit)))
                         .animation(.linear(duration: 1) .delay(0.1), value: eval ?? 0)
                     Rectangle().fill([230,230,230].getColor())
-                        .frame(height: geo.size.height / 2 * (1 + max(min(eval ?? 0, 10), -10)/10))
-                        .position(CGPoint(x: geo.size.width / 2, y: geo.size.height / 4 * (3 - max(min(eval ?? 0, 10), -10)/10)))
+                        .frame(height: geo.size.height / 2 * (1 + max(min(eval ?? 0, limit), -limit)/limit))
+                        .position(CGPoint(x: geo.size.width / 2, y: geo.size.height / 4 * (3 - max(min(eval ?? 0, limit), -limit)/limit)))
                         .animation(.linear(duration: 1) .delay(0.1), value: eval ?? 0)
                     Rectangle().stroke(.black)
                     VStack {
-                        if eval ?? 0 <= -7 {
+                        if eval ?? 0 < 0 {
                             Text(text)
                                 .font(.system(size: 8, design: .monospaced))
                                 .multilineTextAlignment(.center)
-                                .foregroundColor(.white)
+                                .foregroundColor(userColor == .white ? .white : .black)
                         }
                         Spacer()
-                        if eval ?? 0 > -7 {
+                        if eval ?? 0 >= 0 {
                             Text(text)
                                 .font(.system(size: 8, design: .monospaced))
                                 .multilineTextAlignment(.center)
-                                .foregroundColor(.black)
+                                .foregroundColor(userColor == .white ? .black : .white)
                         }
                     }
+                    .rotationEffect(.degrees(userColor == .white ? 0 : 180))
                 }
             }
         }
@@ -71,8 +74,11 @@ struct EvalBarView: View {
 }
 
 struct EvalBarView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        EvalBarView(eval: 0, mate: nil)
+        let userColor: PieceColor = .white
+        EvalBarView(eval: -1, mate: nil, userColor: userColor)
             .frame(width: 20, height: 200)
+            .rotationEffect(.degrees(userColor == .white ? 0 : 180))
     }
 }

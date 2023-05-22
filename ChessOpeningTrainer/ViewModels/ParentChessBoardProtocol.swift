@@ -69,7 +69,10 @@ import ChessKit
                 }
             }
         }
-        performMove(Move(from: oldSquare, to: newSquare))
+        
+        let move = Move(from: oldSquare, to: newSquare)
+        if !game.legalMoves.contains(move) { return }
+        performMove(move)
         postMoveStuff()
     }
     
