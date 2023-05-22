@@ -70,7 +70,10 @@ import ChessKit
             }
         }
         performMove(Move(from: oldSquare, to: newSquare))
+        postMoveStuff()
     }
     
     func performMove(_ move: Move) {}
+    
+    func postMoveStuff() {}
 }

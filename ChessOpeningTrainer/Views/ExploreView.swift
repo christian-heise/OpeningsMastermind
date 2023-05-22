@@ -102,7 +102,7 @@ struct ExploreView: View {
                             HStack(spacing: 15) {
                                 Button {
                                     print(geo.size.height)
-                                    vm.reverseMove()
+                                    vm.reverseOneMove()
                                 } label: {
                                     Image(systemName: "arrow.backward")
                                         .resizable()
@@ -117,7 +117,7 @@ struct ExploreView: View {
                                 }
                                 .disabled(vm.currentExploreNode.parent == nil)
                                 Button {
-                                    vm.forwardMove()
+                                    vm.forwardOneMove()
                                 } label: {
                                     Image(systemName: "arrow.forward")
                                         .resizable()

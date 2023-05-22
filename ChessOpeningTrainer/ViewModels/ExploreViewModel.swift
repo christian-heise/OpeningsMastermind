@@ -13,7 +13,6 @@ import ChessKitEngine
     
     @Published var userColor = PieceColor.white
     @Published var showingComment = false
-    @Published var turnColor = PieceColor.white
     
     var annotation: (String?, String?)
     
@@ -35,6 +34,8 @@ import ChessKitEngine
     private var lichessCache: [String: LichessOpeningData] = [:]
     private var currentLichessTask: Task<(), Never>?
     
+    private var engineCache: [String: Double] = [:]
+    
     var comment: String {
         return currentExploreNode.gameNode?.comment ?? ""
     }
@@ -47,7 +48,7 @@ import ChessKitEngine
         self.currentExploreNode = self.rootExploreNode
         super.init()
         
-        engine.start()
+        engine.start(coreCount: 4)
         engine.loggingEnabled = true
         onAppear()
     }
@@ -84,10 +85,9 @@ import ChessKitEngine
         self.showingComment = false
         gameState = 4
         
-        self.turnColor = .white
         self.updateLichessExplorer()
         self.determineRightMove()
-        self.getEngineMoves(for: startingGamePosition)
+        self.getEngineMoves()
     }
     
     func reset(to newGameTree: GameTree) {
@@ -106,10 +106,9 @@ import ChessKitEngine
         self.showingComment = false
         gameState = 4
         
-        self.turnColor = .white
         self.updateLichessExplorer()
         self.determineRightMove()
-        self.getEngineMoves(for: startingGamePosition)
+        self.getEngineMoves()
     }
     
     func determineRightMove() {
@@ -142,21 +141,21 @@ import ChessKitEngine
         if currentExploreNode.children.first(where: {$0.move == moveString}) != nil {
             currentExploreNode = currentExploreNode.children.first(where: {$0.move == moveString})!
         } else {
+            let newColor: PieceColor = currentExploreNode.color == .white ? .black : .white
             if ((currentExploreNode.gameNode?.children.first(where: {$0.move == moveString})) != nil) {
                 let gameNode = currentExploreNode.gameNode!.children.first(where: {$0.move == moveString})
-                let newNode = ExploreNode(gameNode: gameNode, move: moveString, parentNode: currentExploreNode, position: game.position)
+                
+                let newNode = ExploreNode(gameNode: gameNode, move: moveString, parentNode: currentExploreNode, position: game.position, color: newColor)
                 currentExploreNode.children.append(newNode)
                 currentExploreNode = newNode
             } else {
-                let newNode = ExploreNode(gameNode: nil, move: moveString, parentNode: currentExploreNode, position: game.position)
+                let newNode = ExploreNode(gameNode: nil, move: moveString, parentNode: currentExploreNode, position: game.position, color: newColor)
                 currentExploreNode.children.append(newNode)
                 currentExploreNode = newNode
             }
         }
         
         self.game.make(move: move)
-        
-        postMoveStuff()
     }
     
     func jump(to index: Int) {
@@ -173,6 +172,7 @@ import ChessKitEngine
                 reverseMove()
             }
         }
+        postMoveStuff()
     }
     
     func makeMainLineMove() {
@@ -184,6 +184,11 @@ import ChessKitEngine
         self.performMove(move)
     }
     
+    func forwardOneMove() {
+        forwardMove()
+        postMoveStuff()
+    }
+    
     func forwardMove() {
         if self.positionIndex + 1 != self.positionHistory.count {
             self.positionIndex += 1
@@ -193,12 +198,15 @@ import ChessKitEngine
             currentExploreNode = currentExploreNode.children.first(where: {$0.move == moveString})!
             
             self.game.make(move: self.moveHistory[positionIndex].0)
-
-            postMoveStuff()
         } else {
             makeMainLineMove()
         }
         
+    }
+    
+    func reverseOneMove() {
+        reverseMove()
+        postMoveStuff()
     }
     
     func reverseMove() {
@@ -208,8 +216,6 @@ import ChessKitEngine
         self.positionIndex -= 1
         
         currentExploreNode = currentExploreNode.parent!
-        
-        postMoveStuff()
     }
     
     func updateLichessExplorer() {
@@ -256,9 +262,18 @@ import ChessKitEngine
         return decodedData
     }
     
-    func getEngineMoves(for position: Position) {
+    func getEngineMoves() {
+        let position = self.game.position
         let fen = FenSerialization.default.serialize(position: position)
+        let color = self.currentExploreNode.color
+        
+        guard engineCache[fen] == nil  else {
+            self.evaluation = engineCache[fen]
+            return
+        }
+        
         DispatchQueue.global(qos: .userInitiated).async {
+            self.engine.send(command: .stop)
             self.engine.send(command: .position(.fen(fen)))
             self.engine.send(command: .go(depth: 20))
             self.engine.receiveResponse = { response in
@@ -267,14 +282,14 @@ import ChessKitEngine
                     case let .info(info):
                         if let score = info.score?.cp {
                             self.mateInXMoves = nil
-                            if self.turnColor == .white {
+                            if color == .white {
                                 self.evaluation = score / 100.0
                             } else {
                                 self.evaluation = -score / 100.0
                             }
                         }
                         if let mateInXMoves = info.score?.mate {
-                            if self.turnColor == .white {
+                            if color == .white {
                                 if mateInXMoves == 0 {
                                     self.evaluation = -50
                                 } else {
@@ -298,23 +313,12 @@ import ChessKitEngine
         }
     }
     
-    func postMoveStuff() {
-        self.engine.send(command: .stop)
-        toggleTurnColor()
-        getEngineMoves(for: self.game.position)
+    override func postMoveStuff() {
+        getEngineMoves()
         determineRightMove()
         updateLichessExplorer()
         showingComment = false
         gameState = 4
-    }
-    
-    func toggleTurnColor() {
-        let currentColor = self.turnColor
-        if currentColor == .white {
-            self.turnColor = .black
-        } else {
-            self.turnColor = .white
-        }
     }
     
     class ExploreNode {
@@ -323,13 +327,17 @@ import ChessKitEngine
         var children: [ExploreNode]
         let gameNode: GameNode?
         let position: Position
+        let color: PieceColor
         
-        init(gameNode: GameNode? = nil, move: String="", parentNode: ExploreNode? = nil, position: Position = startingGamePosition) {
+        var evaluation: Double?
+        
+        init(gameNode: GameNode? = nil, move: String="", parentNode: ExploreNode? = nil, position: Position = startingGamePosition, color: PieceColor = .white) {
             self.parent = parentNode
             self.children = []
             self.gameNode = gameNode
             self.position = position
             self.move = move
+            self.color = color
         }
     }
 }
