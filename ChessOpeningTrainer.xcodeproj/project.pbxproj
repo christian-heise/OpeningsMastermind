@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA41EF022A1CE19900FDB639 /* GNULicence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA41EF012A1CE19900FDB639 /* GNULicence.swift */; };
 		AA4786B92A1A83E100BB4144 /* ChessKitEngine in Frameworks */ = {isa = PBXBuildFile; productRef = AA4786B82A1A83E100BB4144 /* ChessKitEngine */; };
 		AA4786BB2A1A8AC800BB4144 /* EvalBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4786BA2A1A8AC800BB4144 /* EvalBarView.swift */; };
 		AA4786BD2A1B880A00BB4144 /* SelectStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4786BC2A1B880A00BB4144 /* SelectStudyView.swift */; };
@@ -93,6 +94,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AA41EF012A1CE19900FDB639 /* GNULicence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GNULicence.swift; sourceTree = "<group>"; };
 		AA4786BA2A1A8AC800BB4144 /* EvalBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvalBarView.swift; sourceTree = "<group>"; };
 		AA4786BC2A1B880A00BB4144 /* SelectStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStudyView.swift; sourceTree = "<group>"; };
 		AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawnPromotionView.swift; sourceTree = "<group>"; };
@@ -274,12 +276,12 @@
 				AA4786BC2A1B880A00BB4144 /* SelectStudyView.swift */,
 				AADF26812A161A7200CF40ED /* ExploreView.swift */,
 				AA69607A2A05461700A593BB /* ChessboardView.swift */,
-				AAA1A1E729F6DB3F003F153F /* SettingsView.swift */,
 				AA6960762A05403F00A593BB /* ListView.swift */,
 				AAA1A1D629F42E7F003F153F /* AddStudyView.swift */,
 				AADF268D2A16B94E00CF40ED /* HomeView.swift */,
 				AAB5A6E02A18FCBC007F1302 /* HelpViews */,
 				AAC889A429F802450079ECE5 /* PGNHelpView.swift */,
+				AAA1A1E729F6DB3F003F153F /* SettingsView.swift */,
 				AAC6431229F8206600D1C12E /* SubSettings */,
 			);
 			path = Views;
@@ -313,6 +315,7 @@
 		AAA1A1E429F66CB3003F153F /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				AA41EF012A1CE19900FDB639 /* GNULicence.swift */,
 				AAB3C30B2A01595F0094FAB2 /* exampleDanishRefutation.pgn */,
 				AAB3C30D2A0159730094FAB2 /* exampleEnglundRefutation.pgn */,
 				AAB3C3092A01594F0094FAB2 /* exampleScotchGambit.pgn */,
@@ -517,6 +520,7 @@
 				AA930EDA2A09765200026712 /* SortingMethod.swift in Sources */,
 				AA930ED82A093D4100026712 /* BoxArrowShape.swift in Sources */,
 				AA4786BB2A1A8AC800BB4144 /* EvalBarView.swift in Sources */,
+				AA41EF022A1CE19900FDB639 /* GNULicence.swift in Sources */,
 				AAA1A17C29F02351003F153F /* ChessOpeningTrainerApp.swift in Sources */,
 				AAA1A1CA29F2CC44003F153F /* ArrowShape.swift in Sources */,
 				AAA1A1E829F6DB3F003F153F /* SettingsView.swift in Sources */,

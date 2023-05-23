@@ -10,8 +10,8 @@ import Foundation
 extension GameTree {
     static func decodePGN(pgnString: String) -> GameNode {
         
-        let chapters = pgnString.split(separator: "\n\n").filter({$0.hasPrefix("1.")})
-        
+        let chapters = pgnString.split(separator: "\n\n\n", omittingEmptySubsequences: true)
+
         let rootNode = GameNode(moveString: "")
         
         var currentNode = rootNode
@@ -24,12 +24,18 @@ extension GameTree {
         var comment: String = ""
         
         for i in 0..<chapters.count {
-//            let pgnWithoutComments = regex.stringByReplacingMatches(in: String(chapters[i]), options: [], range: NSRange(location: 0, length: chapters[i].utf16.count), withTemplate: "")
-            let pgnWithoutComments = String(chapters[i])
+            let chapter = String(chapters[i])
+            if let fenRange = chapter.range(of: "\\[FEN \"[^\"]+\"\\]", options: .regularExpression) {
+                let fenString = String(chapter[fenRange])
+                let fen = fenString.replacingOccurrences(of: "[FEN \"", with: "").replacingOccurrences(of: "\"]", with: "")
+                if fen != startingFEN {
+                    continue
+                }
+            }
             
-            let rawMoves = pgnWithoutComments.components(separatedBy: " ").filter({$0 != ""})
-            
-            print(rawMoves)
+            guard let range = chapter.range(of: "(?<=\\n|^)1\\.", options: .regularExpression) else { continue }
+            let pgnChapter = String(chapter[range.lowerBound...])
+            let rawMoves = pgnChapter.components(separatedBy: .whitespacesAndNewlines)
             
             currentNode = rootNode
 
