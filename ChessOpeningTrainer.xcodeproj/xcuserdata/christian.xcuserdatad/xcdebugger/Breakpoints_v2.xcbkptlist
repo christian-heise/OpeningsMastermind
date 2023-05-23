@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "032E388D-8139-439F-8C57-DE25BA92DB40"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2125697D-2E89-47A0-B40D-F037C5745B74"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChessOpeningTrainer/PGNdecode.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "decodePGN(pgnString:)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "2125697D-2E89-47A0-B40D-F037C5745B74 - e148a7f4d58ad60e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ChessOpeningTrainer.decodePGN(pgnString: Swift.String) throws -&gt; ChessOpeningTrainer.GameNode"
+                  moduleName = "ChessOpeningTrainer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christian/Documents/Xcode/ChessOpeningTrainer/ChessOpeningTrainer/PGNdecode.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "256">
+               </Location>
+               <Location
+                  uuid = "2125697D-2E89-47A0-B40D-F037C5745B74 - 43eb233f0e8b7804"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Substring) -&gt; Swift.Bool in ChessOpeningTrainer.decodePGN(pgnString: Swift.String) throws -&gt; ChessOpeningTrainer.GameNode"
+                  moduleName = "ChessOpeningTrainer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christian/Documents/Xcode/ChessOpeningTrainer/ChessOpeningTrainer/PGNdecode.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "68">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "188CF7DB-C879-4F62-B1A8-16892D335235"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "decodePGN.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "decodePGN(pgnString:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0D4CCD0E-BEA9-40CC-87FE-4845D7CEA05A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UserGameDataBase.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "updateGames()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0D4CCD0E-BEA9-40CC-87FE-4845D7CEA05A - 9d1130874c99f294"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ChessOpeningTrainer.UserGameDataBase.updateGames() -&gt; ()"
+                  moduleName = "ChessOpeningTrainer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christian/Documents/Xcode/ChessOpeningTrainer/UserGameDataBase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "552">
+               </Location>
+               <Location
+                  uuid = "0D4CCD0E-BEA9-40CC-87FE-4845D7CEA05A - 9d1130874c99f294"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ChessOpeningTrainer.UserGameDataBase.updateGames() -&gt; ()"
+                  moduleName = "ChessOpeningTrainer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christian/Documents/Xcode/ChessOpeningTrainer/UserGameDataBase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "716">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AC4ECC03-0EFB-40D0-B1EC-9DDE18F64471"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChessOpeningTrainer/ViewModels/PractiseViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "makeNextMove(in:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B4208D31-063D-4875-9C84-1F8742DF2148"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChessOpeningTrainer/ViewModels/PracticeViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "determineRightMove()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "01D7029F-411E-4F65-813C-D6DDCEA08D84"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChessOpeningTrainer/ViewModels/ExploreViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "determineRightMove()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

@@ -145,7 +145,7 @@ struct SettingsView: View {
                     NavigationLink(destination: {AcknowledgementsView()}){
                         Text("Acknowledgements")
                     }
-
+                    Link("App on GitHub", destination: URL(string: "https://github.com/GrandMaster0/OpeningsMastermind")!)
                 } header: {
                     Text("About")
                         .fontWeight(.bold)
@@ -154,8 +154,8 @@ struct SettingsView: View {
                     Button("Rate my App") {
                         requestReview()
                     }
-                    Text("[Send me feedback](mailto:feedback@appsbychristian.com)")
-                    Text("[Visit my website](https://appsbychristian.com/en/home-english/)")
+                    Link("Send me feedback", destination: URL(string: "mailto:feedback@appsbychristian.com")!)
+                    Link("Visit my website", destination: URL(string: "https://appsbychristian.com/en/home-english/")!)
                 } header: {
                     Text("Contact")
                         .fontWeight(.bold)
