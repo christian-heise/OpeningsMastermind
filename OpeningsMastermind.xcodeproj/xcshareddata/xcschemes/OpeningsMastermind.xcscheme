@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AAA1A17729F02351003F153F"
-               BuildableName = "ChessOpeningTrainer.app"
-               BlueprintName = "ChessOpeningTrainer"
-               ReferencedContainer = "container:ChessOpeningTrainer.xcodeproj">
+               BuildableName = "OpeningsMastermind.app"
+               BlueprintName = "OpeningsMastermind"
+               ReferencedContainer = "container:OpeningsMastermind.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,9 +35,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AAA1A18829F02352003F153F"
-               BuildableName = "ChessOpeningTrainerTests.xctest"
-               BlueprintName = "ChessOpeningTrainerTests"
-               ReferencedContainer = "container:ChessOpeningTrainer.xcodeproj">
+               BuildableName = "OpeningsMastermindTests.xctest"
+               BlueprintName = "OpeningsMastermindTests"
+               ReferencedContainer = "container:OpeningsMastermind.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -46,9 +46,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AAA1A19229F02352003F153F"
-               BuildableName = "ChessOpeningTrainerUITests.xctest"
-               BlueprintName = "ChessOpeningTrainerUITests"
-               ReferencedContainer = "container:ChessOpeningTrainer.xcodeproj">
+               BuildableName = "OpeningsMastermindUITests.xctest"
+               BlueprintName = "OpeningsMastermindUITests"
+               ReferencedContainer = "container:OpeningsMastermind.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -68,9 +68,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AAA1A17729F02351003F153F"
-            BuildableName = "ChessOpeningTrainer.app"
-            BlueprintName = "ChessOpeningTrainer"
-            ReferencedContainer = "container:ChessOpeningTrainer.xcodeproj">
+            BuildableName = "OpeningsMastermind.app"
+            BlueprintName = "OpeningsMastermind"
+            ReferencedContainer = "container:OpeningsMastermind.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -85,9 +85,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AAA1A17729F02351003F153F"
-            BuildableName = "ChessOpeningTrainer.app"
-            BlueprintName = "ChessOpeningTrainer"
-            ReferencedContainer = "container:ChessOpeningTrainer.xcodeproj">
+            BuildableName = "OpeningsMastermind.app"
+            BlueprintName = "OpeningsMastermind"
+            ReferencedContainer = "container:OpeningsMastermind.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
