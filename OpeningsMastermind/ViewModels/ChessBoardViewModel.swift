@@ -22,7 +22,7 @@ extension ChessboardView {
         
         var annotations: (String?, String?) {
             var annotations = vm_parent.annotation
-            if vm_parent.gameState != 0 { return (nil,nil)}
+            if vm_parent.gameState == 1 { return (nil,nil)}
             if annotations.0 == "" {
                 annotations.0 = nil
             }

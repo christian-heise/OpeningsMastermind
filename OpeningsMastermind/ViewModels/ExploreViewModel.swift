@@ -14,7 +14,19 @@ import ChessKitEngine
     @Published var userColor = PieceColor.white
     @Published var showingComment = false
     
-    var annotation: (String?, String?)
+    var annotation: (String?, String?) {
+        guard let node = currentExploreNode.gameNode else { return (nil, nil)}
+        
+        if let annotation = node.annotation {
+            if let annotation_parent = node.parent?.annotation {
+                return (annotation, annotation_parent)
+            } else {
+                return (annotation, nil)
+            }
+        } else {
+            return (nil, nil)
+        }
+    }
     
     let database: DataBase
     var gameTree: GameTree?
@@ -37,7 +49,16 @@ import ChessKitEngine
     private var engineCache: [String: Double] = [:]
     
     var comment: String {
-        return currentExploreNode.gameNode?.comment ?? ""
+        guard let comment = currentExploreNode.gameNode?.comment else { return ""}
+        
+        let regex = try! NSRegularExpression(pattern: "\\[%cal.*?\\]", options: .dotMatchesLineSeparators)
+        let output = regex.stringByReplacingMatches(in: comment, options: [], range: NSRange(location: 0, length: comment.utf16.count), withTemplate: "")
+        
+        if output.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return ""
+        } else {
+            return output
+        }
     }
 
     init(database: DataBase, settings: Settings) {
@@ -178,7 +199,7 @@ import ChessKitEngine
     func makeMainLineMove() {
         let decoder = SanSerialization.default
         
-        guard let moveString = currentExploreNode.gameNode?.children.first?.move else {return}
+        guard let moveString = currentExploreNode.gameNode?.children.randomElement()?.move else {return}
         
         let move = decoder.move(for: moveString, in: self.game)
         self.performMove(move)

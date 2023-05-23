@@ -34,7 +34,7 @@ import ChessKit
     var promotionPending: Bool = false
     var promotionMove: Move? = nil
     
-    var moveHistory: [(Move, String)] = []
+    @Published var moveHistory: [(Move, String)] = []
     var positionHistory: [Position] = []
     var positionIndex: Int = -1
 

@@ -9,8 +9,6 @@ import Foundation
 import ChessKit
 
 @MainActor class PracticeViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
-//    @Published var currentNode: GameNode
-//    let gameTree: GameTree
     
     var selectedGameTrees: Set<GameTree>
     let database: DataBase
@@ -20,9 +18,6 @@ import ChessKit
         self.currentNodes = []
         self.database = database
         self.selectedGameTrees = Set()
-        
-//        self.currentNode = gameTree.rootNode
-//        self.gameTree = gameTree
         
         super.init()
         self.reset()
@@ -71,14 +66,13 @@ import ChessKit
     func reset() {
         self.game = Game(position: startingGamePosition)
         self.currentNodes = self.selectedGameTrees.map({$0.rootNode})
-//        self.currentNode = gameTree.rootNode
-//        self.moveStringList = []
         self.gameState = -1
         
         self.moveHistory = []
         self.positionHistory = []
         self.positionIndex = -1
         
+        if selectedGameTrees.isEmpty { return }
         if self.userColor == .black {
             Task {
                 await performComputerMove(in: 0)
@@ -129,6 +123,8 @@ import ChessKit
             return success
         })
         
+        let san = SanSerialization.default.correctSan(for: move, in: game)
+        
         guard !potentialNodes.isEmpty else {
             self.gameCopy = self.game.deepCopy()
             if currentNodes.map({$0.children.isEmpty}).contains(where: {!$0}) {
@@ -137,7 +133,7 @@ import ChessKit
                 game.make(move: move)
                 
                 self.positionHistory.append(self.game.position)
-                self.moveHistory.append((move, SanSerialization.default.correctSan(for: move, in: game)))
+                self.moveHistory.append((move, san))
                 self.positionIndex = self.positionIndex + 1
                 
                 self.addMistake(1)
@@ -148,12 +144,12 @@ import ChessKit
         }
         
         self.positionHistory.append(self.game.position)
-        self.moveHistory.append((move, SanSerialization.default.correctSan(for: move, in: game)))
+        self.moveHistory.append((move, san))
         self.positionIndex = self.positionIndex + 1
         
         addMistake(0)
         var newNodes: [GameNode] = []
-        let san = SanSerialization.default.correctSan(for: move, in: game)
+
         for i in 0..<currentNodes.count {
             if currentNodes[i].children.contains(where: {$0.move == san}) {
                 newNodes.append(currentNodes[i].children.first(where: {$0.move == san})!)

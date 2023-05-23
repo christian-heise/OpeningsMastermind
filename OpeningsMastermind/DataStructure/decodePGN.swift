@@ -35,7 +35,7 @@ extension GameTree {
             
             guard let range = chapter.range(of: "(?<=\\n|^)1\\.", options: .regularExpression) else { continue }
             let pgnChapter = String(chapter[range.lowerBound...])
-            let rawMoves = pgnChapter.components(separatedBy: .whitespacesAndNewlines)
+            let rawMoves = pgnChapter.components(separatedBy: .whitespacesAndNewlines).filter({$0 != ""})
             
             currentNode = rootNode
 
@@ -126,6 +126,9 @@ extension GameTree {
         }
         
         func addMoveToTree(_ rawMove: String) -> GameNode {
+            if rawMove == "" || rawMove == "\n" {
+                print("Alarm")
+            }
             var move = ""
             var annotation: String = ""
             
