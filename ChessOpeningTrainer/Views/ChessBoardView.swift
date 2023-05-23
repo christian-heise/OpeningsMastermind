@@ -107,7 +107,7 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                         .zIndex(500)
                 }
                 if let move = vm.promotionMove {
-                    PawnPromotionView(color: vm.userColor, width: vm.squareLength(in: geo.size)*1.2)
+                    PawnPromotionView(color: vm.userColor, width: vm.squareLength(in: geo.size)*1.2, parentVM: parentVM)
                         .position(vm.positionPawnPromotionView(move.to, in: geo.size))
                         .zIndex(1000)
                 }
@@ -118,6 +118,6 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
 
 struct ChessboardView_Previews: PreviewProvider {
     static var previews: some View {
-        ChessboardView(vm: PracticeViewModel(gameTree: GameTree.example()), settings: Settings())
+        ChessboardView(vm: PracticeViewModel(database: DataBase()), settings: Settings())
     }
 }

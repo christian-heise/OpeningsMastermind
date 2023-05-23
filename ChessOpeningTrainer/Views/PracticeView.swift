@@ -18,19 +18,21 @@ struct PracticeView: View {
     
     @State private var orientation = UIDeviceOrientation.unknown
     
+    @State private var showingSelectView = false
+    
     var landscape: Bool {
         return orientation == .landscapeLeft || orientation == .landscapeRight
     }
 
     init(database: DataBase, settings: Settings, gameTree: GameTree) {
-        self._vm = StateObject(wrappedValue: PracticeViewModel(gameTree: gameTree))
+        self._vm = StateObject(wrappedValue: PracticeViewModel(database: database))
         self.database = database
         self.settings = settings
     }
     
     var text: String {
         if vm.gameState == 1 {
-            return "This was the wrong move!"
+            return "This move is in none of your selected Studies!"
         } else if vm.gameState == 2 {
             return "This was the last move in this Study"
         } else {
@@ -47,6 +49,8 @@ struct PracticeView: View {
                         Spacer()
                         Text(text)
                             .font(.headline)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .multilineTextAlignment(.center)
                             .frame(height: 20)
                             .padding()
                             .opacity(vm.gameState > 0 ? 1 : 0)
@@ -81,6 +85,18 @@ struct PracticeView: View {
                         }
                         HStack {
                             Button(action: {
+                                vm.reset()
+                            }) {
+                                Text("Restart Practice")
+                                    .padding()
+                                    .foregroundColor(.white)
+                                    .background([79,147,206].getColor())
+                                    .cornerRadius(10)
+                            }
+                            .opacity(vm.gameState >= 0 ? 1 : 0)
+                            .disabled(vm.gameState >= 0 ? false : true)
+    
+                            Button(action: {
                                 vm.revertMove()
                             }) {
                                 Text("Revert Last Move")
@@ -91,20 +107,6 @@ struct PracticeView: View {
                             }
                             .opacity(vm.gameState == 1 ? 1 : 0)
                             .disabled(vm.gameState == 1 ? false : true)
-    
-                            Button(action: {
-                                vm.reset()
-                            }) {
-                                Text("Restart Training")
-                                    .padding()
-                                    .foregroundColor(.white)
-                                    .background([79,147,206].getColor())
-                                    .cornerRadius(10)
-                            }
-                            .opacity(vm.gameState > 0 ? 1 : 0)
-                            .disabled(vm.gameState > 0 ? false : true)
-    
-    
                         }
                         .padding(10)
                     }
@@ -112,21 +114,39 @@ struct PracticeView: View {
                         view.frame(width: geo.size.width/3)
                     }
                 }
+                .sheet(isPresented: $showingSelectView) {
+                    SelectStudyView(gametrees: self.database.gametrees, vm: vm)
+                }
                 .onRotate { newOrientation in
                     orientation = newOrientation
                 }
-                .navigationTitle(vm.gameTree.name)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarBackButtonHidden(true)
+                .navigationTitle("Practice")
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(){self.presentationMode.wrappedValue.dismiss()} label: {
-                            HStack(spacing: 5) {
-                                Image(systemName: "chevron.left")
-                                    .fontWeight(.semibold)
-                                Text("Back")
+                    ToolbarItem() {
+                        Button() {
+                            showingSelectView = true
+                        } label: {
+                            HStack {
+                                if vm.selectedGameTrees.count > 1 {
+                                    Text("\(vm.selectedGameTrees.count) Studies selected")
+                                } else if vm.selectedGameTrees.count == 1 {
+                                    Text("„\(vm.selectedGameTrees.first!.name)“ selected")
+                                } else {
+                                    Text("Select Studies")
+                                }
+                                Image(systemName: "chevron.up.chevron.down")
                             }
+                            .padding(.vertical, 1)
+                            .padding(.trailing, 5)
                         }
+                        .disabled(database.gametrees.isEmpty || vm.gameState == 0)
+                        .background() {
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.gray)
+                                .shadow(radius: 5)
+                                .opacity(0.2)
+                        }
+//                        .opacity(database.gametrees.isEmpty ? 0.0 : 1.0)
                     }
                 }
             }

@@ -66,7 +66,7 @@ struct ListView: View {
             Group {
                 List() {
                     ForEach(sortedGameTrees, id: \.self) { gameTree in
-                        NavigationLink(destination: PracticeView(database: database, settings: settings, gameTree: gameTree)) {
+//                        NavigationLink(destination: PracticeView(database: database, settings: settings, gameTree: gameTree)) {
                             VStack(alignment: .leading) {
                                 Text(gameTree.name)
                                     .fontWeight(.medium)
@@ -76,15 +76,12 @@ struct ListView: View {
                                         .frame(height: 20)
                                 }
                             }
-                        }
+//                        }
                     }
                     .onDelete(perform: delete)
                     .onMove(perform: move)
                 }
             }
-//            .navigationDestination(for: GameTree.self, destination: { gameTree in
-//                PracticeView(database: database, settings: settings, gameTree: gameTree)
-//            })
             .navigationTitle(Text("Opening Studies"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

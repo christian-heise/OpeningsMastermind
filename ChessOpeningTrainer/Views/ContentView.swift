@@ -20,9 +20,13 @@ struct ContentView: View {
                 .tabItem {
                     Label("Explorer", systemImage: "book")
                 }
-            ListView(database: database, settings: settings)
+            PracticeView(database: database, settings: settings, gameTree: GameTree.example())
                 .tabItem {
                     Label("Practice", systemImage: "checkerboard.rectangle")
+                }
+            ListView(database: database, settings: settings)
+                .tabItem {
+                    Label("Library", systemImage: "list.bullet")
                 }
             SettingsView(settings: settings)
                 .tabItem {

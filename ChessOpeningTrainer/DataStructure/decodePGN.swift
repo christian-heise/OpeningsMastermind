@@ -29,7 +29,7 @@ extension GameTree {
             
             let rawMoves = pgnWithoutComments.components(separatedBy: " ").filter({$0 != ""})
             
-            print(pgnWithoutComments)
+            print(rawMoves)
             
             currentNode = rootNode
 

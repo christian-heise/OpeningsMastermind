@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AA4786B92A1A83E100BB4144 /* ChessKitEngine in Frameworks */ = {isa = PBXBuildFile; productRef = AA4786B82A1A83E100BB4144 /* ChessKitEngine */; };
 		AA4786BB2A1A8AC800BB4144 /* EvalBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4786BA2A1A8AC800BB4144 /* EvalBarView.swift */; };
+		AA4786BD2A1B880A00BB4144 /* SelectStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4786BC2A1B880A00BB4144 /* SelectStudyView.swift */; };
 		AA5EA3CD2A067BCD0033AB7C /* PawnPromotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */; };
 		AA6960772A05403F00A593BB /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6960762A05403F00A593BB /* ListView.swift */; };
 		AA6960792A05460700A593BB /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6960782A05460700A593BB /* PracticeView.swift */; };
@@ -93,6 +94,7 @@
 
 /* Begin PBXFileReference section */
 		AA4786BA2A1A8AC800BB4144 /* EvalBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvalBarView.swift; sourceTree = "<group>"; };
+		AA4786BC2A1B880A00BB4144 /* SelectStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectStudyView.swift; sourceTree = "<group>"; };
 		AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawnPromotionView.swift; sourceTree = "<group>"; };
 		AA6960762A05403F00A593BB /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		AA6960782A05460700A593BB /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				AADF268B2A16708100CF40ED /* MoveListView.swift */,
 				AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */,
 				AA6960782A05460700A593BB /* PracticeView.swift */,
+				AA4786BC2A1B880A00BB4144 /* SelectStudyView.swift */,
 				AADF26812A161A7200CF40ED /* ExploreView.swift */,
 				AA69607A2A05461700A593BB /* ChessboardView.swift */,
 				AAA1A1E729F6DB3F003F153F /* SettingsView.swift */,
@@ -506,6 +509,7 @@
 				AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */,
 				AA69607B2A05461700A593BB /* ChessboardView.swift in Sources */,
 				AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */,
+				AA4786BD2A1B880A00BB4144 /* SelectStudyView.swift in Sources */,
 				AADF26822A161A7200CF40ED /* ExploreView.swift in Sources */,
 				AAF78B9B2A07B35B00FC8282 /* ProgressBarView.swift in Sources */,
 				AA69607D2A06473800A593BB /* PracticeViewModel.swift in Sources */,
