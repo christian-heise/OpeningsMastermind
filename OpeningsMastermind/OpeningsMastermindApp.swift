@@ -9,7 +9,7 @@ import SwiftUI
 import ChessKit
 
 @main
-struct ChessOpeningTrainerApp: App {
+struct OpeningsMastermindApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
