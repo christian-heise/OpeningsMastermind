@@ -1,0 +1,94 @@
+[Event "Caro-Kann Defense: Goldman Variation: The Goldman Variation"]
+[Site "https://lichess.org/study/Rvu7G9VX/RAwWDhC7"]
+[Result "*"]
+[UTCDate "2021.05.02"]
+[UTCTime "03:10:56"]
+[Variant "Standard"]
+[ECO "B10"]
+[Opening "Caro-Kann Defense: Goldman Variation"]
+[Annotator "https://lichess.org/@/xJimmyCx"]
+
+1. e4 c6 { The Caro-Kann is a very solid and fundamentally sound opening that white likes because it is difficult for black to exploit.
+Black wants a solid positional game and a safe king. The Goldman variation looks to combat this. } 2. Nc3 d5 3. Qf3 { At first glance, this seems like a bad move. It violates opening principles by bringing out the queen early and taking away f3 from our knight.
+But, white has compensation in the form of immediate pressure on d5, threatening to win a pawn right away, and many traps that black can fall into if not careful. } { [%csl Rc3,Re4,Rf3][%cal Rc3d5,Re4d5,Rf3d5] } *
+
+
+[Event "Caro-Kann Defense: Goldman Variation: 3...d4"]
+[Site "https://lichess.org/study/Rvu7G9VX/qbIUSX0q"]
+[Result "*"]
+[UTCDate "2021.05.02"]
+[UTCTime "20:41:40"]
+[Variant "Standard"]
+[ECO "B10"]
+[Opening "Caro-Kann Defense: Goldman Variation"]
+[Annotator "https://lichess.org/@/xJimmyCx"]
+
+1. e4 c6 2. Nc3 d5 3. Qf3 d4 4. Bc4 { [%csl Rf7][%cal Rc4f7,Rf3f7] } 4... Nf6 (4... dxc3?? 5. Qxf7+ Kd7 6. dxc3! { [%cal Bc1f4,Ga1d1] } 6... Kc7 (6... Nf6 7. Bf4 { and the game is lost for black. }) 7. Bf4+ Kb6 8. Rd1 Nd7 9. Be6 { [%cal Rd1d8,Re6d7,Bf7f5] })  (4... e6 { best move for black } 5. Nce2 c5 { [%cal Bb8c6] } (5... b5 6. Bb3 c5 7. d3 Qc7) 6. d3 Nc6 7. Qg3 { preventing knight e5 as we do not want to trade our bishop. } { [%csl Ge5][%cal Gg3e5,Rg3g7,Bf2f4,Yg1f3] }) 5. e5 dxc3 (5... Bg4 6. Qd3) 6. exf6 cxd2+ 7. Bxd2 exf6 8. O-O-O { White loses a pawn but has a massive lead in development. } { [%cal Bd2b4,Gd1e1,Yf3g3] } *
+
+
+[Event "Caro-Kann Defense: Goldman Variation: 3...dxe4"]
+[Site "https://lichess.org/study/Rvu7G9VX/dqgP2cNK"]
+[Result "*"]
+[UTCDate "2021.05.02"]
+[UTCTime "20:41:48"]
+[Variant "Standard"]
+[ECO "B10"]
+[Opening "Caro-Kann Defense: Goldman Variation"]
+[Annotator "https://lichess.org/@/xJimmyCx"]
+
+1. e4 c6 2. Nc3 d5 3. Qf3 dxe4 4. Nxe4 Nd7 (4... Nf6 5. c3 Nbd7 6. d4 g6 7. Nxf6+ Nxf6 8. Bc4 Bg7 9. Qe2 b5) 5. d4 Ngf6 6. c3 Nxe4 7. Qxe4 Nf6 8. Qc2 { [%csl Ge5][%cal Bf1d3,Gg1f3,Ye1g1,Yf3e5] } *
+
+
+[Event "Caro-Kann Defense: Goldman Variation: 3...e6"]
+[Site "https://lichess.org/study/Rvu7G9VX/ynCc4vVW"]
+[Result "*"]
+[UTCDate "2021.05.02"]
+[UTCTime "20:41:31"]
+[Variant "Standard"]
+[ECO "B10"]
+[Opening "Caro-Kann Defense: Goldman Variation"]
+[Annotator "https://lichess.org/@/xJimmyCx"]
+
+1. e4 c6 2. Nc3 d5 3. Qf3 e6?! { Seems like a solid way of defending d5 but is an inaccuracy. } 4. d4 dxe4 (4... Bb4 5. Qg3 Bxc3+) 5. Nxe4 Qxd4 (5... Nd7) 6. Bd3 { [%cal Bg1e2,Ge1g1] } 6... Nd7 7. Ne2 Qb4+ 8. c3 Qb6 9. Qg3 Ngf6 10. O-O Nxe4 11. Bxe4 Nf6 12. Bf3 Qb5 13. Nd4 Qc5 14. Be3 Qd6 15. Bf4 Qd7 16. Rad1 Nd5 { [%cal Gd4f5,Gf3d5,Gc6d5] } 17. Bxd5 c5 (17... cxd5 18. c4 dxc4 19. Nf5 exf5 (19... Qb5 20. Nxg7+ Bxg7 21. Qxg7)) *
+
+
+[Event "Caro-Kann Defense: Goldman Variation: 3...Kf6 (MAIN)"]
+[Site "https://lichess.org/study/Rvu7G9VX/zPz32arZ"]
+[Result "*"]
+[UTCDate "2021.05.02"]
+[UTCTime "14:40:20"]
+[Variant "Standard"]
+[ECO "B10"]
+[Opening "Caro-Kann Defense: Goldman Variation"]
+[Annotator "https://lichess.org/@/xJimmyCx"]
+
+1. e4 c6 2. Nc3 d5 3. Qf3 Nf6?! { Seems sensible defending the pawn and developing a piece but is actually an inaccuracy.
+Many people may play this as an automatic reaction. } 4. e5 { [%csl Rg4,Rh5,Re4,Rd5] } 4... Nfd7 5. d4 { [%cal Gd4e5] } 5... e6 { Reinforcing d5 so black can play the typical c5 pawn break. } { [%cal Ge6d5,Bc6c5] } 6. Nh3 { [%cal Bh3g5] } 6... c5 (6... Be7 { attempts to guard g5 but white has } 7. Qg3 { making it very hard for black to defend g7. } { [%cal Rg3g7] } 7... g6 (7... O-O { invites } 8. Bh6 { which loses an exchange after } 8... g6 9. Bxf8)  (7... Kf8 8. Bg5 { [%cal Ge1c1,Bf2f4,Gf4f5] }) 8. Bg5 Bxg5 9. Nxg5 { softens up the dark squares and black can never play c5 because the knight will come to d6. Without a dark squared bishop it can never be removed. } { [%cal Bb5d6,Rc6c5,Gc3b5] })  (6... h6 { another way of trying to stop Kg5 but can be met by } 7. Nf4 c5 8. Qh5 { [%cal Bf4e6,Rh5e8] } 8... cxd4 9. Nb5 g6 10. Nxg6 fxg6 11. Qxg6+ Ke7 12. f4) 7. Ng5 { [%csl Rf7][%cal Rg5f7,Rf3f7] } (7. Bg5 { fails because of } 7... Qb6 { [%cal Rc5d4,Rb6c5,Rb6b2] }) 7... Qe7 (7... f6 8. Nxe6 Qb6 (8... Qe7) 9. Nxd5 Qxe6 10. Nc7+) 8. Nb5 { Threatening c7 fork and check on e6. Black cannot defend against all threats. } { [%cal Bb5c7,Bb5d6] } 8... f6 (8... cxd4 9. Nd6+ { [%cal Rd6f7,Rf7h8] }) 9. Nc7+ Kd8 10. Ngxe6+ Qxe6 11. Nxe6+ *
+
+
+[Event "Caro-Kann Defense: Goldman Variation: 3..Kf6,"]
+[Site "https://lichess.org/study/Rvu7G9VX/OBV3bvtz"]
+[Result "*"]
+[UTCDate "2021.12.11"]
+[UTCTime "19:39:22"]
+[Variant "Standard"]
+[ECO "B10"]
+[Opening "Caro-Kann Defense: Goldman Variation"]
+[Annotator "https://lichess.org/@/xJimmyCx"]
+
+1. e4 c6 2. Nc3 d5 3. Qf3 Nf6 4. e5 Nfd7 5. d4 c5 6. Nh3 e6 *
+
+
+[Event "Caro-Kann Defense: Goldman Variation: 3...Kbd7"]
+[Site "https://lichess.org/study/Rvu7G9VX/hhhA7xIJ"]
+[Result "*"]
+[UTCDate "2021.05.02"]
+[UTCTime "22:12:32"]
+[Variant "Standard"]
+[ECO "B10"]
+[Opening "Caro-Kann Defense: Goldman Variation"]
+[Annotator "https://lichess.org/@/xJimmyCx"]
+
+1. e4 c6 2. Nc3 d5 3. Qf3 Nd7?! 4. exd5 cxd5 (4... g6 { if black gives up the pawn do not take c6 because you do not want to help black develop. Develop normally and white is just up a pawn. } { [%cal Bf1c4,Gg1e2,Ye1g1,Yd2d3] }) 5. Nxd5 e6 6. Nc3 Ngf6 (6... Bc5 7. d4 { offering back the pawn in exchange for positional advantage after } 7... Bxd4 8. Nb5 { [%csl Bd6][%cal Rb5d4,Bb5d6] } 8... Bc5 (8... Bb6 9. Nd6+ Ke7 10. Qxf7+ Kxd6 11. Bf4+ Ne5 12. Nf3 Nf6 13. O-O-O+ Kc5 14. Nxe5) 9. Qg3 { [%csl Rc7][%cal Rg3g7,Rg3c7,Rb5c7] } 9... Ngf6 10. Nc7+ Ke7 11. Nxa8) 7. d4 *
+
+
