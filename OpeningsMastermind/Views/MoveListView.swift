@@ -51,6 +51,6 @@ struct MoveListView<ParentVM>: View where ParentVM: ParentChessBoardModelProtoco
 
 struct MoveListView_Previews: PreviewProvider {
     static var previews: some View {
-        ExploreView(database: DataBase(), settings: Settings())
+        ExploreView(database: DataBase(), settings: Settings(), selectedTab: .constant(0))
     }
 }

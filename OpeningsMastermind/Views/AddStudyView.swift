@@ -162,6 +162,7 @@ struct AddStudyView: View {
 //                        .padding()
                     }
                     .padding(.vertical, 5)
+                    .padding(.horizontal, 10)
                     .alert(isPresented: $showingImportProblem) {
                         Alert(title: Text(importProblemText))
                     }

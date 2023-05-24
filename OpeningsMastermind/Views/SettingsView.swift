@@ -134,6 +134,8 @@ struct SettingsView: View {
                 } header: {
                     Text("Connect")
                         .fontWeight(.bold)
+                } footer: {
+                    Text("Connection is used to show moves in your rating range in the Lichess Explorer.")
                 }
                 Section() {
                     NavigationLink(destination: {ImpressumView()}) {

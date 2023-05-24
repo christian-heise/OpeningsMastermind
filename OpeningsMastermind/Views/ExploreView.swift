@@ -14,6 +14,8 @@ struct ExploreView: View {
     @ObservedObject var database: DataBase
     @ObservedObject var settings: Settings
     
+    @Binding var selectedTab: Int
+    
     @State private var isShowingSwitchingView = false
     @State private var showingHelp = false
     
@@ -25,10 +27,12 @@ struct ExploreView: View {
         return orientation == .landscapeLeft || orientation == .landscapeRight
     }
     
-    init(database: DataBase, settings: Settings) {
+    init(database: DataBase, settings: Settings, selectedTab: Binding<Int>) {
         self._vm = StateObject(wrappedValue: ExploreViewModel(database: database, settings: settings))
         self.database = database
         self.settings = settings
+        
+        self._selectedTab = selectedTab
     }
     
     var body: some View {
@@ -159,7 +163,7 @@ struct ExploreView: View {
                         isShowingSwitchingView = true
                     } label: {
                         HStack {
-                            Text(vm.gameTree?.name ?? "")
+                            Text(vm.gameTree?.name ?? "Switch Study")
                             Image(systemName: "chevron.up.chevron.down")
                         }
                         .padding(.vertical, 1)
@@ -172,7 +176,6 @@ struct ExploreView: View {
                             .shadow(radius: 5)
                             .opacity(0.2)
                     }
-                    .opacity(database.gametrees.isEmpty ? 0.0 : 1.0)
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {

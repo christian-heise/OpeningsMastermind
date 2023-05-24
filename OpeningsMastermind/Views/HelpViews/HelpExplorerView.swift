@@ -12,7 +12,7 @@ struct HelpExplorerView: View {
     var body: some View {
         NavigationStack {
             TabView() {
-                HelpExplorerPageView(maskPosition: CGPoint(x: 0.76, y: 0.04), maskFrame: CGSize(width: 0.48, height: 0.08), text: "Select an opening study to see the included moves as arrows. If the button is hidden, add a custom study or example studies first.")
+                HelpExplorerPageView(maskPosition: CGPoint(x: 0.76, y: 0.04), maskFrame: CGSize(width: 0.48, height: 0.08), text: "Select an opening study to see the included moves as arrows.\n\nAdd a lichess or custom study in the library first.")
                 HelpExplorerPageView(maskPosition: CGPoint(x: 0.075, y: 0.04), maskFrame: CGSize(width: 0.15, height: 0.08), text: "Rotate the Board")
                 HelpExplorerPageView(maskPosition: CGPoint(x: 0.5, y: 0.69), maskFrame: CGSize(width: 1, height: 0.165), text: "See what other players in your rating range played on Lichess in the current position. You also see how those games resulted (white wins / draw / black wins)\n\nIf your Lichess Account is not connected, moves by players between 1500 and 2500 are shown.")
                 HelpExplorerPageView(maskPosition: CGPoint(x: 0.09, y: 0.88), maskFrame: CGSize(width: 0.18, height: 0.08), text: "Tap to show comments from the selected opening study (if comment is available)")

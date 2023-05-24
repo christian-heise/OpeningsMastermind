@@ -14,24 +14,30 @@ struct ContentView: View {
     
     @Environment(\.scenePhase) var scenePhase
     
+    @State private var selectedTab: Int = 0
+    
     var body: some View {
-        TabView {
-            ExploreView(database: database, settings: settings)
+        TabView(selection: $selectedTab) {
+            ExploreView(database: database, settings: settings, selectedTab: $selectedTab)
                 .tabItem {
                     Label("Explorer", systemImage: "book")
                 }
+                .tag(0)
             PracticeView(database: database, settings: settings, gameTree: GameTree.example())
                 .tabItem {
                     Label("Practice", systemImage: "checkerboard.rectangle")
                 }
+                .tag(1)
             ListView(database: database, settings: settings)
                 .tabItem {
                     Label("Library", systemImage: "list.bullet")
                 }
+                .tag(2)
             SettingsView(settings: settings)
                 .tabItem {
                     Label("Settings", systemImage: "gear")
                 }
+                .tag(3)
         }
         .onChange(of: scenePhase) { phase in
             if phase == .background {
