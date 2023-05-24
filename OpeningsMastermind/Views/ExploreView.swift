@@ -38,7 +38,6 @@ struct ExploreView: View {
                 layout {
                     HStack(spacing: 0) {
                         EvalBarView(eval: vm.evaluation, mate: vm.mateInXMoves, userColor: vm.userColor)
-                            .padding(.vertical, 0)
                             .frame(width: 20)
                             .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                         ChessboardView(vm: vm, settings: settings)
@@ -150,7 +149,6 @@ struct ExploreView: View {
                     orientation = newOrientation
                 }
             }
-            .environmentObject(vm)
             .if(landscape) { view in
                 view.navigationBarTitleDisplayMode(.inline)
             }

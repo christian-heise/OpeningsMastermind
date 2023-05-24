@@ -45,7 +45,7 @@ struct PracticeView: View {
         NavigationStack {
             GeometryReader { geo in
                 layout {
-                    if !landscape {
+                    if !landscape && geo.size.width <= geo.size.height - 205 {
                         Spacer()
                         Text(text)
                             .font(.headline)
@@ -58,11 +58,12 @@ struct PracticeView: View {
                     ChessboardView(vm: vm, settings: settings)
                         .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                         .if(!landscape) { view in
-                            view.frame(height: min(geo.size.width, max(geo.size.height - 50 - 40 - 85, 300)))
-                                
+                            view.frame(height: min(geo.size.width, max(geo.size.height - 143, 200)))
                         }
                         .if(landscape) { view in
-                            view.padding(.horizontal)
+                            view
+                                .frame(width: geo.size.height)
+                                .padding(.horizontal)
                         }
                     VStack {
                         if landscape {
@@ -79,6 +80,8 @@ struct PracticeView: View {
                         if landscape {
                             Text(text)
                                 .font(.headline)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .multilineTextAlignment(.center)
                                 .frame(height: 20)
                                 .padding()
                                 .opacity(vm.gameState > 0 ? 1 : 0)
@@ -111,7 +114,7 @@ struct PracticeView: View {
                         .padding(10)
                     }
                     .if(landscape) { view in
-                        view.frame(width: geo.size.width/3)
+                        view.padding(.trailing)
                     }
                 }
                 .sheet(isPresented: $showingSelectView) {
@@ -121,6 +124,9 @@ struct PracticeView: View {
                     if newOrientation == .landscapeLeft || newOrientation == .landscapeRight || newOrientation == .portrait || newOrientation == .portraitUpsideDown {
                         orientation = newOrientation
                     }
+                }
+                .if(landscape) { view in
+                    view.navigationBarTitleDisplayMode(.inline)
                 }
                 .onAppear() {
                     vm.onAppear()
@@ -160,6 +166,7 @@ struct PracticeView: View {
 
 struct PracticeView_Previews: PreviewProvider {
     static var previews: some View {
-        PracticeView(database: DataBase(), settings: Settings(), gameTree: GameTree.example())
+//        PracticeView(database: DataBase(), settings: Settings(), gameTree: GameTree.example())
+        ContentView()
     }
 }
