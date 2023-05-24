@@ -25,8 +25,6 @@ struct ExploreView: View {
         return orientation == .landscapeLeft || orientation == .landscapeRight
     }
     
-    var orientationCache: UIDeviceOrientation = .unknown
-    
     init(database: DataBase, settings: Settings) {
         self._vm = StateObject(wrappedValue: ExploreViewModel(database: database, settings: settings))
         self.database = database
@@ -182,7 +180,7 @@ struct ExploreView: View {
                     Button {
                         vm.userColor = vm.userColor == .white ? .black : .white
                     } label: {
-                        Image(systemName: "arrow.triangle.2.circlepath")
+                        Image(systemName: "arrow.up.arrow.down")
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {

@@ -70,7 +70,7 @@ import ChessKitEngine
         super.init()
         
         engine.start(coreCount: 1)
-        engine.loggingEnabled = true
+//        engine.loggingEnabled = true
         onAppear()
     }
     

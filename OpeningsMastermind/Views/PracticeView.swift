@@ -118,7 +118,12 @@ struct PracticeView: View {
                     SelectStudyView(gametrees: self.database.gametrees, vm: vm)
                 }
                 .onRotate { newOrientation in
-                    orientation = newOrientation
+                    if newOrientation == .landscapeLeft || newOrientation == .landscapeRight || newOrientation == .portrait || newOrientation == .portraitUpsideDown {
+                        orientation = newOrientation
+                    }
+                }
+                .onAppear() {
+                    vm.onAppear()
                 }
                 .navigationTitle("Practice")
                 .toolbar {
@@ -146,7 +151,6 @@ struct PracticeView: View {
                                 .shadow(radius: 5)
                                 .opacity(0.2)
                         }
-//                        .opacity(database.gametrees.isEmpty ? 0.0 : 1.0)
                     }
                 }
             }

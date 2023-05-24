@@ -10,7 +10,6 @@ import ChessKit
 
 struct SelectStudyView: View {
     let gametrees: [GameTree]
-//    @Binding var selectedGametrees: Set<GameTree>
     @ObservedObject var vm: PracticeViewModel
     
     @Environment(\.presentationMode) var presentationMode
@@ -51,6 +50,7 @@ struct SelectStudyView: View {
             }
             .onDisappear() {
                 vm.currentNodes = vm.selectedGameTrees.map({$0.rootNode})
+                vm.saveUserDefaults()
                 vm.reset()
             }
         }

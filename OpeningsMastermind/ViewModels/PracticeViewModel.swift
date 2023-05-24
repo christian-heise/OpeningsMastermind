@@ -10,7 +10,7 @@ import ChessKit
 
 @MainActor class PracticeViewModel: ParentChessBoardModel, ParentChessBoardModelProtocol {
     
-    var selectedGameTrees: Set<GameTree>
+    @Published var selectedGameTrees: Set<GameTree>
     let database: DataBase
     @Published var currentNodes: [GameNode]
     
@@ -18,8 +18,9 @@ import ChessKit
         self.currentNodes = []
         self.database = database
         self.selectedGameTrees = Set()
-        
         super.init()
+        
+        self.loadUserDefaults()
         self.reset()
     }
     
@@ -43,6 +44,33 @@ import ChessKit
         }
     }
     
+    func saveUserDefaults() {
+        do {
+            // Create JSON Encoder
+            let encoder = JSONEncoder()
+            // Encode Note
+            let data = try encoder.encode(self.selectedGameTrees)
+            // Write/Set Data
+            UserDefaults.standard.set(data, forKey: "selectedGameTrees")
+            print("Saved \(self.selectedGameTrees.count) Gametree(s)")
+        } catch {
+            print("Unable to Encode Note (\(error))")
+        }
+    }
+    func loadUserDefaults() {
+        if let data = UserDefaults.standard.data(forKey: "selectedGameTrees") {
+            do {
+                // Create JSON Decoder
+                let decoder = JSONDecoder()
+                // Decode Note
+                self.selectedGameTrees = try decoder.decode(Set<GameTree>.self, from: data)
+                print("Loaded \(self.selectedGameTrees.count) Gametree(s)")
+            } catch {
+                print("Unable to Decode Note (\(error))")
+            }
+        }
+    }
+    
     func revertMove() {
         self.game = gameCopy ?? Game(position: startingGamePosition)
         self.positionHistory.removeLast()
@@ -62,6 +90,16 @@ import ChessKit
     }
     
     func jump(to index: Int) {}
+    
+    func onAppear() {
+        if self.selectedGameTrees.isEmpty { return }
+        
+        if self.selectedGameTrees.contains(where: {!database.gametrees.contains($0)}) {
+            self.selectedGameTrees = self.selectedGameTrees.filter({database.gametrees.contains($0)})
+            self.saveUserDefaults()
+            self.reset()
+        }
+    }
     
     func reset() {
         self.game = Game(position: startingGamePosition)

@@ -37,6 +37,14 @@ struct EvalBarView: View {
         }
     }
     
+    var colorText: Color {
+        if eval ?? 0 >= 0 {
+            return .black
+        } else {
+            return .white
+            }
+    }
+    
     var body: some View {
         
         GeometryReader { geo in
@@ -56,17 +64,18 @@ struct EvalBarView: View {
                             Text(text)
                                 .font(.system(size: 8, design: .monospaced))
                                 .multilineTextAlignment(.center)
-                                .foregroundColor(userColor == .white ? .white : .black)
+                                .foregroundColor(colorText)
+                                .rotationEffect(.degrees(userColor == .white ? 0 : 180))
                         }
                         Spacer()
                         if eval ?? 0 >= 0 {
                             Text(text)
                                 .font(.system(size: 8, design: .monospaced))
                                 .multilineTextAlignment(.center)
-                                .foregroundColor(userColor == .white ? .black : .white)
+                                .foregroundColor(colorText)
+                                .rotationEffect(.degrees(userColor == .white ? 0 : 180))
                         }
                     }
-                    .rotationEffect(.degrees(userColor == .white ? 0 : 180))
                 }
             }
         }
@@ -76,8 +85,8 @@ struct EvalBarView: View {
 struct EvalBarView_Previews: PreviewProvider {
     
     static var previews: some View {
-        let userColor: PieceColor = .white
-        EvalBarView(eval: -1, mate: nil, userColor: userColor)
+        let userColor: PieceColor = .black
+        EvalBarView(eval: -5, mate: nil, userColor: userColor)
             .frame(width: 20, height: 200)
             .rotationEffect(.degrees(userColor == .white ? 0 : 180))
     }

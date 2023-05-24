@@ -11,7 +11,7 @@ import SwiftUI
 import ChessKit
 
 struct GameTree: Codable, Hashable {
-    let id = UUID()
+    let id: UUID
     static func == (lhs: GameTree, rhs: GameTree) -> Bool {
         return lhs.id == rhs.id
     }
@@ -40,6 +40,8 @@ struct GameTree: Codable, Hashable {
         
         self.date = Date()
         self.lastPlayed = Date(timeIntervalSince1970: 0)
+        
+        self.id = UUID()
     }
     
     init(name: String, rootNode: GameNode, userColor: PieceColor, pgnString: String = "") {
@@ -50,6 +52,8 @@ struct GameTree: Codable, Hashable {
         
         self.date = Date()
         self.lastPlayed = Date(timeIntervalSince1970: 0)
+        
+        self.id = UUID()
     }
     
     init(name: String, pgnString: String, userColor: PieceColor) {
@@ -63,6 +67,8 @@ struct GameTree: Codable, Hashable {
         
         self.date = Date()
         self.lastPlayed = Date(timeIntervalSince1970: 0)
+        
+        self.id = UUID()
     }
     
     static func example() -> GameTree {
@@ -81,6 +87,7 @@ struct GameTree: Codable, Hashable {
         self.rootNode = rootNode
         let userColorString = try container.decode(String.self, forKey: .userColor)
         self.userColor = userColorString=="white" ? .white : .black
+        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
     }
     
     func encode(to encoder: Encoder) throws {
@@ -94,9 +101,10 @@ struct GameTree: Codable, Hashable {
         
         try container.encode(date, forKey: .date)
         try container.encode(lastPlayed, forKey: .lastPlayed)
+        try container.encode(id, forKey: .id)
     }
     
     enum CodingKeys: String, CodingKey {
-            case name, rootNode, userColor, pgnString, date, lastPlayed
+            case name, rootNode, userColor, pgnString, date, lastPlayed, id
         }
 }
