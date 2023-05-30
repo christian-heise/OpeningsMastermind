@@ -19,6 +19,7 @@ import ChessKit
     var moveHistory: [(Move, String)] { get }
     var positionHistory: [Position] { get }
     var positionIndex: Int { get }
+    var currentMoveColor: PieceColor { get }
     
     func processMoveAction(piece: Piece, from oldSquare: Square, to newSquare: Square)
     func reset()

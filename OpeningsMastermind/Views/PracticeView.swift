@@ -15,14 +15,11 @@ struct PracticeView: View {
     @StateObject var vm: PracticeViewModel
     
     @Environment(\.presentationMode) var presentationMode
-    
-    @State private var orientation = UIDeviceOrientation.unknown
+
+    @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
     @State private var showingSelectView = false
-    
-    var landscape: Bool {
-        return orientation == .landscapeLeft || orientation == .landscapeRight
-    }
 
     init(database: DataBase, settings: Settings, gameTree: GameTree) {
         self._vm = StateObject(wrappedValue: PracticeViewModel(database: database))
@@ -41,11 +38,11 @@ struct PracticeView: View {
     }
     
     var body: some View {
-        let layout = landscape ? AnyLayout(HStackLayout()) : AnyLayout(VStackLayout())
         NavigationStack {
             GeometryReader { geo in
+                let layout = isLandscape(in: geo.size) ? AnyLayout(HStackLayout()) : AnyLayout(VStackLayout())
                 layout {
-                    if !landscape && geo.size.width <= geo.size.height - 205 {
+                    if !isLandscape(in: geo.size) && geo.size.width <= geo.size.height - 205 {
                         Spacer()
                         Text(text)
                             .font(.headline)
@@ -57,16 +54,16 @@ struct PracticeView: View {
                     }
                     ChessboardView(vm: vm, settings: settings)
                         .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
-                        .if(!landscape) { view in
+                        .if(!isLandscape(in: geo.size)) { view in
                             view.frame(height: min(geo.size.width, max(geo.size.height - 143, 200)))
                         }
-                        .if(landscape) { view in
+                        .if(isLandscape(in: geo.size)) { view in
                             view
                                 .frame(width: geo.size.height)
                                 .padding(.horizontal)
                         }
                     VStack {
-                        if landscape {
+                        if isLandscape(in: geo.size) {
                             Spacer()
                         }
                         MoveListView(vm: vm)
@@ -77,7 +74,7 @@ struct PracticeView: View {
                                     .shadow(radius: 5)
                             }
                             
-                        if landscape {
+                        if isLandscape(in: geo.size) {
                             Text(text)
                                 .font(.headline)
                                 .fixedSize(horizontal: false, vertical: true)
@@ -113,20 +110,16 @@ struct PracticeView: View {
                         }
                         .padding(10)
                     }
-                    .if(landscape) { view in
+                    .if(isLandscape(in: geo.size)) { view in
                         view.padding(.trailing)
                     }
+                    
+                }
+                .if(verticalSizeClass == .compact) { view in
+                    view.navigationBarTitleDisplayMode(.inline)
                 }
                 .sheet(isPresented: $showingSelectView) {
                     SelectStudyView(gametrees: self.database.gametrees, vm: vm)
-                }
-                .onRotate { newOrientation in
-                    if newOrientation == .landscapeLeft || newOrientation == .landscapeRight || newOrientation == .portrait || newOrientation == .portraitUpsideDown {
-                        orientation = newOrientation
-                    }
-                }
-                .if(landscape) { view in
-                    view.navigationBarTitleDisplayMode(.inline)
                 }
                 .onAppear() {
                     vm.onAppear()
@@ -161,6 +154,9 @@ struct PracticeView: View {
                 }
             }
         }
+    }
+    func isLandscape(in size: CGSize) -> Bool {
+        size.width > size.height
     }
 }
 

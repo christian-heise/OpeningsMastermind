@@ -21,11 +21,9 @@ struct ExploreView: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
-    @State private var orientation = UIDeviceOrientation.unknown
-    
-    var landscape: Bool {
-        return orientation == .landscapeLeft || orientation == .landscapeRight
-    }
+    @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+
     
     init(database: DataBase, settings: Settings, selectedTab: Binding<Int>) {
         self._vm = StateObject(wrappedValue: ExploreViewModel(database: database, settings: settings))
@@ -36,9 +34,9 @@ struct ExploreView: View {
     }
     
     var body: some View {
-        let layout = landscape ? AnyLayout(HStackLayout()) : AnyLayout(VStackLayout())
         NavigationStack {
             GeometryReader { geo in
+                let layout = isLandscape(in: geo.size) ? AnyLayout(HStackLayout()) : AnyLayout(VStackLayout())
                 layout {
                     HStack(spacing: 0) {
                         EvalBarView(eval: vm.evaluation, mate: vm.mateInXMoves, userColor: vm.userColor)
@@ -47,8 +45,11 @@ struct ExploreView: View {
                         ChessboardView(vm: vm, settings: settings)
                             .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                     }
-                    .if(!landscape) { view in
+                    .if(!isLandscape(in: geo.size)) { view in
                         view.frame(height: max(min(geo.size.width-20, max(geo.size.height - 50 - 40 - 85, 300)), 30))
+                    }
+                    .if(isLandscape(in: geo.size)) { view in
+                        view.frame(width: max(min(geo.size.height+20, geo.size.width - 300), 30))
                     }
                         
                     VStack {
@@ -76,7 +77,7 @@ struct ExploreView: View {
                             .clipped()
                             .padding(.horizontal, 5)
                             .frame(minHeight: 40)
-                            .if(landscape) { view in
+                            .if(isLandscape(in: geo.size)) { view in
                                 view.padding(.top, 10)
                             }
                             
@@ -136,26 +137,19 @@ struct ExploreView: View {
                             }
                             .padding(.horizontal)
                         }
-                        
                         .frame(height: 47)
                         .padding(.bottom,5)
                     }
-                    .if(landscape) { view in
-                        view.frame(width: max(geo.size.width / 3, geo.size.width - geo.size.height - 70)).padding(.trailing)
-                    }
+
+                }
+                .if(verticalSizeClass == .compact) { view in
+                    view.navigationBarTitleDisplayMode(.inline)
                 }
             }
             .sheet(isPresented: $showingHelp, content: {
                 HelpExplorerView()
             })
-            .onRotate { newOrientation in
-                if newOrientation == .landscapeLeft || newOrientation == .landscapeRight || newOrientation == .portrait || newOrientation == .portraitUpsideDown {
-                    orientation = newOrientation
-                }
-            }
-            .if(landscape) { view in
-                view.navigationBarTitleDisplayMode(.inline)
-            }
+            
             .navigationTitle("Explorer")
             .toolbar() {
                 ToolbarItem() {
@@ -199,6 +193,9 @@ struct ExploreView: View {
                 vm.onAppear()
             }
         }
+    }
+    func isLandscape(in size: CGSize) -> Bool {
+        size.width > size.height
     }
 }
 

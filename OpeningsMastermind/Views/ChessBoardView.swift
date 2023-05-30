@@ -97,17 +97,20 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                 if let move = vm.last2Moves.0, let annotation = vm.annotations.0 {
                     AnnotationView(annotation: annotation)
                         .frame(width: vm.squareLength(in: geo.size)*0.5)
+                        .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                         .position(vm.positionAnnotation(move.to, in: geo.size))
                         .zIndex(500)
                 }
                 if let move = vm.last2Moves.1, let annotation = vm.annotations.1 {
                     AnnotationView(annotation: annotation)
                         .frame(width: vm.squareLength(in: geo.size)*0.5)
+                        .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                         .position(vm.positionAnnotation(move.to, in: geo.size))
                         .zIndex(500)
                 }
                 if let move = vm.promotionMove {
-                    PawnPromotionView(color: vm.userColor, width: vm.squareLength(in: geo.size)*1.2, parentVM: parentVM)
+                    PawnPromotionView(color: vm.currentMoveColor, width: vm.squareLength(in: geo.size)*1.2, parentVM: parentVM)
+                        .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                         .position(vm.positionPawnPromotionView(move.to, in: geo.size))
                         .zIndex(1000)
                 }
