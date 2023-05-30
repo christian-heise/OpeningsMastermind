@@ -41,7 +41,7 @@ struct PawnPromotionView<ParentVM>: View where ParentVM: ParentChessBoardModelPr
 
 struct PawnPromotionView_Previews: PreviewProvider {
     static var previews: some View {
-        PawnPromotionView(color: .white, width: 70, parentVM: PracticeViewModel(database: DataBase()))
+        PawnPromotionView(color: .black, width: 70, parentVM: PracticeViewModel(database: DataBase()))
     }
 }
 
@@ -51,7 +51,6 @@ extension Image {
             .resizable()
             .frame(width: width, height: height, alignment: .center)
             .background() {
-                RoundedRectangle(cornerRadius: 5).stroke()
                 RoundedRectangle(cornerRadius: 5).fill(Color.white)
             }
     }
