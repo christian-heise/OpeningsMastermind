@@ -48,6 +48,10 @@ extension ChessboardView {
             vm_parent.userColor
         }
         
+        var currentMoveColor: PieceColor {
+            return vm_parent.currentMoveColor
+        }
+        
         var rightMove: [Move] {
             vm_parent.rightMove
         }
@@ -121,12 +125,21 @@ extension ChessboardView {
         func positionAnnotation(_ square: Square, in size: CGSize) -> CGPoint {
             let point_square = pointOf(square, in: size)
             
-            return CGPoint(x:point_square.x + squareLength(in: size)*0.35, y:point_square.y + 3.35*squareLength(in: size))
+            if self.userColor == .white {
+                return CGPoint(x:point_square.x + squareLength(in: size)*0.35, y:point_square.y + 3.35*squareLength(in: size))
+            } else {
+                return CGPoint(x:point_square.x - squareLength(in: size)*0.35, y:point_square.y - 3.35*squareLength(in: size))
+            }
         }
         func positionPawnPromotionView(_ square: Square, in size: CGSize) -> CGPoint {
             let point_square = pointOf(square, in: size)
             let xPoint = max(min(point_square.x, size.width - 2.4*squareLength(in: size) - 20), 2.4*squareLength(in: size) + 20)
-            return CGPoint(x: xPoint, y: point_square.y + 1.3*squareLength(in: size))
+            
+            if self.currentMoveColor == .white {
+                return CGPoint(x: xPoint, y: point_square.y + 1.3*squareLength(in: size))
+            } else {
+                return CGPoint(x: xPoint, y: point_square.y - 1.3*squareLength(in: size))
+            }
         }
     }
 }

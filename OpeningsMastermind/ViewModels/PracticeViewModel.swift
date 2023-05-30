@@ -43,6 +43,9 @@ import ChessKit
             }
         }
     }
+    var currentMoveColor: PieceColor {
+        return currentNodes.first?.moveColor ?? .white
+    }
     
     func saveUserDefaults() {
         do {

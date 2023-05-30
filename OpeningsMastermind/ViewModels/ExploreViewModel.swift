@@ -60,6 +60,10 @@ import ChessKitEngine
             return output
         }
     }
+    
+    var currentMoveColor: PieceColor {
+        return currentExploreNode.color
+    }
 
     init(database: DataBase, settings: Settings) {
         self.database = database
@@ -183,7 +187,6 @@ import ChessKitEngine
         if index == positionIndex {
             print("Same Index")
             return
-            
         } else if index > positionIndex {
             for _ in 0..<(index - positionIndex) {
                 forwardMove()
@@ -199,7 +202,7 @@ import ChessKitEngine
     func makeMainLineMove() {
         let decoder = SanSerialization.default
         
-        guard let moveString = currentExploreNode.gameNode?.children.randomElement()?.move else {return}
+        guard let moveString = currentExploreNode.gameNode?.children.first?.move else {return}
         
         let move = decoder.move(for: moveString, in: self.game)
         self.performMove(move)
@@ -335,6 +338,9 @@ import ChessKitEngine
     }
     
     override func postMoveStuff() {
+        self.promotionMove = nil
+        self.promotionPending = false
+        
         getEngineMoves()
         determineRightMove()
         updateLichessExplorer()
