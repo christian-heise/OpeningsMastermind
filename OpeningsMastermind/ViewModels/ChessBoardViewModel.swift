@@ -60,6 +60,20 @@ extension ChessboardView {
             vm_parent.promotionMove
         }
         
+        var selectedSquare: (Square, Piece)? {
+            return vm_parent.selectedSquare
+        }
+        
+        var possibleSquares: [Square] {
+            if let selectedSquare = self.selectedSquare?.0 {
+                return vm_parent.game.legalMoves.filter({$0.from == selectedSquare}).map({$0.to})
+            } else if let draggedSquare = self.draggedSquare {
+                return vm_parent.game.legalMoves.filter({$0.from == draggedSquare}).map({$0.to})
+            } else {
+                return []
+            }
+        }
+        
         func indicatorPosition(in size: CGSize, col: Int, row: Int) -> CGPoint {
             return CGPoint(x: size.width/2 + (CGFloat(col) - 3.5) * squareLength(in: size), y: ((CGFloat(row) + 0.5) * squareLength(in: size)))
         }

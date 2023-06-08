@@ -265,24 +265,24 @@
 		AAA1A1D829F44345003F153F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				AA4786BA2A1A8AC800BB4144 /* EvalBarView.swift */,
-				AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */,
+				AAA1A1D629F42E7F003F153F /* AddStudyView.swift */,
+				AA69607A2A05461700A593BB /* ChessboardView.swift */,
 				AAA1A17D29F02351003F153F /* ContentView.swift */,
+				AA4786BA2A1A8AC800BB4144 /* EvalBarView.swift */,
+				AADF26812A161A7200CF40ED /* ExploreView.swift */,
+				AAB5A6E02A18FCBC007F1302 /* HelpViews */,
+				AADF268D2A16B94E00CF40ED /* HomeView.swift */,
 				AADF269A2A178CF300CF40ED /* LichessExplorerView.swift */,
-				AAD219622A1CECE6005BB0FE /* SwitchStudyView.swift */,
+				AA6960762A05403F00A593BB /* ListView.swift */,
 				AADF268B2A16708100CF40ED /* MoveListView.swift */,
 				AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */,
-				AA6960782A05460700A593BB /* PracticeView.swift */,
-				AA4786BC2A1B880A00BB4144 /* SelectStudyView.swift */,
-				AADF26812A161A7200CF40ED /* ExploreView.swift */,
-				AA69607A2A05461700A593BB /* ChessboardView.swift */,
-				AA6960762A05403F00A593BB /* ListView.swift */,
-				AAA1A1D629F42E7F003F153F /* AddStudyView.swift */,
-				AADF268D2A16B94E00CF40ED /* HomeView.swift */,
-				AAB5A6E02A18FCBC007F1302 /* HelpViews */,
 				AAC889A429F802450079ECE5 /* PGNHelpView.swift */,
+				AA6960782A05460700A593BB /* PracticeView.swift */,
+				AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */,
+				AA4786BC2A1B880A00BB4144 /* SelectStudyView.swift */,
 				AAA1A1E729F6DB3F003F153F /* SettingsView.swift */,
 				AAC6431229F8206600D1C12E /* SubSettings */,
+				AAD219622A1CECE6005BB0FE /* SwitchStudyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

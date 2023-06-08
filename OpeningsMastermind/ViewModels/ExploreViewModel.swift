@@ -196,6 +196,14 @@ import ChessKitEngine
         postMoveStuff()
     }
     
+    func makeLichessMove(san: String) {
+        let move = SanSerialization.default.move(for: san, in: game)
+        
+        performMove(move)
+        
+        postMoveStuff()
+    }
+    
     func makeMainLineMove() {
         let decoder = SanSerialization.default
         
@@ -277,8 +285,6 @@ import ChessKitEngine
             print("Decoding failed")
             return nil}
         
-        decodedData.moves = decodedData.moves.filter({Double($0.white + $0.black + $0.draws) > (0.01 * Double(decodedData.white + decodedData.black + decodedData.draws))})
-        
         lichessCache[fen] = decodedData
         return decodedData
     }
@@ -335,6 +341,7 @@ import ChessKitEngine
     }
     
     override func postMoveStuff() {
+        selectedSquare = nil
         getEngineMoves()
         determineRightMove()
         updateLichessExplorer()

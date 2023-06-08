@@ -10,6 +10,7 @@ import ChessKit
 
 @MainActor protocol ParentChessBoardModelProtocol: ObservableObject {
     var annotation: (String?, String?) { get }
+    var game: Game { get }
     var gameState: Int { get }
     var last2Moves: (Move?, Move?) { get }
     var userColor: PieceColor { get }
@@ -20,6 +21,8 @@ import ChessKit
     var positionHistory: [Position] { get }
     var positionIndex: Int { get }
     
+    var selectedSquare: (Square, Piece)? { get set }
+    
     func processMoveAction(piece: Piece, from oldSquare: Square, to newSquare: Square)
     func reset()
     func jump(to index: Int)
@@ -28,6 +31,7 @@ import ChessKit
 
 @MainActor class ParentChessBoardModel: ObservableObject {
     @Published var gameState: Int = 0
+    @Published var selectedSquare: (Square, Piece)? = nil
     
     var game: Game = Game(position: startingGamePosition)
     var rightMove: [Move] = []
@@ -78,5 +82,7 @@ import ChessKit
     
     func performMove(_ move: Move) {}
     
-    func postMoveStuff() {}
+    func postMoveStuff() {
+        selectedSquare = nil
+    }
 }

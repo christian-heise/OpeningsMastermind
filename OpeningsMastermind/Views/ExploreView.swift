@@ -70,7 +70,7 @@ struct ExploreView: View {
                             
                         } else {
                             ScrollView {
-                                LichessExplorerView(openingData: vm.lichessResponse)
+                                LichessExplorerView(vm: vm)
                             }
                             .scrollIndicators(.hidden)
                             .clipped()
