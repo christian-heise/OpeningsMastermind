@@ -15,22 +15,15 @@ import ChessKitEngine
     @Published var showingComment = false
     
     var annotation: (String?, String?) {
-        return (nil, nil)
-//        guard let node = currentExploreNode.gameNode else { return (nil, nil)}
-//
-//        if let annotation = node.annotation {
-//            if moveHistory.count > 1 {
-//                if let annotation_parent = node.parent.first(where: {moveHistory[moveHistory.count-2].1 == $0.move})?.annotation {
-//                    return (annotation, annotation_parent)
-//                } else {
-//                    return (annotation, nil)
-//                }
-//            } else {
-//                return (annotation, nil)
-//            }
-//        } else {
-//            return (nil, nil)
-//        }
+        guard let node = currentExploreNode.gameNode else { return (nil, nil)}
+        
+        guard let moveNode = node.parents.first(where: {$0.move == moveHistory[positionIndex].0}) else { return (nil, nil) }
+        
+        if let annotation = moveNode.annotation {
+            return (annotation, nil)
+        } else {
+            return (nil, nil)
+        }
     }
     
     let database: DataBase

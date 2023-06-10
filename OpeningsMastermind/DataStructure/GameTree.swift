@@ -20,7 +20,9 @@ struct GameTree: Codable, Hashable {
     
     var dateLastPlayed: Date
     
-    var progress = Double.random(in: 0...1)
+    var progress: Double {
+        1-rootNode.progress
+    }
     
     init(name: String, pgnString: String, userColor: PieceColor) {
         self.id = UUID()
@@ -36,10 +38,6 @@ struct GameTree: Codable, Hashable {
         return ExamplePGN.list.randomElement()!.gameTree!
     }
 }
-
-
-
-
 
 extension GameTree {
     init(from decoder: Decoder) throws {

@@ -29,20 +29,23 @@ import ChessKit
     @Published var userColor: PieceColor = .white
     
     var annotation: (String?, String?) {
-        return (nil,nil)
-//        if currentNodes.count > 1 {
-//            return (nil, nil)
-//        } else {
-//            if let currentNode = currentNodes.first {
-//                if let parentNodeAnnotation = currentNode.parent.first(where: {moveHistory[moveHistory.count-2].1 == $0.move})?.annotation {
-//                    return (currentNode.annotation, parentNodeAnnotation)
-//                } else {
-//                    return (currentNode.annotation, nil)
-//                }
-//            } else {
-//                return (nil, nil)
-//            }
-//        }
+        if currentNodes.count > 1 {
+            return (nil, nil)
+        } else {
+            if let currentNode = currentNodes.first {
+                guard let moveNode = currentNode.parents.first(where: {$0.move == moveHistory[positionIndex].0}) else { return (nil, nil) }
+                let currentAnnotation = moveNode.annotation
+                
+                if positionIndex > 0 {
+                    guard let oldMoveNode = moveNode.parent?.parents.first(where: {$0.move == moveHistory[positionIndex-1].0}) else { return (nil, nil) }
+                    return (currentAnnotation, oldMoveNode.annotation)
+                } else {
+                    return (currentAnnotation, nil)
+                }
+            } else {
+                return (nil, nil)
+            }
+        }
     }
     
     func saveUserDefaults() {
@@ -133,11 +136,12 @@ import ChessKit
         
         await MainActor.run {
             let san = SanSerialization.default.correctSan(for: newMove!, in: self.game)
-
-//            self.moveStringList.append(san)
+            
             self.positionHistory.append(self.game.position)
             self.moveHistory.append((newMove!, san))
             self.positionIndex = self.positionIndex + 1
+            
+            addMistake(0)
             
             self.game.make(move: newMove!)
             if newNode!.children.isEmpty {
@@ -200,10 +204,10 @@ import ChessKit
     }
     
     func addMistake(_ mistake: Int) {
-//        for node in currentNodes {
-//            node.mistakesLast5Moves.removeFirst()
-//            node.mistakesLast5Moves.append(mistake)
-//        }
+        for node in currentNodes {
+            node.mistakesLast5Moves.removeFirst()
+            node.mistakesLast5Moves.append(mistake)
+        }
     }
     
     func generateMove(game: Game, node: GameNode) -> (Move?, GameNode?) {
@@ -214,31 +218,27 @@ import ChessKit
             return (generatedMove, newNode)
         }
         
-//        // Probabilities based on Mistakes
-//        let probabilitiesMistakes = node.children.map({$0.mistakesRate / node.children.map({$0.mistakesRate}).reduce(0, +)})
-//
-//
-//        // Probability based on Depth
-//        let depthArray: [Double] = node.children.map({Double($0.depth) * Double($0.depth)})
-//        let summedDepth = depthArray.reduce(0, +)
-//
-//        var probabilitiesDepth = [Double]()
-//
-//        if summedDepth == 0 {
-//            probabilitiesDepth = Array(repeating: 1 / Double(node.children.count), count: node.children.count)
-//        } else {
-//            probabilitiesDepth = depthArray.map({$0 / Double(summedDepth)})
-//        }
-//
-//        // Combine probabilities
-//        var probabilities = zip(probabilitiesMistakes,probabilitiesDepth).map() {$0 * Double(probabilitiesMistakes.count) * $1}
-//        probabilities = probabilities.map({$0 / probabilities.reduce(0,+)})
+        // Probabilities based on Mistakes
+        let probabilitiesMistakes = node.children.map({$0.child.mistakesRate / node.children.map({$0.child.mistakesRate}).reduce(0, +)})
+        // Probability based on Depth
+        let depthArray: [Double] = node.children.map({Double($0.child.depth) * Double($0.child.depth)})
+        let summedDepth = depthArray.reduce(0, +)
+
+        var probabilitiesDepth = [Double]()
+
+        if summedDepth == 0 {
+            probabilitiesDepth = Array(repeating: 1 / Double(node.children.count), count: node.children.count)
+        } else {
+            probabilitiesDepth = depthArray.map({$0 / Double(summedDepth)})
+        }
+
+        // Combine probabilities
+        var probabilities = zip(probabilitiesMistakes,probabilitiesDepth).map() {$0 * Double(probabilitiesMistakes.count) * $1}
+        probabilities = probabilities.map({$0 / probabilities.reduce(0,+)})
         
-        let probabilities = Array(repeating: 1000.0/Double(node.children.count), count: node.children.count)
-        
-//        print("Depth: \(probabilitiesDepth)")
-//        print("Mistake: \(probabilitiesMistakes)")
-//        print("Total: \(probabilities)")
+        print("Depth: \(probabilitiesDepth)")
+        print("Mistake: \(probabilitiesMistakes)")
+        print("Total: \(probabilities)")
         
         // Make random Int between 0 and 1000
         var randomInt = Int.random(in: 0...1000)
