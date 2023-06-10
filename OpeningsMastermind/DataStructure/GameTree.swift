@@ -35,7 +35,8 @@ struct GameTree: Codable, Hashable {
     }
     
     static func example() -> GameTree {
-        return ExamplePGN.list.randomElement()!.gameTree!
+        let example = ExamplePGN.list.randomElement()!
+        return GameTree(name: example.name, pgnString: example.pgnString ?? "", userColor: example.userColor)
     }
 }
 

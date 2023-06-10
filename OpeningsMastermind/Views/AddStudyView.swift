@@ -182,18 +182,18 @@ struct AddStudyView: View {
                     List(selection: $exampleSelection) {
                         ForEach(ExamplePGN.list, id: \.self) { listItem in
                             VStack(alignment: .leading) {
-                                Text(listItem.gameTree!.name)
+                                Text(listItem.name)
                                 Text("created by " + listItem.creator)
                                     .font(Font.caption2)
                             }
-                            .opacity(database.gametrees.contains(where: {$0.name == listItem.gameTree!.name}) ? 0.5 : 1.0)
+                            .opacity(database.gametrees.contains(where: {$0.name == listItem.name}) ? 0.5 : 1.0)
                             .padding(.vertical, 3)
                             .contextMenu {
                                 Button{openURL(URL(string: listItem.url)!)} label: {
                                     Label("Visit Study on Lichess.com", systemImage: "safari")
                                 }
                             }
-                            .if(database.gametrees.contains(where: {$0.name == listItem.gameTree!.name})) { view in
+                            .if(database.gametrees.contains(where: {$0.name == listItem.name})) { view in
                                 view._untagged()
                             }
                         }
@@ -284,7 +284,9 @@ struct AddStudyView: View {
         if exampleSelection.isEmpty { return }
         Task {
             for example in exampleSelection {
-                self.database.addNewGameTree(example.gameTree!)
+                if let pgnString = example.pgnString {
+                    _ = self.database.addNewGameTree(name: example.name, pgnString: pgnString, userColor: example.userColor)
+                }
             }
         }
         self.presentationMode.wrappedValue.dismiss()

@@ -40,7 +40,7 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                                     .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                                     .position(x: geo.size.width/2 + (CGFloat(piece.0.file) - 3.5) * vm.squareLength(in: geo.size), y:vm.squareLength(in: geo.size)*4 - (CGFloat(piece.0.rank) - 3.5) * vm.squareLength(in: geo.size))
                                     .offset(vm.offsets[vm.indexOf(piece.0)])
-                                    .gesture(
+                                    .simultaneousGesture(
                                         DragGesture()
                                             .onChanged{ value in
                                                 if value.startLocation == value.location {
@@ -80,12 +80,11 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                                     .font(.system(size: vm.squareLength(in: geo.size)/4))
                                     .foregroundColor((row + col) % 2 == 0 ? settings.boardColorRGB.black.getColor() : settings.boardColorRGB.white.getColor())
                             }
-                            if vm.possibleSquares.contains(Square(file: col, rank: 7-row)) {
-                                Circle()
-                                    .opacity(0.3)
-                                    .frame(width: vm.squareLength(in: geo.size)/2)
-                                    .position(vm.squarePosition(in: geo.size, col: col, row: row))
-                            }
+                            Circle()
+                                .opacity(vm.possibleSquares.contains(Square(file: col, rank: 7-row)) ? 0.3 : 0.0)
+                                .frame(width: vm.squareLength(in: geo.size)/2)
+                                .position(vm.squarePosition(in: geo.size, col: col, row: row))
+                            
                             if vm.selectedSquare?.0 == Square(file: col, rank: 7-row) {
                                 Rectangle()
                                     .fill(Color.yellow)
@@ -102,17 +101,17 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                             if let piece = vm.pieces.first(where: {$0.0 == Square(file: col, rank: 7-row)}) {
                                 if let selectedSquare = vm.selectedSquare {
                                     if selectedSquare == piece {
-                                        parentVM.selectedSquare = nil
+                                        vm.selectedSquare = nil
                                     } else {
-                                        parentVM.selectedSquare = piece
+                                        vm.selectedSquare = piece
                                     }
                                 } else {
-                                    parentVM.selectedSquare = piece
+                                    vm.selectedSquare = piece
                                 }
                             } else {
                                 if let selectedSquare = vm.selectedSquare {
                                     parentVM.processMoveAction(piece: selectedSquare.1, from: selectedSquare.0, to: Square(file: col, rank: 7-row))
-                                    parentVM.selectedSquare = nil
+                                    vm.selectedSquare = nil
                                 }
                             }
                         }

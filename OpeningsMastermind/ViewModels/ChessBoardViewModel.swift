@@ -36,6 +36,15 @@ extension ChessboardView {
             return annotations
         }
         
+        var selectedSquare: (Square, Piece)?  {
+            get {
+                return vm_parent.selectedSquare
+            }
+            set {
+                vm_parent.selectedSquare = newValue
+            }
+        }
+        
         var last2Moves: (Move?,Move?) {
             vm_parent.last2Moves
         }
@@ -58,10 +67,6 @@ extension ChessboardView {
         
         var promotionMove: Move? {
             vm_parent.promotionMove
-        }
-        
-        var selectedSquare: (Square, Piece)? {
-            return vm_parent.selectedSquare
         }
         
         var possibleSquares: [Square] {
