@@ -6,22 +6,28 @@
 //
 
 import Foundation
+import ChessKit
 
 extension GameTree {
     static func decodePGN(pgnString: String) -> GameNode {
         
+        var game = Game(position: startingGamePosition)
+        
         let chapters = pgnString.split(separator: "\n\n\n", omittingEmptySubsequences: true)
 
-        let rootNode = GameNode(moveString: "")
-        
+        let rootNode = GameNode()
         var currentNode = rootNode
-        var newNode = rootNode
         
         var variationNodes: [GameNode] = []
         
         var commentActive = false
         
         var comment: String = ""
+        
+        var dictPosition: [GameNode: Board] = [:]
+        var dictNode: [Board: GameNode] = [:]
+        
+        var boardPosition: [Board: Position] = [:]
         
         for i in 0..<chapters.count {
             let chapter = String(chapters[i])
@@ -38,6 +44,7 @@ extension GameTree {
             let rawMoves = pgnChapter.components(separatedBy: .whitespacesAndNewlines).filter({$0 != ""})
             
             currentNode = rootNode
+            game = Game(position: startingGamePosition)
 
             for rawMove in rawMoves {
                 var modifiedString = rawMove
@@ -86,9 +93,11 @@ extension GameTree {
                 } else if isMoveNumberBlack(modifiedString) {
                     continue
                 }
+                
                 if isVariationMoveNumber(modifiedString) {
                     variationNodes.append(currentNode)
-                    currentNode = currentNode.parent!
+                    currentNode = currentNode.parents.last!.parent!
+                    game = Game(position: boardPosition[dictPosition[currentNode]!]!)
                     continue
                 }
                 if modifiedString.hasSuffix(")") {
@@ -97,9 +106,15 @@ extension GameTree {
                         modifiedMove = String(modifiedMove.dropLast())
                         if !modifiedMove.isEmpty && !modifiedMove.hasPrefix("$") && !modifiedMove.hasSuffix(")") {
                             currentNode = addMoveToTree(modifiedMove)
+                            
+                            currentNode = variationNodes.last!
+                            variationNodes.removeLast()
+                            
+                            game = Game(position: boardPosition[dictPosition[currentNode]!]!)
+                        } else {
+                            currentNode = variationNodes.last!
+                            variationNodes.removeLast()
                         }
-                        currentNode = variationNodes.last!
-                        variationNodes.removeLast()
                     }
                 } else if modifiedString == "*" {
                     continue
@@ -126,6 +141,8 @@ extension GameTree {
         }
         
         func addMoveToTree(_ rawMove: String) -> GameNode {
+            var newNode = rootNode
+            
             if rawMove == "" || rawMove == "\n" {
                 print("Alarm")
             }
@@ -145,11 +162,31 @@ extension GameTree {
             if move == ")" {
                 print("whaaat")
             }
-            if !currentNode.children.contains(where: {$0.move==move}) {
-                newNode = GameNode(moveString: move, annotation: annotation, parent: currentNode)
-                currentNode.children.append(newNode)
-            } else {
-                newNode = currentNode.children.first(where: {$0.move==move})!
+            
+            let moveLiteral = SanSerialization.default.move(for: move, in: game)
+            
+            game.make(move: moveLiteral)
+            
+            if currentNode.children.contains(where: {$0.moveString==move}) {
+                newNode = currentNode.children.first(where: {$0.moveString==move})!.child
+            }
+//            else if let node = dictNode[game.position.board] {
+//                newNode = GameNode(moveString: move, annotation: annotation, parent: currentNode)
+//                newNode.children += node.children
+//                for child in node.children {
+//                    child.parent.append(newNode)
+//                }
+//            }
+            else {
+                newNode = GameNode()
+                
+                let moveNode = MoveNode(moveString: move, move: moveLiteral, annotation: annotation, child: newNode, parent: currentNode)
+                currentNode.children.append(moveNode)
+                newNode.parents.append(moveNode)
+                
+                dictNode[game.position.board] = newNode
+                dictPosition[newNode] = game.position.board
+                boardPosition[game.position.board] = game.position
             }
             return newNode
         }
@@ -172,33 +209,4 @@ extension GameTree {
             return str.range(of: pattern, options: .regularExpression) != nil
         }
     }
-    
-    
-//    static func decodePGNnew(pgnString: String) -> GameNode {
-//        let chapters = pgnString.split(separator: "\n\n").filter({$0.hasPrefix("1.")})
-//        let rootNode = GameNode(moveString: "")
-//
-//        var currentNode = rootNode
-//        var newNode = rootNode
-//
-//        var currentPartType: PGNpartType = .number
-//
-//        for i in 0..<chapters.count {
-//            currentNode = rootNode
-//        }
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//        return GameNode(moveString: "efsfs")
-//    }
-//
-//    enum PGNpartType {
-//        case comment, move, number, annotation
-//    }
 }

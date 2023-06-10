@@ -23,7 +23,7 @@ struct ContentView: View {
                     Label("Explorer", systemImage: "book")
                 }
                 .tag(0)
-            PracticeView(database: database, settings: settings, gameTree: GameTree.example())
+            PracticeView(database: database, settings: settings)
                 .tabItem {
                     Label("Practice", systemImage: "checkerboard.rectangle")
                 }

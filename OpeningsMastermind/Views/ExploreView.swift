@@ -41,9 +41,11 @@ struct ExploreView: View {
             GeometryReader { geo in
                 layout {
                     HStack(spacing: 0) {
-                        EvalBarView(eval: vm.evaluation, mate: vm.mateInXMoves, userColor: vm.userColor)
-                            .frame(width: 20)
-                            .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
+                        if settings.engineOn {
+                            EvalBarView(eval: vm.evaluation, mate: vm.mateInXMoves, userColor: vm.userColor)
+                                .frame(width: 20)
+                                .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
+                        }
                         ChessboardView(vm: vm, settings: settings)
                             .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                     }

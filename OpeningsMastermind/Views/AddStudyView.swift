@@ -284,7 +284,7 @@ struct AddStudyView: View {
         if exampleSelection.isEmpty { return }
         Task {
             for example in exampleSelection {
-                self.database.addNewGameTree(GameTree(with: example.gameTree!))
+                self.database.addNewGameTree(example.gameTree!)
             }
         }
         self.presentationMode.wrappedValue.dismiss()

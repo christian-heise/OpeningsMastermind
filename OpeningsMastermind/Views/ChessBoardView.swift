@@ -40,7 +40,7 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                                     .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                                     .position(x: geo.size.width/2 + (CGFloat(piece.0.file) - 3.5) * vm.squareLength(in: geo.size), y:vm.squareLength(in: geo.size)*4 - (CGFloat(piece.0.rank) - 3.5) * vm.squareLength(in: geo.size))
                                     .offset(vm.offsets[vm.indexOf(piece.0)])
-                                    .simultaneousGesture(
+                                    .gesture(
                                         DragGesture()
                                             .onChanged{ value in
                                                 if value.startLocation == value.location {

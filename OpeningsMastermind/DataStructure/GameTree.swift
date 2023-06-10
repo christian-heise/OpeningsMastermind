@@ -1,110 +1,83 @@
 //
-//  GameTree.swift
-//  ChessOpeningTrainer
+//  GameTreeNew.swift
+//  OpeningsMastermind
 //
-//  Created by Christian Gleißner on 20.04.23.
+//  Created by Christian Gleißner on 09.06.23.
 //
-
 
 import Foundation
-import SwiftUI
 import ChessKit
 
 struct GameTree: Codable, Hashable {
     let id: UUID
-    static func == (lhs: GameTree, rhs: GameTree) -> Bool {
-        return lhs.id == rhs.id
-    }
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-    }
     
-    let name: String
+    var name: String
+    var userColor: PieceColor
     let rootNode: GameNode
-    let userColor: PieceColor
+    
     let pgnString: String
-    let date: Date
+    let dateAdded: Date
     
-    var lastPlayed: Date
+    var dateLastPlayed: Date
     
-    var progress: Double {
-//        return Double.random(in: 0...0.8)
-        return self.userColor == .white ? 1-self.rootNode.progress : 1-self.rootNode.children.first!.progress
-    }
-    
-    init(with gametree: GameTree) {
-        self.name = gametree.name
-        self.rootNode = gametree.rootNode
-        self.userColor = gametree.userColor
-        self.pgnString = gametree.pgnString
-        
-        self.date = Date()
-        self.lastPlayed = Date(timeIntervalSince1970: 0)
-        
-        self.id = UUID()
-    }
-    
-    init(name: String, rootNode: GameNode, userColor: PieceColor, pgnString: String = "") {
-        self.name = name
-        self.rootNode = rootNode
-        self.userColor = userColor
-        self.pgnString = pgnString
-        
-        self.date = Date()
-        self.lastPlayed = Date(timeIntervalSince1970: 0)
-        
-        self.id = UUID()
-    }
+    var progress = Double.random(in: 0...1)
     
     init(name: String, pgnString: String, userColor: PieceColor) {
+        self.id = UUID()
         self.name = name
         self.userColor = userColor
-        
-        let rootNode = GameTree.decodePGN(pgnString: pgnString)
-        
-        self.rootNode = rootNode
+        self.rootNode = GameTree.decodePGN(pgnString: pgnString)
         self.pgnString = pgnString
-        
-        self.date = Date()
-        self.lastPlayed = Date(timeIntervalSince1970: 0)
-        
-        self.id = UUID()
+        self.dateAdded = Date()
+        self.dateLastPlayed = Date(timeIntervalSince1970: 0)
     }
     
     static func example() -> GameTree {
         return ExamplePGN.list.randomElement()!.gameTree!
     }
-    
+}
+
+
+
+
+
+extension GameTree {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-
-        self.name = try container.decode(String.self, forKey: .name)
-        self.pgnString = try container.decode(String.self, forKey: .pgnString)
-        self.date = try container.decodeIfPresent(Date.self, forKey: .date) ?? Date()
-        self.lastPlayed = try container.decodeIfPresent(Date.self, forKey: .lastPlayed) ?? Date(timeIntervalSince1970: 0)
         
-        let rootNode =  try GameNode.decodeRecursively(from: decoder)
-        self.rootNode = rootNode
+        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        
+        self.name = try container.decode(String.self, forKey: .name)
         let userColorString = try container.decode(String.self, forKey: .userColor)
         self.userColor = userColorString=="white" ? .white : .black
-        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        self.rootNode = try container.decode(GameNode.self, forKey: .rootNode)
+        
+        self.pgnString = try container.decode(String.self, forKey: .pgnString)
+        self.dateAdded = try container.decodeIfPresent(Date.self, forKey: .dateAdded) ?? Date()
+        
+        self.dateLastPlayed = try container.decodeIfPresent(Date.self, forKey: .dateLastPlayed) ?? Date(timeIntervalSince1970: 0)
     }
-    
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        let userColorString = userColor == .white ? "white" : "black"
+        
+        try container.encode(id, forKey: .id)
         
         try container.encode(name, forKey: .name)
-        try container.encode(pgnString, forKey: .pgnString)
-        try rootNode.encodeRecursively(to: encoder)
+        let userColorString = userColor == .white ? "white" : "black"
         try container.encode(userColorString, forKey: .userColor)
+        try container.encode(rootNode, forKey: .rootNode)
         
-        try container.encode(date, forKey: .date)
-        try container.encode(lastPlayed, forKey: .lastPlayed)
-        try container.encode(id, forKey: .id)
+        try container.encode(pgnString, forKey: .pgnString)
+        try container.encode(dateAdded, forKey: .dateAdded)
+        
+        try container.encode(dateLastPlayed, forKey: .dateLastPlayed)
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
     enum CodingKeys: String, CodingKey {
-            case name, rootNode, userColor, pgnString, date, lastPlayed, id
-        }
+        case name, rootNode, userColor, pgnString, dateAdded, dateLastPlayed, id
+    }
 }

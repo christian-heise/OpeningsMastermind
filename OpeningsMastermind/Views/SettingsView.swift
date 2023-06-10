@@ -28,6 +28,10 @@ struct SettingsView: View {
     }
     
     var body: some View {
+        let engineOn = Binding(
+            get: { self.settings.engineOn },
+            set: { self.settings.engineOn = $0 }
+        )
         NavigationStack {
             Form {
                 HStack(alignment: .top){
@@ -56,7 +60,7 @@ struct SettingsView: View {
                         self.colorBlack = settings.boardColorRGB.black.getColor()
                     }
                 } header: {
-                    Text("General")
+                    Text("Board Style")
                         .fontWeight(.bold)
                 }
                 .onChange(of: self.colorWhite) { newValue in
@@ -66,6 +70,12 @@ struct SettingsView: View {
                 .onChange(of: self.colorBlack) { newValue in
                     self.settings.boardColorRGB.black = self.colorBlack.rgbValues
                     self.settings.save()
+                }
+                Section {
+                    Toggle("Stockfish Engine Evaluation", isOn: engineOn)
+                } header: {
+                    Text("Engine")
+                        .fontWeight(.bold)
                 }
                 Section {
                     Group {
@@ -132,7 +142,7 @@ struct SettingsView: View {
 //                    }
 
                 } header: {
-                    Text("Connect")
+                    Text("Connect Chess Account")
                         .fontWeight(.bold)
                 } footer: {
                     Text("Connection is used to show moves in your rating range in the Lichess Explorer.")

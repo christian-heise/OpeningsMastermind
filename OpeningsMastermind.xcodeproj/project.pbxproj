@@ -27,8 +27,6 @@
 		AAA1A19829F02352003F153F /* ChessOpeningTrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A19729F02352003F153F /* ChessOpeningTrainerUITests.swift */; };
 		AAA1A19A29F02352003F153F /* ChessOpeningTrainerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A19929F02352003F153F /* ChessOpeningTrainerUITestsLaunchTests.swift */; };
 		AAA1A1A829F02493003F153F /* ChessKit in Frameworks */ = {isa = PBXBuildFile; productRef = AAA1A1A729F02493003F153F /* ChessKit */; };
-		AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1B629F14CAC003F153F /* MoveNode.swift */; };
-		AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1B829F14D33003F153F /* GameTree.swift */; };
 		AAA1A1CA29F2CC44003F153F /* ArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1C929F2CC44003F153F /* ArrowShape.swift */; };
 		AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D429F415F9003F153F /* DataBase.swift */; };
 		AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D629F42E7F003F153F /* AddStudyView.swift */; };
@@ -50,6 +48,9 @@
 		AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC889A229F7DD3A0079ECE5 /* Extension.swift */; };
 		AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC889A429F802450079ECE5 /* PGNHelpView.swift */; };
 		AAC889A829F805370079ECE5 /* Popovers in Frameworks */ = {isa = PBXBuildFile; productRef = AAC889A729F805370079ECE5 /* Popovers */; };
+		AACF65482A33C0750058893F /* GameNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF65472A33C0750058893F /* GameNode.swift */; };
+		AACF654A2A33C5150058893F /* GameTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF65492A33C5150058893F /* GameTree.swift */; };
+		AACF654C2A3482390058893F /* MoveNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF654B2A3482390058893F /* MoveNode.swift */; };
 		AAD219632A1CECE6005BB0FE /* SwitchStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD219622A1CECE6005BB0FE /* SwitchStudyView.swift */; };
 		AADF267E2A16169600CF40ED /* ParentChessBoardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF267D2A16169600CF40ED /* ParentChessBoardProtocol.swift */; };
 		AADF26802A16192400CF40ED /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF267F2A16192400CF40ED /* ExploreViewModel.swift */; };
@@ -116,8 +117,8 @@
 		AAA1A19329F02352003F153F /* OpeningsMastermindUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpeningsMastermindUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA1A19729F02352003F153F /* ChessOpeningTrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessOpeningTrainerUITests.swift; sourceTree = "<group>"; };
 		AAA1A19929F02352003F153F /* ChessOpeningTrainerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessOpeningTrainerUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		AAA1A1B629F14CAC003F153F /* MoveNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveNode.swift; sourceTree = "<group>"; };
-		AAA1A1B829F14D33003F153F /* GameTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTree.swift; sourceTree = "<group>"; };
+		AAA1A1B629F14CAC003F153F /* GameNodeOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNodeOld.swift; sourceTree = "<group>"; };
+		AAA1A1B829F14D33003F153F /* GameTreeOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTreeOld.swift; sourceTree = "<group>"; };
 		AAA1A1C929F2CC44003F153F /* ArrowShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowShape.swift; sourceTree = "<group>"; };
 		AAA1A1D429F415F9003F153F /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		AAA1A1D629F42E7F003F153F /* AddStudyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStudyView.swift; sourceTree = "<group>"; };
@@ -139,6 +140,9 @@
 		AAC6431D29FA821800D1C12E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AAC889A229F7DD3A0079ECE5 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		AAC889A429F802450079ECE5 /* PGNHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PGNHelpView.swift; sourceTree = "<group>"; };
+		AACF65472A33C0750058893F /* GameNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNode.swift; sourceTree = "<group>"; };
+		AACF65492A33C5150058893F /* GameTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTree.swift; sourceTree = "<group>"; };
+		AACF654B2A3482390058893F /* MoveNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveNode.swift; sourceTree = "<group>"; };
 		AAD219622A1CECE6005BB0FE /* SwitchStudyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchStudyView.swift; sourceTree = "<group>"; };
 		AADF267D2A16169600CF40ED /* ParentChessBoardProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChessBoardProtocol.swift; sourceTree = "<group>"; };
 		AADF267F2A16192400CF40ED /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
@@ -294,10 +298,13 @@
 				AA930ED92A09765200026712 /* SortingMethod.swift */,
 				AADF269C2A178D3700CF40ED /* LichessOpeningData.swift */,
 				AADF269E2A17AF4300CF40ED /* LichessUserData.swift */,
-				AAA1A1B829F14D33003F153F /* GameTree.swift */,
+				AACF65472A33C0750058893F /* GameNode.swift */,
+				AACF654B2A3482390058893F /* MoveNode.swift */,
+				AACF65492A33C5150058893F /* GameTree.swift */,
 				AAA1A1E929F6DDD6003F153F /* Settings.swift */,
-				AAA1A1B629F14CAC003F153F /* MoveNode.swift */,
 				AAA1A1EB29F6FD86003F153F /* decodePGN.swift */,
+				AAA1A1B629F14CAC003F153F /* GameNodeOld.swift */,
+				AAA1A1B829F14D33003F153F /* GameTreeOld.swift */,
 			);
 			path = DataStructure;
 			sourceTree = "<group>";
@@ -492,24 +499,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AACF654C2A3482390058893F /* MoveNode.swift in Sources */,
 				AAA1A1E029F56F32003F153F /* ExamplePGN.swift in Sources */,
 				AADF269D2A178D3700CF40ED /* LichessOpeningData.swift in Sources */,
 				AADF269B2A178CF300CF40ED /* LichessExplorerView.swift in Sources */,
 				AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */,
 				AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */,
 				AAB5A6E42A1916E2007F1302 /* HelpExplorerPageView.swift in Sources */,
-				AAA1A1B729F14CAC003F153F /* MoveNode.swift in Sources */,
 				AADF267E2A16169600CF40ED /* ParentChessBoardProtocol.swift in Sources */,
 				AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */,
 				AADF269F2A17AF4300CF40ED /* LichessUserData.swift in Sources */,
 				AADF26802A16192400CF40ED /* ExploreViewModel.swift in Sources */,
 				AAA1A17E29F02351003F153F /* ContentView.swift in Sources */,
-				AAA1A1B929F14D33003F153F /* GameTree.swift in Sources */,
 				AA6960772A05403F00A593BB /* ListView.swift in Sources */,
 				AAC6431629F9374B00D1C12E /* PrivacyView.swift in Sources */,
 				AAD219632A1CECE6005BB0FE /* SwitchStudyView.swift in Sources */,
 				AA87F3DD2A013A34009D7017 /* AnnotationView.swift in Sources */,
 				AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */,
+				AACF65482A33C0750058893F /* GameNode.swift in Sources */,
 				AA69607B2A05461700A593BB /* ChessboardView.swift in Sources */,
 				AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */,
 				AA4786BD2A1B880A00BB4144 /* SelectStudyView.swift in Sources */,
@@ -533,6 +540,7 @@
 				AAE367F82A0BED95006A2574 /* ChessBoardViewModel.swift in Sources */,
 				AAC6431129F8205D00D1C12E /* AcknowledgementsView.swift in Sources */,
 				AAB5A6E22A18FCD3007F1302 /* HelpExplorerView.swift in Sources */,
+				AACF654A2A33C5150058893F /* GameTree.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -713,7 +721,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 0.6;
+				MARKETING_VERSION = 0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -757,7 +765,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 0.6;
+				MARKETING_VERSION = 0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
