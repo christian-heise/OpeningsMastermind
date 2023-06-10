@@ -65,12 +65,15 @@ class DataBase: ObservableObject, Codable {
         self.save()
     }
     
-    func addNewGameTree(name: String, pgnString: String, userColor: PieceColor) -> Bool {
+    func addNewGameTree(name: String, pgnString: String, userColor: PieceColor) async -> Bool {
+    
         let newGameTree = GameTree(name: name, pgnString: pgnString, userColor: userColor)
         
         if !newGameTree.rootNode.children.isEmpty {
-            self.gametrees.append(newGameTree)
-            self.save()
+            await MainActor.run {
+                self.gametrees.append(newGameTree)
+                self.save()
+            }
             return true
         }
         else {

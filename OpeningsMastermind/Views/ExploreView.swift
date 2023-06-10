@@ -50,7 +50,7 @@ struct ExploreView: View {
                             .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                     }
                     .if(!landscape) { view in
-                        view.frame(height: max(min(geo.size.width-20, max(geo.size.height - 50 - 40 - 85, 300)), 30))
+                        view.frame(height: max(min(settings.engineOn ? geo.size.width-20 : geo.size.width, max(geo.size.height - 50 - 40 - 85, 300)), 30))
                     }
                         
                     VStack {

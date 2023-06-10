@@ -272,10 +272,13 @@ struct AddStudyView: View {
             duplicateError = true
             nameError = true
         } else {
-            if database.addNewGameTree(name: nameString, pgnString: pgnString, userColor: selectedPieceColor) {
-                self.presentationMode.wrappedValue.dismiss()
-            } else {
-                pgnError = true
+            Task {
+                let result = await database.addNewGameTree(name: nameString, pgnString: pgnString, userColor: selectedPieceColor)
+                if result {
+                    self.presentationMode.wrappedValue.dismiss()
+                } else {
+                    pgnError = true
+                }
             }
         }
     }
@@ -285,7 +288,9 @@ struct AddStudyView: View {
         Task {
             for example in exampleSelection {
                 if let pgnString = example.pgnString {
-                    _ = self.database.addNewGameTree(name: example.name, pgnString: pgnString, userColor: example.userColor)
+                    Task {
+                        _ = await self.database.addNewGameTree(name: example.name, pgnString: pgnString, userColor: example.userColor)
+                    }
                 }
             }
         }

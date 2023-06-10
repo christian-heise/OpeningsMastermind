@@ -14,6 +14,8 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
     @StateObject private var vm: ChessBoardViewModel<ParentVM>
     @ObservedObject private var parentVM: ParentVM
     
+    @State var dragOffset: CGSize = .zero
+    
     init(vm vm_parent: ParentVM, settings: Settings) where ParentVM: ParentChessBoardModelProtocol {
         self._vm = StateObject(wrappedValue: ChessBoardViewModel(vm_practiceView: vm_parent))
         self.settings = settings
@@ -39,7 +41,7 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                                     .frame(width: vm.squareLength(in: geo.size),height:vm.squareLength(in: geo.size))
                                     .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                                     .position(x: geo.size.width/2 + (CGFloat(piece.0.file) - 3.5) * vm.squareLength(in: geo.size), y:vm.squareLength(in: geo.size)*4 - (CGFloat(piece.0.rank) - 3.5) * vm.squareLength(in: geo.size))
-                                    .offset(vm.offsets[vm.indexOf(piece.0)])
+                                    .offset(piece.0 == vm.draggedSquare ? dragOffset : .zero)
                                     .simultaneousGesture(
                                         DragGesture()
                                             .onChanged{ value in
@@ -47,7 +49,8 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                                                     parentVM.selectedSquare = nil
                                                 }
                                                 vm.draggedSquare = piece.0
-                                                vm.offsets[vm.indexOf(piece.0)] = value.translation
+//                                                vm.offsets[vm.indexOf(piece.0)] = value.translation
+                                                dragOffset = value.translation
                                             }
                                             .onEnded { value in
                                                 vm.draggedSquare = nil
@@ -98,20 +101,16 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                             }
                         }
                         .onTapGesture {
-                            if let piece = vm.pieces.first(where: {$0.0 == Square(file: col, rank: 7-row)}) {
-                                if let selectedSquare = vm.selectedSquare {
-                                    if selectedSquare == piece {
-                                        vm.selectedSquare = nil
-                                    } else {
-                                        vm.selectedSquare = piece
-                                    }
+                            if let selectedSquare = vm.selectedSquare {
+                                if parentVM.game.legalMoves.contains(where: {$0.from == Square(file: col, rank: 7-row)}) {
+                                    vm.selectedSquare = vm.pieces.first(where: {$0.0 == Square(file: col, rank: 7-row)})
                                 } else {
-                                    vm.selectedSquare = piece
-                                }
-                            } else {
-                                if let selectedSquare = vm.selectedSquare {
                                     parentVM.processMoveAction(piece: selectedSquare.1, from: selectedSquare.0, to: Square(file: col, rank: 7-row))
                                     vm.selectedSquare = nil
+                                }
+                            } else if let piece = vm.pieces.first(where: {$0.0 == Square(file: col, rank: 7-row)}) {
+                                if parentVM.game.legalMoves.contains(where: {$0.from == Square(file: col, rank: 7-row)}) {
+                                    vm.selectedSquare = piece
                                 }
                             }
                         }

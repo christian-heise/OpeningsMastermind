@@ -207,6 +207,10 @@ import ChessKit
             node.mistakesLast5Moves.removeFirst()
             node.mistakesLast5Moves.append(mistake)
         }
+        self.database.objectWillChange.send()
+//        for tree in self.selectedGameTrees {
+//            database.gametrees.first(where: {$0.id == tree.id})?.dateLastPlayed = Date()
+//        }
     }
     
     func generateMove(game: Game, node: GameNode) -> (Move?, GameNode?) {
