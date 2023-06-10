@@ -35,17 +35,26 @@ extension GameTree {
                 let fenString = String(chapter[fenRange])
                 let fen = fenString.replacingOccurrences(of: "[FEN \"", with: "").replacingOccurrences(of: "\"]", with: "")
                 if fen != startingFEN {
-                    continue
+                    let position = FenSerialization.default.deserialize(fen: fen)
+                    if let startingNode = dictNode[position.board] {
+                        currentNode = startingNode
+                        game = Game(position: position)
+                    } else {
+                        continue
+                    }
+                } else {
+                    currentNode = rootNode
+                    game = Game(position: startingGamePosition)
                 }
+            } else {
+                currentNode = rootNode
+                game = Game(position: startingGamePosition)
             }
             
             guard let range = chapter.range(of: "(?<=\\n|^)1\\.", options: .regularExpression) else { continue }
             let pgnChapter = String(chapter[range.lowerBound...])
             let rawMoves = pgnChapter.components(separatedBy: .whitespacesAndNewlines).filter({$0 != ""})
             
-            currentNode = rootNode
-            game = Game(position: startingGamePosition)
-
             for rawMove in rawMoves {
                 var modifiedString = rawMove
                 
