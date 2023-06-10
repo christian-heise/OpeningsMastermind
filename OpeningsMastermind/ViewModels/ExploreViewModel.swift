@@ -227,9 +227,7 @@ import ChessKitEngine
     }
     
     func makeMainLineMove() {
-        let decoder = SanSerialization.default
-        
-        guard let move = currentExploreNode.gameNode?.children.randomElement()?.move else {return}
+        guard let move = currentExploreNode.gameNode?.children.first?.move else {return}
         self.performMove(move)
     }
     

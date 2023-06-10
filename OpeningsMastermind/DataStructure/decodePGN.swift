@@ -24,10 +24,10 @@ extension GameTree {
         
         var comment: String = ""
         
-        var dictPosition: [GameNode: Board] = [:]
-        var dictNode: [Board: GameNode] = [:]
+        var dictPosition: [GameNode: Board] = [rootNode:startingGamePosition.board]
+        var dictNode: [Board: GameNode] = [startingGamePosition.board:rootNode]
         
-        var boardPosition: [Board: Position] = [:]
+        var boardPosition: [Board: Position] = [startingGamePosition.board:startingGamePosition]
         
         for i in 0..<chapters.count {
             let chapter = String(chapters[i])
@@ -111,8 +111,11 @@ extension GameTree {
                             variationNodes.removeLast()
                             
                             game = Game(position: boardPosition[dictPosition[currentNode]!]!)
-                        } else {
+                        } else if modifiedMove.isEmpty || (modifiedMove.hasPrefix("$") && !modifiedMove.hasSuffix(")")) {
                             currentNode = variationNodes.last!
+                            variationNodes.removeLast()
+                            game = Game(position: boardPosition[dictPosition[currentNode]!]!)
+                        } else {
                             variationNodes.removeLast()
                         }
                     }
@@ -146,41 +149,40 @@ extension GameTree {
             if rawMove == "" || rawMove == "\n" {
                 print("Alarm")
             }
-            var move = ""
+            var moveString = ""
             var annotation: String = ""
             
             if rawMove.hasSuffix("!?") || rawMove.hasSuffix("?!") || rawMove.hasSuffix("!!") || rawMove.hasSuffix("??") {
                 annotation = String(rawMove.suffix(2))
-                move =  String(rawMove.dropLast(2))
+                moveString =  String(rawMove.dropLast(2))
             } else if rawMove.hasSuffix("!") || rawMove.hasSuffix("?") {
                 annotation = String(rawMove.suffix(1))
-                move =  String(rawMove.dropLast())
+                moveString =  String(rawMove.dropLast())
             } else {
-                move =  rawMove
+                moveString =  rawMove
             }
             
-            if move == ")" {
+            if moveString == ")" {
                 print("whaaat")
             }
             
-            let moveLiteral = SanSerialization.default.move(for: move, in: game)
+            let move = SanSerialization.default.move(for: moveString, in: game)
             
-            game.make(move: moveLiteral)
+            game.make(move: move)
             
-            if currentNode.children.contains(where: {$0.moveString==move}) {
-                newNode = currentNode.children.first(where: {$0.moveString==move})!.child
+            if currentNode.children.contains(where: {$0.moveString==moveString}) {
+                newNode = currentNode.children.first(where: {$0.moveString==moveString})!.child
             }
 //            else if let node = dictNode[game.position.board] {
-//                newNode = GameNode(moveString: move, annotation: annotation, parent: currentNode)
-//                newNode.children += node.children
-//                for child in node.children {
-//                    child.parent.append(newNode)
-//                }
+//                let moveNode = MoveNode(moveString: moveString, move: move, annotation: annotation, child: node, parent: currentNode)
+//                currentNode.children.append(moveNode)
+//                newNode = node
+//                newNode.parents.append(moveNode)
 //            }
             else {
                 newNode = GameNode()
                 
-                let moveNode = MoveNode(moveString: move, move: moveLiteral, annotation: annotation, child: newNode, parent: currentNode)
+                let moveNode = MoveNode(moveString: moveString, move: move, annotation: annotation, child: newNode, parent: currentNode)
                 currentNode.children.append(moveNode)
                 newNode.parents.append(moveNode)
                 

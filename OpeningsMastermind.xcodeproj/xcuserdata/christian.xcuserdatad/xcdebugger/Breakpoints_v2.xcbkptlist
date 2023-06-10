@@ -164,5 +164,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1669DECD-DE53-4C1B-886C-716DE77BA34E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpeningsMastermind/DataStructure/decodePGN.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "decodePGN(pgnString:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1669DECD-DE53-4C1B-886C-716DE77BA34E - 830ba93787cfc9c7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static OpeningsMastermind.GameTree.decodePGN(pgnString: Swift.String) -&gt; OpeningsMastermind.GameNode"
+                  moduleName = "OpeningsMastermind"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christian/Documents/Xcode/OpeningsMastermind/OpeningsMastermind/DataStructure/decodePGN.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "4688">
+               </Location>
+               <Location
+                  uuid = "1669DECD-DE53-4C1B-886C-716DE77BA34E - 830ba93787cfc9c7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static OpeningsMastermind.GameTree.decodePGN(pgnString: Swift.String) -&gt; OpeningsMastermind.GameNode"
+                  moduleName = "OpeningsMastermind"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christian/Documents/Xcode/OpeningsMastermind/OpeningsMastermind/DataStructure/decodePGN.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "4728">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
