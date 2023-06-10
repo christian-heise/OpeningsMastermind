@@ -292,9 +292,7 @@ import ChessKitEngine
             print("URL Session Failed")
             return nil}
         
-        guard var decodedData = try? JSONDecoder().decode(LichessOpeningData.self, from: data) else {
-            print("Decoding failed")
-            return nil}
+        guard let decodedData = try? JSONDecoder().decode(LichessOpeningData.self, from: data) else { return nil }
         
         lichessCache[fen] = decodedData
         return decodedData

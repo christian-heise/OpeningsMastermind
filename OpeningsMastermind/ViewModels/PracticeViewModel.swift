@@ -85,7 +85,6 @@ import ChessKit
     
     func determineRightMove() {
         self.rightMove = []
-        let decoder = SanSerialization.default
         for currentNode in currentNodes {
             for moveNode in currentNode.children {
                 self.rightMove.append(moveNode.move)

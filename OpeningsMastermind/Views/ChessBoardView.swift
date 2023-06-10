@@ -134,29 +134,6 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                             .zIndex(50)
                     }
                 }
-                
-//                ForEach(vm.pieces, id: \.0) { piece in
-//                    Image.piece(color: piece.1.color, kind: piece.1.kind)
-//                        .resizable()
-//                        .frame(width: vm.squareLength(in: geo.size),height:vm.squareLength(in: geo.size))
-//                        .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
-//                        .position(x: geo.size.width/2 + (CGFloat(piece.0.file) - 3.5) * vm.squareLength(in: geo.size), y:vm.squareLength(in: geo.size)*4 - (CGFloat(piece.0.rank) - 3.5) * vm.squareLength(in: geo.size))
-//                        .offset(vm.offsets[vm.indexOf(piece.0)])
-//                        .onTapGesture {
-//                            vm.selectedSquare = piece
-//                        }
-//                        .simultaneousGesture(
-//                            DragGesture()
-//                                .onChanged{ value in
-//                                    vm.draggedSquare = piece.0
-//                                    vm.offsets[vm.indexOf(piece.0)] = value.translation
-//                                }
-//                                .onEnded { value in
-//                                    vm.draggedSquare = nil
-//                                    vm.dragEnded(at: value, piece: piece.1, square: piece.0, in: geo.size)
-//                                })
-//                        .zIndex(vm.draggedSquare==piece.0 ? 1000:10)
-//                }
                 if let move = vm.last2Moves.0, let annotation = vm.annotations.0 {
                     AnnotationView(annotation: annotation)
                         .frame(width: vm.squareLength(in: geo.size)*0.5)
