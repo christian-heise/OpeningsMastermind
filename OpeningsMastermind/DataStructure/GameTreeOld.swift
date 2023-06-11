@@ -12,7 +12,7 @@ import ChessKit
 
 struct GameTreeOld: Codable, Hashable {
     let id: UUID
-    static func == (lhs: GameTree, rhs: GameTree) -> Bool {
+    static func == (lhs: GameTreeOld, rhs: GameTreeOld) -> Bool {
         return lhs.id == rhs.id
     }
     func hash(into hasher: inout Hasher) {
@@ -20,7 +20,7 @@ struct GameTreeOld: Codable, Hashable {
     }
     
     let name: String
-    let rootNode: GameNode
+    let rootNode: GameNodeOld
     let userColor: PieceColor
     let pgnString: String
     let date: Date
@@ -32,7 +32,7 @@ struct GameTreeOld: Codable, Hashable {
         return self.userColor == .white ? 1-self.rootNode.progress : 1-self.rootNode.children.first!.progress
     }
     
-    init(with gametree: GameTree) {
+    init(with gametree: GameTreeOld) {
         self.name = gametree.name
         self.rootNode = gametree.rootNode
         self.userColor = gametree.userColor
@@ -44,7 +44,7 @@ struct GameTreeOld: Codable, Hashable {
         self.id = UUID()
     }
     
-    init(name: String, rootNode: GameNode, userColor: PieceColor, pgnString: String = "") {
+    init(name: String, rootNode: GameNodeOld, userColor: PieceColor, pgnString: String = "") {
         self.name = name
         self.rootNode = rootNode
         self.userColor = userColor
@@ -55,25 +55,21 @@ struct GameTreeOld: Codable, Hashable {
         
         self.id = UUID()
     }
-    
-    init(name: String, pgnString: String, userColor: PieceColor) {
-        self.name = name
-        self.userColor = userColor
-        
-        let rootNode = GameTree.decodePGN(pgnString: pgnString)
-        
-        self.rootNode = rootNode
-        self.pgnString = pgnString
-        
-        self.date = Date()
-        self.lastPlayed = Date(timeIntervalSince1970: 0)
-        
-        self.id = UUID()
-    }
-    
-    static func example() -> GameTree {
-        return ExamplePGN.list.randomElement()!.gameTree!
-    }
+//
+//    init(name: String, pgnString: String, userColor: PieceColor) {
+//        self.name = name
+//        self.userColor = userColor
+//
+//        let rootNode = GameTree.decodePGN(pgnString: pgnString)
+//
+//        self.rootNode = rootNode
+//        self.pgnString = pgnString
+//
+//        self.date = Date()
+//        self.lastPlayed = Date(timeIntervalSince1970: 0)
+//
+//        self.id = UUID()
+//    }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -83,7 +79,7 @@ struct GameTreeOld: Codable, Hashable {
         self.date = try container.decodeIfPresent(Date.self, forKey: .date) ?? Date()
         self.lastPlayed = try container.decodeIfPresent(Date.self, forKey: .lastPlayed) ?? Date(timeIntervalSince1970: 0)
         
-        let rootNode =  try GameNode.decodeRecursively(from: decoder)
+        let rootNode =  try GameNodeOld.decodeRecursively(from: decoder)
         self.rootNode = rootNode
         let userColorString = try container.decode(String.self, forKey: .userColor)
         self.userColor = userColorString=="white" ? .white : .black

@@ -13,11 +13,11 @@ class GameNodeOld: Codable, Equatable, Hashable {
     let id = UUID()
     let move: String
     
-    var children: [GameNode] = []
+    var children: [GameNodeOld] = []
     
     var moveNumber: Int = 0
     var moveColor: PieceColor = .black
-    var parent: [GameNode] = []
+    var parent: [GameNodeOld] = []
     
     var comment: String?
     let annotation: String?
@@ -105,7 +105,7 @@ class GameNodeOld: Codable, Equatable, Hashable {
         return _depth!
     }
     
-    init(moveString: String, comment: String? = nil, annotation: String? = nil, parent: GameNode? = nil) {
+    init(moveString: String, comment: String? = nil, annotation: String? = nil, parent: GameNodeOld? = nil) {
         self.move = moveString
         
         self.comment = comment
@@ -118,7 +118,7 @@ class GameNodeOld: Codable, Equatable, Hashable {
         }
     }
     
-    static func ==(lhs: GameNode, rhs: GameNode) -> Bool {
+    static func ==(lhs: GameNodeOld, rhs: GameNodeOld) -> Bool {
         return lhs.move == rhs.move && lhs.moveNumber == rhs.moveNumber && lhs.moveColor == rhs.moveColor && lhs.parent == rhs.parent
     }
     
@@ -126,7 +126,7 @@ class GameNodeOld: Codable, Equatable, Hashable {
         hasher.combine(id)
     }
     
-    public func databaseContains(move: Move, in game: Game) -> (found: Bool, newNode: GameNode) {
+    public func databaseContains(move: Move, in game: Game) -> (found: Bool, newNode: GameNodeOld) {
         let decoder = SanSerialization.default
         let san = decoder.correctSan(for: move, in: game)
         
@@ -142,7 +142,7 @@ class GameNodeOld: Codable, Equatable, Hashable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         mistakesLast5Moves = try container.decodeIfPresent([Int].self, forKey: .mistakesLast5Moves) ?? Array(repeating: 1, count: 5)
-        children = try container.decode([GameNode].self, forKey: .children)
+        children = try container.decode([GameNodeOld].self, forKey: .children)
         move = try container.decode(String.self, forKey: .move)
         moveNumber = try container.decode(Int.self, forKey: .moveNumber)
         comment = try container.decodeIfPresent(String.self, forKey: .comment)
@@ -186,7 +186,7 @@ class GameNodeOld: Codable, Equatable, Hashable {
         try container.encode(annotation, forKey: .annotation)
     }
     
-    static func decodeRecursively(from decoder: Decoder) throws -> GameNode {
+    static func decodeRecursively(from decoder: Decoder) throws -> GameNodeOld {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         let mistakesLast5Moves = try container.decodeIfPresent([Int].self, forKey: .mistakesLast5Moves)
@@ -198,9 +198,9 @@ class GameNodeOld: Codable, Equatable, Hashable {
         let comment = try container.decodeIfPresent(String.self, forKey: .comment)
         let annotation = try container.decodeIfPresent(String.self, forKey: .annotation)
         
-        let children = try container.decode([GameNode].self, forKey: .children)
+        let children = try container.decode([GameNodeOld].self, forKey: .children)
         
-        let node = GameNode(moveString: move, comment: comment, annotation: annotation)
+        let node = GameNodeOld(moveString: move, comment: comment, annotation: annotation)
         
         node.mistakesLast5Moves = mistakesLast5Moves ?? Array(repeating: 1, count: 5)
         node.children = children
@@ -214,6 +214,6 @@ class GameNodeOld: Codable, Equatable, Hashable {
     }
     
     enum CodingKeys: String, CodingKey {
-            case move, children, moveNumber, moveColor, parent, mistakesLast5Moves, comment, annotation
-        }
+        case move, children, moveNumber, moveColor, parent, mistakesLast5Moves, comment, annotation
+    }
 }
