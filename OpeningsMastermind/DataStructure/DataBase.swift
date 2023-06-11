@@ -89,18 +89,20 @@ class DataBase: ObservableObject, Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        self.appVersion = try container.decodeIfPresent(String.self, forKey: .appVersion) ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        
         self.sortSelection = try container.decodeIfPresent(SortingMethod.self, forKey: .sortSelection) ?? .manual
         self.sortingDirectionIncreasing = try container.decodeIfPresent(Bool.self, forKey: .sortingDirectionIncreasing) ?? true
         
         print(Double(self.appVersion) ?? 0.8)
-        if Double(self.appVersion) < 0.7 {
+        if Double(self.appVersion) ?? 0.7 < 0.7 {
             let oldGameTree = try container.decode([GameTreeOld].self, forKey: .gameTrees)
             print("Successfully loaded \(oldGameTree.count) old gametrees")
             self.gametrees = []
         } else {
             self.gametrees = try container.decode([GameTree].self, forKey: .gameTrees)
         }
+        self.appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     }
     
     func encode(to encoder: Encoder) throws {
