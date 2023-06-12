@@ -12,6 +12,7 @@ import UniformTypeIdentifiers
 
 struct AddStudyView: View {
     @ObservedObject var database: DataBase
+    @Binding var isLoading: Bool
     
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) private var colorScheme
@@ -274,24 +275,28 @@ struct AddStudyView: View {
         } else {
             Task {
                 let result = await database.addNewGameTree(name: nameString, pgnString: pgnString, userColor: selectedPieceColor)
-                if result {
-                    self.presentationMode.wrappedValue.dismiss()
-                } else {
-                    pgnError = true
+                await MainActor.run {
+                    if result {
+                        self.presentationMode.wrappedValue.dismiss()
+                    } else {
+                        pgnError = true
+                    }
                 }
             }
         }
     }
     
     func addExamples() {
+        isLoading = true
         if exampleSelection.isEmpty { return }
         Task {
             for example in exampleSelection {
                 if let pgnString = example.pgnString {
-                    Task {
-                        _ = await self.database.addNewGameTree(name: example.name, pgnString: pgnString, userColor: example.userColor)
-                    }
+                    _ = await self.database.addNewGameTree(name: example.name, pgnString: pgnString, userColor: example.userColor)
                 }
+            }
+            await MainActor.run {
+                isLoading = false
             }
         }
         self.presentationMode.wrappedValue.dismiss()
@@ -320,6 +325,6 @@ struct AddStudyView: View {
 
 struct AddStudyView_Previews: PreviewProvider {
     static var previews: some View {
-        AddStudyView(database: DataBase())
+        AddStudyView(database: DataBase(), isLoading: .constant(false))
     }
 }

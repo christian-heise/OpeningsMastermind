@@ -9,7 +9,16 @@ import SwiftUI
 
 struct LoadingView: View {
     var body: some View {
-        Text("Load and convert your database")
+        VStack(spacing: 50) {
+            Image(uiImage: UIImage(named: "AppIcon") ?? UIImage())
+                .resizable()
+                .scaledToFit()
+                .cornerRadius(100/6.4)
+                .frame(width: 100)
+            Text("Loading your database")
+            ProgressView()
+                .scaleEffect(1.5)
+        }
     }
 }
 

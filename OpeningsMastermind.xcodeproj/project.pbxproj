@@ -64,6 +64,7 @@
 		AAE4C6D92A362E6100638E87 /* GameNodeOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1B629F14CAC003F153F /* GameNodeOld.swift */; };
 		AAE4C6DA2A362E6100638E87 /* GameTreeOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1B829F14D33003F153F /* GameTreeOld.swift */; };
 		AAE4C6DC2A370A5400638E87 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE4C6DB2A370A5400638E87 /* LoadingView.swift */; };
+		AAE4C6DE2A3710AC00638E87 /* PGNDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE4C6DD2A3710AC00638E87 /* PGNDecoder.swift */; };
 		AAF78B9B2A07B35B00FC8282 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */; };
 /* End PBXBuildFile section */
 
@@ -157,6 +158,7 @@
 		AADF269E2A17AF4300CF40ED /* LichessUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessUserData.swift; sourceTree = "<group>"; };
 		AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardViewModel.swift; sourceTree = "<group>"; };
 		AAE4C6DB2A370A5400638E87 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		AAE4C6DD2A3710AC00638E87 /* PGNDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PGNDecoder.swift; sourceTree = "<group>"; };
 		AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -238,6 +240,8 @@
 				AAA1A1D929F44353003F153F /* DataStructure */,
 				AAA1A1E429F66CB3003F153F /* Data */,
 				AAC889A229F7DD3A0079ECE5 /* Extension.swift */,
+				AAE4C6DF2A3711A200638E87 /* OldFiles */,
+				AAE4C6DD2A3710AC00638E87 /* PGNDecoder.swift */,
 				AAA1A17F29F02352003F153F /* Assets.xcassets */,
 				AAA1A18129F02352003F153F /* OpeningsMastermind.entitlements */,
 				AAA1A18229F02352003F153F /* Preview Content */,
@@ -276,13 +280,13 @@
 				AAA1A1D629F42E7F003F153F /* AddStudyView.swift */,
 				AA69607A2A05461700A593BB /* ChessboardView.swift */,
 				AAA1A17D29F02351003F153F /* ContentView.swift */,
-				AAE4C6DB2A370A5400638E87 /* LoadingView.swift */,
 				AA4786BA2A1A8AC800BB4144 /* EvalBarView.swift */,
 				AADF26812A161A7200CF40ED /* ExploreView.swift */,
 				AAB5A6E02A18FCBC007F1302 /* HelpViews */,
 				AADF268D2A16B94E00CF40ED /* HomeView.swift */,
 				AADF269A2A178CF300CF40ED /* LichessExplorerView.swift */,
 				AA6960762A05403F00A593BB /* ListView.swift */,
+				AAE4C6DB2A370A5400638E87 /* LoadingView.swift */,
 				AADF268B2A16708100CF40ED /* MoveListView.swift */,
 				AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */,
 				AAC889A429F802450079ECE5 /* PGNHelpView.swift */,
@@ -308,8 +312,6 @@
 				AACF65492A33C5150058893F /* GameTree.swift */,
 				AAA1A1E929F6DDD6003F153F /* Settings.swift */,
 				AAA1A1EB29F6FD86003F153F /* decodePGN.swift */,
-				AAA1A1B629F14CAC003F153F /* GameNodeOld.swift */,
-				AAA1A1B829F14D33003F153F /* GameTreeOld.swift */,
 			);
 			path = DataStructure;
 			sourceTree = "<group>";
@@ -356,6 +358,15 @@
 				AAC6431329F9374100D1C12E /* ImpressumView.swift */,
 			);
 			path = SubSettings;
+			sourceTree = "<group>";
+		};
+		AAE4C6DF2A3711A200638E87 /* OldFiles */ = {
+			isa = PBXGroup;
+			children = (
+				AAA1A1B629F14CAC003F153F /* GameNodeOld.swift */,
+				AAA1A1B829F14D33003F153F /* GameTreeOld.swift */,
+			);
+			path = OldFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -536,6 +547,7 @@
 				AA930ED82A093D4100026712 /* BoxArrowShape.swift in Sources */,
 				AA4786BB2A1A8AC800BB4144 /* EvalBarView.swift in Sources */,
 				AA41EF022A1CE19900FDB639 /* GNULicence.swift in Sources */,
+				AAE4C6DE2A3710AC00638E87 /* PGNDecoder.swift in Sources */,
 				AAA1A17C29F02351003F153F /* OpeningsMastermindApp.swift in Sources */,
 				AAA1A1CA29F2CC44003F153F /* ArrowShape.swift in Sources */,
 				AAA1A1E829F6DB3F003F153F /* SettingsView.swift in Sources */,

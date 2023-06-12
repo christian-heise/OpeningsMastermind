@@ -25,16 +25,20 @@ struct GameTree: Codable, Hashable {
     }
     
     init(name: String, pgnString: String, userColor: PieceColor) {
+        let decoder = PGNDecoder.default
+        
         self.id = UUID()
         self.name = name
         self.userColor = userColor
-        self.rootNode = GameTree.decodePGN(pgnString: pgnString)
+        self.rootNode = decoder.decodePGN(pgnString: pgnString)
         self.pgnString = pgnString
         self.dateAdded = Date()
         self.dateLastPlayed = Date(timeIntervalSince1970: 0)
     }
     
     init(fromOld oldTree: GameTreeOld) {
+        let decoder = PGNDecoder.default
+        
         self.id = oldTree.id
         self.name = oldTree.name
         self.userColor = oldTree.userColor
@@ -44,7 +48,7 @@ struct GameTree: Codable, Hashable {
         
         if oldTree.pgnString != "" {
             self.pgnString = oldTree.pgnString
-            self.rootNode = GameTree.decodePGN(pgnString: oldTree.pgnString)
+            self.rootNode = decoder.decodePGN(pgnString: oldTree.pgnString)
         } else {
             let oldRootNode = oldTree.rootNode
             let rootNode = GameTree.convert(oldNode: oldRootNode, game: Game(position: startingGamePosition))

@@ -19,8 +19,15 @@ class DataBase: ObservableObject, Codable {
     @Published var sortSelection: SortingMethod = .manual
     @Published var sortingDirectionIncreasing: Bool = true
     
+    @Published var isLoaded = false
+    
     init() {
-        load()
+        Task {
+            await load()
+            await MainActor.run {
+                self.isLoaded = true
+            }
+        }
     }
     
     init(gameTrees: [GameTree]) {
@@ -45,16 +52,18 @@ class DataBase: ObservableObject, Codable {
         return paths[0]
     }
     
-    private func load() {
+    private func load() async {
         let filename = getDocumentsDirectory().appendingPathComponent("gameTree.json")
         do {
             let data = try Data(contentsOf: filename)
             let decoder = JSONDecoder()
             let database = try decoder.decode(DataBase.self, from: data)
-            self.appVersion = database.appVersion
-            self.sortSelection = database.sortSelection
-            self.sortingDirectionIncreasing = database.sortingDirectionIncreasing
-            self.gametrees = database.gametrees
+            await MainActor.run {
+                self.appVersion = database.appVersion
+                self.sortSelection = database.sortSelection
+                self.sortingDirectionIncreasing = database.sortingDirectionIncreasing
+                self.gametrees = database.gametrees
+            }
         } catch {
             print("Could not load database")
         }

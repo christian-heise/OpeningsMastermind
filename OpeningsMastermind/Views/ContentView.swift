@@ -16,12 +16,8 @@ struct ContentView: View {
     
     @State private var selectedTab: Int = 0
     
-    @State private var loading = false
-    
     var body: some View {
-        if loading {
-            
-        } else {
+        if database.isLoaded {
             TabView(selection: $selectedTab) {
                 ExploreView(database: database, settings: settings, selectedTab: $selectedTab)
                     .tabItem {
@@ -55,6 +51,8 @@ struct ContentView: View {
                     await settings.updateAllAccountDetails()
                 }
             }
+        } else {
+            LoadingView()
         }
     }
 }

@@ -14,6 +14,8 @@ struct ListView: View {
     @State private var showingAddSheet = false
     @State private var sortingElements: [SortingMethod] = [.name, .date, .progress, .manual]
     
+    @State private var isLoading = false
+    
     var sortedGameTrees: [GameTree] {
         if database.sortSelection == .name {
             if database.sortingDirectionIncreasing {
@@ -104,14 +106,17 @@ struct ListView: View {
                     }
                 }
                 ToolbarItem() {
-                    Button(action: {showingAddSheet = true}) {
-                        Image(systemName: "plus")
+                    if isLoading {
+                        ProgressView()
+                    } else {
+                        Button(action: {showingAddSheet = true}) {
+                            Image(systemName: "plus")
+                        }
                     }
-                    
                 }
             }
             .sheet(isPresented: $showingAddSheet) {
-                AddStudyView(database: database)
+                AddStudyView(database: database, isLoading: $isLoading)
             }
             
         }
