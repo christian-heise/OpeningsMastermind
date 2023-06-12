@@ -17,6 +17,14 @@ class MoveNode: Codable {
     var child: GameNode
     var parent: GameNode?
     
+    var moveColor: PieceColor {
+        if let lastMove = parent?.parents.first {
+            return lastMove.moveColor == .white ? .black : .white
+        } else {
+            return .white
+        }
+    }
+    
     init(moveString: String, move: Move, annotation: String? = nil, child: GameNode, parent: GameNode) {
         self.moveString = moveString
         self.move = move
