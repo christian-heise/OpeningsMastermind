@@ -55,6 +55,7 @@ extension GameNode {
             return (children.map({$0.child.mistakesRate}).reduce(0, +)/Double(children.count) + mistakes/5.0) / 2.0
         }
     }
+    
     var nodesBelow: Double {
         if self.children.isEmpty {
             return 0
@@ -109,27 +110,5 @@ extension GameNode {
     }
     enum CodingKeys: String, CodingKey {
         case children, comment, mistakesLast5Moves
-    }
-    
-//    static func decode_0_7(from decoder: Decoder) throws -> GameNode {
-//        let container = try decoder.container(keyedBy: CodingKeys_0_7.self)
-//        
-//        let mistakesLast5Moves = try container.decodeIfPresent([Int].self, forKey: .mistakesLast5Moves)
-//        
-//        let move = try container.decode(String.self, forKey: .move)
-//        
-//        let comment = try container.decodeIfPresent(String.self, forKey: .comment)
-//        
-//        
-//        let children = try container.decode([GameNode].self, forKey: .children)
-//        
-//        let gameNode = GameNode
-//        
-//        let moveNode = MoveNode(moveString: move, move: nil, child: nil, parent: <#T##GameNode#>)
-//        
-//        let annotation = try container.decodeIfPresent(String.self, forKey: .annotation)
-//    }
-    enum CodingKeys_0_7: String, CodingKey {
-        case move, children, moveNumber, moveColor, parent, mistakesLast5Moves, comment, annotation
     }
 }

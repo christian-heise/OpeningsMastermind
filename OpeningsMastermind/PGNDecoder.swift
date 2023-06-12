@@ -13,7 +13,9 @@ class PGNDecoder {
     
     var progress: Double = 0.0
     
-    func decodePGN(pgnString: String) -> GameNode {
+    func decodePGN(pgnString: String) -> [GameNode] {
+        
+        
         
         var game = Game(position: startingGamePosition)
         
@@ -21,7 +23,8 @@ class PGNDecoder {
 
         let rootNode = GameNode()
         var currentNode = rootNode
-        
+
+        var allNodes: [GameNode] = [rootNode]
         var variationNodes: [GameNode] = []
         
         var commentActive = false
@@ -144,7 +147,7 @@ class PGNDecoder {
             }
         }
         
-        return rootNode
+        return allNodes
         
         func finishComment() {
             commentActive = false
@@ -199,6 +202,7 @@ class PGNDecoder {
                 currentNode.children.append(moveNode)
                 newNode.parents.append(moveNode)
                 
+                allNodes.append(newNode)
                 dictNode[game.position.board] = newNode
                 dictPosition[newNode] = game.position.board
                 boardPosition[game.position.board] = game.position
