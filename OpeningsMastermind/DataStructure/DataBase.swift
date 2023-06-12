@@ -97,8 +97,12 @@ class DataBase: ObservableObject, Codable {
         if "0.7".isVersionGreater(than: self.appVersion) {
             let oldGameTrees = try container.decode([GameTreeOld].self, forKey: .gameTrees)
             print("Successfully loaded \(oldGameTrees.count) old gametrees")
-            
-            self.gametrees = oldGameTrees.map({GameTree(fromOld: $0)})
+
+            for oldTree in oldGameTrees {
+                if oldTree.pgnString != "" {
+                    self.gametrees.append(GameTree(fromOld: oldTree))
+                }
+            }
         } else {
             self.gametrees = try container.decode([GameTree].self, forKey: .gameTrees)
         }

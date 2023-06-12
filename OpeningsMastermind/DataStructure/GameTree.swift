@@ -54,7 +54,7 @@ struct GameTree: Codable, Hashable {
     }
     
     static func convert(oldNode: GameNodeOld, game: Game) -> GameNode {
-        var node = GameNode()
+        let node = GameNode()
         node.comment = oldNode.comment
         var moveChildren: [MoveNode] = []
         for child in oldNode.children {
