@@ -8,7 +8,11 @@
 import Foundation
 import ChessKit
 
-struct GameTree: Codable, Hashable {
+class GameTree: Codable, Hashable {
+    static func == (lhs: GameTree, rhs: GameTree) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     let id: UUID
     
     var name: String
@@ -62,6 +66,24 @@ struct GameTree: Codable, Hashable {
         }
     }
     
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        
+        self.name = try container.decode(String.self, forKey: .name)
+        let userColorString = try container.decode(String.self, forKey: .userColor)
+        self.userColor = userColorString=="white" ? .white : .black
+        self.rootNode = try container.decode(GameNode.self, forKey: .rootNode)
+        
+        self.pgnString = try container.decode(String.self, forKey: .pgnString)
+        self.dateAdded = try container.decodeIfPresent(Date.self, forKey: .dateAdded) ?? Date()
+        
+        self.dateLastPlayed = try container.decodeIfPresent(Date.self, forKey: .dateLastPlayed) ?? Date(timeIntervalSince1970: 0)
+        
+        self.allGameNodes = try container.decode([GameNode].self, forKey: .allGameNodes)
+    }
+    
     static func convert(oldNode: GameNodeOld, game: Game) -> GameNode {
         let node = GameNode()
         node.comment = oldNode.comment
@@ -87,23 +109,6 @@ struct GameTree: Codable, Hashable {
 }
 
 extension GameTree {
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
-        
-        self.name = try container.decode(String.self, forKey: .name)
-        let userColorString = try container.decode(String.self, forKey: .userColor)
-        self.userColor = userColorString=="white" ? .white : .black
-        self.rootNode = try container.decode(GameNode.self, forKey: .rootNode)
-        
-        self.pgnString = try container.decode(String.self, forKey: .pgnString)
-        self.dateAdded = try container.decodeIfPresent(Date.self, forKey: .dateAdded) ?? Date()
-        
-        self.dateLastPlayed = try container.decodeIfPresent(Date.self, forKey: .dateLastPlayed) ?? Date(timeIntervalSince1970: 0)
-        
-        self.allGameNodes = try container.decode([GameNode].self, forKey: .allGameNodes)
-    }
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         

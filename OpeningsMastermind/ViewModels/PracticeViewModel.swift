@@ -48,7 +48,9 @@ import ChessKit
         }
     }
     var currentMoveColor: PieceColor {
-        return currentNodes.first?.parents.first?.moveColor ?? .white
+        guard let previousColor = currentNodes.first?.parents.first?.moveColor else { return .white}
+        
+        return previousColor == .white ? .black : .white
     }
     
     func saveUserDefaults() {
@@ -116,6 +118,9 @@ import ChessKit
         self.positionHistory = []
         self.positionIndex = -1
         
+        self.promotionMove = nil
+        self.promotionPending = false
+        
         if selectedGameTrees.isEmpty { return }
         if self.userColor == .black {
             Task {
@@ -161,7 +166,7 @@ import ChessKit
     
     override func performMove(_ move: Move) {
         if self.selectedGameTrees.isEmpty { return }
-        if !game.legalMoves.contains(move) || gameState > 0 { return }
+        if !game.legalMoves.contains(move) || gameState == 1 || gameState == 2 { return }
         
         let potentialNodes = currentNodes.filter({!$0.children.isEmpty}).filter({$0.children.contains(where: {$0.move == move})})
         
@@ -211,9 +216,9 @@ import ChessKit
             node.mistakesLast5Moves.append(mistake)
         }
         self.database.objectWillChange.send()
-//        for tree in self.selectedGameTrees {
-//            database.gametrees.first(where: {$0.id == tree.id})?.dateLastPlayed = Date()
-//        }
+        for tree in self.selectedGameTrees {
+           tree.dateLastPlayed = Date()
+        }
     }
     
     func generateMove(game: Game, node: GameNode) -> (Move?, GameNode?) {

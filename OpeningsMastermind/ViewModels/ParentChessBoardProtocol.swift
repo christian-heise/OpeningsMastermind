@@ -59,6 +59,7 @@ import ChessKit
     func processPromotion(_ kind: PieceKind) {
         guard let promotionMove = self.promotionMove else { return }
         self.promotionMove = nil
+        self.promotionPending = false
         performMove(Move(from: promotionMove.from, to: promotionMove.to, promotion: kind))
     }
     
