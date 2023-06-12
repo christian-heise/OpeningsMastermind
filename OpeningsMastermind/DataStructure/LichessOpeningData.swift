@@ -31,5 +31,5 @@ struct LichessOpeningData: Codable {
     }
     
     
-    static let example = LichessOpeningData(white: 234, draws: 245, black: 253, moves: [LichessMove(uci: "sfs", san: "Nxd3", averageRating: 234, white: 425, draws: 535, black: 245), LichessMove(uci: "rsg", san: "exd4", averageRating: 2662, white: 465, draws: 236, black: 645),LichessMove(uci: "sfs", san: "Nxd3", averageRating: 234, white: 425, draws: 1, black: 245)], opening: nil)
+    static let example = LichessOpeningData(white: 234, draws: 245, black: 253, moves: [LichessMove(uci: "sfs", san: "Nxd3", averageRating: 234, white: 425, draws: 535, black: 245), LichessMove(uci: "rsg", san: "exd4", averageRating: 2662, white: 465, draws: 236, black: 645),LichessMove(uci: "sfs", san: "Nxc2", averageRating: 234, white: 425, draws: 1, black: 245)], opening: nil)
 }

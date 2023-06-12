@@ -14,6 +14,8 @@ struct ListView: View {
     @State private var showingAddSheet = false
     @State private var sortingElements: [SortingMethod] = [.name, .date, .progress, .manual]
     
+    @State private var isLoading = false
+    
     var sortedGameTrees: [GameTree] {
         if database.sortSelection == .name {
             if database.sortingDirectionIncreasing {
@@ -24,17 +26,17 @@ struct ListView: View {
         } else if database.sortSelection == .date {
             if database.sortingDirectionIncreasing {
                 return database.gametrees.sorted(by: {
-                    if $0.date == $1.date {
+                    if $0.dateAdded == $1.dateAdded {
                         return $0.name > $1.name
                     }
-                    return $0.date > $1.date
+                    return $0.dateAdded > $1.dateAdded
                 })
             } else {
                 return database.gametrees.sorted(by: {
-                    if $0.date == $1.date {
+                    if $0.dateAdded == $1.dateAdded {
                         return $0.name < $1.name
                     }
-                    return $0.date < $1.date
+                    return $0.dateAdded < $1.dateAdded
                 })
             }
         } else if database.sortSelection == .progress {
@@ -104,14 +106,17 @@ struct ListView: View {
                     }
                 }
                 ToolbarItem() {
-                    Button(action: {showingAddSheet = true}) {
-                        Image(systemName: "plus")
+                    if isLoading {
+                        ProgressView()
+                    } else {
+                        Button(action: {showingAddSheet = true}) {
+                            Image(systemName: "plus")
+                        }
                     }
-                    
                 }
             }
             .sheet(isPresented: $showingAddSheet) {
-                AddStudyView(database: database)
+                AddStudyView(database: database, isLoading: $isLoading)
             }
             
         }

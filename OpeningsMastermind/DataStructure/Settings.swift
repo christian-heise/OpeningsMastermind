@@ -14,6 +14,8 @@ class Settings: ObservableObject, Codable {
     @Published private (set) var lichessName: String?
     @Published private (set) var chessComName: String?
     
+    @Published var engineOn: Bool = true
+    
     private (set) var playerRating: Int? = nil
     
     init() {
@@ -124,6 +126,7 @@ class Settings: ObservableObject, Codable {
             self.playerRating = settings.playerRating
             self.lichessName = settings.lichessName
             self.chessComName = settings.chessComName
+            self.engineOn = settings.engineOn
         } catch {
             print("Could not load settings")
             self.save()
@@ -142,6 +145,7 @@ class Settings: ObservableObject, Codable {
         self.playerRating = try container.decodeIfPresent(Int.self, forKey: .playerRating)
         self.lichessName = try container.decodeIfPresent(String.self, forKey: .lichessName)
         self.chessComName = try container.decodeIfPresent(String.self, forKey: .chessComName)
+        self.engineOn = try container.decodeIfPresent(Bool.self, forKey: .engineOn) ?? true
     }
     
     func encode(to encoder: Encoder) throws {
@@ -151,10 +155,11 @@ class Settings: ObservableObject, Codable {
         try container.encode(playerRating, forKey: .playerRating)
         try container.encode(lichessName, forKey: .lichessName)
         try container.encode(chessComName, forKey: .chessComName)
+        try container.encode(engineOn, forKey: .engineOn)
     }
     
     enum CodingKeys: String, CodingKey {
-            case boardColorRGB, playerRating, lichessName, chessComName
+            case boardColorRGB, playerRating, lichessName, chessComName, engineOn
     }
 }
 

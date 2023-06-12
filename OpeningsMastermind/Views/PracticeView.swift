@@ -21,7 +21,7 @@ struct PracticeView: View {
     
     @State private var showingSelectView = false
 
-    init(database: DataBase, settings: Settings, gameTree: GameTree) {
+    init(database: DataBase, settings: Settings) {
         self._vm = StateObject(wrappedValue: PracticeViewModel(database: database))
         self.database = database
         self.settings = settings

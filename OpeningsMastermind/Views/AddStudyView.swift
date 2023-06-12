@@ -12,6 +12,7 @@ import UniformTypeIdentifiers
 
 struct AddStudyView: View {
     @ObservedObject var database: DataBase
+    @Binding var isLoading: Bool
     
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) private var colorScheme
@@ -182,18 +183,18 @@ struct AddStudyView: View {
                     List(selection: $exampleSelection) {
                         ForEach(ExamplePGN.list, id: \.self) { listItem in
                             VStack(alignment: .leading) {
-                                Text(listItem.gameTree!.name)
+                                Text(listItem.name)
                                 Text("created by " + listItem.creator)
                                     .font(Font.caption2)
                             }
-                            .opacity(database.gametrees.contains(where: {$0.name == listItem.gameTree!.name}) ? 0.5 : 1.0)
+                            .opacity(database.gametrees.contains(where: {$0.name == listItem.name}) ? 0.5 : 1.0)
                             .padding(.vertical, 3)
                             .contextMenu {
                                 Button{openURL(URL(string: listItem.url)!)} label: {
                                     Label("Visit Study on Lichess.com", systemImage: "safari")
                                 }
                             }
-                            .if(database.gametrees.contains(where: {$0.name == listItem.gameTree!.name})) { view in
+                            .if(database.gametrees.contains(where: {$0.name == listItem.name})) { view in
                                 view._untagged()
                             }
                         }
@@ -272,19 +273,30 @@ struct AddStudyView: View {
             duplicateError = true
             nameError = true
         } else {
-            if database.addNewGameTree(name: nameString, pgnString: pgnString, userColor: selectedPieceColor) {
-                self.presentationMode.wrappedValue.dismiss()
-            } else {
-                pgnError = true
+            Task {
+                let result = await database.addNewGameTree(name: nameString, pgnString: pgnString, userColor: selectedPieceColor)
+                await MainActor.run {
+                    if result {
+                        self.presentationMode.wrappedValue.dismiss()
+                    } else {
+                        pgnError = true
+                    }
+                }
             }
         }
     }
     
     func addExamples() {
+        isLoading = true
         if exampleSelection.isEmpty { return }
         Task {
             for example in exampleSelection {
-                self.database.addNewGameTree(GameTree(with: example.gameTree!))
+                if let pgnString = example.pgnString {
+                    _ = await self.database.addNewGameTree(name: example.name, pgnString: pgnString, userColor: example.userColor)
+                }
+            }
+            await MainActor.run {
+                isLoading = false
             }
         }
         self.presentationMode.wrappedValue.dismiss()
@@ -313,6 +325,6 @@ struct AddStudyView: View {
 
 struct AddStudyView_Previews: PreviewProvider {
     static var previews: some View {
-        AddStudyView(database: DataBase())
+        AddStudyView(database: DataBase(), isLoading: .constant(false))
     }
 }

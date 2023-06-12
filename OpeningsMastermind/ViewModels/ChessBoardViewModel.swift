@@ -36,6 +36,15 @@ extension ChessboardView {
             return annotations
         }
         
+        var selectedSquare: (Square, Piece)?  {
+            get {
+                return vm_parent.selectedSquare
+            }
+            set {
+                vm_parent.selectedSquare = newValue
+            }
+        }
+        
         var last2Moves: (Move?,Move?) {
             vm_parent.last2Moves
         }
@@ -62,6 +71,18 @@ extension ChessboardView {
         
         var promotionMove: Move? {
             vm_parent.promotionMove
+        }
+        
+        @Published var possibleSquares: [Square] = []
+        
+        func getPossibleSquares() {
+            if let selectedSquare = self.selectedSquare?.0 {
+                self.possibleSquares = vm_parent.game.legalMoves.filter({$0.from == selectedSquare}).map({$0.to})
+            } else if let draggedSquare = self.draggedSquare {
+                self.possibleSquares = vm_parent.game.legalMoves.filter({$0.from == draggedSquare}).map({$0.to})
+            } else {
+                self.possibleSquares = []
+            }
         }
         
         func indicatorPosition(in size: CGSize, col: Int, row: Int) -> CGPoint {

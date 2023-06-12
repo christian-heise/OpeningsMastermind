@@ -17,21 +17,20 @@ import ChessKitEngine
     var annotation: (String?, String?) {
         guard let node = currentExploreNode.gameNode else { return (nil, nil)}
         
-        if let annotation = node.annotation {
-            if let annotation_parent = node.parent?.annotation {
-                return (annotation, annotation_parent)
-            } else {
-                return (annotation, nil)
-            }
+        guard let moveNode = node.parents.first(where: {$0.move == moveHistory[positionIndex].0}) else { return (nil, nil) }
+        
+        if let annotation = moveNode.annotation {
+            return (annotation, nil)
         } else {
             return (nil, nil)
         }
     }
     
     let database: DataBase
+    let settings: Settings
     var gameTree: GameTree?
     
-    let engine = Engine(type: .stockfish)
+    var engine: Engine?
     
     @Published var lichessResponse: LichessOpeningData?
     @Published var currentExploreNode: ExploreNode
@@ -66,20 +65,38 @@ import ChessKitEngine
     }
 
     init(database: DataBase, settings: Settings) {
+        if settings.engineOn {
+            engine = Engine(type: .stockfish)
+        } else {
+            engine = nil
+        }
         self.database = database
+        self.settings = settings
         self.userRating = settings.playerRating
         
         self.rootExploreNode = ExploreNode()
         self.currentExploreNode = self.rootExploreNode
         super.init()
         
-        engine.start(coreCount: 1)
+        if let engine = engine {
+            engine.start(coreCount: 3)
+        }
 //        engine.loggingEnabled = true
         onAppear()
     }
     
     func onAppear() {
-        engine.send(command: .stop)
+        if settings.engineOn && engine == nil {
+            self.engine = Engine(type: .stockfish)
+            self.engine!.start(coreCount: 3)
+        }
+        if !settings.engineOn, let engine = self.engine {
+            engine.stop()
+            self.engine = nil
+        }
+        if let engine = engine {
+            engine.send(command: .stop)
+        }
         if database.gametrees.isEmpty {
             self.gameTree = nil
             self.reset()
@@ -87,12 +104,12 @@ import ChessKitEngine
         }
 
         guard let gametree = self.gameTree else {
-            reset(to: database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})!)
+            reset(to: database.gametrees.max(by: {$0.dateLastPlayed < $1.dateLastPlayed})!)
             return
         }
 
         if !database.gametrees.contains(gametree) {
-            reset(to: database.gametrees.max(by: {$0.lastPlayed < $1.lastPlayed})!)
+            reset(to: database.gametrees.max(by: {$0.dateLastPlayed < $1.dateLastPlayed})!)
         }
     }
     
@@ -141,10 +158,8 @@ import ChessKitEngine
         
         guard let gameNode = currentExploreNode.gameNode else { return }
         
-        let decoder = SanSerialization.default
-        
         for node in gameNode.children {
-            self.rightMove.append(decoder.move(for: node.move, in: self.game))
+            self.rightMove.append(node.move)
         }
     }
     
@@ -163,12 +178,12 @@ import ChessKitEngine
         self.moveHistory.append((move, moveString))
         self.positionIndex = self.positionIndex + 1
         
-        if currentExploreNode.children.first(where: {$0.move == moveString}) != nil {
-            currentExploreNode = currentExploreNode.children.first(where: {$0.move == moveString})!
+        if let node = currentExploreNode.children.first(where: {$0.move == moveString}) {
+            currentExploreNode = node
         } else {
             let newColor: PieceColor = currentExploreNode.color == .white ? .black : .white
-            if ((currentExploreNode.gameNode?.children.first(where: {$0.move == moveString})) != nil) {
-                let gameNode = currentExploreNode.gameNode!.children.first(where: {$0.move == moveString})
+            if let moveNode = currentExploreNode.gameNode?.children.first(where: {$0.moveString == moveString}) {
+                let gameNode = moveNode.child
                 
                 let newNode = ExploreNode(gameNode: gameNode, move: moveString, parentNode: currentExploreNode, position: game.position, color: newColor)
                 currentExploreNode.children.append(newNode)
@@ -199,12 +214,16 @@ import ChessKitEngine
         postMoveStuff()
     }
     
+    func makeLichessMove(san: String) {
+        let move = SanSerialization.default.move(for: san, in: game)
+        
+        performMove(move)
+        
+        postMoveStuff()
+    }
+    
     func makeMainLineMove() {
-        let decoder = SanSerialization.default
-        
-        guard let moveString = currentExploreNode.gameNode?.children.first?.move else {return}
-        
-        let move = decoder.move(for: moveString, in: self.game)
+        guard let move = currentExploreNode.gameNode?.children.first?.move else {return}
         self.performMove(move)
     }
     
@@ -276,17 +295,14 @@ import ChessKitEngine
             print("URL Session Failed")
             return nil}
         
-        guard var decodedData = try? JSONDecoder().decode(LichessOpeningData.self, from: data) else {
-            print("Decoding failed")
-            return nil}
-        
-        decodedData.moves = decodedData.moves.filter({Double($0.white + $0.black + $0.draws) > (0.01 * Double(decodedData.white + decodedData.black + decodedData.draws))})
+        guard let decodedData = try? JSONDecoder().decode(LichessOpeningData.self, from: data) else { return nil }
         
         lichessCache[fen] = decodedData
         return decodedData
     }
     
     func getEngineMoves() {
+        guard let engine = engine else { return }
         let position = self.game.position
         let fen = FenSerialization.default.serialize(position: position)
         let color = self.currentExploreNode.color
@@ -297,10 +313,10 @@ import ChessKitEngine
         }
         
         DispatchQueue.global(qos: .default).async {
-            self.engine.send(command: .stop)
-            self.engine.send(command: .position(.fen(fen)))
-            self.engine.send(command: .go(depth: 18))
-            self.engine.receiveResponse = { response in
+            engine.send(command: .stop)
+            engine.send(command: .position(.fen(fen)))
+            engine.send(command: .go(depth: 18))
+            engine.receiveResponse = { response in
                 DispatchQueue.main.async {
                     switch response {
                     case let .info(info):
@@ -341,6 +357,7 @@ import ChessKitEngine
         self.promotionMove = nil
         self.promotionPending = false
         
+        selectedSquare = nil
         getEngineMoves()
         determineRightMove()
         updateLichessExplorer()

@@ -29,7 +29,7 @@ struct SwitchStudyView: View {
                     .padding(5)
                 }
                 
-                List(database.gametrees.sorted(by: {$0.lastPlayed > $1.lastPlayed}), id: \.self) { gametree in
+                List(database.gametrees.sorted(by: {$0.dateLastPlayed > $1.dateLastPlayed}), id: \.self) { gametree in
                     Button {
                         vm.reset(to: gametree)
                         self.presentationMode.wrappedValue.dismiss()

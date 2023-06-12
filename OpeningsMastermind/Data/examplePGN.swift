@@ -10,7 +10,9 @@ import ChessKit
 
 struct ExamplePGN: Hashable {
     
-    let gameTree: GameTree?
+    let pgnString: String?
+    let userColor: PieceColor
+    let name: String
     let creator: String
     var isChecked = true
     let id = UUID()
@@ -19,14 +21,18 @@ struct ExamplePGN: Hashable {
     init(name: String, userColor: PieceColor, fileName: String, creator: String, url: String) {
         self.creator = creator
         self.url = url
+        
+        self.name = name
+        self.userColor = userColor
+        
         if let startWordsURL = Bundle.main.url(forResource: fileName, withExtension: "pgn") {
             if let pgnString = try? String(contentsOf: startWordsURL) {
-                self.gameTree = GameTree(name: name, pgnString: pgnString, userColor: userColor)
+                self.pgnString = pgnString
             } else {
-                self.gameTree = nil
+                self.pgnString = nil
             }
         } else {
-            self.gameTree = nil
+            self.pgnString = nil
         }
     }
     
@@ -34,11 +40,12 @@ struct ExamplePGN: Hashable {
                        ExamplePGN(name: "Danish Gambit Refutation", userColor: .black, fileName: "exampleDanishRefutation", creator: "RebeccaHarris on Lichess.com", url: "https://lichess.org/study/udExyu0p"),
                        ExamplePGN(name: "Scotch Gambit", userColor: .white, fileName: "exampleScotchGambit", creator: "tgood on Lichess.com", url: "https://lichess.org/study/d05kyFwr"),
                        ExamplePGN(name: "Smith Morra Gambit", userColor: .white, fileName: "exampleSmithMorra", creator: "yooloo, mineriva, ThatRaisinTho on Lichess.com", url: "https://lichess.org/study/ccnOaWVC"),
-                       ExamplePGN(name: "Englund Gambit Refutation", userColor: .white, fileName: "exampleEnglundRefutation", creator: "RebeccaHarris on Lichess.com", url: "https://lichess.org/study/inBWS4oN")].sorted(by: {$0.gameTree!.name < $1.gameTree!.name})
+                       ExamplePGN(name: "Englund Gambit Refutation", userColor: .white, fileName: "exampleEnglundRefutation", creator: "RebeccaHarris on Lichess.com", url: "https://lichess.org/study/inBWS4oN")].sorted(by: {$0.name < $1.name})
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+    
     static func ==(lhs: ExamplePGN, rhs: ExamplePGN) -> Bool {
         return lhs.id == rhs.id
     }

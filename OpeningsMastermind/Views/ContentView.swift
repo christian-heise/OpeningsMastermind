@@ -17,38 +17,42 @@ struct ContentView: View {
     @State private var selectedTab: Int = 0
     
     var body: some View {
-        TabView(selection: $selectedTab) {
-            ExploreView(database: database, settings: settings, selectedTab: $selectedTab)
-                .tabItem {
-                    Label("Explorer", systemImage: "book")
-                }
-                .tag(0)
-            PracticeView(database: database, settings: settings, gameTree: GameTree.example())
-                .tabItem {
-                    Label("Practice", systemImage: "checkerboard.rectangle")
-                }
-                .tag(1)
-            ListView(database: database, settings: settings)
-                .tabItem {
-                    Label("Library", systemImage: "list.bullet")
-                }
-                .tag(2)
-            SettingsView(settings: settings)
-                .tabItem {
-                    Label("Settings", systemImage: "gear")
-                }
-                .tag(3)
-        }
-        .onChange(of: scenePhase) { phase in
-            if phase == .background {
-                database.save()
-                settings.save()
+        if database.isLoaded {
+            TabView(selection: $selectedTab) {
+                ExploreView(database: database, settings: settings, selectedTab: $selectedTab)
+                    .tabItem {
+                        Label("Explorer", systemImage: "book")
+                    }
+                    .tag(0)
+                PracticeView(database: database, settings: settings)
+                    .tabItem {
+                        Label("Practice", systemImage: "checkerboard.rectangle")
+                    }
+                    .tag(1)
+                ListView(database: database, settings: settings)
+                    .tabItem {
+                        Label("Library", systemImage: "list.bullet")
+                    }
+                    .tag(2)
+                SettingsView(settings: settings)
+                    .tabItem {
+                        Label("Settings", systemImage: "gear")
+                    }
+                    .tag(3)
             }
-        }
-        .onAppear() {
-            Task {
-                await settings.updateAllAccountDetails()
+            .onChange(of: scenePhase) { phase in
+                if phase == .background {
+                    database.save()
+                    settings.save()
+                }
             }
+            .onAppear() {
+                Task {
+                    await settings.updateAllAccountDetails()
+                }
+            }
+        } else {
+            LoadingView()
         }
     }
 }
