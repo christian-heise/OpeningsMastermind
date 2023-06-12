@@ -33,7 +33,6 @@
 		AAA1A1E029F56F32003F153F /* ExamplePGN.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1DF29F56F32003F153F /* ExamplePGN.swift */; };
 		AAA1A1E829F6DB3F003F153F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1E729F6DB3F003F153F /* SettingsView.swift */; };
 		AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1E929F6DDD6003F153F /* Settings.swift */; };
-		AAA1A1EC29F6FD86003F153F /* decodePGN.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1EB29F6FD86003F153F /* decodePGN.swift */; };
 		AAB3C3062A0157490094FAB2 /* exampleCaroKannGoldman.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C3052A0157490094FAB2 /* exampleCaroKannGoldman.pgn */; };
 		AAB3C3082A0159410094FAB2 /* exampleSmithMorra.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C3072A0159410094FAB2 /* exampleSmithMorra.pgn */; };
 		AAB3C30A2A01594F0094FAB2 /* exampleScotchGambit.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C3092A01594F0094FAB2 /* exampleScotchGambit.pgn */; };
@@ -129,7 +128,6 @@
 		AAA1A1DF29F56F32003F153F /* ExamplePGN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplePGN.swift; sourceTree = "<group>"; };
 		AAA1A1E729F6DB3F003F153F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AAA1A1E929F6DDD6003F153F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		AAA1A1EB29F6FD86003F153F /* decodePGN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = decodePGN.swift; sourceTree = "<group>"; };
 		AAB3C3052A0157490094FAB2 /* exampleCaroKannGoldman.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleCaroKannGoldman.pgn; sourceTree = "<group>"; };
 		AAB3C3072A0159410094FAB2 /* exampleSmithMorra.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleSmithMorra.pgn; sourceTree = "<group>"; };
 		AAB3C3092A01594F0094FAB2 /* exampleScotchGambit.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleScotchGambit.pgn; sourceTree = "<group>"; };
@@ -311,7 +309,6 @@
 				AACF654B2A3482390058893F /* MoveNode.swift */,
 				AACF65492A33C5150058893F /* GameTree.swift */,
 				AAA1A1E929F6DDD6003F153F /* Settings.swift */,
-				AAA1A1EB29F6FD86003F153F /* decodePGN.swift */,
 			);
 			path = DataStructure;
 			sourceTree = "<group>";
@@ -551,7 +548,6 @@
 				AAA1A17C29F02351003F153F /* OpeningsMastermindApp.swift in Sources */,
 				AAA1A1CA29F2CC44003F153F /* ArrowShape.swift in Sources */,
 				AAA1A1E829F6DB3F003F153F /* SettingsView.swift in Sources */,
-				AAA1A1EC29F6FD86003F153F /* decodePGN.swift in Sources */,
 				AA6960792A05460700A593BB /* PracticeView.swift in Sources */,
 				AADF268E2A16B94E00CF40ED /* HomeView.swift in Sources */,
 				AADF268C2A16708100CF40ED /* MoveListView.swift in Sources */,
