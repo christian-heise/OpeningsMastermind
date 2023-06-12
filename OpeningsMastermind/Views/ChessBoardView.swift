@@ -72,6 +72,7 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                                 .foregroundColor((row + col) % 2 == 0 ? settings.boardColorRGB.black.getColor() : settings.boardColorRGB.white.getColor())
                         }
                         Circle()
+                            .fill(Color.black)
                             .opacity(vm.possibleSquares.contains(Square(file: col, rank: 7-row)) ? 0.3 : 0.0)
                             .frame(width: vm.squareLength(in: geo.size)/2)
                             .position(vm.squarePosition(in: geo.size, col: col, row: row))
