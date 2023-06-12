@@ -63,6 +63,7 @@
 		AAE367F82A0BED95006A2574 /* ChessBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */; };
 		AAE4C6D92A362E6100638E87 /* GameNodeOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1B629F14CAC003F153F /* GameNodeOld.swift */; };
 		AAE4C6DA2A362E6100638E87 /* GameTreeOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1B829F14D33003F153F /* GameTreeOld.swift */; };
+		AAE4C6DC2A370A5400638E87 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE4C6DB2A370A5400638E87 /* LoadingView.swift */; };
 		AAF78B9B2A07B35B00FC8282 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */; };
 /* End PBXBuildFile section */
 
@@ -155,6 +156,7 @@
 		AADF269C2A178D3700CF40ED /* LichessOpeningData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessOpeningData.swift; sourceTree = "<group>"; };
 		AADF269E2A17AF4300CF40ED /* LichessUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LichessUserData.swift; sourceTree = "<group>"; };
 		AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardViewModel.swift; sourceTree = "<group>"; };
+		AAE4C6DB2A370A5400638E87 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -274,6 +276,7 @@
 				AAA1A1D629F42E7F003F153F /* AddStudyView.swift */,
 				AA69607A2A05461700A593BB /* ChessboardView.swift */,
 				AAA1A17D29F02351003F153F /* ContentView.swift */,
+				AAE4C6DB2A370A5400638E87 /* LoadingView.swift */,
 				AA4786BA2A1A8AC800BB4144 /* EvalBarView.swift */,
 				AADF26812A161A7200CF40ED /* ExploreView.swift */,
 				AAB5A6E02A18FCBC007F1302 /* HelpViews */,
@@ -509,6 +512,7 @@
 				AADF269B2A178CF300CF40ED /* LichessExplorerView.swift in Sources */,
 				AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */,
 				AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */,
+				AAE4C6DC2A370A5400638E87 /* LoadingView.swift in Sources */,
 				AAB5A6E42A1916E2007F1302 /* HelpExplorerPageView.swift in Sources */,
 				AADF267E2A16169600CF40ED /* ParentChessBoardProtocol.swift in Sources */,
 				AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */,

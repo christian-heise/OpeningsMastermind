@@ -34,6 +34,43 @@ struct GameTree: Codable, Hashable {
         self.dateLastPlayed = Date(timeIntervalSince1970: 0)
     }
     
+    init(fromOld oldTree: GameTreeOld) {
+        self.id = oldTree.id
+        self.name = oldTree.name
+        self.userColor = oldTree.userColor
+        
+        self.dateAdded = oldTree.date
+        self.dateLastPlayed = oldTree.lastPlayed
+        
+        if oldTree.pgnString != "" {
+            self.pgnString = oldTree.pgnString
+            self.rootNode = GameTree.decodePGN(pgnString: oldTree.pgnString)
+        } else {
+            let oldRootNode = oldTree.rootNode
+            let rootNode = GameTree.convert(oldNode: oldRootNode, game: Game(position: startingGamePosition))
+            self.rootNode = rootNode
+            self.pgnString = ""
+        }
+    }
+    
+    static func convert(oldNode: GameNodeOld, game: Game) -> GameNode {
+        var node = GameNode()
+        node.comment = oldNode.comment
+        var moveChildren: [MoveNode] = []
+        for child in oldNode.children {
+            let move = SanSerialization.default.move(for: child.move, in: game)
+            let newGame = game.deepCopy()
+            newGame.make(move: move)
+            
+            let childGameNode = convert(oldNode: child, game: newGame)
+            let moveChild = MoveNode(moveString: child.move, move: move, child: childGameNode, parent: node)
+            childGameNode.parents = [moveChild]
+            moveChildren.append(moveChild)
+        }
+        node.children = moveChildren
+        return node
+    }
+    
     static func example() -> GameTree {
         let example = ExamplePGN.list.randomElement()!
         return GameTree(name: example.name, pgnString: example.pgnString ?? "", userColor: example.userColor)

@@ -129,3 +129,21 @@ extension View {
         self.modifier(DeviceRotationViewModifier(action: action))
     }
 }
+
+extension String {
+    func isVersionGreater(than version2: String) -> Bool {
+        let version1Components = self.components(separatedBy: ".")
+        let version2Components = version2.components(separatedBy: ".")
+        
+        let iterations = min(version1Components.count,version2Components.count)
+        
+        for i in 0..<iterations {
+            if version1Components[i] > version2Components[i] {
+                return true
+            } else if version1Components[i] < version2Components[i] {
+                return false
+            }
+        }
+        return version1Components.count > version2Components.count
+    }
+}

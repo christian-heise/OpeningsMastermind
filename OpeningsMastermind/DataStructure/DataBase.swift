@@ -94,11 +94,11 @@ class DataBase: ObservableObject, Codable {
         self.sortSelection = try container.decodeIfPresent(SortingMethod.self, forKey: .sortSelection) ?? .manual
         self.sortingDirectionIncreasing = try container.decodeIfPresent(Bool.self, forKey: .sortingDirectionIncreasing) ?? true
         
-        print(Double(self.appVersion) ?? 0.8)
-        if Double(self.appVersion) ?? 0.7 < 0.7 {
-            let oldGameTree = try container.decode([GameTreeOld].self, forKey: .gameTrees)
-            print("Successfully loaded \(oldGameTree.count) old gametrees")
-            self.gametrees = []
+        if "0.7".isVersionGreater(than: self.appVersion) {
+            let oldGameTrees = try container.decode([GameTreeOld].self, forKey: .gameTrees)
+            print("Successfully loaded \(oldGameTrees.count) old gametrees")
+            
+            self.gametrees = oldGameTrees.map({GameTree(fromOld: $0)})
         } else {
             self.gametrees = try container.decode([GameTree].self, forKey: .gameTrees)
         }
