@@ -69,13 +69,15 @@ extension ChessboardView {
             vm_parent.promotionMove
         }
         
-        var possibleSquares: [Square] {
+        @Published var possibleSquares: [Square] = []
+        
+        func getPossibleSquares() {
             if let selectedSquare = self.selectedSquare?.0 {
-                return vm_parent.game.legalMoves.filter({$0.from == selectedSquare}).map({$0.to})
+                self.possibleSquares = vm_parent.game.legalMoves.filter({$0.from == selectedSquare}).map({$0.to})
             } else if let draggedSquare = self.draggedSquare {
-                return vm_parent.game.legalMoves.filter({$0.from == draggedSquare}).map({$0.to})
+                self.possibleSquares = vm_parent.game.legalMoves.filter({$0.from == draggedSquare}).map({$0.to})
             } else {
-                return []
+                self.possibleSquares = []
             }
         }
         
