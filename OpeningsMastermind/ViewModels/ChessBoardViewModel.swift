@@ -13,7 +13,8 @@ extension ChessboardView {
     @MainActor class ChessBoardViewModel<ParentVM: ParentChessBoardModelProtocol>: ObservableObject {
         var vm_parent: ParentVM
         
-        @Published var offsets = Array(repeating: CGSize.zero, count: 64)
+//        @Published var offsets = Array(repeating: CGSize.zero, count: 64)
+        @Published var dragOffset: CGSize = .zero
         @Published var draggedSquare: Square? = nil
         
         init(vm_practiceView: ParentVM) {
@@ -22,7 +23,7 @@ extension ChessboardView {
         
         var annotations: (String?, String?) {
             var annotations = vm_parent.annotation
-            if vm_parent.gameState == 1 { return (nil,nil)}
+            if vm_parent.gameState == .mistake { return (nil,nil)}
             if annotations.0 == "" {
                 annotations.0 = nil
             }
@@ -49,7 +50,7 @@ extension ChessboardView {
             vm_parent.last2Moves
         }
         
-        var gameState: Int {
+        var gameState: GameState {
             vm_parent.gameState
         }
         
@@ -102,7 +103,8 @@ extension ChessboardView {
         }
         
         func dragEnded(at value: DragGesture.Value, piece: Piece, square: Square, in size: CGSize) {
-            self.offsets[indexOf(square)] = .zero
+//            self.offsets[indexOf(square)] = .zero
+            self.dragOffset = .zero
             let newSquare = squareOf(value.location, in: size)
             vm_parent.processMoveAction(piece: piece, from: square, to: newSquare)
         }

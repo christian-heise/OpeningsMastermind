@@ -16,6 +16,9 @@
 		AA6960792A05460700A593BB /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6960782A05460700A593BB /* PracticeView.swift */; };
 		AA69607B2A05461700A593BB /* ChessboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA69607A2A05461700A593BB /* ChessboardView.swift */; };
 		AA69607D2A06473800A593BB /* PracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA69607C2A06473800A593BB /* PracticeViewModel.swift */; };
+		AA6A8B7B2A38822C003DA1C2 /* PracticeCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6A8B7A2A38822C003DA1C2 /* PracticeCenterView.swift */; };
+		AA6A8B7D2A38BDF1003DA1C2 /* DisplayBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6A8B7C2A38BDF1003DA1C2 /* DisplayBoardViewModel.swift */; };
+		AA6A8B7F2A38C02E003DA1C2 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6A8B7E2A38C02E003DA1C2 /* GameState.swift */; };
 		AA87F3DD2A013A34009D7017 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA87F3DC2A013A34009D7017 /* AnnotationView.swift */; };
 		AA930ED82A093D4100026712 /* BoxArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA930ED72A093D4100026712 /* BoxArrowShape.swift */; };
 		AA930EDA2A09765200026712 /* SortingMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA930ED92A09765200026712 /* SortingMethod.swift */; };
@@ -106,6 +109,9 @@
 		AA6960782A05460700A593BB /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		AA69607A2A05461700A593BB /* ChessboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessboardView.swift; sourceTree = "<group>"; };
 		AA69607C2A06473800A593BB /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModel.swift; sourceTree = "<group>"; };
+		AA6A8B7A2A38822C003DA1C2 /* PracticeCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCenterView.swift; sourceTree = "<group>"; };
+		AA6A8B7C2A38BDF1003DA1C2 /* DisplayBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayBoardViewModel.swift; sourceTree = "<group>"; };
+		AA6A8B7E2A38C02E003DA1C2 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		AA87F3DC2A013A34009D7017 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		AA930ED72A093D4100026712 /* BoxArrowShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxArrowShape.swift; sourceTree = "<group>"; };
 		AA930ED92A09765200026712 /* SortingMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingMethod.swift; sourceTree = "<group>"; };
@@ -193,6 +199,7 @@
 			children = (
 				AA69607C2A06473800A593BB /* PracticeViewModel.swift */,
 				AADF267F2A16192400CF40ED /* ExploreViewModel.swift */,
+				AA6A8B7C2A38BDF1003DA1C2 /* DisplayBoardViewModel.swift */,
 				AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */,
 				AADF267D2A16169600CF40ED /* ParentChessBoardProtocol.swift */,
 			);
@@ -289,6 +296,7 @@
 				AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */,
 				AAC889A429F802450079ECE5 /* PGNHelpView.swift */,
 				AA6960782A05460700A593BB /* PracticeView.swift */,
+				AA6A8B7A2A38822C003DA1C2 /* PracticeCenterView.swift */,
 				AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */,
 				AA4786BC2A1B880A00BB4144 /* SelectStudyView.swift */,
 				AAA1A1E729F6DB3F003F153F /* SettingsView.swift */,
@@ -309,6 +317,7 @@
 				AACF654B2A3482390058893F /* MoveNode.swift */,
 				AACF65492A33C5150058893F /* GameTree.swift */,
 				AAA1A1E929F6DDD6003F153F /* Settings.swift */,
+				AA6A8B7E2A38C02E003DA1C2 /* GameState.swift */,
 			);
 			path = DataStructure;
 			sourceTree = "<group>";
@@ -512,6 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA6A8B7D2A38BDF1003DA1C2 /* DisplayBoardViewModel.swift in Sources */,
 				AAE4C6D92A362E6100638E87 /* GameNodeOld.swift in Sources */,
 				AAE4C6DA2A362E6100638E87 /* GameTreeOld.swift in Sources */,
 				AACF654C2A3482390058893F /* MoveNode.swift in Sources */,
@@ -524,6 +534,7 @@
 				AAB5A6E42A1916E2007F1302 /* HelpExplorerPageView.swift in Sources */,
 				AADF267E2A16169600CF40ED /* ParentChessBoardProtocol.swift in Sources */,
 				AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */,
+				AA6A8B7B2A38822C003DA1C2 /* PracticeCenterView.swift in Sources */,
 				AADF269F2A17AF4300CF40ED /* LichessUserData.swift in Sources */,
 				AADF26802A16192400CF40ED /* ExploreViewModel.swift in Sources */,
 				AAA1A17E29F02351003F153F /* ContentView.swift in Sources */,
@@ -531,6 +542,7 @@
 				AAC6431629F9374B00D1C12E /* PrivacyView.swift in Sources */,
 				AAD219632A1CECE6005BB0FE /* SwitchStudyView.swift in Sources */,
 				AA87F3DD2A013A34009D7017 /* AnnotationView.swift in Sources */,
+				AA6A8B7F2A38C02E003DA1C2 /* GameState.swift in Sources */,
 				AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */,
 				AACF65482A33C0750058893F /* GameNode.swift in Sources */,
 				AA69607B2A05461700A593BB /* ChessboardView.swift in Sources */,

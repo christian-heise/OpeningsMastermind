@@ -85,7 +85,7 @@ import ChessKit
         self.positionHistory.removeLast()
         self.moveHistory.removeLast()
         self.positionIndex = self.positionIndex - 1
-        gameState = 0
+        gameState = .practice
     }
     
     func determineRightMove() {
@@ -112,7 +112,7 @@ import ChessKit
     func reset() {
         self.game = Game(position: startingGamePosition)
         self.currentNodes = self.selectedGameTrees.map({$0.rootNode})
-        self.gameState = -1
+        self.gameState = .idle
         
         self.moveHistory = []
         self.positionHistory = []
@@ -133,7 +133,7 @@ import ChessKit
         let potentialNodes = currentNodes.filter({!$0.children.isEmpty})
         guard let currentNode = potentialNodes.randomElement() else {
             await MainActor.run {
-                gameState = 2
+                gameState = .endOfLine
             }
             return
         }
@@ -152,7 +152,7 @@ import ChessKit
             
             self.game.make(move: newMove!)
             if newNode!.children.isEmpty {
-                gameState = 2
+                gameState = .endOfLine
             }
             var newNodes: [GameNode] = []
             for i in 0..<currentNodes.count {
@@ -166,7 +166,7 @@ import ChessKit
     
     override func performMove(_ move: Move) {
         if self.selectedGameTrees.isEmpty { return }
-        if !game.legalMoves.contains(move) || gameState == 1 || gameState == 2 { return }
+        if !game.legalMoves.contains(move) || gameState == .mistake || gameState == .endOfLine { return }
         
         let potentialNodes = currentNodes.filter({!$0.children.isEmpty}).filter({$0.children.contains(where: {$0.move == move})})
         
@@ -175,7 +175,7 @@ import ChessKit
         guard !potentialNodes.isEmpty else {
             self.gameCopy = self.game.deepCopy()
             if currentNodes.map({$0.children.isEmpty}).contains(where: {!$0}) {
-                self.gameState = 1
+                self.gameState = .mistake
                 determineRightMove()
                 game.make(move: move)
                 
@@ -185,7 +185,7 @@ import ChessKit
                 
                 self.addMistake(1)
             } else {
-                gameState = 2
+                gameState = .endOfLine
             }
             return
         }
@@ -204,7 +204,7 @@ import ChessKit
         }
         self.currentNodes = newNodes
         self.game.make(move: move)
-        gameState = 0
+        gameState = .practice
         Task {
             await performComputerMove(in: 300)
         }

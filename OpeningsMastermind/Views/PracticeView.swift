@@ -28,9 +28,9 @@ struct PracticeView: View {
     }
     
     var text: String {
-        if vm.gameState == 1 {
+        if vm.gameState == .mistake {
             return "This move is in none of your selected Studies!"
-        } else if vm.gameState == 2 {
+        } else if vm.gameState == .endOfLine {
             return "This was the last move in this Study"
         } else {
             return ""
@@ -50,7 +50,7 @@ struct PracticeView: View {
                             .multilineTextAlignment(.center)
                             .frame(height: 20)
                             .padding()
-                            .opacity(vm.gameState > 0 ? 1 : 0)
+                            .opacity((vm.gameState == .mistake || vm.gameState == .endOfLine) ? 1 : 0)
                     }
                     ChessboardView(vm: vm, settings: settings)
                         .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
@@ -81,7 +81,7 @@ struct PracticeView: View {
                                 .multilineTextAlignment(.center)
                                 .frame(height: 20)
                                 .padding()
-                                .opacity(vm.gameState > 0 ? 1 : 0)
+                                .opacity((vm.gameState == .mistake || vm.gameState == .endOfLine) ? 1 : 0)
                         }
                         HStack {
                             Button(action: {
@@ -93,8 +93,8 @@ struct PracticeView: View {
                                     .background([79,147,206].getColor())
                                     .cornerRadius(10)
                             }
-                            .opacity(vm.gameState >= 0 ? 1 : 0)
-                            .disabled(vm.gameState >= 0 ? false : true)
+                            .opacity(vm.gameState != .idle ? 1 : 0)
+                            .disabled(vm.gameState != .idle ? false : true)
     
                             Button(action: {
                                 vm.revertMove()
@@ -105,8 +105,8 @@ struct PracticeView: View {
                                     .background([223,110,107].getColor())
                                     .cornerRadius(10)
                             }
-                            .opacity(vm.gameState == 1 ? 1 : 0)
-                            .disabled(vm.gameState == 1 ? false : true)
+                            .opacity(vm.gameState == .mistake ? 1 : 0)
+                            .disabled(vm.gameState == .mistake ? false : true)
                         }
                         .padding(10)
                     }
@@ -143,7 +143,7 @@ struct PracticeView: View {
                             .padding(.vertical, 1)
                             .padding(.trailing, 5)
                         }
-                        .disabled(database.gametrees.isEmpty || vm.gameState == 0)
+                        .disabled(database.gametrees.isEmpty || vm.gameState == .practice)
                         .background() {
                             RoundedRectangle(cornerRadius: 5)
                                 .fill(Color.gray)

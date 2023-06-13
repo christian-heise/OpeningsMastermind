@@ -125,7 +125,7 @@ import ChessKitEngine
         self.positionIndex = -1
         self.promotionMove = nil
         self.showingComment = false
-        gameState = 4
+        gameState = .explore
         
         self.updateLichessExplorer()
         self.determineRightMove()
@@ -146,7 +146,7 @@ import ChessKitEngine
         self.positionIndex = -1
         self.promotionMove = nil
         self.showingComment = false
-        gameState = 4
+        gameState = .explore
         
         self.updateLichessExplorer()
         self.determineRightMove()
@@ -362,7 +362,7 @@ import ChessKitEngine
         determineRightMove()
         updateLichessExplorer()
         showingComment = false
-        gameState = 4
+        gameState = .explore
     }
     
     class ExploreNode {
