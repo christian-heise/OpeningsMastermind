@@ -37,7 +37,7 @@ class GameTree: Codable, Hashable {
         self.name = name
         self.userColor = userColor
         self.allGameNodes = decoder.decodePGN(pgnString: pgnString)
-        self.rootNode = self.allGameNodes.first ?? GameNode()
+        self.rootNode = self.allGameNodes.first ?? GameNode(fen: startingFEN)
         self.pgnString = pgnString
         self.dateAdded = Date()
         self.dateLastPlayed = Date(timeIntervalSince1970: 0)
@@ -56,7 +56,7 @@ class GameTree: Codable, Hashable {
         if oldTree.pgnString != "" {
             self.pgnString = oldTree.pgnString
             self.allGameNodes = decoder.decodePGN(pgnString: pgnString)
-            self.rootNode = self.allGameNodes.first ?? GameNode()
+            self.rootNode = self.allGameNodes.first ?? GameNode(fen: startingFEN)
         } else {
             let oldRootNode = oldTree.rootNode
             let rootNode = GameTree.convert(oldNode: oldRootNode, game: Game(position: startingGamePosition))
@@ -81,12 +81,17 @@ class GameTree: Codable, Hashable {
         
         self.dateLastPlayed = try container.decodeIfPresent(Date.self, forKey: .dateLastPlayed) ?? Date(timeIntervalSince1970: 0)
         
-        self.allGameNodes = try container.decode([GameNode].self, forKey: .allGameNodes)
+        self.allGameNodes = GameTree.getAllNodes(rootNode: self.rootNode)
+    }
+    
+    static func getAllNodes(rootNode: GameNode) -> [GameNode] {
+        return []
     }
     
     static func convert(oldNode: GameNodeOld, game: Game) -> GameNode {
-        let node = GameNode()
-        node.comment = oldNode.comment
+        let fen = FenSerialization.default.serialize(position: game.position)
+        let node = GameNode(fen: fen, comment: oldNode.comment)
+
         var moveChildren: [MoveNode] = []
         for child in oldNode.children {
             let move = SanSerialization.default.move(for: child.move, in: game)
@@ -123,8 +128,6 @@ extension GameTree {
         try container.encode(dateAdded, forKey: .dateAdded)
         
         try container.encode(dateLastPlayed, forKey: .dateLastPlayed)
-        
-        try container.encode(allGameNodes, forKey: .allGameNodes)
     }
     
     func hash(into hasher: inout Hasher) {
@@ -132,6 +135,6 @@ extension GameTree {
     }
     
     enum CodingKeys: String, CodingKey {
-        case name, rootNode, userColor, pgnString, dateAdded, dateLastPlayed, id, allGameNodes
+        case name, rootNode, userColor, pgnString, dateAdded, dateLastPlayed, id
     }
 }

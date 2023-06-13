@@ -21,7 +21,7 @@ class PGNDecoder {
         
         let chapters = pgnString.split(separator: "\n\n\n", omittingEmptySubsequences: true)
 
-        let rootNode = GameNode()
+        let rootNode = GameNode(fen: startingFEN)
         var currentNode = rootNode
 
         var allNodes: [GameNode] = [rootNode]
@@ -196,7 +196,8 @@ class PGNDecoder {
 //                newNode.parents.append(moveNode)
 //            }
             else {
-                newNode = GameNode()
+                let fen = FenSerialization.default.serialize(position: game.position)
+                newNode = GameNode(fen: fen)
                 
                 let moveNode = MoveNode(moveString: moveString, move: move, annotation: annotation, child: newNode, parent: currentNode)
                 currentNode.children.append(moveNode)

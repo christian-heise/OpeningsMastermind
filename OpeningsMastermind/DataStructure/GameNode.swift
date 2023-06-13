@@ -15,13 +15,16 @@ class GameNode: Codable, Hashable {
     
     var comment: String?
     
+    let fen: String
+    
     var mistakesLast5Moves: [Int] = Array(repeating: 1, count: 5)
     let mistakeFactor = 0.85
     private var _depth: Int? // memorization cache
     
-    init(children: [MoveNode] = [], parents: [MoveNode] = [], comment: String? = nil) {
+    init(children: [MoveNode] = [], parents: [MoveNode] = [], fen: String, comment: String? = nil) {
         self.children = children
         self.parents = parents
+        self.fen = fen
         self.comment = comment
     }
     
@@ -32,6 +35,8 @@ class GameNode: Codable, Hashable {
         parents = []
         comment = try container.decode(String?.self, forKey: .comment)
         mistakesLast5Moves = try container.decode([Int].self, forKey: .mistakesLast5Moves)
+        
+        fen = try container.decode(String.self, forKey: .fen)
         
         for child in children {
             child.parent = self
@@ -107,8 +112,9 @@ extension GameNode {
         try container.encode(children, forKey: .children)
         try container.encode(comment, forKey: .comment)
         try container.encode(mistakesLast5Moves, forKey: .mistakesLast5Moves)
+        try container.encode(fen, forKey: .fen)
     }
     enum CodingKeys: String, CodingKey {
-        case children, comment, mistakesLast5Moves
+        case children, comment, mistakesLast5Moves, fen
     }
 }
