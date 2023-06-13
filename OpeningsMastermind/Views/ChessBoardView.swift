@@ -31,6 +31,21 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                             .fill((row + col) % 2 == 0 ? settings.boardColorRGB.white.getColor() : settings.boardColorRGB.black.getColor())
                             .frame(width: vm.squareLength(in: geo.size), height: vm.squareLength(in: geo.size))
                             .position(vm.squarePosition(in: geo.size, col: col, row: row))
+                            .onTapGesture {
+                                if let selectedSquare = vm.selectedSquare {
+                                    if parentVM.game.legalMoves.contains(where: {$0.from == Square(file: col, rank: 7-row)}) {
+                                        vm.selectedSquare = vm.pieces.first(where: {$0.0 == Square(file: col, rank: 7-row)})
+                                    } else {
+                                        parentVM.processMoveAction(piece: selectedSquare.1, from: selectedSquare.0, to: Square(file: col, rank: 7-row))
+                                        vm.selectedSquare = nil
+                                    }
+                                } else if let piece = vm.pieces.first(where: {$0.0 == Square(file: col, rank: 7-row)}) {
+                                    if parentVM.game.legalMoves.contains(where: {$0.from == Square(file: col, rank: 7-row)}) {
+                                        vm.selectedSquare = piece
+                                    }
+                                }
+                                vm.getPossibleSquares()
+                            }
                         if let lastMove = vm.last2Moves.0 {
                             if lastMove.to == Square(file: col, rank: 7-row) || lastMove.from == Square(file: col, rank: 7-row) {
                                 Rectangle()
@@ -56,6 +71,20 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                                 .font(.system(size: vm.squareLength(in: geo.size)/4))
                                 .foregroundColor((row + col) % 2 == 0 ? settings.boardColorRGB.black.getColor() : settings.boardColorRGB.white.getColor())
                         }
+                        Circle()
+                            .fill(Color.black)
+                            .opacity(vm.possibleSquares.contains(Square(file: col, rank: 7-row)) ? 0.3 : 0.0)
+                            .frame(width: vm.squareLength(in: geo.size)/2)
+                            .position(vm.squarePosition(in: geo.size, col: col, row: row))
+                        Rectangle()
+                            .fill(Color.yellow)
+                            .opacity(vm.selectedSquare?.0 == Square(file: col, rank: 7-row) ? 0.6 : 0.0)
+                            .frame(width: vm.squareLength(in: geo.size), height: vm.squareLength(in: geo.size))
+                            .reverseMask({
+                                Rectangle()
+                                    .frame(width: max(vm.squareLength(in: geo.size)-10,10), height: max(vm.squareLength(in: geo.size)-10,10))
+                            })
+                            .position(vm.squarePosition(in: geo.size, col: col, row: row))
                     }
                 }
                 Rectangle()
@@ -84,15 +113,38 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                         .offset(vm.offsets[vm.indexOf(piece.0)])
                         .gesture(
                             DragGesture()
-                                .onChanged{ value in
-                                    vm.draggedSquare = piece.0
+                                .onChanged { value in
+                                    if vm.draggedSquare == nil {
+                                        vm.draggedSquare = piece.0
+                                        vm.getPossibleSquares()
+                                    } else {
+                                        vm.draggedSquare = piece.0
+                                    }
                                     vm.offsets[vm.indexOf(piece.0)] = value.translation
                                 }
                                 .onEnded { value in
                                     vm.draggedSquare = nil
                                     vm.dragEnded(at: value, piece: piece.1, square: piece.0, in: geo.size)
+                                    vm.getPossibleSquares()
                                 })
                         .zIndex(vm.draggedSquare==piece.0 ? 1000:10)
+                        .onTapGesture {
+                            if let selectedSquare = vm.selectedSquare {
+                                if selectedSquare == piece {
+                                    vm.selectedSquare = nil
+                                } else if parentVM.game.legalMoves.contains(where: {$0.from == piece.0}) {
+                                    vm.selectedSquare = piece
+                                } else {
+                                    parentVM.processMoveAction(piece: selectedSquare.1, from: selectedSquare.0, to: piece.0)
+                                    vm.selectedSquare = nil
+                                }
+                            } else {
+                                if parentVM.game.legalMoves.contains(where: {$0.from == piece.0}) {
+                                    vm.selectedSquare = piece
+                                }
+                            }
+                            vm.getPossibleSquares()
+                        }
                 }
                 if let move = vm.last2Moves.0, let annotation = vm.annotations.0 {
                     AnnotationView(annotation: annotation)
@@ -119,7 +171,7 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
     }
 }
 
-struct ChessboardView_Previews: PreviewProvider {
+struct ChessboardViewOld_Previews: PreviewProvider {
     static var previews: some View {
         ChessboardView(vm: PracticeViewModel(database: DataBase()), settings: Settings())
     }

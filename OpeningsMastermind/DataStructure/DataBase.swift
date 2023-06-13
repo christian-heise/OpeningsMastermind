@@ -19,8 +19,15 @@ class DataBase: ObservableObject, Codable {
     @Published var sortSelection: SortingMethod = .manual
     @Published var sortingDirectionIncreasing: Bool = true
     
+    @Published var isLoaded = false
+    
     init() {
-        load()
+        Task {
+            await load()
+            await MainActor.run {
+                self.isLoaded = true
+            }
+        }
     }
     
     init(gameTrees: [GameTree]) {
@@ -45,16 +52,18 @@ class DataBase: ObservableObject, Codable {
         return paths[0]
     }
     
-    private func load() {
+    private func load() async {
         let filename = getDocumentsDirectory().appendingPathComponent("gameTree.json")
         do {
             let data = try Data(contentsOf: filename)
             let decoder = JSONDecoder()
             let database = try decoder.decode(DataBase.self, from: data)
-            self.appVersion = database.appVersion
-            self.sortSelection = database.sortSelection
-            self.sortingDirectionIncreasing = database.sortingDirectionIncreasing
-            self.gametrees = database.gametrees
+            await MainActor.run {
+                self.appVersion = database.appVersion
+                self.sortSelection = database.sortSelection
+                self.sortingDirectionIncreasing = database.sortingDirectionIncreasing
+                self.gametrees = database.gametrees
+            }
         } catch {
             print("Could not load database")
         }
@@ -65,12 +74,15 @@ class DataBase: ObservableObject, Codable {
         self.save()
     }
     
-    func addNewGameTree(name: String, pgnString: String, userColor: PieceColor) -> Bool {
+    func addNewGameTree(name: String, pgnString: String, userColor: PieceColor) async -> Bool {
+    
         let newGameTree = GameTree(name: name, pgnString: pgnString, userColor: userColor)
         
         if !newGameTree.rootNode.children.isEmpty {
-            self.gametrees.append(newGameTree)
-            self.save()
+            await MainActor.run {
+                self.gametrees.append(newGameTree)
+                self.save()
+            }
             return true
         }
         else {
@@ -86,10 +98,24 @@ class DataBase: ObservableObject, Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-        self.gametrees = try container.decode([GameTree].self, forKey: .gameTrees)
+        self.appVersion = try container.decodeIfPresent(String.self, forKey: .appVersion) ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        
         self.sortSelection = try container.decodeIfPresent(SortingMethod.self, forKey: .sortSelection) ?? .manual
         self.sortingDirectionIncreasing = try container.decodeIfPresent(Bool.self, forKey: .sortingDirectionIncreasing) ?? true
+        
+        if "0.7".isVersionGreater(than: self.appVersion) {
+            let oldGameTrees = try container.decode([GameTreeOld].self, forKey: .gameTrees)
+            print("Successfully loaded \(oldGameTrees.count) old gametrees")
+
+            for oldTree in oldGameTrees {
+                if oldTree.pgnString != "" {
+                    self.gametrees.append(GameTree(fromOld: oldTree))
+                }
+            }
+        } else {
+            self.gametrees = try container.decode([GameTree].self, forKey: .gameTrees)
+        }
+        self.appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     }
     
     func encode(to encoder: Encoder) throws {

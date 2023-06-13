@@ -39,14 +39,19 @@ struct ExploreView: View {
                 let layout = isLandscape(in: geo.size) ? AnyLayout(HStackLayout()) : AnyLayout(VStackLayout())
                 layout {
                     HStack(spacing: 0) {
-                        EvalBarView(eval: vm.evaluation, mate: vm.mateInXMoves, userColor: vm.userColor)
-                            .frame(width: 20)
-                            .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
+                        if settings.engineOn {
+                            EvalBarView(eval: vm.evaluation, mate: vm.mateInXMoves, userColor: vm.userColor)
+                                .frame(width: 20)
+                                .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
+                        }
                         ChessboardView(vm: vm, settings: settings)
                             .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                     }
-                    .if(!isLandscape(in: geo.size)) { view in
+                    .if(!isLandscape(in: geo.size) && settings.engineOn) { view in
                         view.frame(height: max(min(geo.size.width-20, max(geo.size.height - 50 - 40 - 85, 300)), 30))
+                    }
+                    .if(!isLandscape(in: geo.size) && !settings.engineOn) { view in
+                        view.frame(height: max(min(geo.size.width, max(geo.size.height - 50 - 40 - 85, 300)), 30))
                     }
                     .if(isLandscape(in: geo.size)) { view in
                         view.frame(width: max(min(geo.size.height+20, geo.size.width - 300), 30))
@@ -71,7 +76,7 @@ struct ExploreView: View {
                             
                         } else {
                             ScrollView {
-                                LichessExplorerView(openingData: vm.lichessResponse)
+                                LichessExplorerView(vm: vm)
                             }
                             .scrollIndicators(.hidden)
                             .clipped()

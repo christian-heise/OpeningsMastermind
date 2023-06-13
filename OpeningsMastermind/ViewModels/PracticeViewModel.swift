@@ -33,10 +33,14 @@ import ChessKit
             return (nil, nil)
         } else {
             if let currentNode = currentNodes.first {
-                if let parentNode = currentNode.parent {
-                    return (currentNode.annotation, parentNode.annotation)
+                guard let moveNode = currentNode.parents.first(where: {$0.move == moveHistory[positionIndex].0}) else { return (nil, nil) }
+                let currentAnnotation = moveNode.annotation
+                
+                if positionIndex > 0 {
+                    guard let oldMoveNode = moveNode.parent?.parents.first(where: {$0.move == moveHistory[positionIndex-1].0}) else { return (nil, nil) }
+                    return (currentAnnotation, oldMoveNode.annotation)
                 } else {
-                    return (currentNode.annotation, nil)
+                    return (currentAnnotation, nil)
                 }
             } else {
                 return (nil, nil)
@@ -44,7 +48,9 @@ import ChessKit
         }
     }
     var currentMoveColor: PieceColor {
-        return currentNodes.first?.moveColor ?? .white
+        guard let previousColor = currentNodes.first?.parents.first?.moveColor else { return .white}
+        
+        return previousColor == .white ? .black : .white
     }
     
     func saveUserDefaults() {
@@ -84,10 +90,9 @@ import ChessKit
     
     func determineRightMove() {
         self.rightMove = []
-        let decoder = SanSerialization.default
         for currentNode in currentNodes {
-            for node in currentNode.children {
-                self.rightMove.append(decoder.move(for: node.move, in: self.game))
+            for moveNode in currentNode.children {
+                self.rightMove.append(moveNode.move)
             }
         }
     }
@@ -113,6 +118,9 @@ import ChessKit
         self.positionHistory = []
         self.positionIndex = -1
         
+        self.promotionMove = nil
+        self.promotionPending = false
+        
         if selectedGameTrees.isEmpty { return }
         if self.userColor == .black {
             Task {
@@ -135,11 +143,12 @@ import ChessKit
         
         await MainActor.run {
             let san = SanSerialization.default.correctSan(for: newMove!, in: self.game)
-
-//            self.moveStringList.append(san)
+            
             self.positionHistory.append(self.game.position)
             self.moveHistory.append((newMove!, san))
             self.positionIndex = self.positionIndex + 1
+            
+            addMistake(0)
             
             self.game.make(move: newMove!)
             if newNode!.children.isEmpty {
@@ -147,8 +156,8 @@ import ChessKit
             }
             var newNodes: [GameNode] = []
             for i in 0..<currentNodes.count {
-                if currentNodes[i].children.contains(where: {$0.move == san}) {
-                    newNodes.append(currentNodes[i].children.first(where: {$0.move == san})!)
+                if currentNodes[i].children.contains(where: {$0.moveString == san}) {
+                    newNodes.append(currentNodes[i].children.first(where: {$0.moveString == san})!.child)
                 }
             }
             self.currentNodes = newNodes
@@ -157,12 +166,9 @@ import ChessKit
     
     override func performMove(_ move: Move) {
         if self.selectedGameTrees.isEmpty { return }
-        if !game.legalMoves.contains(move) || gameState > 0 { return }
+        if !game.legalMoves.contains(move) || gameState == 1 || gameState == 2 { return }
         
-        let potentialNodes = currentNodes.filter({!$0.children.isEmpty}).filter({
-            let (success, _) = $0.databaseContains(move: move, in: game)
-            return success
-        })
+        let potentialNodes = currentNodes.filter({!$0.children.isEmpty}).filter({$0.children.contains(where: {$0.move == move})})
         
         let san = SanSerialization.default.correctSan(for: move, in: game)
         
@@ -192,8 +198,8 @@ import ChessKit
         var newNodes: [GameNode] = []
 
         for i in 0..<currentNodes.count {
-            if currentNodes[i].children.contains(where: {$0.move == san}) {
-                newNodes.append(currentNodes[i].children.first(where: {$0.move == san})!)
+            if currentNodes[i].children.contains(where: {$0.moveString == san}) {
+                newNodes.append(currentNodes[i].children.first(where: {$0.moveString == san})!.child)
             }
         }
         self.currentNodes = newNodes
@@ -209,36 +215,38 @@ import ChessKit
             node.mistakesLast5Moves.removeFirst()
             node.mistakesLast5Moves.append(mistake)
         }
+        self.database.objectWillChange.send()
+        for tree in self.selectedGameTrees {
+           tree.dateLastPlayed = Date()
+        }
     }
     
     func generateMove(game: Game, node: GameNode) -> (Move?, GameNode?) {
         if node.children.count == 1 {
-            let newNode = node.children.first!
-            let decoder = SanSerialization.default
-            let generatedMove = decoder.move(for: newNode.move, in: game)
+            let moveNode = node.children.first!
+            let generatedMove = moveNode.move
+            let newNode = moveNode.child
             return (generatedMove, newNode)
         }
         
         // Probabilities based on Mistakes
-        let probabilitiesMistakes = node.children.map({$0.mistakesRate / node.children.map({$0.mistakesRate}).reduce(0, +)})
-        
-        
+        let probabilitiesMistakes = node.children.map({$0.child.mistakesRate / node.children.map({$0.child.mistakesRate}).reduce(0, +)})
         // Probability based on Depth
-        let depthArray: [Double] = node.children.map({Double($0.depth) * Double($0.depth)})
+        let depthArray: [Double] = node.children.map({Double($0.child.depth) * Double($0.child.depth)})
         let summedDepth = depthArray.reduce(0, +)
-        
+
         var probabilitiesDepth = [Double]()
-        
+
         if summedDepth == 0 {
             probabilitiesDepth = Array(repeating: 1 / Double(node.children.count), count: node.children.count)
         } else {
             probabilitiesDepth = depthArray.map({$0 / Double(summedDepth)})
         }
-        
+
         // Combine probabilities
         var probabilities = zip(probabilitiesMistakes,probabilitiesDepth).map() {$0 * Double(probabilitiesMistakes.count) * $1}
         probabilities = probabilities.map({$0 / probabilities.reduce(0,+)})
-//        let probabilities = zip(probabilitiesMistakes,probabilitiesDepth).map() {($0 + $1)/2}
+        
         print("Depth: \(probabilitiesDepth)")
         print("Mistake: \(probabilitiesMistakes)")
         print("Total: \(probabilities)")
@@ -251,16 +259,16 @@ import ChessKit
                 randomInt -= Int(probabilities[i]*1000)
                 continue
             } else {
-                let newNode = node.children[i]
-                let decoder = SanSerialization.default
-                let generatedMove = decoder.move(for: newNode.move, in: game)
+                let moveNode = node.children[i]
+                let generatedMove = moveNode.move
+                let newNode = moveNode.child
                 
                 return (generatedMove, newNode)
             }
         }
-        let newNode = node.children.first!
-        let decoder = SanSerialization.default
-        let generatedMove = decoder.move(for: newNode.move, in: game)
+        let moveNode = node.children.first!
+        let generatedMove = moveNode.move
+        let newNode = moveNode.child
         
         return (generatedMove, newNode)
     }
