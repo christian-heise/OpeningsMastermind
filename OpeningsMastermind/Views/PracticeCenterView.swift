@@ -14,8 +14,8 @@ struct PracticeCenterView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                VStack {
-                    Text("Repeat positions where a mistake was made")
+                VStack(alignment: .leading) {
+                    Text("Practice Queue")
                         .font(.title2)
                         .padding(.horizontal)
                         .padding(.top)
@@ -27,17 +27,7 @@ struct PracticeCenterView: View {
                                 .frame(width: size, height: size)
                             ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: .white, currentMoveColor: .white, position: startingGamePosition), settings: Settings())
                                 .frame(width: size, height: size)
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: size, height: size)
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: size, height: size)
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: size, height: size)
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: size, height: size)
-                            RoundedRectangle(cornerRadius: 10)
-                                .frame(width: size, height: size)
-                            RoundedRectangle(cornerRadius: 10)
+                            ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: .white, currentMoveColor: .white, position: startingGamePosition), settings: Settings())
                                 .frame(width: size, height: size)
                         }
                     }
@@ -53,7 +43,7 @@ struct PracticeCenterView: View {
                     RoundedRectangle(cornerRadius: 20)
                         .opacity(0.1)
                     VStack(alignment: .leading) {
-                        Text("Practice a certain opening")
+                        Text("Practice specific opening")
                             .font(.title2)
                             .padding(.horizontal)
                             .padding(.top)

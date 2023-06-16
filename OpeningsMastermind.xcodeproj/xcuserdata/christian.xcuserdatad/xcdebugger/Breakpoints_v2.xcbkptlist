@@ -164,5 +164,22 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3DBF5A9A-9BC0-4FFF-99BD-C1F525F09E4A"
+            shouldBeEnabled = "No"
+            condition = "moveString == &quot;exf6&quot;"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OpeningsMastermind/PGNDecoder.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "addMoveToTree(_:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -20,7 +20,8 @@ struct AddStudyView: View {
     
     @State private var editMode = EditMode.active
     
-    @State private var pgnString = ""
+    @Binding private var pgnString: String
+    
     @State private var nameString = ""
     @State private var selectedColor = "white"
     @State private var lichessURL = ""
@@ -39,6 +40,12 @@ struct AddStudyView: View {
     @State private var exampleSelection = Set<ExamplePGN>()
     
     let colors = ["white", "black"]
+    
+    init(database: DataBase, isLoading: Binding<Bool>, pgnString: Binding<String>) {
+        self.database = database
+        self._isLoading = isLoading
+        self._pgnString = pgnString
+    }
     
     var selectedPieceColor: PieceColor {
         if self.selectedColor == "white" {
@@ -90,6 +97,12 @@ struct AddStudyView: View {
                             }) {
                                 Image(systemName: "questionmark.circle")
                             }
+                            Spacer()
+                            Button(action: {
+                                self.pgnString = ""
+                            }) {
+                                Image(systemName: "xmark.circle")
+                            }
                             .popover(present: $showingPGNHelp, attributes: {
                                 $0.position = .absolute(
                                     originAnchor: .top,
@@ -107,11 +120,10 @@ struct AddStudyView: View {
                                 }
                                 .frame(maxWidth: 200)
                             }
-                            Spacer()
                         }
 
                             
-                        TextEditor(text: $pgnString)
+                        TextEditor(text: _pgnString)
                             .frame(minHeight: 40)
                             .padding(4)
                             .onSubmit {
@@ -325,6 +337,6 @@ struct AddStudyView: View {
 
 struct AddStudyView_Previews: PreviewProvider {
     static var previews: some View {
-        AddStudyView(database: DataBase(), isLoading: .constant(false))
+        AddStudyView(database: DataBase(), isLoading: .constant(false), pgnString: .constant(""))
     }
 }

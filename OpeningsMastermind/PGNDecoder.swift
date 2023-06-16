@@ -31,10 +31,8 @@ class PGNDecoder {
         
         var comment: String = ""
         
-        var dictPosition: [GameNode: Board] = [rootNode:startingGamePosition.board]
-        var dictNode: [Board: GameNode] = [startingGamePosition.board:rootNode]
-        
-        var boardPosition: [Board: Position] = [startingGamePosition.board:startingGamePosition]
+        var dictPosition: [GameNode: Position] = [rootNode:startingGamePosition]
+        var dictNode: [Position: GameNode] = [startingGamePosition:rootNode]
         
         for i in 0..<chapters.count {
             let chapter = String(chapters[i])
@@ -43,7 +41,7 @@ class PGNDecoder {
                 let fen = fenString.replacingOccurrences(of: "[FEN \"", with: "").replacingOccurrences(of: "\"]", with: "")
                 if fen != startingFEN {
                     let position = FenSerialization.default.deserialize(fen: fen)
-                    if let startingNode = dictNode[position.board] {
+                    if let startingNode = dictNode[position] {
                         currentNode = startingNode
                         game = Game(position: position)
                     } else {
@@ -113,7 +111,7 @@ class PGNDecoder {
                 if isVariationMoveNumber(modifiedString) {
                     variationNodes.append(currentNode)
                     currentNode = currentNode.parents.last!.parent!
-                    game = Game(position: boardPosition[dictPosition[currentNode]!]!)
+                    game = Game(position: dictPosition[currentNode]!)
                     continue
                 }
                 if modifiedString.hasSuffix(")") {
@@ -126,11 +124,11 @@ class PGNDecoder {
                             currentNode = variationNodes.last!
                             variationNodes.removeLast()
                             
-                            game = Game(position: boardPosition[dictPosition[currentNode]!]!)
+                            game = Game(position: dictPosition[currentNode]!)
                         } else if modifiedMove.isEmpty || (modifiedMove.hasPrefix("$") && !modifiedMove.hasSuffix(")")) {
                             currentNode = variationNodes.last!
                             variationNodes.removeLast()
-                            game = Game(position: boardPosition[dictPosition[currentNode]!]!)
+                            game = Game(position: dictPosition[currentNode]!)
                         } else {
                             variationNodes.removeLast()
                         }
@@ -188,14 +186,12 @@ class PGNDecoder {
             
             if currentNode.children.contains(where: {$0.moveString==moveString}) {
                 newNode = currentNode.children.first(where: {$0.moveString==moveString})!.child
-            }
-//            else if let node = dictNode[game.position.board] {
-//                let moveNode = MoveNode(moveString: moveString, move: move, annotation: annotation, child: node, parent: currentNode)
-//                currentNode.children.append(moveNode)
-//                newNode = node
-//                newNode.parents.append(moveNode)
-//            }
-            else {
+            } else if let node = dictNode[game.position] {
+                let moveNode = MoveNode(moveString: moveString, move: move, annotation: annotation, child: node, parent: currentNode)
+                currentNode.children.append(moveNode)
+                newNode = node
+                newNode.parents.append(moveNode)
+            } else {
                 let fen = FenSerialization.default.serialize(position: game.position)
                 newNode = GameNode(fen: fen)
                 
@@ -204,9 +200,8 @@ class PGNDecoder {
                 newNode.parents.append(moveNode)
                 
                 allNodes.append(newNode)
-                dictNode[game.position.board] = newNode
-                dictPosition[newNode] = game.position.board
-                boardPosition[game.position.board] = game.position
+                dictNode[game.position] = newNode
+                dictPosition[newNode] = game.position
             }
             return newNode
         }

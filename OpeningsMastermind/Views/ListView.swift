@@ -16,6 +16,8 @@ struct ListView: View {
     
     @State private var isLoading = false
     
+    @State private var pgnString: String = ""
+    
     var sortedGameTrees: [GameTree] {
         if database.sortSelection == .name {
             if database.sortingDirectionIncreasing {
@@ -116,7 +118,7 @@ struct ListView: View {
                 }
             }
             .sheet(isPresented: $showingAddSheet) {
-                AddStudyView(database: database, isLoading: $isLoading)
+                AddStudyView(database: database, isLoading: $isLoading, pgnString: $pgnString)
             }
             
         }
@@ -125,6 +127,43 @@ struct ListView: View {
                 showingAddSheet = true
             }
         }
+        .onOpenURL { deepLinkURL in
+            if let components = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
+               let queryItem = components.queryItems?.first(where: { $0.name == "share_url" })?.value,
+               let _ = URL(string: queryItem) {
+                self.isLoading = true
+                Task {
+                    do {
+                        let pgnString = try await getPGNFromLichess(queryItem)
+                        await MainActor.run() {
+                            self.pgnString = pgnString
+                            self.showingAddSheet = true
+                            self.isLoading = false
+                        }
+                    } catch let localError { }
+                }
+            }
+            
+        }
+    }
+    
+    func getPGNFromLichess(_ urlString: String) async throws -> String {
+        guard let url = URL(string: urlString) else { throw LichessPGNError.urlInvalid }
+        let expectedHost = "lichess.org"
+        let expectedPath = "/study/"
+        
+        // Check if the URL matches the expected format
+        guard url.host == expectedHost, url.path.starts(with: expectedPath) else { throw LichessPGNError.noLichessUrl }
+        
+        // Extract the id from the URL
+        let id = url.lastPathComponent
+        
+        guard let apiURL = URL(string: "https://lichess.org/api/study/\(id).pgn") else { throw LichessPGNError.createdUrlInvalid}
+        guard let (data, _) = try? await URLSession.shared.data(from: apiURL) else { throw LichessPGNError.badResponse}
+        return try String(data: data, encoding: .utf8) ?? {throw LichessPGNError.badResponse}()
+    }
+    enum LichessPGNError: Error {
+        case urlInvalid, noLichessUrl, badResponse, createdUrlInvalid
     }
     
 

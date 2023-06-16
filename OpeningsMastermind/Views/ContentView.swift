@@ -34,7 +34,7 @@ struct ContentView: View {
                         Label("Library", systemImage: "list.bullet")
                     }
                     .tag(2)
-                SettingsView(settings: settings)
+                SettingsView(settings: settings, database: database)
                     .tabItem {
                         Label("Settings", systemImage: "gear")
                     }
@@ -50,6 +50,9 @@ struct ContentView: View {
                 Task {
                     await settings.updateAllAccountDetails()
                 }
+            }
+            .onOpenURL { _ in
+                selectedTab = 2
             }
         } else {
             LoadingView()

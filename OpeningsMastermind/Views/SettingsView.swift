@@ -10,6 +10,7 @@ import StoreKit
 
 struct SettingsView: View {
     @ObservedObject var settings: Settings
+    @ObservedObject var database: DataBase
     
     @State private var colorWhite: Color
     @State private var colorBlack: Color
@@ -21,8 +22,9 @@ struct SettingsView: View {
     
     @Environment(\.requestReview) var requestReview
     
-    init(settings: Settings) {
+    init(settings: Settings, database: DataBase) {
         self.settings = settings
+        self.database = database
         self._colorWhite = State(initialValue: settings.boardColorRGB.white.getColor())
         self._colorBlack = State(initialValue: settings.boardColorRGB.black.getColor())
     }
@@ -83,27 +85,32 @@ struct SettingsView: View {
                             Button {
                                 settings.resetAccount(for: .lichess)
                             } label: {
-                                HStack {
+                                Label {
                                     Text("Disconnect \"" + lichessName + "\"")
-                                    Spacer()
+                                        .foregroundColor(.red)
+                                } icon: {
                                     Image("lichess_logo")
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(height: 30)
+                                        .frame(height: 25)
                                 }
                             }
-                            
+//                            Button() {
+//                                
+//                            } label: {
+//                                Label("Import public studies", systemImage: "square.and.arrow.down")
+//                            }
                         } else {
                             Button {
                                 showingLichessConnect = true
                             } label: {
-                                HStack {
+                                Label {
                                     Text("Connect Lichess Account")
-                                    Spacer()
+                                } icon: {
                                     Image("lichess_logo")
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(height: 30)
+                                        .frame(height: 25)
                                 }
                             }
                         }
@@ -142,10 +149,10 @@ struct SettingsView: View {
 //                    }
 
                 } header: {
-                    Text("Connect Chess Account")
+                    Text("Online Accounts")
                         .fontWeight(.bold)
                 } footer: {
-                    Text("Connection is used to show moves in your rating range in the Lichess Explorer.")
+                    Text("Your Lichess information is used to filter moves in the Lichess opening explorer to better match your rating.")
                 }
                 Section() {
                     NavigationLink(destination: {ImpressumView()}) {
@@ -181,6 +188,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(settings: Settings())
+        SettingsView(settings: Settings(), database: DataBase())
     }
 }
