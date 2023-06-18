@@ -14,7 +14,7 @@ struct AddStudyView: View {
     @ObservedObject var database: DataBase
     @Binding var isLoading: Bool
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.openURL) var openURL
     
@@ -237,7 +237,7 @@ struct AddStudyView: View {
             .environment(\.editMode, $editMode)
             .toolbar {
                 Button(action:{
-                    self.presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 }) {
                     Image(systemName: "xmark")
                 }
@@ -289,7 +289,7 @@ struct AddStudyView: View {
                 let result = await database.addNewGameTree(name: nameString, pgnString: pgnString, userColor: selectedPieceColor)
                 await MainActor.run {
                     if result {
-                        self.presentationMode.wrappedValue.dismiss()
+                        self.dismiss()
                     } else {
                         pgnError = true
                     }
@@ -311,7 +311,7 @@ struct AddStudyView: View {
                 isLoading = false
             }
         }
-        self.presentationMode.wrappedValue.dismiss()
+        self.dismiss()
     }
     
     func getPGNFromLichess(_ urlString: String) async throws -> String {

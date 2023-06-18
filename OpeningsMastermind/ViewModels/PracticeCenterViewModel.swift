@@ -41,7 +41,11 @@ class PracticeCenterViewModel: ObservableObject {
     }
 }
 
-struct QueueItem {
+struct QueueItem: Identifiable {
     let gameNode: GameNode
     let gameTree: GameTree
+    
+    var id: UUID {
+        return self.gameNode.id
+    }
 }

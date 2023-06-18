@@ -24,12 +24,12 @@ struct ContentView: View {
                         Label("Explorer", systemImage: "book")
                     }
                     .tag(0)
-                PracticeView(database: database, settings: settings)
-                    .tabItem {
-                        Label("Practice", systemImage: "checkerboard.rectangle")
-                    }
-                    .tag(1)
-                PracticeCenterView(database: database)
+//                PracticeView(database: database, settings: settings)
+//                    .tabItem {
+//                        Label("Practice", systemImage: "checkerboard.rectangle")
+//                    }
+//                    .tag(1)
+                PracticeCenterView(database: database, settings: settings)
                     .tabItem {
                         Label("Center", systemImage: "list.bullet")
                     }

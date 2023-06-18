@@ -10,14 +10,19 @@ import ChessKit
 
 struct PracticeCenterView: View {
     @ObservedObject var database: DataBase
+    @ObservedObject var settings: Settings
     
     @StateObject var vm: PracticeCenterViewModel
+    @StateObject var vm_child: PracticeViewModel
     
     @State private var isShowingModal = false
+//    @State private var selectedQueueItem: QueueItem?
     
-    init(database: DataBase) {
-        self.database = database
+    init(database: DataBase, settings: Settings) {
+        self._vm_child = StateObject(wrappedValue: PracticeViewModel(database: database))
         self._vm = StateObject(wrappedValue: PracticeCenterViewModel(database: database))
+        self.database = database
+        self.settings = settings
     }
     
     let size: CGFloat = 120
@@ -43,7 +48,7 @@ struct PracticeCenterView: View {
                             HStack {
                                 ForEach(vm.queueItems, id: \.gameNode.id) { queueItem in
                                     VStack {
-                                        ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: queueItem.gameTree.userColor, currentMoveColor: queueItem.gameNode.parents.first?.moveColor ?? .white, position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen)), settings: Settings())
+                                        ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: queueItem.gameTree.userColor, currentMoveColor: queueItem.gameNode.parents.first?.moveColor ?? .white, position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen)), settings: settings)
                                             .rotationEffect(.degrees(queueItem.gameTree.userColor == .white ? 0 : 180))
                                             .frame(height: size)
                                         Text("Mistakes: \(queueItem.gameNode.mistakesSum)")
@@ -53,6 +58,11 @@ struct PracticeCenterView: View {
                                     }
                                     .frame(width: size)
                                     .onTapGesture {
+                                        self.vm_child.currentNodes = [queueItem.gameNode]
+                                        self.vm_child.selectedGameTrees = Set([queueItem.gameTree])
+                                        self.vm_child.game = Game(position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen))
+                                        self.vm_child.gameState = .practice
+                                        self.vm_child.userColor = queueItem.gameTree.userColor
                                         self.isShowingModal = true
                                     }
                                 }
@@ -118,7 +128,7 @@ struct PracticeCenterView: View {
                 vm.getQueueItems()
             }
             .fullScreenCover(isPresented: $isShowingModal) {
-                PracticeView(database: database, settings: Settings())
+                PracticeView(database: database, settings: Settings(), vm: vm_child)
             }
         }
     }
@@ -126,6 +136,6 @@ struct PracticeCenterView: View {
 
 struct PracticeCenterView_Previews: PreviewProvider {
     static var previews: some View {
-        PracticeCenterView(database: DataBase())
+        PracticeCenterView(database: DataBase(), settings: Settings())
     }
 }

@@ -12,7 +12,7 @@ struct SelectStudyView: View {
     let gametrees: [GameTree]
     @ObservedObject var vm: PracticeViewModel
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @State private var editMode = EditMode.active
     
@@ -43,7 +43,7 @@ struct SelectStudyView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 Button {
-                    self.presentationMode.wrappedValue.dismiss()
+                    self.dismiss()
                 } label: {
                     Image(systemName: "xmark")
                 }

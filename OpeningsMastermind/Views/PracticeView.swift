@@ -11,18 +11,17 @@ import ChessKit
 struct PracticeView: View {
     @ObservedObject var database: DataBase
     @ObservedObject var settings: Settings
+    @ObservedObject var vm: PracticeViewModel
     
-    @StateObject var vm: PracticeViewModel
-    
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
 
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
     @State private var showingSelectView = false
 
-    init(database: DataBase, settings: Settings) {
-        self._vm = StateObject(wrappedValue: PracticeViewModel(database: database))
+    init(database: DataBase, settings: Settings, vm: PracticeViewModel) {
+        self.vm = vm
         self.database = database
         self.settings = settings
     }
@@ -124,31 +123,13 @@ struct PracticeView: View {
                 .onAppear() {
                     vm.onAppear()
                 }
-                .navigationTitle("Practice")
+                .navigationTitle(self.vm.selectedGameTrees.first?.name ?? "Practice")
                 .toolbar {
                     ToolbarItem() {
                         Button() {
-                            showingSelectView = true
+                            dismiss()
                         } label: {
-                            HStack {
-                                if vm.selectedGameTrees.count > 1 {
-                                    Text("\(vm.selectedGameTrees.count) Studies selected")
-                                } else if vm.selectedGameTrees.count == 1 {
-                                    Text("„\(vm.selectedGameTrees.first!.name)“ selected")
-                                } else {
-                                    Text("Select Studies")
-                                }
-                                Image(systemName: "chevron.up.chevron.down")
-                            }
-                            .padding(.vertical, 1)
-                            .padding(.trailing, 5)
-                        }
-                        .disabled(database.gametrees.isEmpty || vm.gameState == .practice)
-                        .background() {
-                            RoundedRectangle(cornerRadius: 5)
-                                .fill(Color.gray)
-                                .shadow(radius: 5)
-                                .opacity(0.2)
+                            Image(systemName: "xmark")
                         }
                     }
                 }

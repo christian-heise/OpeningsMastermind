@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HelpExplorerView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack {
             TabView() {
@@ -23,7 +23,7 @@ struct HelpExplorerView: View {
             .navigationTitle("Explorer Help")
             .toolbar {
                 Button(action:{
-                    self.presentationMode.wrappedValue.dismiss()
+                    self.dismiss()
                 }) {
                     Image(systemName: "xmark")
                 }
