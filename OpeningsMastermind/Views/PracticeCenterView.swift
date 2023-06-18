@@ -24,21 +24,37 @@ struct PracticeCenterView: View {
             VStack {
                 if !vm.queueItems.isEmpty {
                     VStack(alignment: .leading) {
-                        Text("Up next")
-                            .font(.title2)
-                            .padding(.horizontal)
-                            .padding(.top)
+                        HStack {
+                            Text("Up next")
+                                .font(.title2)
+                                .padding(.horizontal)
+                                .padding(.top)
+                            Spacer()
+                            Button() {
+                                
+                            } label: {
+                                Image(systemName: "questionmark.circle")
+                            }
+                            .padding(15)
+                        }
                         ScrollView(.horizontal) {
                             HStack {
                                 ForEach(vm.queueItems, id: \.gameNode.id) { queueItem in
-                                    VStack {
-                                        ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: queueItem.gameTree.userColor, currentMoveColor: queueItem.gameNode.parents.first?.moveColor ?? .white, position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen)), settings: Settings())
-                                            .rotationEffect(.degrees(queueItem.gameTree.userColor == .white ? 0 : 180))
-                                            .frame(width: size, height: size)
-                                        
-                                        Text("Mistakes: \(queueItem.gameNode.mistakesSum)")
-                                        Text("Nodes below: \(queueItem.gameNode.nodesBelow)")
+                                    NavigationLink(){
+                                        PracticeView(database: database, settings: Settings())
+                                    } label: {
+                                        VStack {
+                                            ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: queueItem.gameTree.userColor, currentMoveColor: queueItem.gameNode.parents.first?.moveColor ?? .white, position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen)), settings: Settings())
+                                                .rotationEffect(.degrees(queueItem.gameTree.userColor == .white ? 0 : 180))
+                                                .frame(height: size)
+                                            Text("Mistakes: \(queueItem.gameNode.mistakesSum)")
+                                            Text("Nodes below: \(queueItem.gameNode.nodesBelow)")
+                                            Text(queueItem.gameTree.name)
+                                                .buttonStyle(.plain)
+                                        }
+                                        .frame(width: size)
                                     }
+                                    
                                 }
                             }
                         }
