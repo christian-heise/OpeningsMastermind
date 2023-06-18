@@ -13,6 +13,8 @@ struct PracticeCenterView: View {
     
     @StateObject var vm: PracticeCenterViewModel
     
+    @State private var isShowingModal = false
+    
     init(database: DataBase) {
         self.database = database
         self._vm = StateObject(wrappedValue: PracticeCenterViewModel(database: database))
@@ -40,21 +42,19 @@ struct PracticeCenterView: View {
                         ScrollView(.horizontal) {
                             HStack {
                                 ForEach(vm.queueItems, id: \.gameNode.id) { queueItem in
-                                    NavigationLink(){
-                                        PracticeView(database: database, settings: Settings())
-                                    } label: {
-                                        VStack {
-                                            ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: queueItem.gameTree.userColor, currentMoveColor: queueItem.gameNode.parents.first?.moveColor ?? .white, position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen)), settings: Settings())
-                                                .rotationEffect(.degrees(queueItem.gameTree.userColor == .white ? 0 : 180))
-                                                .frame(height: size)
-                                            Text("Mistakes: \(queueItem.gameNode.mistakesSum)")
-                                            Text("Nodes below: \(queueItem.gameNode.nodesBelow)")
-                                            Text(queueItem.gameTree.name)
-                                                .buttonStyle(.plain)
-                                        }
-                                        .frame(width: size)
+                                    VStack {
+                                        ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: queueItem.gameTree.userColor, currentMoveColor: queueItem.gameNode.parents.first?.moveColor ?? .white, position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen)), settings: Settings())
+                                            .rotationEffect(.degrees(queueItem.gameTree.userColor == .white ? 0 : 180))
+                                            .frame(height: size)
+                                        Text("Mistakes: \(queueItem.gameNode.mistakesSum)")
+                                        Text("Nodes below: \(queueItem.gameNode.nodesBelow)")
+                                        Text(queueItem.gameTree.name)
+                                            .buttonStyle(.plain)
                                     }
-                                    
+                                    .frame(width: size)
+                                    .onTapGesture {
+                                        self.isShowingModal = true
+                                    }
                                 }
                             }
                         }
@@ -62,6 +62,7 @@ struct PracticeCenterView: View {
                         .padding(.bottom)
                         .scrollIndicators(.hidden)
                     }
+                    
                     .background {
                         RoundedRectangle(cornerRadius: 20)
                             .opacity(0.1)
@@ -115,6 +116,9 @@ struct PracticeCenterView: View {
             .navigationTitle("Practice Center")
             .onAppear() {
                 vm.getQueueItems()
+            }
+            .fullScreenCover(isPresented: $isShowingModal) {
+                PracticeView(database: database, settings: Settings())
             }
         }
     }

@@ -206,7 +206,7 @@ struct ExploreView: View {
 
 struct ExploreView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(database: DataBase(), settings: Settings())
+        ContentView()
 //            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro"))
 //        ContentView(database: DataBase(), settings: Settings())
 //            .previewDevice(PreviewDevice(rawValue: "iPhone SE (3rd generation)"))
