@@ -6,38 +6,50 @@
 //
 
 import SwiftUI
+import ChessKit
 
 struct PracticeCenterView: View {
     @ObservedObject var database: DataBase
+    
+    @StateObject var vm: PracticeCenterViewModel
+    
+    init(database: DataBase) {
+        self.database = database
+        self._vm = StateObject(wrappedValue: PracticeCenterViewModel(database: database))
+    }
     
     let size: CGFloat = 120
     var body: some View {
         NavigationStack {
             VStack {
-                VStack(alignment: .leading) {
-                    Text("Practice Queue")
-                        .font(.title2)
-                        .padding(.horizontal)
-                        .padding(.top)
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: .white, currentMoveColor: .white, position: startingGamePosition), settings: Settings())
-                                .frame(width: size, height: size)
-                            ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: .white, currentMoveColor: .white, position: startingGamePosition), settings: Settings())
-                                .frame(width: size, height: size)
-                            ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: .white, currentMoveColor: .white, position: startingGamePosition), settings: Settings())
-                                .frame(width: size, height: size)
-                            ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: .white, currentMoveColor: .white, position: startingGamePosition), settings: Settings())
-                                .frame(width: size, height: size)
+                if !vm.queueItems.isEmpty {
+                    VStack(alignment: .leading) {
+                        Text("Up next")
+                            .font(.title2)
+                            .padding(.horizontal)
+                            .padding(.top)
+                        ScrollView(.horizontal) {
+                            HStack {
+                                ForEach(vm.queueItems, id: \.gameNode.id) { queueItem in
+                                    VStack {
+                                        ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: queueItem.gameTree.userColor, currentMoveColor: queueItem.gameNode.parents.first?.moveColor ?? .white, position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen)), settings: Settings())
+                                            .rotationEffect(.degrees(queueItem.gameTree.userColor == .white ? 0 : 180))
+                                            .frame(width: size, height: size)
+                                        
+                                        Text("Mistakes: \(queueItem.gameNode.mistakesSum)")
+                                        Text("Nodes below: \(queueItem.gameNode.nodesBelow)")
+                                    }
+                                }
+                            }
                         }
+                        .padding(.horizontal, 10)
+                        .padding(.bottom)
+                        .scrollIndicators(.hidden)
                     }
-                    .padding(.horizontal, 10)
-                    .padding(.bottom)
-                    .scrollIndicators(.hidden)
-                }
-                .background {
-                    RoundedRectangle(cornerRadius: 20)
-                        .opacity(0.1)
+                    .background {
+                        RoundedRectangle(cornerRadius: 20)
+                            .opacity(0.1)
+                    }
                 }
                 ZStack {
                     RoundedRectangle(cornerRadius: 20)
@@ -85,6 +97,9 @@ struct PracticeCenterView: View {
             }
             .padding()
             .navigationTitle("Practice Center")
+            .onAppear() {
+                vm.getQueueItems()
+            }
         }
     }
 }

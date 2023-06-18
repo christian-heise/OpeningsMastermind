@@ -29,6 +29,11 @@ struct ContentView: View {
                         Label("Practice", systemImage: "checkerboard.rectangle")
                     }
                     .tag(1)
+                PracticeCenterView(database: database)
+                    .tabItem {
+                        Label("Center", systemImage: "list.bullet")
+                    }
+                    .tag(10)
                 ListView(database: database, settings: settings)
                     .tabItem {
                         Label("Library", systemImage: "list.bullet")

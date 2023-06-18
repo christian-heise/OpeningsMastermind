@@ -181,7 +181,7 @@ import ChessKitEngine
         if let node = currentExploreNode.children.first(where: {$0.move == moveString}) {
             currentExploreNode = node
         } else {
-            let newColor: PieceColor = currentExploreNode.color == .white ? .black : .white
+            let newColor: PieceColor = currentExploreNode.color.negotiated
             if let moveNode = currentExploreNode.gameNode?.children.first(where: {$0.moveString == moveString}) {
                 let gameNode = moveNode.child
                 

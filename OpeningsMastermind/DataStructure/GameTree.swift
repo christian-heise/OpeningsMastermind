@@ -60,7 +60,7 @@ class GameTree: Codable, Hashable {
         } else {
             let oldRootNode = oldTree.rootNode
             let rootNode = GameTree.convert(oldNode: oldRootNode, game: Game(position: startingGamePosition))
-            self.allGameNodes = []
+            self.allGameNodes = GameTree.getAllNodes(node: rootNode)
             self.rootNode = rootNode
             self.pgnString = ""
         }
@@ -81,11 +81,16 @@ class GameTree: Codable, Hashable {
         
         self.dateLastPlayed = try container.decodeIfPresent(Date.self, forKey: .dateLastPlayed) ?? Date(timeIntervalSince1970: 0)
         
-        self.allGameNodes = GameTree.getAllNodes(rootNode: self.rootNode)
+        self.allGameNodes = GameTree.getAllNodes(node: self.rootNode)
     }
     
-    static func getAllNodes(rootNode: GameNode) -> [GameNode] {
-        return []
+    static func getAllNodes(node: GameNode) -> [GameNode] {
+        var allNodes = [GameNode]()
+        for child in node.children {
+            allNodes.append(child.child)
+            allNodes += getAllNodes(node: child.child)
+        }
+        return allNodes
     }
     
     static func convert(oldNode: GameNodeOld, game: Game) -> GameNode {

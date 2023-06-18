@@ -140,7 +140,7 @@ struct ListView: View {
                             self.showingAddSheet = true
                             self.isLoading = false
                         }
-                    } catch let localError { }
+                    } catch { }
                 }
             }
             

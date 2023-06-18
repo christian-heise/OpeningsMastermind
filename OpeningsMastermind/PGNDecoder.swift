@@ -186,12 +186,14 @@ class PGNDecoder {
             
             if currentNode.children.contains(where: {$0.moveString==moveString}) {
                 newNode = currentNode.children.first(where: {$0.moveString==moveString})!.child
-            } else if let node = dictNode[game.position] {
-                let moveNode = MoveNode(moveString: moveString, move: move, annotation: annotation, child: node, parent: currentNode)
-                currentNode.children.append(moveNode)
-                newNode = node
-                newNode.parents.append(moveNode)
-            } else {
+            }
+//            else if let node = dictNode[game.position] {
+//                let moveNode = MoveNode(moveString: moveString, move: move, annotation: annotation, child: node, parent: currentNode)
+//                currentNode.children.append(moveNode)
+//                newNode = node
+//                newNode.parents.append(moveNode)
+//            }
+            else {
                 let fen = FenSerialization.default.serialize(position: game.position)
                 newNode = GameNode(fen: fen)
                 

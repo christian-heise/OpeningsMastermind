@@ -148,7 +148,7 @@ import ChessKit
             self.moveHistory.append((newMove!, san))
             self.positionIndex = self.positionIndex + 1
             
-            addMistake(0)
+            addMistake(false)
             
             self.game.make(move: newMove!)
             if newNode!.children.isEmpty {
@@ -183,7 +183,7 @@ import ChessKit
                 self.moveHistory.append((move, san))
                 self.positionIndex = self.positionIndex + 1
                 
-                self.addMistake(1)
+                self.addMistake(true)
             } else {
                 gameState = .endOfLine
             }
@@ -194,7 +194,7 @@ import ChessKit
         self.moveHistory.append((move, san))
         self.positionIndex = self.positionIndex + 1
         
-        addMistake(0)
+        addMistake(false)
         var newNodes: [GameNode] = []
 
         for i in 0..<currentNodes.count {
@@ -210,10 +210,12 @@ import ChessKit
         }
     }
     
-    func addMistake(_ mistake: Int) {
+    func addMistake(_ mistake: Bool) {
         for node in currentNodes {
-            node.mistakesLast5Moves.removeFirst()
-            node.mistakesLast5Moves.append(mistake)
+            if node.mistakesLast5Moves.count == 5, let earliestDate = node.mistakesLast5Moves.keys.min() {
+                node.mistakesLast5Moves.removeValue(forKey: earliestDate)
+            }
+            node.mistakesLast5Moves[Date()] = mistake
         }
         self.database.objectWillChange.send()
         for tree in self.selectedGameTrees {
@@ -222,6 +224,8 @@ import ChessKit
     }
     
     func generateMove(game: Game, node: GameNode) -> (Move?, GameNode?) {
+        if node.children.isEmpty { return (nil,nil)}
+        
         if node.children.count == 1 {
             let moveNode = node.children.first!
             let generatedMove = moveNode.move
@@ -229,26 +233,48 @@ import ChessKit
             return (generatedMove, newNode)
         }
         
-        // Probabilities based on Mistakes
-        let probabilitiesMistakes = node.children.map({$0.child.mistakesRate / node.children.map({$0.child.mistakesRate}).reduce(0, +)})
-        // Probability based on Depth
-        let depthArray: [Double] = node.children.map({Double($0.child.depth) * Double($0.child.depth)})
-        let summedDepth = depthArray.reduce(0, +)
+        var probabilities: [Double] = []
+        
+        // Candidate Moves
+        var moveNodeCandidates = node.children
+        
+        if moveNodeCandidates.contains(where: {$0.child.lastTryWasMistake}) {
+            moveNodeCandidates = moveNodeCandidates.filter({$0.child.lastTryWasMistake})
+            
+            // Probability based on Nodes Below
+            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow)})
+            let summedDepth = depthArray.reduce(0, +)
 
-        var probabilitiesDepth = [Double]()
+            if summedDepth == 0 {
+                probabilities = Array(repeating: 1 / Double(moveNodeCandidates.count), count: moveNodeCandidates.count)
+            } else {
+                probabilities = depthArray.map({$0 / Double(summedDepth)})
+            }
+        } else if moveNodeCandidates.contains(where: {$0.child.dueDate < Date()}) {
+            moveNodeCandidates = moveNodeCandidates.filter({$0.child.dueDate < Date()})
+            // Probability based on Nodes Below
+            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow)})
+            let summedDepth = depthArray.reduce(0, +)
 
-        if summedDepth == 0 {
-            probabilitiesDepth = Array(repeating: 1 / Double(node.children.count), count: node.children.count)
+            if summedDepth == 0 {
+                probabilities = Array(repeating: 1 / Double(moveNodeCandidates.count), count: moveNodeCandidates.count)
+            } else {
+                probabilities = depthArray.map({$0 / Double(summedDepth)})
+            }
         } else {
-            probabilitiesDepth = depthArray.map({$0 / Double(summedDepth)})
+            // Probability based on Nodes Below
+            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow)})
+            let summedDepth = depthArray.reduce(0, +)
+
+            if summedDepth == 0 {
+                probabilities = Array(repeating: 1 / Double(moveNodeCandidates.count), count: moveNodeCandidates.count)
+            } else {
+                probabilities = depthArray.map({$0 / Double(summedDepth)})
+            }
         }
 
-        // Combine probabilities
-        var probabilities = zip(probabilitiesMistakes,probabilitiesDepth).map() {$0 * Double(probabilitiesMistakes.count) * $1}
         probabilities = probabilities.map({$0 / probabilities.reduce(0,+)})
-        
-        print("Depth: \(probabilitiesDepth)")
-        print("Mistake: \(probabilitiesMistakes)")
+
         print("Total: \(probabilities)")
         
         // Make random Int between 0 and 1000

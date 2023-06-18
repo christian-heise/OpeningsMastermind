@@ -17,9 +17,48 @@ class GameNode: Codable, Hashable {
     
     let fen: String
     
-    var mistakesLast5Moves: [Int] = Array(repeating: 1, count: 5)
+    var mistakesLast5Moves: [Date: Bool] = [:]
     let mistakeFactor = 0.85
     private var _depth: Int? // memorization cache
+    
+    var lastTryWasMistake: Bool {
+        guard let lastTryDate = mistakesLast5Moves.keys.max() else { return true }
+        
+        return mistakesLast5Moves[lastTryDate] ?? true
+    }
+    
+    var streak: Int {
+        var count = 0
+        for key in mistakesLast5Moves.keys.sorted(by: >) {
+            if mistakesLast5Moves[key] == false {
+                count += 1
+            } else {
+                break
+            }
+        }
+        return count
+    }
+    
+    var dueDate: Date {
+        guard let lastTryDate = mistakesLast5Moves.keys.max() else { return Date(timeIntervalSince1970: 0) }
+        
+        if lastTryWasMistake {
+            return lastTryDate
+        } else {
+            switch self.streak {
+            case 1:
+                return Date(timeInterval: 1*24*60*60, since: lastTryDate)
+            case 2:
+                return Date(timeInterval: 7*24*60*60, since: lastTryDate)
+            case 3:
+                return Date(timeInterval: 16*24*60*60, since: lastTryDate)
+            case 4:
+                return Date(timeInterval: 35*24*60*60, since: lastTryDate)
+            default:
+                return Date(timeInterval: 70*24*60*60, since: lastTryDate)
+            }
+        }
+    }
     
     init(children: [MoveNode] = [], parents: [MoveNode] = [], fen: String, comment: String? = nil) {
         self.children = children
@@ -34,7 +73,23 @@ class GameNode: Codable, Hashable {
         children = try container.decode([MoveNode].self, forKey: .children)
         parents = []
         comment = try container.decode(String?.self, forKey: .comment)
-        mistakesLast5Moves = try container.decode([Int].self, forKey: .mistakesLast5Moves)
+        
+        if let mistakesLast5Moves = try container.decodeIfPresent([Date:Bool].self, forKey: .mistakesLast5Moves) {
+            self.mistakesLast5Moves = mistakesLast5Moves
+        } else {
+            var dict = [Date:Bool]()
+            let array = try container.decode([Int].self, forKey: .mistakesLast5Moves)
+            var flag = false
+            for i in 0..<array.count {
+                let randomDate = Double(Int.random(in: 0..<100000) + i*100000)
+                if array[i] == 0 {
+                    dict[Date(timeIntervalSince1970: randomDate)] = false
+                    flag = true
+                } else if array[i] == 1 && flag {
+                    dict[Date(timeIntervalSince1970: randomDate)] = true
+                }
+            }
+        }
         
         fen = try container.decode(String.self, forKey: .fen)
         
@@ -42,43 +97,45 @@ class GameNode: Codable, Hashable {
             child.parent = self
         }
     }
-    enum NodeError: Error {
-        case moveNotExists
-    }
 }
 
 extension GameNode {
-    var mistakes: Double {
-        let exp = 1.4
-        return pow(Double(mistakesLast5Moves.reduce(0, +)),exp) / pow(5.0,exp-1)
-    }
-    
-    var mistakesRate: Double {
-        if children.isEmpty {
-            return mistakes/5
-        } else {
-            return (children.map({$0.child.mistakesRate}).reduce(0, +)/Double(children.count) + mistakes/5.0) / 2.0
+    var mistakesSum: Int {
+        var sum: Int = 0
+        for element in self.mistakesLast5Moves.values {
+            if element {
+                sum += 1
+            }
         }
+        return sum
     }
     
-    var nodesBelow: Double {
+//    var mistakesRate: Double {
+//        if children.isEmpty {
+//            return mistakes/5
+//        } else {
+//            return (children.map({$0.child.mistakesRate}).reduce(0, +)/Double(children.count) + mistakes/5.0) / 2.0
+//        }
+//    }
+    
+    var nodesBelow: Int {
         if self.children.isEmpty {
             return 0
         } else {
-            return children.map({Double($0.child.nodesBelow) * mistakeFactor + 1}).reduce(0,+)
+            return children.map({$0.child.nodesBelow + 1}).reduce(0,+)
         }
     }
     
-    var mistakesBelow: Double {
+    var mistakesBelow: Int {
         if self.children.isEmpty {
             return 0
         } else {
-            return children.map({Double($0.child.mistakesBelow) * mistakeFactor + Double($0.child.mistakesLast5Moves.suffix(2).reduce(0,+))}).reduce(0,+)
+            return children.map({$0.child.mistakesBelow + ($0.child.lastTryWasMistake ? 1 : 0)}).reduce(0,+)
         }
     }
     
     var progress: Double {
-        return Double(mistakesBelow) / Double(nodesBelow) / 2.0
+        return Double(mistakesBelow) / Double(nodesBelow)
     }
     
     var depth: Int {

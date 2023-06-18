@@ -56,6 +56,7 @@
 		AAD283F82A3B5C07002D5BF7 /* ChessKit in Frameworks */ = {isa = PBXBuildFile; productRef = AAD283F72A3B5C07002D5BF7 /* ChessKit */; };
 		AAD284002A3B7C00002D5BF7 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD283FF2A3B7C00002D5BF7 /* ShareViewController.swift */; };
 		AAD284072A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AAD283FD2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		AAD284112A3C5AAF002D5BF7 /* PracticeCenterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD284102A3C5AAF002D5BF7 /* PracticeCenterViewModel.swift */; };
 		AADF267E2A16169600CF40ED /* ParentChessBoardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF267D2A16169600CF40ED /* ParentChessBoardProtocol.swift */; };
 		AADF26802A16192400CF40ED /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF267F2A16192400CF40ED /* ExploreViewModel.swift */; };
 		AADF26822A161A7200CF40ED /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF26812A161A7200CF40ED /* ExploreView.swift */; };
@@ -175,6 +176,7 @@
 		AAD283FD2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OpeningsMastermindShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAD283FF2A3B7C00002D5BF7 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		AAD284042A3B7C00002D5BF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAD284102A3C5AAF002D5BF7 /* PracticeCenterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCenterViewModel.swift; sourceTree = "<group>"; };
 		AADF267D2A16169600CF40ED /* ParentChessBoardProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChessBoardProtocol.swift; sourceTree = "<group>"; };
 		AADF267F2A16192400CF40ED /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
 		AADF26812A161A7200CF40ED /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			children = (
 				AA69607C2A06473800A593BB /* PracticeViewModel.swift */,
 				AADF267F2A16192400CF40ED /* ExploreViewModel.swift */,
+				AAD284102A3C5AAF002D5BF7 /* PracticeCenterViewModel.swift */,
 				AA6A8B7C2A38BDF1003DA1C2 /* DisplayBoardViewModel.swift */,
 				AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */,
 				AADF267D2A16169600CF40ED /* ParentChessBoardProtocol.swift */,
@@ -625,6 +628,7 @@
 				AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */,
 				AA930EDA2A09765200026712 /* SortingMethod.swift in Sources */,
 				AA930ED82A093D4100026712 /* BoxArrowShape.swift in Sources */,
+				AAD284112A3C5AAF002D5BF7 /* PracticeCenterViewModel.swift in Sources */,
 				AA4786BB2A1A8AC800BB4144 /* EvalBarView.swift in Sources */,
 				AA41EF022A1CE19900FDB639 /* GNULicence.swift in Sources */,
 				AAE4C6DE2A3710AC00638E87 /* PGNDecoder.swift in Sources */,

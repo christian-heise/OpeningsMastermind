@@ -19,7 +19,7 @@ class MoveNode: Codable {
     
     var moveColor: PieceColor {
         if let lastMove = parent?.parents.first {
-            return lastMove.moveColor == .white ? .black : .white
+            return lastMove.moveColor.negotiated
         } else {
             return .white
         }
