@@ -114,6 +114,8 @@ import ChessKit
         self.currentNodes = self.selectedGameTrees.map({$0.rootNode})
         self.gameState = .idle
         
+        self.userColor = selectedGameTrees.first?.userColor ?? .white
+        
         self.moveHistory = []
         self.positionHistory = []
         self.positionIndex = -1
@@ -122,7 +124,7 @@ import ChessKit
         self.promotionPending = false
         
         if selectedGameTrees.isEmpty { return }
-        if self.userColor == .black {
+        if self.userColor == currentNodes.first?.parents.first?.moveColor ?? .black {
             Task {
                 await performComputerMove(in: 0)
             }

@@ -58,12 +58,7 @@ struct PracticeCenterView: View {
                                     }
                                     .frame(width: size)
                                     .onTapGesture {
-                                        self.vm_child.currentNodes = [queueItem.gameNode]
-                                        self.vm_child.selectedGameTrees = Set([queueItem.gameTree])
-                                        self.vm_child.game = Game(position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen))
-                                        self.vm_child.gameState = .practice
-                                        self.vm_child.userColor = queueItem.gameTree.userColor
-                                        self.isShowingModal = true
+                                        tappedItem(queueItem: queueItem)
                                     }
                                 }
                             }
@@ -89,25 +84,23 @@ struct PracticeCenterView: View {
                         ScrollView(showsIndicators: true) {
                             VStack(alignment: .leading) {
                                 ForEach(database.gametrees, id: \.self) { tree in
-                                    NavigationLink {
-                                        Text("link")
-                                    } label: {
-                                        HStack() {
-                                            Text(tree.name)
-                                                .padding(.vertical, 10)
-                                                .padding(.leading, 15)
-                                            Spacer()
-                                            Image(systemName: "arrow.right")
-                                                .padding(.trailing, 15)
-                                        }
-                                        .frame(maxWidth: .infinity)
-                                        .background {
-                                            RoundedRectangle(cornerRadius: 5)
-                                                .opacity(0.2)
-                                        }
-                                        .padding(.bottom, 5)
+                                    HStack() {
+                                        Text(tree.name)
+                                            .padding(.vertical, 10)
+                                            .padding(.leading, 15)
+                                        Spacer()
+                                        Image(systemName: "arrow.right")
+                                            .padding(.trailing, 15)
                                     }
-                                    .buttonStyle(.plain)
+                                    .frame(maxWidth: .infinity)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .opacity(0.2)
+                                    }
+                                    .padding(.bottom, 5)
+                                    .onTapGesture {
+                                        self.tappedTree(tree: tree)
+                                    }
                                 }
                             }
                         }
@@ -127,10 +120,27 @@ struct PracticeCenterView: View {
             .onAppear() {
                 vm.getQueueItems()
             }
-            .fullScreenCover(isPresented: $isShowingModal) {
+            .fullScreenCover(isPresented: $isShowingModal, onDismiss: didDismiss) {
                 PracticeView(database: database, settings: Settings(), vm: vm_child)
             }
         }
+    }
+    func tappedItem(queueItem: QueueItem) {
+        self.vm_child.currentNodes = [queueItem.gameNode]
+        self.vm_child.selectedGameTrees = Set([queueItem.gameTree])
+        self.vm_child.game = Game(position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen))
+        self.vm_child.gameState = .idle
+        self.vm_child.userColor = queueItem.gameTree.userColor
+        self.isShowingModal = true
+    }
+    func tappedTree(tree: GameTree) {
+        self.vm_child.selectedGameTrees = Set([tree])
+        self.vm_child.reset()
+        self.isShowingModal = true
+    }
+    func didDismiss() {
+        self.vm_child.reset()
+        self.vm.getQueueItems()
     }
 }
 
