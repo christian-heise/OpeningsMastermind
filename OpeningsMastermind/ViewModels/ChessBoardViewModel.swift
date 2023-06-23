@@ -103,10 +103,22 @@ extension ChessboardView {
         }
         
         func dragEnded(at value: DragGesture.Value, piece: Piece, square: Square, in size: CGSize) {
-//            self.offsets[indexOf(square)] = .zero
+            self.draggedSquare = nil
             self.dragOffset = .zero
+            
+            guard self.gameState != .idle else { return }
+            
             let newSquare = squareOf(value.location, in: size)
             vm_parent.processMoveAction(piece: piece, from: square, to: newSquare)
+            self.getPossibleSquares()
+        }
+        
+        func dragChanged(at value: DragGesture.Value, piece: Piece, square: Square, in size: CGSize) {
+            if self.draggedSquare == nil && self.gameState != .idle {
+                self.getPossibleSquares()
+            }
+            self.draggedSquare = square
+            self.dragOffset = value.translation
         }
         
         func squareLength(in size: CGSize) -> CGFloat {

@@ -49,7 +49,7 @@ struct ContentView: View {
 //                    .tag(1)
                 PracticeCenterView(database: database, settings: settings)
                     .tabItem {
-                        Label("Center", systemImage: "list.bullet")
+                        Label("Practice", systemImage: "checkerboard.rectangle")
                     }
                     .tag(10)
                 ListView(database: database, settings: settings)

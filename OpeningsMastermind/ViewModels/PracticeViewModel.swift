@@ -100,8 +100,6 @@ import ChessKit
         }
     }
     
-    func jump(to index: Int) {}
-    
     func onAppear() {
         if self.selectedGameTrees.isEmpty { return }
         
@@ -115,7 +113,7 @@ import ChessKit
     func reset() {
         self.game = Game(position: startingGamePosition)
         self.currentNodes = self.selectedGameTrees.map({$0.rootNode})
-        self.gameState = .idle
+        self.gameState = .practice
         
         self.userColor = selectedGameTrees.first?.userColor ?? .white
         
@@ -182,11 +180,10 @@ import ChessKit
             if currentNodes.map({$0.children.isEmpty}).contains(where: {!$0}) {
                 self.gameState = .mistake
                 determineRightMove()
-                game.make(move: move)
-                
                 self.positionHistory.append(self.game.position)
+                game.make(move: move)
                 self.moveHistory.append((move, san))
-                self.positionIndex = self.positionIndex + 1
+                self.positionIndex += 1
                 
                 self.addMistake(true)
             } else {
@@ -212,6 +209,50 @@ import ChessKit
         gameState = .practice
         Task {
             await performComputerMove(in: 300)
+        }
+    }
+    
+    func forwardMove() {
+        guard self.positionIndex + 1 < self.positionHistory.count else { return }
+        self.positionIndex += 1
+        self.game.make(move: self.moveHistory[positionIndex].0)
+        
+        if self.positionIndex + 1 == self.positionHistory.count {
+            self.gameState = .practice
+        } else {
+            self.objectWillChange.send()
+        }
+    }
+    
+    func reverseMove() {
+        if self.gameState == .mistake {
+            self.game = Game(position: positionHistory[positionIndex], moves: Array(self.game.movesHistory.prefix(positionIndex)))
+            self.positionHistory.removeLast()
+            self.moveHistory.removeLast()
+            self.positionIndex -= 1
+            gameState = .practice
+        } else {
+            guard self.positionIndex >= 0 else {return}
+            
+            self.game = Game(position: positionHistory[positionIndex], moves: Array(self.game.movesHistory.prefix(positionIndex)))
+            self.positionIndex -= 1
+            
+            self.gameState = .idle
+        }
+    }
+    
+    func jump(to index: Int) {
+        if index == positionIndex {
+            print("Same Index")
+            return
+        } else if index > positionIndex {
+            for _ in 0..<(index - positionIndex) {
+                forwardMove()
+            }
+        } else {
+            for _ in 0..<(positionIndex - index) {
+                reverseMove()
+            }
         }
     }
     
@@ -308,7 +349,7 @@ import ChessKit
         self.currentNodes = [queueItem.gameNode]
         self.selectedGameTrees = Set([queueItem.gameTree])
         self.game = Game(position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen))
-        self.gameState = .idle
+        self.gameState = .practice
         self.userColor = queueItem.gameTree.userColor
         
         var moveHistory: [(Move, String)] = []

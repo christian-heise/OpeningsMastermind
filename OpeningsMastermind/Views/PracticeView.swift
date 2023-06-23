@@ -88,7 +88,7 @@ struct PracticeView: View {
                         HStack {
                             HStack(spacing: 15) {
                                 Button {
-                                    vm.revertMove()
+                                    vm.reverseMove()
                                 } label: {
                                     Image(systemName: "arrow.backward")
                                         .resizable()
@@ -101,9 +101,9 @@ struct PracticeView: View {
                                             .shadow(radius: 5)
                                         }
                                 }
-                                .disabled(vm.gameState != .mistake)
+                                .disabled(vm.positionIndex == 0)
                                 Button {
-//                                    vm.forwardOneMove()
+                                    vm.forwardMove()
                                 } label: {
                                     Image(systemName: "arrow.forward")
                                         .resizable()
@@ -116,7 +116,7 @@ struct PracticeView: View {
                                             .shadow(radius: 5)
                                         }
                                 }
-                                .disabled(true)
+                                .disabled(vm.gameState != .idle)
                             }
                             HStack {
                                 Spacer()

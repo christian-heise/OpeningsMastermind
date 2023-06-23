@@ -34,6 +34,7 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                                 .position(vm.squarePosition(in: geo.size, col: col, row: row))
                                 .if(parentVM.gameState != .view) { view in
                                     view.onTapGesture {
+                                        guard vm.gameState != .idle else { return }
                                         if let selectedSquare = vm.selectedSquare {
                                             if parentVM.game.legalMoves.contains(where: {$0.from == Square(file: col, rank: 7-row)}) {
                                                 vm.selectedSquare = vm.pieces.first(where: {$0.0 == Square(file: col, rank: 7-row)})
@@ -115,23 +116,16 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
                                 view.gesture(
                                     DragGesture()
                                         .onChanged { value in
-                                            if vm.draggedSquare == nil {
-                                                vm.draggedSquare = piece.0
-                                                vm.getPossibleSquares()
-                                            } else {
-                                                vm.draggedSquare = piece.0
-                                            }
-                                            vm.dragOffset = value.translation
+                                            vm.dragChanged(at: value, piece: piece.1, square: piece.0, in: geo.size)
                                         }
                                         .onEnded { value in
-                                            vm.draggedSquare = nil
                                             vm.dragEnded(at: value, piece: piece.1, square: piece.0, in: geo.size)
-                                            vm.getPossibleSquares()
                                         })
                             }
                             .zIndex(vm.draggedSquare==piece.0 ? 1000:10)
                             .if(parentVM.gameState != .view) { view in
                                 view.onTapGesture {
+                                    guard vm.gameState != .idle else { return }
                                     if let selectedSquare = vm.selectedSquare {
                                         if selectedSquare == piece {
                                             vm.selectedSquare = nil

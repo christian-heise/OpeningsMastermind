@@ -34,7 +34,7 @@ struct MoveListView<ParentVM>: View where ParentVM: ParentChessBoardModelProtoco
                                 }
                                 .frame(width: 60)
                             }
-                            .disabled(vm is PracticeViewModel)
+//                            .disabled(vm is PracticeViewModel)
                         }
                         .rotationEffect(Angle(radians: .pi))
                     }
