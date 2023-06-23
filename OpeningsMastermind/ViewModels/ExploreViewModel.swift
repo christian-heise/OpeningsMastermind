@@ -36,6 +36,7 @@ import ChessKitEngine
     @Published var currentExploreNode: ExploreNode
     @Published var evaluation: Double?
     @Published var mateInXMoves: Int?
+    @Published var engineMove: String?
     
     var rootExploreNode: ExploreNode
     
@@ -81,7 +82,7 @@ import ChessKitEngine
         if let engine = engine {
             engine.start(coreCount: 3)
         }
-//        engine?.loggingEnabled = true
+        engine?.loggingEnabled = true
         onAppear()
         
         self.engine?.receiveResponse = { response in
@@ -317,54 +318,52 @@ import ChessKitEngine
             self.evaluation = engineCache[fen]
             return
         }
-        
-//        DispatchQueue.global(qos: .default).async {
-            engine.send(command: .stop)
-            engine.send(command: .position(.fen(fen)))
-            engine.send(command: .go(depth: 18))
-            
-//        }
+        engine.send(command: .stop)
+        engine.send(command: .position(.fen(fen)))
+        engine.send(command: .go(depth: 18))
     }
     
     func receiveEngineReponse(response: EngineResponse) {
-//        DispatchQueue.main.async {
-            let color = self.currentExploreNode.color
-            switch response {
-            case let .info(info):
-                if let score = info.score?.cp {
-                    self.mateInXMoves = nil
-                    if color == .white {
-                        self.evaluation = score / 100.0
-                    } else {
-                        self.evaluation = -score / 100.0
-                    }
+        let color = self.currentExploreNode.color
+        switch response {
+        case let .info(info):
+            if let score = info.score?.cp {
+                self.mateInXMoves = nil
+                if color == .white {
+                    self.evaluation = score / 100.0
+                } else {
+                    self.evaluation = -score / 100.0
                 }
-                if let mateInXMoves = info.score?.mate {
-                    if color == .white {
-                        if mateInXMoves == 0 {
-                            self.evaluation = -50
-                        } else {
-                            self.evaluation = 10 * Double(mateInXMoves)
-                        }
-                        self.mateInXMoves = mateInXMoves
-                    } else {
-                        if mateInXMoves == 0 {
-                            self.evaluation = 50
-                        } else {
-                            self.evaluation = -10 * Double(mateInXMoves)
-                        }
-                        self.mateInXMoves = -mateInXMoves
-                    }
-                }
-            default:
-                break
             }
-//        }
+            if let mateInXMoves = info.score?.mate {
+                if color == .white {
+                    if mateInXMoves == 0 {
+                        self.evaluation = -50
+                    } else {
+                        self.evaluation = 10 * Double(mateInXMoves)
+                    }
+                    self.mateInXMoves = mateInXMoves
+                } else {
+                    if mateInXMoves == 0 {
+                        self.evaluation = 50
+                    } else {
+                        self.evaluation = -10 * Double(mateInXMoves)
+                    }
+                    self.mateInXMoves = -mateInXMoves
+                }
+            }
+        case let .bestmove(move: moveString, ponder: _):
+            self.engineMove = SanSerialization.default.san(for: Move(string: moveString), in: self.game)
+        default:
+            break
+        }
     }
     
     override func postMoveStuff() {
         self.promotionMove = nil
         self.promotionPending = false
+        
+        self.engineMove = nil
         
         selectedSquare = nil
         getEngineMoves()

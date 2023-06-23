@@ -14,8 +14,6 @@ struct ExploreView: View {
     @ObservedObject var database: DataBase
     @ObservedObject var settings: Settings
     
-//    @Binding var selectedTab: Int
-    
     @State private var isShowingSwitchingView = false
     @State private var showingHelp = false
     
@@ -29,8 +27,6 @@ struct ExploreView: View {
         self._vm = StateObject(wrappedValue: vm)
         self.database = database
         self.settings = settings
-        
-//        self._selectedTab = selectedTab
     }
     
     var body: some View {

@@ -164,7 +164,7 @@ struct SettingsView: View {
                     NavigationLink(destination: {AcknowledgementsView()}){
                         Text("Acknowledgements")
                     }
-                    Link("App on GitHub", destination: URL(string: "https://github.com/GrandMaster0/OpeningsMastermind")!)
+                    Link("App on GitHub", destination: URL(string: "https://github.com/christiangleissner/OpeningsMastermind")!)
                 } header: {
                     Text("About")
                         .fontWeight(.bold)

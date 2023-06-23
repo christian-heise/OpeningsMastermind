@@ -37,12 +37,12 @@ struct PracticeCenterView: View {
                                 .padding(.horizontal)
                                 .padding(.top)
                             Spacer()
-                            Button() {
-                                
-                            } label: {
-                                Image(systemName: "questionmark.circle")
-                            }
-                            .padding(15)
+//                            Button() {
+//
+//                            } label: {
+//                                Image(systemName: "questionmark.circle")
+//                            }
+//                            .padding(15)
                         }
                         ScrollView(.horizontal) {
                             LazyHStack {
@@ -117,13 +117,22 @@ struct PracticeCenterView: View {
                 }
             }
             .padding()
-            .navigationTitle("Practice Center")
+            .navigationTitle("Practice")
             .onAppear() {
                 vm.getQueueItems()
                 vm_child.queueItems = vm.queueItems
             }
             .fullScreenCover(isPresented: $isShowingModal, onDismiss: didDismiss) {
                 PracticeView(database: database, settings: Settings(), vm: vm_child)
+            }
+            .toolbar {
+                ToolbarItem() {
+                    Button {
+//                        showingHelp = true
+                    } label: {
+                        Image(systemName: "questionmark.circle")
+                    }
+                }
             }
         }
     }

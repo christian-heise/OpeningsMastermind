@@ -20,6 +20,8 @@ struct PracticeView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
     
+    @Environment(\.colorScheme) private var colorScheme
+    
     @State private var showingSelectView = false
 
     init(database: DataBase, settings: Settings, vm: PracticeViewModel) {
@@ -80,8 +82,8 @@ struct PracticeView: View {
                                 .padding(.vertical, 7)
                                 .padding(.trailing, 7)
                                 .background(){
-                                    Color.gray.opacity(0.1)
-                                        .shadow(radius: 5)
+                                    (colorScheme == .dark ? [50,50,50] : [233,233,233]).getColor()
+                                        .shadow(radius: 1)
                                 }
                         }
                         if isLandscape(in: geo.size) {
@@ -161,6 +163,7 @@ struct PracticeView: View {
                     .if(isLandscape(in: geo.size)) { view in
                         view.padding(.trailing)
                     }
+                    Spacer()
                 }
                 .if(verticalSizeClass == .compact) { view in
                     view.navigationBarTitleDisplayMode(.inline)
