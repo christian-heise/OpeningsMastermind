@@ -27,9 +27,7 @@ import ChessKit
     var queueItems: [QueueItem] = []
     var currentQueueIndex: Int = 0
     
-    var gameCopy: Game? = nil
-    
-    @Published var userColor: PieceColor = .white
+    var userColor: PieceColor = .white
     
     var annotation: (String?, String?) {
         if currentNodes.count > 1 {
@@ -81,14 +79,6 @@ import ChessKit
                 print("Unable to Decode Note (\(error))")
             }
         }
-    }
-    
-    func revertMove() {
-        self.game = gameCopy ?? Game(position: startingGamePosition)
-        self.positionHistory.removeLast()
-        self.moveHistory.removeLast()
-        self.positionIndex = self.positionIndex - 1
-        gameState = .practice
     }
     
     func determineRightMove() {
@@ -176,7 +166,6 @@ import ChessKit
         let san = SanSerialization.default.correctSan(for: move, in: game)
         
         guard !potentialNodes.isEmpty else {
-            self.gameCopy = self.game.deepCopy()
             if currentNodes.map({$0.children.isEmpty}).contains(where: {!$0}) {
                 self.gameState = .mistake
                 determineRightMove()
@@ -355,8 +344,6 @@ import ChessKit
         var moveHistory: [(Move, String)] = []
         var positionHistory: [Position] = []
         var currentNode = queueItem.gameNode
-        
-//        positionHistory.append(FenSerialization.default.deserialize(fen: currentNode.fen))
         
         while true {
             guard let parentMove = currentNode.parents.first  else { break }
