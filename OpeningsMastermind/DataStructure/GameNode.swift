@@ -175,3 +175,18 @@ extension GameNode {
         case children, comment, mistakesLast5Moves, fen
     }
 }
+
+extension CodingUserInfoKey {
+    static let gameNodeDictionary = CodingUserInfoKey(rawValue: "gameNodeDictionary")!
+}
+class GameNodeDictionary {
+    var nodes: [String: GameNode] = [:]
+
+    func addNode(_ node: GameNode) {
+        nodes[node.fen] = node
+    }
+
+    func getNode(_ fen: String) -> GameNode? {
+        return nodes[fen]
+    }
+}

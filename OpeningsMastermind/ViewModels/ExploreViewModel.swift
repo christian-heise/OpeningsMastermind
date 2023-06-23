@@ -81,7 +81,7 @@ import ChessKitEngine
         if let engine = engine {
             engine.start(coreCount: 3)
         }
-//        engine.loggingEnabled = true
+//        engine?.loggingEnabled = true
         onAppear()
     }
     
