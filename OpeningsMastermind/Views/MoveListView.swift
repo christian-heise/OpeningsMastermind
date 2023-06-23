@@ -20,8 +20,8 @@ struct MoveListView<ParentVM>: View where ParentVM: ParentChessBoardModelProtoco
                     ForEach(0..<vm.moveHistory.count, id: \.self) { preindex in
                         let index = vm.moveHistory.count - preindex - 1
                         HStack {
-                            if index%2 == 0 {
-                                Text("\(index/2+1).")
+                            if (index + vm.startingMove)%2 == 0 {
+                                Text("\((index + vm.startingMove)/2+1).")
                             }
                             Button {
                                 vm.jump(to: index)
@@ -51,6 +51,6 @@ struct MoveListView<ParentVM>: View where ParentVM: ParentChessBoardModelProtoco
 
 struct MoveListView_Previews: PreviewProvider {
     static var previews: some View {
-        ExploreView(database: DataBase(), settings: Settings(), selectedTab: .constant(0))
+        ExploreView(database: DataBase(), settings: Settings())
     }
 }

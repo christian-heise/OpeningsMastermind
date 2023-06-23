@@ -14,7 +14,7 @@ struct ExploreView: View {
     @ObservedObject var database: DataBase
     @ObservedObject var settings: Settings
     
-    @Binding var selectedTab: Int
+//    @Binding var selectedTab: Int
     
     @State private var isShowingSwitchingView = false
     @State private var showingHelp = false
@@ -25,12 +25,12 @@ struct ExploreView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
 
     
-    init(database: DataBase, settings: Settings, selectedTab: Binding<Int>) {
+    init(database: DataBase, settings: Settings) {
         self._vm = StateObject(wrappedValue: ExploreViewModel(database: database, settings: settings))
         self.database = database
         self.settings = settings
         
-        self._selectedTab = selectedTab
+//        self._selectedTab = selectedTab
     }
     
     var body: some View {
@@ -206,7 +206,8 @@ struct ExploreView: View {
 
 struct ExploreView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ExploreView(database: DataBase(), settings: Settings())
+//        ContentView()
 //            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro"))
 //        ContentView(database: DataBase(), settings: Settings())
 //            .previewDevice(PreviewDevice(rawValue: "iPhone SE (3rd generation)"))

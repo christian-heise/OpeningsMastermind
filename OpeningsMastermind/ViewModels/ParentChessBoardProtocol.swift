@@ -23,6 +23,7 @@ import ChessKit
     var currentMoveColor: PieceColor { get }
     
     var selectedSquare: (Square, Piece)? { get set }
+    var startingMove: Int { get }
     
     func processMoveAction(piece: Piece, from oldSquare: Square, to newSquare: Square)
     func reset()
@@ -38,6 +39,8 @@ import ChessKit
     var rightMove: [Move] = []
     var promotionPending: Bool = false
     var promotionMove: Move? = nil
+    
+    var startingMove: Int = 0
     
     @Published var moveHistory: [(Move, String)] = []
     var positionHistory: [Position] = []

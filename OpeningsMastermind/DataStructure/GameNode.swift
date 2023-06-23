@@ -21,6 +21,10 @@ class GameNode: Codable, Hashable {
     let mistakeFactor = 0.85
     private var _depth: Int? // memorization cache
     
+    var nextMoveColor: PieceColor {
+        return self.parents.first?.moveColor.negotiated ?? .white
+    }
+    
     var lastTryWasMistake: Bool {
         guard let lastTryDate = mistakesLast5Moves.keys.max() else { return true }
         
@@ -69,8 +73,38 @@ class GameNode: Codable, Hashable {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         children = try container.decode([MoveNode].self, forKey: .children)
+        parents = []
+        comment = try container.decode(String?.self, forKey: .comment)
+
+        if let mistakesLast5Moves = try container.decodeIfPresent([Date:Bool].self, forKey: .mistakesLast5Moves) {
+            self.mistakesLast5Moves = mistakesLast5Moves
+        } else {
+            var dict = [Date:Bool]()
+            let array = try container.decode([Int].self, forKey: .mistakesLast5Moves)
+            var flag = false
+            for i in 0..<array.count {
+                let randomDate = Double(Int.random(in: 0..<100000) + i*100000)
+                if array[i] == 0 {
+                    dict[Date(timeIntervalSince1970: randomDate)] = false
+                    flag = true
+                } else if array[i] == 1 && flag {
+                    dict[Date(timeIntervalSince1970: randomDate)] = true
+                }
+            }
+        }
+
+        fen = try container.decode(String.self, forKey: .fen)
+
+        for child in children {
+            child.parent = self
+        }
+    }
+    required init(from decoder: Decoder, gameNodeDictionary: GameNodeDictionary) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        children = try container.decodeArray(MoveNode.self, forKey: .children, gameNodeDictionary: gameNodeDictionary)
         parents = []
         comment = try container.decode(String?.self, forKey: .comment)
         
@@ -190,3 +224,61 @@ class GameNodeDictionary {
         return nodes[fen]
     }
 }
+
+//class GameNodeDecoder: Decoder {
+//    let userInfo: [CodingUserInfoKey: Any] = [:]
+//    let codingPath: [CodingKey] = []
+//    private let innerDecoder: Decoder
+//    private let gameNodeDictionary: GameNodeDictionary
+//
+//    init(decoder: Decoder, gameNodeDictionary: GameNodeDictionary) {
+//        self.innerDecoder = decoder
+//        self.gameNodeDictionary = gameNodeDictionary
+//    }
+//
+//    func container<Key>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> where Key: CodingKey {
+//        return try innerDecoder.container(keyedBy: type)
+//    }
+//
+//    func unkeyedContainer() throws -> UnkeyedDecodingContainer {
+//        return try innerDecoder.unkeyedContainer()
+//    }
+//
+//    func singleValueContainer() throws -> SingleValueDecodingContainer {
+//        return try innerDecoder.singleValueContainer()
+//    }
+//
+//    func decodeGameNode() throws -> GameNode {
+//        return try GameNode(from: innerDecoder, gameNodeDictionary: gameNodeDictionary)
+//    }
+//}
+
+extension KeyedDecodingContainer {
+    func decode(_ type: GameNode.Type, forKey key: KeyedDecodingContainer<K>.Key, gameNodeDictionary: GameNodeDictionary) throws -> GameNode {
+        let decoder = try superDecoder(forKey: key)
+        return try GameNode(from: decoder, gameNodeDictionary: gameNodeDictionary)
+    }
+    func decode(_ type: MoveNode.Type, forKey key: KeyedDecodingContainer<K>.Key, gameNodeDictionary: GameNodeDictionary) throws -> MoveNode {
+        let decoder = try superDecoder(forKey: key)
+        return try MoveNode(from: decoder, gameNodeDictionary: gameNodeDictionary)
+    }
+    
+    func decodeArray(_ type: MoveNode.Type, forKey key: KeyedDecodingContainer<K>.Key, gameNodeDictionary: GameNodeDictionary) throws -> [MoveNode] {
+        var container = try nestedUnkeyedContainer(forKey: key)
+        var moveNodes: [MoveNode] = []
+
+        while !container.isAtEnd {
+            let moveNode = try container.decode(MoveNode.self, gameNodeDictionary: gameNodeDictionary)
+            moveNodes.append(moveNode)
+        }
+
+        return moveNodes
+    }
+}
+extension UnkeyedDecodingContainer {
+    mutating func decode(_ type: MoveNode.Type, gameNodeDictionary: GameNodeDictionary) throws -> MoveNode {
+        let decoder = try superDecoder()
+        return try MoveNode(from: decoder, gameNodeDictionary: gameNodeDictionary)
+    }
+}
+

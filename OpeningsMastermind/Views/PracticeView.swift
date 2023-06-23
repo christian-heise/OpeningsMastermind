@@ -24,6 +24,7 @@ struct PracticeView: View {
         self.vm = vm
         self.database = database
         self.settings = settings
+        UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
     }
     
     var text: String {
@@ -83,36 +84,80 @@ struct PracticeView: View {
                                 .opacity((vm.gameState == .mistake || vm.gameState == .endOfLine) ? 1 : 0)
                         }
                         HStack {
-                            Button(action: {
-                                vm.reset()
-                            }) {
-                                Text("Restart Practice")
-                                    .padding()
-                                    .foregroundColor(.white)
-                                    .background([79,147,206].getColor())
-                                    .cornerRadius(10)
+//                            Button() {
+//                                vm.reset()
+//                            } label: {
+//                                HStack {
+//                                    Image(systemName: "arrow.counterclockwise")
+//                                        .resizable()
+//                                        .scaledToFit()
+//                                    Text("Practice from start")
+//                                        .fixedSize(horizontal: false, vertical: true)
+//                                        .multilineTextAlignment(.leading)
+//
+//                                }
+////                                Text("Restart Practice")
+////                                    .padding()
+////                                    .foregroundColor(.white)
+////                                    .background([79,147,206].getColor())
+////                                    .cornerRadius(10)
+//                            }
+//                            .buttonStyle(.bordered)
+//                            .opacity(vm.gameState != .idle ? 1 : 0)
+//                            .disabled(vm.gameState != .idle ? false : true)
+                            HStack(spacing: 15) {
+                                Button {
+//                                    vm.reverseOneMove()
+                                } label: {
+                                    Image(systemName: "arrow.backward")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .padding(10)
+                                        .background(){
+                                            ZStack {
+                                                RoundedRectangle(cornerRadius: 10).opacity(0.4)
+                                            }
+                                            .shadow(radius: 5)
+                                        }
+                                }
+//                                .disabled(vm.currentExploreNode.parent == nil)
+                                Button {
+//                                    vm.forwardOneMove()
+                                } label: {
+                                    Image(systemName: "arrow.forward")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .padding(10)
+                                        .background(){
+                                            ZStack {
+                                                RoundedRectangle(cornerRadius: 10).opacity(0.4)
+                                            }
+                                            .shadow(radius: 5)
+                                        }
+                                }
+//                                .disabled(vm.currentExploreNode.children.isEmpty && vm.currentExploreNode.gameNode?.children.isEmpty ?? true)
                             }
-                            .opacity(vm.gameState != .idle ? 1 : 0)
-                            .disabled(vm.gameState != .idle ? false : true)
-    
-                            Button(action: {
-                                vm.revertMove()
-                            }) {
-                                Text("Revert Last Move")
-                                    .padding()
-                                    .foregroundColor(.white)
-                                    .background([223,110,107].getColor())
-                                    .cornerRadius(10)
+                            HStack {
+                                Spacer()
+                                Button() {
+                                } label: {
+                                    HStack {
+                                        Text("Next Item")
+                                        Image(systemName: "arrowshape.right")
+                                            .resizable()
+                                            .scaledToFit()
+                                    }
+                                }
+                                .buttonStyle(.bordered)
+//                                .frame(height: 40)
                             }
-                            .opacity(vm.gameState == .mistake ? 1 : 0)
-                            .disabled(vm.gameState == .mistake ? false : true)
                         }
+                        .frame(height: 50)
                         .padding(10)
                     }
                     .if(isLandscape(in: geo.size)) { view in
                         view.padding(.trailing)
                     }
-                    
                 }
                 .if(verticalSizeClass == .compact) { view in
                     view.navigationBarTitleDisplayMode(.inline)
@@ -120,11 +165,46 @@ struct PracticeView: View {
                 .sheet(isPresented: $showingSelectView) {
                     SelectStudyView(gametrees: self.database.gametrees, vm: vm)
                 }
-                .onAppear() {
-                    vm.onAppear()
-                }
-                .navigationTitle(self.vm.selectedGameTrees.first?.name ?? "Practice")
+                
+                .navigationTitle(Text(self.vm.selectedGameTrees.first?.name ?? "Practice"))
+                
                 .toolbar {
+//                    ToolbarItem() {
+//                        Button() {
+//                        } label: {
+//                            HStack {
+//                                Image(systemName: "arrowshape.turn.up.left")
+//                                Text("Review position in Explorer")
+//                            }
+//                        }
+//                        .buttonStyle(.bordered)
+//                    }
+                    ToolbarItem() {
+                        Menu {
+                            Button() {
+                            } label: {
+                                HStack {
+                                    Image(systemName: "arrowshape.turn.up.left")
+                                    Text("Review in Explorer")
+                                }
+                            }
+                            Button() {
+                                vm.reset()
+                            } label: {
+                                HStack {
+                                    Image(systemName: "arrow.counterclockwise")
+                                        .resizable()
+                                        .scaledToFit()
+                                    Text("Practice from start")
+                                        .fixedSize(horizontal: false, vertical: true)
+                                        .multilineTextAlignment(.leading)
+                                    
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                        }
+                    }
                     ToolbarItem() {
                         Button() {
                             dismiss()
@@ -133,6 +213,9 @@ struct PracticeView: View {
                         }
                     }
                 }
+            }
+            .onAppear() {
+                vm.onAppear()
             }
         }
     }
@@ -143,7 +226,8 @@ struct PracticeView: View {
 
 struct PracticeView_Previews: PreviewProvider {
     static var previews: some View {
-//        PracticeView(database: DataBase(), settings: Settings(), gameTree: GameTree.example())
-        ContentView()
+        let database = DataBase()
+        PracticeView(database: database, settings: Settings(), vm: PracticeViewModel(database: database))
+//        ContentView()
     }
 }

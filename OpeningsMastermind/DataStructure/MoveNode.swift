@@ -25,6 +25,14 @@ class MoveNode: Codable {
         }
     }
     
+    var halfMoveNumber: Int {
+        if let lastMove = parent?.parents.first {
+            return lastMove.halfMoveNumber + 1
+        } else {
+            return 1
+        }
+    }
+    
     init(moveString: String, move: Move, annotation: String? = nil, child: GameNode, parent: GameNode) {
         self.moveString = moveString
         self.move = move
@@ -53,7 +61,26 @@ class MoveNode: Codable {
         annotation = try container.decode(String?.self, forKey: .annotation)
         move = Move(string: try container.decode(String.self, forKey: .move))
         
-        child.parents += [self]
+        self.child.parents += [self]
+    }
+    
+    required init(from decoder: Decoder, gameNodeDictionary: GameNodeDictionary) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        let child = try container.decode(GameNode.self, forKey: .child, gameNodeDictionary: gameNodeDictionary)
+        
+        if let existingGameNode = gameNodeDictionary.getNode(child.fen) {
+            self.child = existingGameNode
+        } else {
+            self.child = child
+            gameNodeDictionary.addNode(child)
+        }
+        
+        moveString = try container.decode(String.self, forKey: .moveString)
+        annotation = try container.decode(String?.self, forKey: .annotation)
+        move = Move(string: try container.decode(String.self, forKey: .move))
+        
+        self.child.parents += [self]
     }
 }
 

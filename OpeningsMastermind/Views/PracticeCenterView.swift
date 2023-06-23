@@ -131,6 +131,29 @@ struct PracticeCenterView: View {
         self.vm_child.game = Game(position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen))
         self.vm_child.gameState = .idle
         self.vm_child.userColor = queueItem.gameTree.userColor
+//        self.vm_child.startingMove = (queueItem.gameNode.parents.first?.halfMoveNumber ?? 0)
+        print(self.vm_child.startingMove)
+        
+        var moveHistory: [(Move, String)] = []
+        var positionHistory: [Position] = []
+        var currentNode = queueItem.gameNode
+        
+        positionHistory.append(FenSerialization.default.deserialize(fen: currentNode.fen))
+        
+        while true {
+            guard let parentMove = currentNode.parents.first  else { break }
+            moveHistory.insert((parentMove.move, parentMove.moveString), at: 0)
+            guard let parentNode = parentMove.parent else {
+                moveHistory = []
+                positionHistory = []
+                break
+            }
+            positionHistory.insert(FenSerialization.default.deserialize(fen: parentNode.fen), at: 0)
+            currentNode = parentNode
+        }
+        self.vm_child.moveHistory = moveHistory
+        self.vm_child.positionHistory = positionHistory
+        self.vm_child.positionIndex = (queueItem.gameNode.parents.first?.halfMoveNumber ?? 0) - 1
         self.isShowingModal = true
     }
     func tappedTree(tree: GameTree) {

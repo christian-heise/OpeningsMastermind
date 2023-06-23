@@ -19,7 +19,7 @@ struct ContentView: View {
     var body: some View {
         if database.isLoaded {
             TabView(selection: $selectedTab) {
-                ExploreView(database: database, settings: settings, selectedTab: $selectedTab)
+                ExploreView(database: database, settings: settings)
                     .tabItem {
                         Label("Explorer", systemImage: "book")
                     }

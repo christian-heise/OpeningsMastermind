@@ -24,7 +24,7 @@ class GameTree: Codable, Hashable {
     
     var dateLastPlayed: Date
     
-    let allGameNodes: [GameNode]
+    let allGameNodes: Set<GameNode>
     
     var progress: Double {
         1-rootNode.progress
@@ -36,8 +36,9 @@ class GameTree: Codable, Hashable {
         self.id = UUID()
         self.name = name
         self.userColor = userColor
-        self.allGameNodes = decoder.decodePGN(pgnString: pgnString)
-        self.rootNode = self.allGameNodes.first ?? GameNode(fen: startingFEN)
+        let allNodesArray = decoder.decodePGN(pgnString: pgnString)
+        self.rootNode = allNodesArray.first ?? GameNode(fen: startingFEN)
+        self.allGameNodes = Set(allNodesArray)
         self.pgnString = pgnString
         self.dateAdded = Date()
         self.dateLastPlayed = Date(timeIntervalSince1970: 0)
@@ -55,18 +56,21 @@ class GameTree: Codable, Hashable {
         
         if oldTree.pgnString != "" {
             self.pgnString = oldTree.pgnString
-            self.allGameNodes = decoder.decodePGN(pgnString: pgnString)
-            self.rootNode = self.allGameNodes.first ?? GameNode(fen: startingFEN)
+            let allNodesArray = decoder.decodePGN(pgnString: pgnString)
+            self.rootNode = allNodesArray.first ?? GameNode(fen: startingFEN)
+            self.allGameNodes = Set(allNodesArray)
         } else {
             let oldRootNode = oldTree.rootNode
             let rootNode = GameTree.convert(oldNode: oldRootNode, game: Game(position: startingGamePosition))
-            self.allGameNodes = GameTree.getAllNodes(node: rootNode)
+            self.allGameNodes = Set(GameTree.getAllNodes(node: rootNode))
             self.rootNode = rootNode
             self.pgnString = ""
         }
     }
     
     required init(from decoder: Decoder) throws {
+        let gameNodeDictionary = GameNodeDictionary()
+        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
@@ -74,14 +78,14 @@ class GameTree: Codable, Hashable {
         self.name = try container.decode(String.self, forKey: .name)
         let userColorString = try container.decode(String.self, forKey: .userColor)
         self.userColor = userColorString=="white" ? .white : .black
-        self.rootNode = try container.decode(GameNode.self, forKey: .rootNode)
+        self.rootNode = try container.decode(GameNode.self, forKey: .rootNode, gameNodeDictionary: gameNodeDictionary)
         
         self.pgnString = try container.decode(String.self, forKey: .pgnString)
         self.dateAdded = try container.decodeIfPresent(Date.self, forKey: .dateAdded) ?? Date()
         
         self.dateLastPlayed = try container.decodeIfPresent(Date.self, forKey: .dateLastPlayed) ?? Date(timeIntervalSince1970: 0)
         
-        self.allGameNodes = GameTree.getAllNodes(node: self.rootNode)
+        self.allGameNodes = Set(GameTree.getAllNodes(node: self.rootNode))
     }
     
     static func getAllNodes(node: GameNode) -> [GameNode] {
