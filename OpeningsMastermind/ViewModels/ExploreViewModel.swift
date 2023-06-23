@@ -83,19 +83,27 @@ import ChessKitEngine
         }
 //        engine?.loggingEnabled = true
         onAppear()
+        
+        self.engine?.receiveResponse = { response in
+            self.receiveEngineReponse(response: response)
+        }
     }
     
     func onAppear() {
         if settings.engineOn && engine == nil {
             self.engine = Engine(type: .stockfish)
             self.engine!.start(coreCount: 3)
+            
+            self.engine!.receiveResponse = { response in
+                self.receiveEngineReponse(response: response)
+            }
         }
         if !settings.engineOn, let engine = self.engine {
             engine.stop()
             self.engine = nil
         }
         if let engine = engine {
-            engine.send(command: .stop)
+            getEngineMoves()
         }
         if database.gametrees.isEmpty {
             self.gameTree = nil
@@ -304,52 +312,54 @@ import ChessKitEngine
         guard let engine = engine else { return }
         let position = self.game.position
         let fen = FenSerialization.default.serialize(position: position)
-        let color = self.currentExploreNode.color
         
         guard engineCache[fen] == nil  else {
             self.evaluation = engineCache[fen]
             return
         }
         
-        DispatchQueue.global(qos: .default).async {
+//        DispatchQueue.global(qos: .default).async {
             engine.send(command: .stop)
             engine.send(command: .position(.fen(fen)))
             engine.send(command: .go(depth: 18))
-            engine.receiveResponse = { response in
-                DispatchQueue.main.async {
-                    switch response {
-                    case let .info(info):
-                        if let score = info.score?.cp {
-                            self.mateInXMoves = nil
-                            if color == .white {
-                                self.evaluation = score / 100.0
-                            } else {
-                                self.evaluation = -score / 100.0
-                            }
-                        }
-                        if let mateInXMoves = info.score?.mate {
-                            if color == .white {
-                                if mateInXMoves == 0 {
-                                    self.evaluation = -50
-                                } else {
-                                    self.evaluation = 10 * Double(mateInXMoves)
-                                }
-                                self.mateInXMoves = mateInXMoves
-                            } else {
-                                if mateInXMoves == 0 {
-                                    self.evaluation = 50
-                                } else {
-                                    self.evaluation = -10 * Double(mateInXMoves)
-                                }
-                                self.mateInXMoves = -mateInXMoves
-                            }
-                        }
-                    default:
-                        break
+            
+//        }
+    }
+    
+    func receiveEngineReponse(response: EngineResponse) {
+//        DispatchQueue.main.async {
+            let color = self.currentExploreNode.color
+            switch response {
+            case let .info(info):
+                if let score = info.score?.cp {
+                    self.mateInXMoves = nil
+                    if color == .white {
+                        self.evaluation = score / 100.0
+                    } else {
+                        self.evaluation = -score / 100.0
                     }
                 }
+                if let mateInXMoves = info.score?.mate {
+                    if color == .white {
+                        if mateInXMoves == 0 {
+                            self.evaluation = -50
+                        } else {
+                            self.evaluation = 10 * Double(mateInXMoves)
+                        }
+                        self.mateInXMoves = mateInXMoves
+                    } else {
+                        if mateInXMoves == 0 {
+                            self.evaluation = 50
+                        } else {
+                            self.evaluation = -10 * Double(mateInXMoves)
+                        }
+                        self.mateInXMoves = -mateInXMoves
+                    }
+                }
+            default:
+                break
             }
-        }
+//        }
     }
     
     override func postMoveStuff() {
