@@ -45,7 +45,6 @@ struct PracticeView: View {
                 let layout = isLandscape(in: geo.size) ? AnyLayout(HStackLayout()) : AnyLayout(VStackLayout())
                 layout {
                     if !isLandscape(in: geo.size) && geo.size.width <= geo.size.height - 205 {
-                        Spacer()
                         Text(text)
                             .font(.headline)
                             .fixedSize(horizontal: false, vertical: true)
@@ -54,6 +53,7 @@ struct PracticeView: View {
                             .padding()
                             .opacity((vm.gameState == .mistake || vm.gameState == .endOfLine) ? 1 : 0)
                     }
+                    Spacer()
                     ChessboardView(vm: vm, settings: settings)
                         .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                         .if(!isLandscape(in: geo.size)) { view in
@@ -68,14 +68,22 @@ struct PracticeView: View {
                         if isLandscape(in: geo.size) {
                             Spacer()
                         }
-                        MoveListView(vm: vm)
-                            .padding(.vertical, 7)
-                            .padding(.trailing, 7)
-                            .background(){
-                                Color.gray.opacity(0.1)
-                                    .shadow(radius: 5)
-                            }
-                            
+                        if geo.size.width > geo.size.height - 205 && (vm.gameState == .mistake || vm.gameState == .endOfLine) {
+                            Text(text)
+                                .font(.headline)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .multilineTextAlignment(.center)
+                                .frame(height: 40)
+                                .padding(.vertical, 7)
+                        } else {
+                            MoveListView(vm: vm)
+                                .padding(.vertical, 7)
+                                .padding(.trailing, 7)
+                                .background(){
+                                    Color.gray.opacity(0.1)
+                                        .shadow(radius: 5)
+                                }
+                        }
                         if isLandscape(in: geo.size) {
                             Text(text)
                                 .font(.headline)
@@ -120,18 +128,31 @@ struct PracticeView: View {
                             }
                             HStack {
                                 Spacer()
-                                Button() {
-                                    vm.nextQueueItem()
-                                } label: {
-                                    HStack {
-                                        Text("Next Position")
-                                        Image(systemName: "arrowshape.right")
-                                            .resizable()
-                                            .scaledToFit()
+                                if vm.currentQueueIndex == nil {
+                                    Button() {
+                                        vm.reset()
+                                    } label: {
+                                        HStack {
+                                            Text("Reset to start")
+                                            Image(systemName: "arrow.counterclockwise")
+                                                .resizable()
+                                                .scaledToFit()
+                                        }
                                     }
+                                    .buttonStyle(.bordered)
+                                } else {
+                                    Button() {
+                                        vm.nextQueueItem()
+                                    } label: {
+                                        HStack {
+                                            Text("Next Position")
+                                            Image(systemName: "arrowshape.right")
+                                                .resizable()
+                                                .scaledToFit()
+                                        }
+                                    }
+                                    .buttonStyle(.bordered)
                                 }
-                                .buttonStyle(.bordered)
-//                                .frame(height: 40)
                             }
                         }
                         .frame(height: 50)
@@ -151,70 +172,44 @@ struct PracticeView: View {
                 .navigationTitle(Text(self.vm.selectedGameTrees.first?.name ?? "Practice"))
                 
                 .toolbar {
-//                    ToolbarItem() {
-//                        Button() {
-//                        } label: {
-//                            HStack {
-//                                Image(systemName: "arrowshape.turn.up.left")
-//                                Text("Review position in Explorer")
-//                            }
-//                        }
-//                        .buttonStyle(.bordered)
-//                    }
-                    ToolbarItem() {
-                        Menu {
-                            Button() {
-                                guard let selectedGameTree = self.vm.selectedGameTrees.first else { return }
-                                guard var currentNode = vm.currentNodes.first else { return }
-                                appControl.vm_ExploreView.reset(to: selectedGameTree)
-                                appControl.vm_ExploreView.game = vm.game
-                                appControl.vm_ExploreView.moveHistory = vm.moveHistory
-                                appControl.vm_ExploreView.positionHistory = vm.positionHistory
-                                appControl.vm_ExploreView.positionIndex = vm.positionIndex
-                                appControl.vm_ExploreView.userColor = vm.userColor
-                                var currentExploreNode = ExploreNode(gameNode: currentNode, color: currentNode.nextMoveColor)
-                                appControl.vm_ExploreView.currentExploreNode = currentExploreNode
-                                
-                                while true {
-                                    guard let parentMoveNode = currentNode.parents.first else { break }
-                                    guard let parentNode = parentMoveNode.parent else { break }
-                                    currentExploreNode.move = parentMoveNode.moveString
-                                    let parentExploreNode = ExploreNode(gameNode: parentNode, color: parentNode.nextMoveColor)
-                                    currentExploreNode.parent = parentExploreNode
-                                    parentExploreNode.children = [currentExploreNode]
-                                    
-                                    currentExploreNode = parentExploreNode
-                                    currentNode = parentNode
-                                }
-                                
-                                appControl.vm_ExploreView.rootExploreNode = currentExploreNode
-                                
-                                appControl.vm_ExploreView.postMoveStuff()
-                                appControl.selectedTab = 0
-                                dismiss()
-                            } label: {
-                                HStack {
-                                    Image(systemName: "arrowshape.turn.up.left")
-                                    Text("Review in Explorer")
-                                }
-                            }
-                            Button() {
-                                vm.reset()
-                            } label: {
-                                HStack {
-                                    Image(systemName: "arrow.counterclockwise")
-                                        .resizable()
-                                        .scaledToFit()
-                                    Text("Practice from start")
-                                        .fixedSize(horizontal: false, vertical: true)
-                                        .multilineTextAlignment(.leading)
-                                    
-                                }
-                            }
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button() {
+                            transitionToExploreView()
                         } label: {
-                            Image(systemName: "ellipsis.circle")
+                            HStack {
+                                Image(systemName: "arrowshape.turn.up.left")
+                                Text("Review in Explorer")
+                            }
                         }
+                        .buttonStyle(.bordered)
                     }
+//                    ToolbarItem() {
+//                        Menu {
+//                            Button() {
+//                                transitionToExploreView()
+//                            } label: {
+//                                HStack {
+//                                    Image(systemName: "arrowshape.turn.up.left")
+//                                    Text("Review in Explorer")
+//                                }
+//                            }
+//                            Button() {
+//                                vm.reset()
+//                            } label: {
+//                                HStack {
+//                                    Image(systemName: "arrow.counterclockwise")
+//                                        .resizable()
+//                                        .scaledToFit()
+//                                    Text("Practice from start")
+//                                        .fixedSize(horizontal: false, vertical: true)
+//                                        .multilineTextAlignment(.leading)
+//
+//                                }
+//                            }
+//                        } label: {
+//                            Image(systemName: "ellipsis.circle")
+//                        }
+//                    }
                     ToolbarItem() {
                         Button() {
                             dismiss()
@@ -231,6 +226,37 @@ struct PracticeView: View {
     }
     func isLandscape(in size: CGSize) -> Bool {
         size.width > size.height
+    }
+    
+    func transitionToExploreView() {
+        guard let selectedGameTree = self.vm.selectedGameTrees.first else { return }
+        guard var currentNode = vm.currentNodes.first else { return }
+        appControl.vm_ExploreView.reset(to: selectedGameTree)
+        appControl.vm_ExploreView.game = vm.game
+        appControl.vm_ExploreView.moveHistory = vm.moveHistory
+        appControl.vm_ExploreView.positionHistory = vm.positionHistory
+        appControl.vm_ExploreView.positionIndex = vm.positionIndex
+        appControl.vm_ExploreView.userColor = vm.userColor
+        var currentExploreNode = ExploreNode(gameNode: currentNode, color: currentNode.nextMoveColor)
+        appControl.vm_ExploreView.currentExploreNode = currentExploreNode
+
+        while true {
+            guard let parentMoveNode = currentNode.parents.first else { break }
+            guard let parentNode = parentMoveNode.parent else { break }
+            currentExploreNode.move = parentMoveNode.moveString
+            let parentExploreNode = ExploreNode(gameNode: parentNode, color: parentNode.nextMoveColor)
+            currentExploreNode.parent = parentExploreNode
+            parentExploreNode.children = [currentExploreNode]
+
+            currentExploreNode = parentExploreNode
+            currentNode = parentNode
+        }
+
+        appControl.vm_ExploreView.rootExploreNode = currentExploreNode
+
+        appControl.vm_ExploreView.postMoveStuff()
+        appControl.selectedTab = 0
+        dismiss()
     }
 }
 

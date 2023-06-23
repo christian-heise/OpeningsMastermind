@@ -25,7 +25,7 @@ import ChessKit
     }
     
     var queueItems: [QueueItem] = []
-    var currentQueueIndex: Int = 0
+    var currentQueueIndex: Int? = nil
     
     var userColor: PieceColor = .white
     
@@ -360,12 +360,13 @@ import ChessKit
         self.positionHistory = positionHistory
         self.positionIndex = (queueItem.gameNode.parents.first?.halfMoveNumber ?? 0) - 1
         
-        self.currentQueueIndex = self.queueItems.firstIndex(where: {$0.id == queueItem.id}) ?? 0
+        self.currentQueueIndex = self.queueItems.firstIndex(where: {$0.id == queueItem.id})
     }
     
     func nextQueueItem() {
-        guard queueItems.count > currentQueueIndex + 1  else { return }
-        currentQueueIndex += 1
-        initializeQueueItem(queueItem: queueItems[currentQueueIndex])
+        guard let index = currentQueueIndex else { return }
+        guard queueItems.count > index + 1  else { return }
+        currentQueueIndex! += 1
+        initializeQueueItem(queueItem: queueItems[currentQueueIndex!])
     }
 }
