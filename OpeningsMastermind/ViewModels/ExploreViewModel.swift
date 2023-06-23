@@ -244,7 +244,6 @@ import ChessKitEngine
         } else {
             makeMainLineMove()
         }
-        
     }
     
     func reverseOneMove() {
@@ -365,23 +364,24 @@ import ChessKitEngine
         gameState = .explore
     }
     
-    class ExploreNode {
-        let parent: ExploreNode?
-        let move: String
-        var children: [ExploreNode]
-        let gameNode: GameNode?
-        let position: Position
-        let color: PieceColor
-        
-        var evaluation: Double?
-        
-        init(gameNode: GameNode? = nil, move: String="", parentNode: ExploreNode? = nil, position: Position = startingGamePosition, color: PieceColor = .white) {
-            self.parent = parentNode
-            self.children = []
-            self.gameNode = gameNode
-            self.position = position
-            self.move = move
-            self.color = color
-        }
+    
+}
+class ExploreNode {
+    var parent: ExploreNode?
+    var move: String
+    var children: [ExploreNode]
+    let gameNode: GameNode?
+//    let position: Position
+    let color: PieceColor
+    
+    var evaluation: Double?
+    
+    init(gameNode: GameNode? = nil, move: String="", parentNode: ExploreNode? = nil, position: Position = startingGamePosition, color: PieceColor = .white) {
+        self.parent = parentNode
+        self.children = []
+        self.gameNode = gameNode
+//        self.position = position
+        self.move = move
+        self.color = color
     }
 }

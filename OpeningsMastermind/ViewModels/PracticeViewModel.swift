@@ -24,6 +24,9 @@ import ChessKit
         self.reset()
     }
     
+    var queueItems: [QueueItem] = []
+    var currentQueueIndex: Int = 0
+    
     var gameCopy: Game? = nil
     
     @Published var userColor: PieceColor = .white
@@ -299,5 +302,42 @@ import ChessKit
         let newNode = moveNode.child
         
         return (generatedMove, newNode)
+    }
+    
+    func initializeQueueItem(queueItem: QueueItem) {
+        self.currentNodes = [queueItem.gameNode]
+        self.selectedGameTrees = Set([queueItem.gameTree])
+        self.game = Game(position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen))
+        self.gameState = .idle
+        self.userColor = queueItem.gameTree.userColor
+        
+        var moveHistory: [(Move, String)] = []
+        var positionHistory: [Position] = []
+        var currentNode = queueItem.gameNode
+        
+//        positionHistory.append(FenSerialization.default.deserialize(fen: currentNode.fen))
+        
+        while true {
+            guard let parentMove = currentNode.parents.first  else { break }
+            moveHistory.insert((parentMove.move, parentMove.moveString), at: 0)
+            guard let parentNode = parentMove.parent else {
+                moveHistory = []
+                positionHistory = []
+                break
+            }
+            positionHistory.insert(FenSerialization.default.deserialize(fen: parentNode.fen), at: 0)
+            currentNode = parentNode
+        }
+        self.moveHistory = moveHistory
+        self.positionHistory = positionHistory
+        self.positionIndex = (queueItem.gameNode.parents.first?.halfMoveNumber ?? 0) - 1
+        
+        self.currentQueueIndex = self.queueItems.firstIndex(where: {$0.id == queueItem.id}) ?? 0
+    }
+    
+    func nextQueueItem() {
+        guard queueItems.count > currentQueueIndex + 1  else { return }
+        currentQueueIndex += 1
+        initializeQueueItem(queueItem: queueItems[currentQueueIndex])
     }
 }

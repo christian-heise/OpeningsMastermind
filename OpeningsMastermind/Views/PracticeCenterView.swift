@@ -45,7 +45,7 @@ struct PracticeCenterView: View {
                             .padding(15)
                         }
                         ScrollView(.horizontal) {
-                            HStack {
+                            LazyHStack {
                                 ForEach(vm.queueItems, id: \.gameNode.id) { queueItem in
                                     VStack {
                                         ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: queueItem.gameTree.userColor, currentMoveColor: queueItem.gameNode.parents.first?.moveColor ?? .white, position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen)), settings: settings)
@@ -58,7 +58,8 @@ struct PracticeCenterView: View {
                                     }
                                     .frame(width: size)
                                     .onTapGesture {
-                                        tappedItem(queueItem: queueItem)
+                                        vm_child.initializeQueueItem(queueItem: queueItem)
+                                        self.isShowingModal = true
                                     }
                                 }
                             }
@@ -119,43 +120,14 @@ struct PracticeCenterView: View {
             .navigationTitle("Practice Center")
             .onAppear() {
                 vm.getQueueItems()
+                vm_child.queueItems = vm.queueItems
             }
             .fullScreenCover(isPresented: $isShowingModal, onDismiss: didDismiss) {
                 PracticeView(database: database, settings: Settings(), vm: vm_child)
             }
         }
     }
-    func tappedItem(queueItem: QueueItem) {
-        self.vm_child.currentNodes = [queueItem.gameNode]
-        self.vm_child.selectedGameTrees = Set([queueItem.gameTree])
-        self.vm_child.game = Game(position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen))
-        self.vm_child.gameState = .idle
-        self.vm_child.userColor = queueItem.gameTree.userColor
-//        self.vm_child.startingMove = (queueItem.gameNode.parents.first?.halfMoveNumber ?? 0)
-        print(self.vm_child.startingMove)
-        
-        var moveHistory: [(Move, String)] = []
-        var positionHistory: [Position] = []
-        var currentNode = queueItem.gameNode
-        
-        positionHistory.append(FenSerialization.default.deserialize(fen: currentNode.fen))
-        
-        while true {
-            guard let parentMove = currentNode.parents.first  else { break }
-            moveHistory.insert((parentMove.move, parentMove.moveString), at: 0)
-            guard let parentNode = parentMove.parent else {
-                moveHistory = []
-                positionHistory = []
-                break
-            }
-            positionHistory.insert(FenSerialization.default.deserialize(fen: parentNode.fen), at: 0)
-            currentNode = parentNode
-        }
-        self.vm_child.moveHistory = moveHistory
-        self.vm_child.positionHistory = positionHistory
-        self.vm_child.positionIndex = (queueItem.gameNode.parents.first?.halfMoveNumber ?? 0) - 1
-        self.isShowingModal = true
-    }
+    
     func tappedTree(tree: GameTree) {
         self.vm_child.selectedGameTrees = Set([tree])
         self.vm_child.reset()

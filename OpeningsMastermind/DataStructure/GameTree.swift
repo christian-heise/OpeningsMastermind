@@ -24,7 +24,7 @@ class GameTree: Codable, Hashable {
     
     var dateLastPlayed: Date
     
-    let allGameNodes: Set<GameNode>
+    let allGameNodes: [GameNode]
     
     var progress: Double {
         1-rootNode.progress
@@ -38,7 +38,7 @@ class GameTree: Codable, Hashable {
         self.userColor = userColor
         let allNodesArray = decoder.decodePGN(pgnString: pgnString)
         self.rootNode = allNodesArray.first ?? GameNode(fen: startingFEN)
-        self.allGameNodes = Set(allNodesArray)
+        self.allGameNodes = allNodesArray.sorted(by: { return $0.nodesBelow > $1.nodesBelow })
         self.pgnString = pgnString
         self.dateAdded = Date()
         self.dateLastPlayed = Date(timeIntervalSince1970: 0)
@@ -58,11 +58,11 @@ class GameTree: Codable, Hashable {
             self.pgnString = oldTree.pgnString
             let allNodesArray = decoder.decodePGN(pgnString: pgnString)
             self.rootNode = allNodesArray.first ?? GameNode(fen: startingFEN)
-            self.allGameNodes = Set(allNodesArray)
+            self.allGameNodes = allNodesArray.sorted(by: { return $0.nodesBelow > $1.nodesBelow })
         } else {
             let oldRootNode = oldTree.rootNode
             let rootNode = GameTree.convert(oldNode: oldRootNode, game: Game(position: startingGamePosition))
-            self.allGameNodes = Set(GameTree.getAllNodes(node: rootNode))
+            self.allGameNodes = GameTree.getAllNodes(node: rootNode)
             self.rootNode = rootNode
             self.pgnString = ""
         }
@@ -85,7 +85,7 @@ class GameTree: Codable, Hashable {
         
         self.dateLastPlayed = try container.decodeIfPresent(Date.self, forKey: .dateLastPlayed) ?? Date(timeIntervalSince1970: 0)
         
-        self.allGameNodes = Set(GameTree.getAllNodes(node: self.rootNode))
+        self.allGameNodes = GameTree.getAllNodes(node: self.rootNode)
     }
     
     static func getAllNodes(node: GameNode) -> [GameNode] {
@@ -94,7 +94,7 @@ class GameTree: Codable, Hashable {
             allNodes.append(child.child)
             allNodes += getAllNodes(node: child.child)
         }
-        return allNodes
+        return allNodes.sorted(by: { return $0.nodesBelow > $1.nodesBelow })
     }
     
     static func convert(oldNode: GameNodeOld, game: Game) -> GameNode {

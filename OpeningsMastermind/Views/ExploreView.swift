@@ -25,8 +25,8 @@ struct ExploreView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
 
     
-    init(database: DataBase, settings: Settings) {
-        self._vm = StateObject(wrappedValue: ExploreViewModel(database: database, settings: settings))
+    init(database: DataBase, settings: Settings, vm: ExploreViewModel) {
+        self._vm = StateObject(wrappedValue: vm)
         self.database = database
         self.settings = settings
         
@@ -206,7 +206,9 @@ struct ExploreView: View {
 
 struct ExploreView_Previews: PreviewProvider {
     static var previews: some View {
-        ExploreView(database: DataBase(), settings: Settings())
+        let database = DataBase()
+        let settings = Settings()
+        ExploreView(database: database, settings: settings, vm: ExploreViewModel(database: database, settings: settings))
 //        ContentView()
 //            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro"))
 //        ContentView(database: DataBase(), settings: Settings())

@@ -13,6 +13,8 @@ struct PracticeView: View {
     @ObservedObject var settings: Settings
     @ObservedObject var vm: PracticeViewModel
     
+    @EnvironmentObject var appControl: AppControlViewModel
+    
     @Environment(\.dismiss) var dismiss
 
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
@@ -84,30 +86,9 @@ struct PracticeView: View {
                                 .opacity((vm.gameState == .mistake || vm.gameState == .endOfLine) ? 1 : 0)
                         }
                         HStack {
-//                            Button() {
-//                                vm.reset()
-//                            } label: {
-//                                HStack {
-//                                    Image(systemName: "arrow.counterclockwise")
-//                                        .resizable()
-//                                        .scaledToFit()
-//                                    Text("Practice from start")
-//                                        .fixedSize(horizontal: false, vertical: true)
-//                                        .multilineTextAlignment(.leading)
-//
-//                                }
-////                                Text("Restart Practice")
-////                                    .padding()
-////                                    .foregroundColor(.white)
-////                                    .background([79,147,206].getColor())
-////                                    .cornerRadius(10)
-//                            }
-//                            .buttonStyle(.bordered)
-//                            .opacity(vm.gameState != .idle ? 1 : 0)
-//                            .disabled(vm.gameState != .idle ? false : true)
                             HStack(spacing: 15) {
                                 Button {
-//                                    vm.reverseOneMove()
+                                    vm.revertMove()
                                 } label: {
                                     Image(systemName: "arrow.backward")
                                         .resizable()
@@ -120,7 +101,7 @@ struct PracticeView: View {
                                             .shadow(radius: 5)
                                         }
                                 }
-//                                .disabled(vm.currentExploreNode.parent == nil)
+                                .disabled(vm.gameState != .mistake)
                                 Button {
 //                                    vm.forwardOneMove()
                                 } label: {
@@ -135,14 +116,15 @@ struct PracticeView: View {
                                             .shadow(radius: 5)
                                         }
                                 }
-//                                .disabled(vm.currentExploreNode.children.isEmpty && vm.currentExploreNode.gameNode?.children.isEmpty ?? true)
+                                .disabled(true)
                             }
                             HStack {
                                 Spacer()
                                 Button() {
+                                    vm.nextQueueItem()
                                 } label: {
                                     HStack {
-                                        Text("Next Item")
+                                        Text("Next Position")
                                         Image(systemName: "arrowshape.right")
                                             .resizable()
                                             .scaledToFit()
@@ -182,6 +164,34 @@ struct PracticeView: View {
                     ToolbarItem() {
                         Menu {
                             Button() {
+                                guard let selectedGameTree = self.vm.selectedGameTrees.first else { return }
+                                guard var currentNode = vm.currentNodes.first else { return }
+                                appControl.vm_ExploreView.reset(to: selectedGameTree)
+                                appControl.vm_ExploreView.game = vm.game
+                                appControl.vm_ExploreView.moveHistory = vm.moveHistory
+                                appControl.vm_ExploreView.positionHistory = vm.positionHistory
+                                appControl.vm_ExploreView.positionIndex = vm.positionIndex
+                                appControl.vm_ExploreView.userColor = vm.userColor
+                                var currentExploreNode = ExploreNode(gameNode: currentNode, color: currentNode.nextMoveColor)
+                                appControl.vm_ExploreView.currentExploreNode = currentExploreNode
+                                
+                                while true {
+                                    guard let parentMoveNode = currentNode.parents.first else { break }
+                                    guard let parentNode = parentMoveNode.parent else { break }
+                                    currentExploreNode.move = parentMoveNode.moveString
+                                    let parentExploreNode = ExploreNode(gameNode: parentNode, color: parentNode.nextMoveColor)
+                                    currentExploreNode.parent = parentExploreNode
+                                    parentExploreNode.children = [currentExploreNode]
+                                    
+                                    currentExploreNode = parentExploreNode
+                                    currentNode = parentNode
+                                }
+                                
+                                appControl.vm_ExploreView.rootExploreNode = currentExploreNode
+                                
+                                appControl.vm_ExploreView.postMoveStuff()
+                                appControl.selectedTab = 0
+                                dismiss()
                             } label: {
                                 HStack {
                                     Image(systemName: "arrowshape.turn.up.left")
@@ -202,7 +212,7 @@ struct PracticeView: View {
                                 }
                             }
                         } label: {
-                            Image(systemName: "square.and.arrow.up")
+                            Image(systemName: "ellipsis.circle")
                         }
                     }
                     ToolbarItem() {
