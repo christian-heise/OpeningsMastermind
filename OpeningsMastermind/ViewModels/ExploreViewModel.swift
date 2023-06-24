@@ -103,9 +103,8 @@ import ChessKitEngine
             engine.stop()
             self.engine = nil
         }
-        if let engine = engine {
-            getEngineMoves()
-        }
+        getEngineMoves()
+        
         if database.gametrees.isEmpty {
             self.gameTree = nil
             self.reset()

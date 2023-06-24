@@ -153,7 +153,9 @@ struct PracticeView: View {
                                                 .scaledToFit()
                                         }
                                     }
+                                    .disabled((vm.currentQueueIndex ?? 0) + 1 == vm.queueItems.count)
                                     .buttonStyle(.bordered)
+                                    
                                 }
                             }
                         }
@@ -253,6 +255,12 @@ struct PracticeView: View {
 
             currentExploreNode = parentExploreNode
             currentNode = parentNode
+        }
+        var indexDiff = vm.moveHistory.count - vm.positionIndex - 1
+        while indexDiff > 0 {
+            guard let parent = appControl.vm_ExploreView.currentExploreNode.parent else { return }
+            appControl.vm_ExploreView.currentExploreNode = parent
+            indexDiff -= 1
         }
 
         appControl.vm_ExploreView.rootExploreNode = currentExploreNode
