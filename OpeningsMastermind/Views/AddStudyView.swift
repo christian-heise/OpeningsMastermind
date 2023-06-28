@@ -97,28 +97,17 @@ struct AddStudyView: View {
                             }) {
                                 Image(systemName: "questionmark.circle")
                             }
+                            .popover(isPresented: $showingPGNHelp, attachmentAnchor: .point(.center), arrowEdge: .trailing, content: {
+                                Text("Paste a custom PGN, or use the button below to import a lichess study with its URL. You also have the option to choose from 5 example studies")
+                                    .padding()
+                                    .frame(width: 300)
+                                    .presentationCompactAdaptation(.popover)
+                            })
                             Spacer()
                             Button(action: {
                                 self.pgnString = ""
                             }) {
                                 Image(systemName: "xmark.circle")
-                            }
-                            .popover(present: $showingPGNHelp, attributes: {
-                                $0.position = .absolute(
-                                    originAnchor: .top,
-                                    popoverAnchor: .bottom
-                                )
-                                $0.rubberBandingMode = .none
-                            }) {
-                                Templates.Container(
-                                    arrowSide: .bottom(.centered),
-                                    backgroundColor: [173, 216, 230].getColor()
-                                )
-                                {
-                                    Text("Paste a custom PGN, or use the button below to import a lichess study with its URL. You also have the option to choose from 5 exmaple studies.")
-                                        .foregroundColor(.black)
-                                }
-                                .frame(maxWidth: 200)
                             }
                         }
 

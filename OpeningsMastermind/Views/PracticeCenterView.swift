@@ -17,6 +17,7 @@ struct PracticeCenterView: View {
     
     @State private var isShowingModal = false
 //    @State private var selectedQueueItem: QueueItem?
+    @State private var isShowingHelp = false
     
     init(database: DataBase, settings: Settings) {
         self._vm_child = StateObject(wrappedValue: PracticeViewModel(database: database))
@@ -39,6 +40,22 @@ struct PracticeCenterView: View {
                                         .padding(.horizontal)
                                         .padding(.top)
                                     Spacer()
+                                    Button {
+                                        isShowingHelp = true
+                                    } label: {
+                                        Image(systemName: "questionmark.circle")
+                                    }
+                                    .popover(isPresented: $isShowingHelp, attachmentAnchor: .point(.leading), arrowEdge: .leading, content: {
+                                        VStack(alignment: .leading, spacing: 20) {
+                                            Text("This is your practice queue")
+                                                .font(.headline)
+                                            Text("You get suggestions for positions you have not played yet or to repeat to achieve the best training result")
+                                        }
+                                        .padding()
+                                        .frame(width: 300)
+                                        .presentationCompactAdaptation(.popover)
+                                    })
+                                    .padding(.trailing)
                                 }
                                 
                                 ScrollView(.horizontal) {
@@ -115,15 +132,6 @@ struct PracticeCenterView: View {
                 }
                 .fullScreenCover(isPresented: $isShowingModal, onDismiss: didDismiss) {
                     PracticeView(database: database, settings: Settings(), vm: vm_child)
-                }
-                .toolbar {
-                    ToolbarItem() {
-                        Button {
-                            //                        showingHelp = true
-                        } label: {
-                            Image(systemName: "questionmark.circle")
-                        }
-                    }
                 }
             }
         }

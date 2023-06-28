@@ -12,6 +12,16 @@ struct HelpExplorerPageView: View {
     let maskFrame: CGSize
     
     let text: String
+    let textYPos: CGFloat
+    let textXPos: CGFloat
+    
+    init(maskPosition: CGPoint, maskFrame: CGSize, text: String, textYPos: CGFloat, textXPos: CGFloat = 0.5) {
+        self.maskPosition = maskPosition
+        self.maskFrame = maskFrame
+        self.text = text
+        self.textYPos = textYPos
+        self.textXPos = textXPos
+    }
     
     var body: some View {
         GeometryReader { geo in
@@ -45,7 +55,7 @@ struct HelpExplorerPageView: View {
                             .shadow(radius: 5)
                     }
                     .frame(width: (geo.size.height - 50)/10*6)
-                    .position(CGPoint(x: geo.size.width/2, y: geo.size.height/3))
+                    .position(CGPoint(x: geo.size.width*textXPos, y: geo.size.height*textYPos))
             }
         }
     }
@@ -53,6 +63,6 @@ struct HelpExplorerPageView: View {
 
 struct HelpExplorerPageView_Previews: PreviewProvider {
     static var previews: some View {
-        HelpExplorerPageView(maskPosition: CGPoint(x: 0.5, y: 0.5), maskFrame: CGSize(width: 0.5, height: 0.5), text: "Test Test")
+        HelpExplorerPageView(maskPosition: CGPoint(x: 0.5, y: 0.5), maskFrame: CGSize(width: 0.5, height: 0.5), text: "Test Test", textYPos: 0.33)
     }
 }
