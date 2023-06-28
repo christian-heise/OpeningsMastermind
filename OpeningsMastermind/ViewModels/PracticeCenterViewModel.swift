@@ -21,7 +21,7 @@ class PracticeCenterViewModel: ObservableObject {
         var storedNodes = [QueueItem]()
         for tree in database.gametrees {
             // Add Nodes which repeat date is due
-            var nodes = tree.allGameNodes.filter({$0.dueDate <= Date() && !$0.mistakesLast5Moves.isEmpty})
+            var nodes = tree.allGameNodes.filter({$0.dueDate <= Date() && !$0.mistakesLast5Moves.isEmpty && $0.nextMoveColor == tree.userColor})
             // If no Node is due: Add Nodes which haven't been explored
             if nodes.isEmpty {
                 nodes = tree.allGameNodes.filter({$0.mistakesLast5Moves.isEmpty && !$0.children.isEmpty && $0.nextMoveColor == tree.userColor})
