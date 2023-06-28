@@ -113,7 +113,7 @@ class GameNodeOld: Codable, Equatable, Hashable {
         
         if let parent = parent {
             self.moveNumber = parent.moveColor == .white ? parent.moveNumber : parent.moveNumber + 1
-            self.moveColor = parent.moveColor == .white ? .black : .white
+            self.moveColor = parent.moveColor.negotiated
             self.parent = [parent]
         }
     }

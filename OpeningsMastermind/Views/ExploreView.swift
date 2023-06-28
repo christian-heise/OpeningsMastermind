@@ -177,7 +177,7 @@ struct ExploreView: View {
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        vm.userColor = vm.userColor == .white ? .black : .white
+                        vm.userColor = vm.userColor.negotiated
                     } label: {
                         Image(systemName: "arrow.up.arrow.down")
                     }

@@ -51,7 +51,7 @@ import ChessKit
     var currentMoveColor: PieceColor {
         guard let previousColor = currentNodes.first?.parents.first?.moveColor else { return .white}
         
-        return previousColor == .white ? .black : .white
+        return previousColor.negotiated
     }
     
     func saveUserDefaults() {
