@@ -42,6 +42,7 @@
 		AAB3C30E2A0159730094FAB2 /* exampleEnglundRefutation.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C30D2A0159730094FAB2 /* exampleEnglundRefutation.pgn */; };
 		AAB5A6E22A18FCD3007F1302 /* HelpExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5A6E12A18FCD3007F1302 /* HelpExplorerView.swift */; };
 		AAB5A6E42A1916E2007F1302 /* HelpExplorerPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5A6E32A1916E2007F1302 /* HelpExplorerPageView.swift */; };
+		AAB65E382A486CFD002FB687 /* MoveGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB65E372A486CFD002FB687 /* MoveGridView.swift */; };
 		AABC59792A461E9D00E9C17A /* AppControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC59782A461E9D00E9C17A /* AppControlViewModel.swift */; };
 		AAC6431129F8205D00D1C12E /* AcknowledgementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */; };
 		AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431329F9374100D1C12E /* ImpressumView.swift */; };
@@ -163,6 +164,7 @@
 		AAB3C30D2A0159730094FAB2 /* exampleEnglundRefutation.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleEnglundRefutation.pgn; sourceTree = "<group>"; };
 		AAB5A6E12A18FCD3007F1302 /* HelpExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpExplorerView.swift; sourceTree = "<group>"; };
 		AAB5A6E32A1916E2007F1302 /* HelpExplorerPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpExplorerPageView.swift; sourceTree = "<group>"; };
+		AAB65E372A486CFD002FB687 /* MoveGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveGridView.swift; sourceTree = "<group>"; };
 		AABC59782A461E9D00E9C17A /* AppControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppControlViewModel.swift; sourceTree = "<group>"; };
 		AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgementsView.swift; sourceTree = "<group>"; };
 		AAC6431329F9374100D1C12E /* ImpressumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressumView.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				AA6960762A05403F00A593BB /* ListView.swift */,
 				AAE4C6DB2A370A5400638E87 /* LoadingView.swift */,
 				AADF268B2A16708100CF40ED /* MoveListView.swift */,
+				AAB65E372A486CFD002FB687 /* MoveGridView.swift */,
 				AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */,
 				AAC889A429F802450079ECE5 /* PGNHelpView.swift */,
 				AA6960782A05460700A593BB /* PracticeView.swift */,
@@ -623,6 +626,7 @@
 				AA6A8B7F2A38C02E003DA1C2 /* GameState.swift in Sources */,
 				AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */,
 				AACF65482A33C0750058893F /* GameNode.swift in Sources */,
+				AAB65E382A486CFD002FB687 /* MoveGridView.swift in Sources */,
 				AA69607B2A05461700A593BB /* ChessboardView.swift in Sources */,
 				AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */,
 				AA4786BD2A1B880A00BB4144 /* SelectStudyView.swift in Sources */,

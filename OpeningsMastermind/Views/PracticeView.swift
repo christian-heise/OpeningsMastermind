@@ -55,7 +55,7 @@ struct PracticeView: View {
                             .padding()
                             .opacity((vm.gameState == .mistake || vm.gameState == .endOfLine) ? 1 : 0)
                     }
-                    Spacer()
+                    Spacer(minLength: 0)
                     ChessboardView(vm: vm, settings: settings)
                         .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                         .if(!isLandscape(in: geo.size)) { view in
@@ -64,7 +64,7 @@ struct PracticeView: View {
                         .if(isLandscape(in: geo.size)) { view in
                             view
                                 .frame(width: geo.size.height)
-                                .padding(.horizontal)
+                                .padding(.leading, 10)
                         }
                     VStack {
                         if isLandscape(in: geo.size) {
@@ -78,13 +78,17 @@ struct PracticeView: View {
                                 .frame(height: 40)
                                 .padding(.vertical, 7)
                         } else {
-                            MoveListView(vm: vm)
-                                .padding(.vertical, 7)
-                                .padding(.trailing, 7)
-                                .background(){
-                                    (colorScheme == .dark ? [50,50,50] : [233,233,233]).getColor()
-                                        .shadow(radius: 1)
-                                }
+                            if isLandscape(in: geo.size) {
+                                MoveGridView(vm: vm)
+                            } else {
+                                MoveListView(vm: vm)
+                                    .padding(.vertical, 7)
+                                    .padding(.trailing, 7)
+                                    .background(){
+                                        (colorScheme == .dark ? [50,50,50] : [233,233,233]).getColor()
+                                            .shadow(radius: 1)
+                                    }
+                            }
                         }
                         if isLandscape(in: geo.size) {
                             Text(text)
@@ -135,7 +139,11 @@ struct PracticeView: View {
                                         vm.reset()
                                     } label: {
                                         HStack {
-                                            Text("Reset to start")
+                                            if geo.size.height < 400 && geo.size.width < 700 {
+                                                Text("Reset")
+                                            } else {
+                                                Text("Reset to start")
+                                            }
                                             Image(systemName: "arrow.counterclockwise")
                                                 .resizable()
                                                 .scaledToFit()
@@ -160,12 +168,13 @@ struct PracticeView: View {
                             }
                         }
                         .frame(height: 50)
-                        .padding(10)
+                        .padding(.vertical, 10)
+                        .padding(.trailing, 10)
+                        .if(!isLandscape(in: geo.size)) { view in
+                            view.padding(.leading, 10)
+                        }
                     }
-                    .if(isLandscape(in: geo.size)) { view in
-                        view.padding(.trailing)
-                    }
-                    Spacer()
+//                    Spacer()
                 }
                 .if(verticalSizeClass == .compact) { view in
                     view.navigationBarTitleDisplayMode(.inline)
@@ -243,6 +252,7 @@ struct PracticeView: View {
         appControl.vm_ExploreView.positionIndex = vm.positionIndex
         appControl.vm_ExploreView.userColor = vm.userColor
         var currentExploreNode = ExploreNode(gameNode: currentNode, color: currentNode.nextMoveColor)
+        
         appControl.vm_ExploreView.currentExploreNode = currentExploreNode
 
         while true {
@@ -256,13 +266,23 @@ struct PracticeView: View {
             currentExploreNode = parentExploreNode
             currentNode = parentNode
         }
+
+        if vm.gameState == .mistake {
+            guard let lastPosition = vm.positionHistory.last else { return }
+            guard let lastMoveString = vm.moveHistory.last?.1 else { return }
+            
+            let newExploreNode = ExploreNode(move: lastMoveString, parentNode: appControl.vm_ExploreView.currentExploreNode, position: lastPosition, color: vm.userColor.negotiated)
+            appControl.vm_ExploreView.currentExploreNode.children = [newExploreNode]
+            appControl.vm_ExploreView.currentExploreNode = newExploreNode
+        }
+        
         var indexDiff = vm.moveHistory.count - vm.positionIndex - 1
         while indexDiff > 0 {
             guard let parent = appControl.vm_ExploreView.currentExploreNode.parent else { return }
             appControl.vm_ExploreView.currentExploreNode = parent
             indexDiff -= 1
         }
-
+        
         appControl.vm_ExploreView.rootExploreNode = currentExploreNode
 
         appControl.vm_ExploreView.postMoveStuff()
@@ -275,6 +295,10 @@ struct PracticeView_Previews: PreviewProvider {
     static var previews: some View {
         let database = DataBase()
         PracticeView(database: database, settings: Settings(), vm: PracticeViewModel(database: database))
-//        ContentView()
+            .previewDevice(PreviewDevice(rawValue: "iPhone SE (3rd generation)"))
+        PracticeView(database: database, settings: Settings(), vm: PracticeViewModel(database: database))
+            .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (6th generation))"))
+        PracticeView(database: database, settings: Settings(), vm: PracticeViewModel(database: database))
+            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro"))
     }
 }

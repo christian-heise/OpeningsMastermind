@@ -17,7 +17,7 @@ import ChessKit
     var rightMove: [Move] { get }
     var pieces: [(Square, Piece)] { get }
     var promotionMove: Move? { get }
-    var moveHistory: [(Move, String)] { get }
+    var moveHistory: [(Move, String)] { get set }
     var positionHistory: [Position] { get }
     var positionIndex: Int { get }
     var currentMoveColor: PieceColor { get }

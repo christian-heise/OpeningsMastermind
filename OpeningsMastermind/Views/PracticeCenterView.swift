@@ -44,26 +44,30 @@ struct PracticeCenterView: View {
 //                            }
 //                            .padding(15)
                         }
-                        ScrollView(.horizontal) {
-                            LazyHStack {
-                                ForEach(vm.queueItems, id: \.gameNode.id) { queueItem in
-                                    VStack {
-                                        ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: queueItem.gameTree.userColor, currentMoveColor: queueItem.gameNode.parents.first?.moveColor ?? .white, position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen)), settings: settings)
-                                            .rotationEffect(.degrees(queueItem.gameTree.userColor == .white ? 0 : 180))
-                                            .frame(height: size)
-                                        Text("Mistakes: \(queueItem.gameNode.mistakesSum)")
-                                        Text("Nodes below: \(queueItem.gameNode.nodesBelow)")
-                                        Text(queueItem.gameTree.name)
-                                            .buttonStyle(.plain)
-                                    }
-                                    .frame(width: size)
-                                    .onTapGesture {
-                                        vm_child.initializeQueueItem(queueItem: queueItem)
-                                        self.isShowingModal = true
+                        GeometryReader { geo in
+                            ScrollView(.horizontal) {
+                                LazyHStack {
+                                    ForEach(vm.queueItems, id: \.gameNode.id) { queueItem in
+                                        VStack {
+                                            ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: queueItem.gameTree.userColor, currentMoveColor: queueItem.gameNode.parents.first?.moveColor ?? .white, position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen)), settings: settings)
+                                                .rotationEffect(.degrees(queueItem.gameTree.userColor == .white ? 0 : 180))
+                                                .frame(height: geo.size.width/2.5)
+                                            //                                        Text("Mistakes: \(queueItem.gameNode.mistakesSum)")
+                                            //                                        Text("Nodes below: \(queueItem.gameNode.nodesBelow)")
+                                            //                                        Text(queueItem.gameTree.name)
+                                            //                                            .buttonStyle(.plain)
+                                        }
+                                        .frame(width: geo.size.width/2.5 - 10)
+                                        .onTapGesture {
+                                            vm_child.initializeQueueItem(queueItem: queueItem)
+                                            self.isShowingModal = true
+                                        }
                                     }
                                 }
                             }
+                            .frame(height: geo.size.width/2.5)
                         }
+//                        .frame(height: size)
                         .padding(.horizontal, 10)
                         .padding(.bottom)
                         .scrollIndicators(.hidden)

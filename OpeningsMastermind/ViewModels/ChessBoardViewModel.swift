@@ -114,10 +114,12 @@ extension ChessboardView {
         }
         
         func dragChanged(at value: DragGesture.Value, piece: Piece, square: Square, in size: CGSize) {
-            if self.draggedSquare == nil && self.gameState != .idle {
-                self.getPossibleSquares()
+            if self.draggedSquare == nil {
+                self.draggedSquare = square
+                if self.gameState != .idle {
+                    self.getPossibleSquares()
+                }
             }
-            self.draggedSquare = square
             self.dragOffset = value.translation
         }
         

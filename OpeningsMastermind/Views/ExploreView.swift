@@ -44,13 +44,14 @@ struct ExploreView: View {
                             .rotationEffect(.degrees(vm.userColor == .white ? 0 : 180))
                     }
                     .if(!isLandscape(in: geo.size) && settings.engineOn) { view in
-                        view.frame(height: max(min(geo.size.width-20, max(geo.size.height - 50 - 40 - 85, 300)), 30))
+                        view.frame(width: max(min(geo.size.width, max(geo.size.height - 50 - 40 - 85, 300)), 30), height: max(min(geo.size.width-20, max(geo.size.height - 50 - 40 - 85, 300)), 30))
                     }
                     .if(!isLandscape(in: geo.size) && !settings.engineOn) { view in
-                        view.frame(height: max(min(geo.size.width, max(geo.size.height - 50 - 40 - 85, 300)), 30))
+                        view.frame(width: max(min(geo.size.width, max(geo.size.height - 50 - 40 - 85, 300)), 30), height: max(min(geo.size.width, max(geo.size.height - 50 - 40 - 85, 300)), 30))
                     }
                     .if(isLandscape(in: geo.size)) { view in
-                        view.frame(width: max(min(geo.size.height+20, geo.size.width - 300), 30))
+                        view.frame(width: max(min(geo.size.height+20, geo.size.width - 300), 30),
+                                   height: max(min(geo.size.height+20, geo.size.width - 300), 30))
                     }
                         
                     VStack {
@@ -81,15 +82,17 @@ struct ExploreView: View {
                             .if(isLandscape(in: geo.size)) { view in
                                 view.padding(.top, 10)
                             }
-                            
-                            MoveListView(vm: vm)
-                                .padding(.vertical, 7)
-                                .padding(.trailing, 7)
-                                .background(){
-                                    (colorScheme == .dark ? [50,50,50] : [233,233,233]).getColor()
-                                        .shadow(radius: 1)
-                                }
-                            
+                            if isLandscape(in: geo.size) {
+                                MoveGridView(vm: vm)
+                            } else {
+                                MoveListView(vm: vm)
+                                    .padding(.vertical, 7)
+                                    .padding(.trailing, 7)
+                                    .background(){
+                                        (colorScheme == .dark ? [50,50,50] : [233,233,233]).getColor()
+                                            .shadow(radius: 1)
+                                    }
+                            }
                         }
                         HStack {
                             Button {
@@ -202,14 +205,12 @@ struct ExploreView: View {
 
 struct ExploreView_Previews: PreviewProvider {
     static var previews: some View {
-        let database = DataBase()
-        let settings = Settings()
-        ExploreView(database: database, settings: settings, vm: ExploreViewModel(database: database, settings: settings))
-//        ContentView()
-//            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro"))
-//        ContentView(database: DataBase(), settings: Settings())
-//            .previewDevice(PreviewDevice(rawValue: "iPhone SE (3rd generation)"))
-//        ContentView(database: DataBase(), settings: Settings())
-//            .previewDevice(PreviewDevice(rawValue: "iPad Pro (11-inch) (4th generation)"))
+//        ExploreView(database: database, settings: settings, vm: ExploreViewModel(database: database, settings: settings))
+        ContentView()
+            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro"))
+        ContentView()
+            .previewDevice(PreviewDevice(rawValue: "iPhone SE (3rd generation)"))
+        ContentView()
+            .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (6th generation)"))
     }
 }
