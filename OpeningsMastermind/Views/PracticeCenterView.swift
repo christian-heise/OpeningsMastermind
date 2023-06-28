@@ -51,13 +51,13 @@ struct PracticeCenterView: View {
                                         VStack {
                                             ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: queueItem.gameTree.userColor, currentMoveColor: queueItem.gameNode.parents.first?.moveColor ?? .white, position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen)), settings: settings)
                                                 .rotationEffect(.degrees(queueItem.gameTree.userColor == .white ? 0 : 180))
-                                                .frame(height: geo.size.width/2.5)
+//                                                .frame(height: min(max(geo.size.width/2.5, 60), 150))
                                             //                                        Text("Mistakes: \(queueItem.gameNode.mistakesSum)")
                                             //                                        Text("Nodes below: \(queueItem.gameNode.nodesBelow)")
                                             //                                        Text(queueItem.gameTree.name)
                                             //                                            .buttonStyle(.plain)
                                         }
-                                        .frame(width: geo.size.width/2.5 - 10)
+                                        .frame(width: min(max(geo.size.width/2.5, 60), 150))
                                         .onTapGesture {
                                             vm_child.initializeQueueItem(queueItem: queueItem)
                                             self.isShowingModal = true
@@ -65,7 +65,7 @@ struct PracticeCenterView: View {
                                     }
                                 }
                             }
-                            .frame(height: geo.size.width/2.5)
+                            .frame(height: min(max(geo.size.width/2.5, 60), 150))
                         }
 //                        .frame(height: size)
                         .padding(.horizontal, 10)
