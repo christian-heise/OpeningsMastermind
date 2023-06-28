@@ -29,56 +29,56 @@ struct PracticeCenterView: View {
     var body: some View {
         NavigationStack {
             GeometryReader { geo in
-                VStack {
-                    if !vm.queueItems.isEmpty {
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text("Up next")
-                                    .font(.title2)
-                                    .padding(.horizontal)
-                                    .padding(.top)
-                                Spacer()
-                            }
-                            
-                            ScrollView(.horizontal) {
-                                LazyHStack {
-                                    ForEach(vm.queueItems, id: \.gameNode.id) { queueItem in
-                                        VStack {
-                                            ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: queueItem.gameTree.userColor, currentMoveColor: queueItem.gameNode.parents.first?.moveColor ?? .white, position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen)), settings: settings)
-                                                .rotationEffect(.degrees(queueItem.gameTree.userColor == .white ? 0 : 180))
-                                            //                                                .frame(height: min(max(geo.size.width/2.5, 60), 150))
-                                            //                                        Text("Mistakes: \(queueItem.gameNode.mistakesSum)")
-                                            //                                        Text("Nodes below: \(queueItem.gameNode.nodesBelow)")
-                                            //                                        Text(queueItem.gameTree.name)
-                                            //                                            .buttonStyle(.plain)
-                                        }
-                                        .frame(width: min(max((geo.size.width-60)/2.5, 60), 150))
-                                        .onTapGesture {
-                                            vm_child.initializeQueueItem(queueItem: queueItem)
-                                            self.isShowingModal = true
+                ScrollView {
+                    VStack {
+                        if !vm.queueItems.isEmpty {
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text("Up next")
+                                        .font(.title2)
+                                        .padding(.horizontal)
+                                        .padding(.top)
+                                    Spacer()
+                                }
+                                
+                                ScrollView(.horizontal) {
+                                    LazyHStack {
+                                        ForEach(vm.queueItems, id: \.gameNode.id) { queueItem in
+                                            VStack() {
+                                                ChessboardView(vm: DisplayBoardViewModel(annotation: (nil,nil), userColor: queueItem.gameTree.userColor, currentMoveColor: queueItem.gameNode.parents.first?.moveColor ?? .white, position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen)), settings: settings)
+                                                    .rotationEffect(.degrees(queueItem.gameTree.userColor == .white ? 0 : 180))
+                                                    .frame(height: min(max((geo.size.width-60)/2.5, 60), 150))
+                                                Text(queueItem.gameTree.name)
+                                                    .minimumScaleFactor(0.8)
+                                                    .multilineTextAlignment(.center)
+                                                Spacer()
+                                            }
+                                            .frame(width: min(max((geo.size.width-60)/2.5, 60), 150))
+                                            .onTapGesture {
+                                                vm_child.initializeQueueItem(queueItem: queueItem)
+                                                self.isShowingModal = true
+                                            }
                                         }
                                     }
                                 }
+                                
+                                .padding(.horizontal, 10)
+                                .padding(.bottom, 20)
+                                .scrollIndicators(.hidden)
                             }
-                            .frame(height: min(max((geo.size.width-60)/2.5, 60), 150))
-                            .padding(.horizontal, 10)
-                            .padding(.bottom, 20)
-                            .scrollIndicators(.hidden)
+                            .background {
+                                RoundedRectangle(cornerRadius: 20)
+                                    .opacity(0.1)
+                            }
                         }
-                        .background {
+                        ZStack {
                             RoundedRectangle(cornerRadius: 20)
                                 .opacity(0.1)
-                        }
-                    }
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 20)
-                            .opacity(0.1)
-                        VStack(alignment: .leading) {
-                            Text("Practice specific opening")
-                                .font(.title2)
-                                .padding(.horizontal)
-                                .padding(.top)
-                            ScrollView(showsIndicators: true) {
+                            VStack(alignment: .leading) {
+                                Text("Practice specific opening")
+                                    .font(.title2)
+                                    .padding(.horizontal)
+                                    .padding(.top)
                                 VStack(alignment: .leading) {
                                     ForEach(database.gametrees, id: \.self) { tree in
                                         HStack() {
@@ -100,19 +100,14 @@ struct PracticeCenterView: View {
                                         }
                                     }
                                 }
-                            }
-                            .scrollIndicators(.hidden)
                             .padding(.horizontal, 10)
                             .padding(.bottom, 10)
-                            //                        .background() {
-                            //                            RoundedRectangle(cornerRadius: 10).fill(Color.mint)
-                            //                        }
-                            
+                            }
                         }
-                        //                    .padding()
                     }
+                    .scrollIndicators(.hidden)
+                    .padding()
                 }
-                .padding()
                 .navigationTitle("Practice")
                 .onAppear() {
                     vm.getQueueItems()

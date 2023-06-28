@@ -49,9 +49,13 @@ struct ExploreView: View {
                     .if(!isLandscape(in: geo.size) && !settings.engineOn) { view in
                         view.frame(width: max(min(geo.size.width, max(geo.size.height - 50 - 40 - 85, 300)), 30), height: max(min(geo.size.width, max(geo.size.height - 50 - 40 - 85, 300)), 30))
                     }
-                    .if(isLandscape(in: geo.size)) { view in
-                        view.frame(width: max(min(geo.size.height+20, geo.size.width - 300), 30),
-                                   height: max(min(geo.size.height+20, geo.size.width - 300), 30))
+                    .if(isLandscape(in: geo.size) && settings.engineOn) { view in
+                        view.frame(width: max(min(geo.size.height + 20, geo.size.width - 300), 30),
+                                   height: max(min(geo.size.height, geo.size.width - 300), 30))
+                    }
+                    .if(isLandscape(in: geo.size) && !settings.engineOn) { view in
+                        view.frame(width: max(min(geo.size.height, geo.size.width - 300), 30),
+                                   height: max(min(geo.size.height, geo.size.width - 300), 30))
                     }
                         
                     VStack {

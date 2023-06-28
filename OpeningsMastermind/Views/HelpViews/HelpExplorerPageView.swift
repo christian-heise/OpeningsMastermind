@@ -22,15 +22,14 @@ struct HelpExplorerPageView: View {
                     .mask({RoundedRectangle(cornerRadius: 10)})
                     .overlay() {
                         GeometryReader { geoImage in
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10).fill(.black).opacity(0.5)
-                                    .reverseMask {
-                                        RoundedRectangle(cornerRadius: 10).frame(width: geoImage.size.width * maskFrame.width,height: geoImage.size.height * maskFrame.height).position(CGPoint(x: geoImage.size.width * maskPosition.x, y: geoImage.size.height * maskPosition.y))
-                                    }
-                                RoundedRectangle(cornerRadius: 10).stroke(.black)
-
-                            }
+                            RoundedRectangle(cornerRadius: 10).fill(.black).opacity(0.5)
+                                .reverseMask {
+                                    RoundedRectangle(cornerRadius: 10).frame(width: geoImage.size.width * maskFrame.width,height: geoImage.size.height * maskFrame.height).position(CGPoint(x: geoImage.size.width * maskPosition.x, y: geoImage.size.height * maskPosition.y))
+                                }
                         }
+                    }
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 10).stroke(.black)
                     }
                     .padding(.horizontal, 3)
                     .frame(height: geo.size.height - 50)

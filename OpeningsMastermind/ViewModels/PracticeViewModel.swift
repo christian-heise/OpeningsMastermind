@@ -297,7 +297,7 @@ import ChessKit
                 probabilities = depthArray.map({$0 / Double(summedDepth)})
             }
         } else {
-            // Probability based on Nodes Below
+            // Probability based on Nodes Below And Failure Rate
             let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow)})
             let summedDepth = depthArray.reduce(0, +)
 
