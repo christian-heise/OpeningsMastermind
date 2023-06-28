@@ -50,7 +50,6 @@
 		AAC6431A29F97B5000D1C12E /* BulletList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431929F97B5000D1C12E /* BulletList.swift */; };
 		AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC889A229F7DD3A0079ECE5 /* Extension.swift */; };
 		AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC889A429F802450079ECE5 /* PGNHelpView.swift */; };
-		AAC889A829F805370079ECE5 /* Popovers in Frameworks */ = {isa = PBXBuildFile; productRef = AAC889A729F805370079ECE5 /* Popovers */; };
 		AACF65482A33C0750058893F /* GameNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF65472A33C0750058893F /* GameNode.swift */; };
 		AACF654A2A33C5150058893F /* GameTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF65492A33C5150058893F /* GameTree.swift */; };
 		AACF654C2A3482390058893F /* MoveNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF654B2A3482390058893F /* MoveNode.swift */; };
@@ -200,7 +199,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAC889A829F805370079ECE5 /* Popovers in Frameworks */,
 				AAD283F82A3B5C07002D5BF7 /* ChessKit in Frameworks */,
 				AA4786B92A1A83E100BB4144 /* ChessKitEngine in Frameworks */,
 			);
@@ -445,7 +443,6 @@
 			);
 			name = OpeningsMastermind;
 			packageProductDependencies = (
-				AAC889A729F805370079ECE5 /* Popovers */,
 				AA4786B82A1A83E100BB4144 /* ChessKitEngine */,
 				AAD283F72A3B5C07002D5BF7 /* ChessKit */,
 			);
@@ -542,7 +539,6 @@
 			);
 			mainGroup = AAA1A16F29F02351003F153F;
 			packageReferences = (
-				AAC889A629F805370079ECE5 /* XCRemoteSwiftPackageReference "Popovers" */,
 				AA4786B72A1A83E100BB4144 /* XCRemoteSwiftPackageReference "chesskit-engine" */,
 				AAD283F62A3B5C07002D5BF7 /* XCRemoteSwiftPackageReference "ChessKit" */,
 			);
@@ -1108,14 +1104,6 @@
 				minimumVersion = 0.2.2;
 			};
 		};
-		AAC889A629F805370079ECE5 /* XCRemoteSwiftPackageReference "Popovers" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/aheze/Popovers";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		AAD283F62A3B5C07002D5BF7 /* XCRemoteSwiftPackageReference "ChessKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/christiangleissner/ChessKit";
@@ -1131,11 +1119,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA4786B72A1A83E100BB4144 /* XCRemoteSwiftPackageReference "chesskit-engine" */;
 			productName = ChessKitEngine;
-		};
-		AAC889A729F805370079ECE5 /* Popovers */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AAC889A629F805370079ECE5 /* XCRemoteSwiftPackageReference "Popovers" */;
-			productName = Popovers;
 		};
 		AAD283F72A3B5C07002D5BF7 /* ChessKit */ = {
 			isa = XCSwiftPackageProductDependency;

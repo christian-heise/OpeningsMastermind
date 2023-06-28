@@ -17,15 +17,6 @@
         "revision" : "84b9687a5a2316b984d8079e83493c28ed4d73d5",
         "version" : "0.2.2"
       }
-    },
-    {
-      "identity" : "popovers",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/aheze/Popovers",
-      "state" : {
-        "revision" : "de44c4dd7271ec6413fe350f7efadb14e5e18dce",
-        "version" : "1.3.2"
-      }
     }
   ],
   "version" : 2
