@@ -101,7 +101,7 @@ struct AddStudyView: View {
                                 Text("Paste a custom PGN, or use the button below to import a lichess study with its URL. You also have the option to choose from 5 example studies")
                                     .padding()
                                     .frame(width: 300)
-                                    .presentationCompactAdaptation(.popover)
+                                    .truePopover()
                             })
                             Spacer()
                             Button(action: {

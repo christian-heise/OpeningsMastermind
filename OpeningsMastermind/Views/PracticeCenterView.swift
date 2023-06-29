@@ -53,7 +53,7 @@ struct PracticeCenterView: View {
                                         }
                                         .padding()
                                         .frame(width: 300)
-                                        .presentationCompactAdaptation(.popover)
+                                        .truePopover()
                                     })
                                     .padding(.trailing)
                                 }
