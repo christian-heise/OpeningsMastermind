@@ -70,16 +70,23 @@ struct PracticeView: View {
                         if isLandscape(in: geo.size) {
                             Spacer()
                         }
-                        if geo.size.width > geo.size.height - 205 && (vm.gameState == .mistake || vm.gameState == .endOfLine) {
+                        if isLandscape(in: geo.size) {
+                            MoveGridView(vm: vm)
                             Text(text)
                                 .font(.headline)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .multilineTextAlignment(.center)
-                                .frame(height: 40)
-                                .padding(.vertical, 7)
+                                .frame(height: 20)
+                                .padding()
+                                .opacity((vm.gameState == .mistake || vm.gameState == .endOfLine) ? 1 : 0)
                         } else {
-                            if isLandscape(in: geo.size) {
-                                MoveGridView(vm: vm)
+                            if geo.size.width > geo.size.height - 205 && (vm.gameState == .mistake || vm.gameState == .endOfLine) {
+                                Text(text)
+                                    .font(.headline)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .multilineTextAlignment(.center)
+                                    .frame(height: 40)
+                                    .padding(.vertical, 7)
                             } else {
                                 MoveListView(vm: vm)
                                     .padding(.vertical, 7)
@@ -89,15 +96,6 @@ struct PracticeView: View {
                                             .shadow(radius: 1)
                                     }
                             }
-                        }
-                        if isLandscape(in: geo.size) {
-                            Text(text)
-                                .font(.headline)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .multilineTextAlignment(.center)
-                                .frame(height: 20)
-                                .padding()
-                                .opacity((vm.gameState == .mistake || vm.gameState == .endOfLine) ? 1 : 0)
                         }
                         HStack {
                             HStack(spacing: 15) {
@@ -174,7 +172,7 @@ struct PracticeView: View {
                             view.padding(.leading, 10)
                         }
                     }
-//                    Spacer()
+                    Spacer(minLength: 0)
                 }
                 .if(verticalSizeClass == .compact) { view in
                     view.navigationBarTitleDisplayMode(.inline)

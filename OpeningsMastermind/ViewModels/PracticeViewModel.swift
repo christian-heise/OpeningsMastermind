@@ -107,6 +107,8 @@ import ChessKit
         
         self.userColor = selectedGameTrees.first?.userColor ?? .white
         
+        self.currentQueueIndex = nil
+        
         self.moveHistory = []
         self.positionHistory = []
         self.positionIndex = -1

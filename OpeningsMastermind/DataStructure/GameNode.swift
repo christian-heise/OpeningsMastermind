@@ -135,10 +135,10 @@ class GameNode: Codable, Hashable {
 
 extension GameNode {
     var mistakesSum: Int {
-        var sum: Int = 0
+        var sum: Int = 5
         for element in self.mistakesLast5Moves.values {
-            if element {
-                sum += 1
+            if !element {
+                sum -= 1
             }
         }
         return sum

@@ -5,7 +5,6 @@
 //  Created by Christian Gleißner on 22.04.23.
 //
 
-import Popovers
 import SwiftUI
 import ChessKit
 import UniformTypeIdentifiers
