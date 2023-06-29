@@ -15,18 +15,30 @@ struct HelpExplorerPageView: View {
     let textYPos: CGFloat
     let textXPos: CGFloat
     
-    init(maskPosition: CGPoint, maskFrame: CGSize, text: String, textYPos: CGFloat, textXPos: CGFloat = 0.5) {
+    let imageName: String
+    
+    let isLandscape: Bool
+    
+    init(maskPosition: CGPoint, maskFrame: CGSize, text: String, textYPos: CGFloat, textXPos: CGFloat = 0.5, isLandscape: Bool = false) {
         self.maskPosition = maskPosition
         self.maskFrame = maskFrame
         self.text = text
         self.textYPos = textYPos
         self.textXPos = textXPos
+        
+        self.isLandscape = isLandscape
+        
+        if isLandscape {
+            self.imageName = "explorer_example_landscape"
+        } else {
+            self.imageName = "explorer_example"
+        }
     }
     
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                Image("explorer_example")
+                Image(imageName)
                     .resizable()
                     .scaledToFit()
                     .mask({RoundedRectangle(cornerRadius: 10)})
@@ -54,7 +66,12 @@ struct HelpExplorerPageView: View {
                         RoundedRectangle(cornerRadius: 5).fill([224,242,247].getColor())
                             .shadow(radius: 5)
                     }
-                    .frame(width: (geo.size.height - 50)/10*6)
+                    .if (isLandscape) { view in
+                        view.frame(width: (geo.size.width)/10*7)
+                    }
+                    .if (!isLandscape) { view in
+                        view.frame(width: (geo.size.height - 50)/10*6)
+                    }
                     .position(CGPoint(x: geo.size.width*textXPos, y: geo.size.height*textYPos))
             }
         }
