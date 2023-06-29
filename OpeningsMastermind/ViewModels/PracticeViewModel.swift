@@ -277,7 +277,7 @@ import ChessKit
             moveNodeCandidates = moveNodeCandidates.filter({$0.child.lastTryWasMistake})
             
             // Probability based on Nodes Below
-            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow)})
+            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow).squareRoot()})
             let summedDepth = depthArray.reduce(0, +)
 
             if summedDepth == 0 {
@@ -288,7 +288,7 @@ import ChessKit
         } else if moveNodeCandidates.contains(where: {$0.child.dueDate < Date()}) {
             moveNodeCandidates = moveNodeCandidates.filter({$0.child.dueDate < Date()})
             // Probability based on Nodes Below
-            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow)})
+            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow).squareRoot()})
             let summedDepth = depthArray.reduce(0, +)
 
             if summedDepth == 0 {
@@ -297,16 +297,21 @@ import ChessKit
                 probabilities = depthArray.map({$0 / Double(summedDepth)})
             }
         } else {
-            // Probabilities based on Mistakes
-            let probabilitiesMistakes = node.children.map({$0.child.mistakesRate / node.children.map({$0.child.mistakesRate}).reduce(0, +)})
-            // Probability based on Nodes Below And Failure Rate
-            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow)})
+            // Probability based on Nodes Below
+            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow).squareRoot()})
             let summedDepth = depthArray.reduce(0, +)
 
             if summedDepth == 0 {
                 probabilities = Array(repeating: 1 / Double(moveNodeCandidates.count), count: moveNodeCandidates.count)
             } else {
                 probabilities = depthArray.map({$0 / Double(summedDepth)})
+            }
+            if node.children.map({$0.child.mistakesRate}).reduce(0, +) != 0 {
+                // Probabilities based on Mistakes
+                let probabilitiesMistakes = node.children.map({$0.child.mistakesRate / node.children.map({$0.child.mistakesRate}).reduce(0, +)})
+                // Combine probabilities
+                var probabilities = zip(probabilitiesMistakes,probabilities).map() {$0 * Double(probabilitiesMistakes.count) * $1}
+                probabilities = probabilities.map({$0 / probabilities.reduce(0,+)})
             }
         }
 
