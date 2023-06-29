@@ -144,13 +144,13 @@ extension GameNode {
         return sum
     }
     
-//    var mistakesRate: Double {
-//        if children.isEmpty {
-//            return mistakes/5
-//        } else {
-//            return (children.map({$0.child.mistakesRate}).reduce(0, +)/Double(children.count) + mistakes/5.0) / 2.0
-//        }
-//    }
+    var mistakesRate: Double {
+        if children.isEmpty {
+            return Double(mistakesSum)/5.0
+        } else {
+            return (children.map({$0.child.mistakesRate}).reduce(0, +)/Double(children.count) + Double(mistakesSum)/5.0) / 2.0
+        }
+    }
     
     var nodesBelow: Int {
         if self.children.isEmpty {

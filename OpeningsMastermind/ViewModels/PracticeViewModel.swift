@@ -297,6 +297,8 @@ import ChessKit
                 probabilities = depthArray.map({$0 / Double(summedDepth)})
             }
         } else {
+            // Probabilities based on Mistakes
+            let probabilitiesMistakes = node.children.map({$0.child.mistakesRate / node.children.map({$0.child.mistakesRate}).reduce(0, +)})
             // Probability based on Nodes Below And Failure Rate
             let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow)})
             let summedDepth = depthArray.reduce(0, +)
