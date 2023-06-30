@@ -19,9 +19,17 @@ class MoveNode: Codable {
     
     var moveColor: PieceColor {
         if let lastMove = parent?.parents.first {
-            return lastMove.moveColor == .white ? .black : .white
+            return lastMove.moveColor.negotiated
         } else {
             return .white
+        }
+    }
+    
+    var halfMoveNumber: Int {
+        if let lastMove = parent?.parents.first {
+            return lastMove.halfMoveNumber + 1
+        } else {
+            return 1
         }
     }
     
@@ -36,12 +44,43 @@ class MoveNode: Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        child = try container.decode(GameNode.self, forKey: .child)
+        let child = try container.decode(GameNode.self, forKey: .child)
+        
+        if let gameNodeDictionary = decoder.userInfo[.gameNodeDictionary] as? GameNodeDictionary, let existingGameNode = gameNodeDictionary.getNode(child.fen) {
+            self.child = existingGameNode
+        } else {
+            self.child = child
+            
+            // Add the new GameNode to the dictionary
+            if let gameNodeDictionary = decoder.userInfo[.gameNodeDictionary] as? GameNodeDictionary {
+                gameNodeDictionary.addNode(child)
+            }
+        }
+        
         moveString = try container.decode(String.self, forKey: .moveString)
         annotation = try container.decode(String?.self, forKey: .annotation)
         move = Move(string: try container.decode(String.self, forKey: .move))
         
-        child.parents += [self]
+        self.child.parents += [self]
+    }
+    
+    required init(from decoder: Decoder, gameNodeDictionary: GameNodeDictionary) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        let child = try container.decode(GameNode.self, forKey: .child, gameNodeDictionary: gameNodeDictionary)
+        
+        if let existingGameNode = gameNodeDictionary.getNode(child.fen) {
+            self.child = existingGameNode
+        } else {
+            self.child = child
+            gameNodeDictionary.addNode(child)
+        }
+        
+        moveString = try container.decode(String.self, forKey: .moveString)
+        annotation = try container.decode(String?.self, forKey: .annotation)
+        move = Move(string: try container.decode(String.self, forKey: .move))
+        
+        self.child.parents += [self]
     }
 }
 

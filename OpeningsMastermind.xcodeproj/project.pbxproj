@@ -16,6 +16,10 @@
 		AA6960792A05460700A593BB /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6960782A05460700A593BB /* PracticeView.swift */; };
 		AA69607B2A05461700A593BB /* ChessboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA69607A2A05461700A593BB /* ChessboardView.swift */; };
 		AA69607D2A06473800A593BB /* PracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA69607C2A06473800A593BB /* PracticeViewModel.swift */; };
+		AA6A8B7B2A38822C003DA1C2 /* PracticeCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6A8B7A2A38822C003DA1C2 /* PracticeCenterView.swift */; };
+		AA6A8B7D2A38BDF1003DA1C2 /* DisplayBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6A8B7C2A38BDF1003DA1C2 /* DisplayBoardViewModel.swift */; };
+		AA6A8B7F2A38C02E003DA1C2 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6A8B7E2A38C02E003DA1C2 /* GameState.swift */; };
+		AA7A71342A4D733200A60706 /* PopoverViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7A71332A4D733200A60706 /* PopoverViewModifier.swift */; };
 		AA87F3DD2A013A34009D7017 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA87F3DC2A013A34009D7017 /* AnnotationView.swift */; };
 		AA930ED82A093D4100026712 /* BoxArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA930ED72A093D4100026712 /* BoxArrowShape.swift */; };
 		AA930EDA2A09765200026712 /* SortingMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA930ED92A09765200026712 /* SortingMethod.swift */; };
@@ -26,7 +30,6 @@
 		AAA1A18E29F02352003F153F /* ChessOpeningTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A18D29F02352003F153F /* ChessOpeningTrainerTests.swift */; };
 		AAA1A19829F02352003F153F /* ChessOpeningTrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A19729F02352003F153F /* ChessOpeningTrainerUITests.swift */; };
 		AAA1A19A29F02352003F153F /* ChessOpeningTrainerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A19929F02352003F153F /* ChessOpeningTrainerUITestsLaunchTests.swift */; };
-		AAA1A1A829F02493003F153F /* ChessKit in Frameworks */ = {isa = PBXBuildFile; productRef = AAA1A1A729F02493003F153F /* ChessKit */; };
 		AAA1A1CA29F2CC44003F153F /* ArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1C929F2CC44003F153F /* ArrowShape.swift */; };
 		AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D429F415F9003F153F /* DataBase.swift */; };
 		AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1D629F42E7F003F153F /* AddStudyView.swift */; };
@@ -40,17 +43,22 @@
 		AAB3C30E2A0159730094FAB2 /* exampleEnglundRefutation.pgn in Resources */ = {isa = PBXBuildFile; fileRef = AAB3C30D2A0159730094FAB2 /* exampleEnglundRefutation.pgn */; };
 		AAB5A6E22A18FCD3007F1302 /* HelpExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5A6E12A18FCD3007F1302 /* HelpExplorerView.swift */; };
 		AAB5A6E42A1916E2007F1302 /* HelpExplorerPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5A6E32A1916E2007F1302 /* HelpExplorerPageView.swift */; };
+		AAB65E382A486CFD002FB687 /* MoveGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB65E372A486CFD002FB687 /* MoveGridView.swift */; };
+		AABC59792A461E9D00E9C17A /* AppControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC59782A461E9D00E9C17A /* AppControlViewModel.swift */; };
 		AAC6431129F8205D00D1C12E /* AcknowledgementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */; };
 		AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431329F9374100D1C12E /* ImpressumView.swift */; };
 		AAC6431629F9374B00D1C12E /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431529F9374B00D1C12E /* PrivacyView.swift */; };
 		AAC6431A29F97B5000D1C12E /* BulletList.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC6431929F97B5000D1C12E /* BulletList.swift */; };
 		AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC889A229F7DD3A0079ECE5 /* Extension.swift */; };
 		AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC889A429F802450079ECE5 /* PGNHelpView.swift */; };
-		AAC889A829F805370079ECE5 /* Popovers in Frameworks */ = {isa = PBXBuildFile; productRef = AAC889A729F805370079ECE5 /* Popovers */; };
 		AACF65482A33C0750058893F /* GameNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF65472A33C0750058893F /* GameNode.swift */; };
 		AACF654A2A33C5150058893F /* GameTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF65492A33C5150058893F /* GameTree.swift */; };
 		AACF654C2A3482390058893F /* MoveNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACF654B2A3482390058893F /* MoveNode.swift */; };
 		AAD219632A1CECE6005BB0FE /* SwitchStudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD219622A1CECE6005BB0FE /* SwitchStudyView.swift */; };
+		AAD283F82A3B5C07002D5BF7 /* ChessKit in Frameworks */ = {isa = PBXBuildFile; productRef = AAD283F72A3B5C07002D5BF7 /* ChessKit */; };
+		AAD284002A3B7C00002D5BF7 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD283FF2A3B7C00002D5BF7 /* ShareViewController.swift */; };
+		AAD284072A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AAD283FD2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		AAD284112A3C5AAF002D5BF7 /* PracticeCenterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD284102A3C5AAF002D5BF7 /* PracticeCenterViewModel.swift */; };
 		AADF267E2A16169600CF40ED /* ParentChessBoardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF267D2A16169600CF40ED /* ParentChessBoardProtocol.swift */; };
 		AADF26802A16192400CF40ED /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF267F2A16192400CF40ED /* ExploreViewModel.swift */; };
 		AADF26822A161A7200CF40ED /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADF26812A161A7200CF40ED /* ExploreView.swift */; };
@@ -82,6 +90,13 @@
 			remoteGlobalIDString = AAA1A17729F02351003F153F;
 			remoteInfo = ChessOpeningTrainer;
 		};
+		AAD284052A3B7C00002D5BF7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AAA1A17029F02351003F153F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAD283FC2A3B7C00002D5BF7;
+			remoteInfo = OpeningsMastermindShareExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -95,6 +110,17 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AAD2840B2A3B7C00002D5BF7 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				AAD284072A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +132,10 @@
 		AA6960782A05460700A593BB /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		AA69607A2A05461700A593BB /* ChessboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessboardView.swift; sourceTree = "<group>"; };
 		AA69607C2A06473800A593BB /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModel.swift; sourceTree = "<group>"; };
+		AA6A8B7A2A38822C003DA1C2 /* PracticeCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCenterView.swift; sourceTree = "<group>"; };
+		AA6A8B7C2A38BDF1003DA1C2 /* DisplayBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayBoardViewModel.swift; sourceTree = "<group>"; };
+		AA6A8B7E2A38C02E003DA1C2 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		AA7A71332A4D733200A60706 /* PopoverViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewModifier.swift; sourceTree = "<group>"; };
 		AA87F3DC2A013A34009D7017 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		AA930ED72A093D4100026712 /* BoxArrowShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxArrowShape.swift; sourceTree = "<group>"; };
 		AA930ED92A09765200026712 /* SortingMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingMethod.swift; sourceTree = "<group>"; };
@@ -135,6 +165,8 @@
 		AAB3C30D2A0159730094FAB2 /* exampleEnglundRefutation.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = exampleEnglundRefutation.pgn; sourceTree = "<group>"; };
 		AAB5A6E12A18FCD3007F1302 /* HelpExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpExplorerView.swift; sourceTree = "<group>"; };
 		AAB5A6E32A1916E2007F1302 /* HelpExplorerPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpExplorerPageView.swift; sourceTree = "<group>"; };
+		AAB65E372A486CFD002FB687 /* MoveGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveGridView.swift; sourceTree = "<group>"; };
+		AABC59782A461E9D00E9C17A /* AppControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppControlViewModel.swift; sourceTree = "<group>"; };
 		AAC6431029F8205D00D1C12E /* AcknowledgementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcknowledgementsView.swift; sourceTree = "<group>"; };
 		AAC6431329F9374100D1C12E /* ImpressumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressumView.swift; sourceTree = "<group>"; };
 		AAC6431529F9374B00D1C12E /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
@@ -146,6 +178,10 @@
 		AACF65492A33C5150058893F /* GameTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTree.swift; sourceTree = "<group>"; };
 		AACF654B2A3482390058893F /* MoveNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveNode.swift; sourceTree = "<group>"; };
 		AAD219622A1CECE6005BB0FE /* SwitchStudyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchStudyView.swift; sourceTree = "<group>"; };
+		AAD283FD2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OpeningsMastermindShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAD283FF2A3B7C00002D5BF7 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		AAD284042A3B7C00002D5BF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAD284102A3C5AAF002D5BF7 /* PracticeCenterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCenterViewModel.swift; sourceTree = "<group>"; };
 		AADF267D2A16169600CF40ED /* ParentChessBoardProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentChessBoardProtocol.swift; sourceTree = "<group>"; };
 		AADF267F2A16192400CF40ED /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
 		AADF26812A161A7200CF40ED /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
@@ -165,8 +201,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAC889A829F805370079ECE5 /* Popovers in Frameworks */,
-				AAA1A1A829F02493003F153F /* ChessKit in Frameworks */,
+				AAD283F82A3B5C07002D5BF7 /* ChessKit in Frameworks */,
 				AA4786B92A1A83E100BB4144 /* ChessKitEngine in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +220,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AAD283FA2A3B7C00002D5BF7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -193,6 +235,9 @@
 			children = (
 				AA69607C2A06473800A593BB /* PracticeViewModel.swift */,
 				AADF267F2A16192400CF40ED /* ExploreViewModel.swift */,
+				AAD284102A3C5AAF002D5BF7 /* PracticeCenterViewModel.swift */,
+				AABC59782A461E9D00E9C17A /* AppControlViewModel.swift */,
+				AA6A8B7C2A38BDF1003DA1C2 /* DisplayBoardViewModel.swift */,
 				AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */,
 				AADF267D2A16169600CF40ED /* ParentChessBoardProtocol.swift */,
 			);
@@ -212,6 +257,7 @@
 				AAA1A17A29F02351003F153F /* OpeningsMastermind */,
 				AAA1A18C29F02352003F153F /* OpeningsMastermindTests */,
 				AAA1A19629F02352003F153F /* OpeningsMastermindUITests */,
+				AAD283FE2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension */,
 				AAA1A17929F02351003F153F /* Products */,
 				AA930EDF2A0A4C1B00026712 /* Frameworks */,
 			);
@@ -223,6 +269,7 @@
 				AAA1A17829F02351003F153F /* OpeningsMastermind.app */,
 				AAA1A18929F02352003F153F /* OpeningsMastermindTests.xctest */,
 				AAA1A19329F02352003F153F /* OpeningsMastermindUITests.xctest */,
+				AAD283FD2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -286,9 +333,12 @@
 				AA6960762A05403F00A593BB /* ListView.swift */,
 				AAE4C6DB2A370A5400638E87 /* LoadingView.swift */,
 				AADF268B2A16708100CF40ED /* MoveListView.swift */,
+				AAB65E372A486CFD002FB687 /* MoveGridView.swift */,
 				AA5EA3CC2A067BCD0033AB7C /* PawnPromotionView.swift */,
 				AAC889A429F802450079ECE5 /* PGNHelpView.swift */,
 				AA6960782A05460700A593BB /* PracticeView.swift */,
+				AA6A8B7A2A38822C003DA1C2 /* PracticeCenterView.swift */,
+				AA7A71332A4D733200A60706 /* PopoverViewModifier.swift */,
 				AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */,
 				AA4786BC2A1B880A00BB4144 /* SelectStudyView.swift */,
 				AAA1A1E729F6DB3F003F153F /* SettingsView.swift */,
@@ -309,6 +359,7 @@
 				AACF654B2A3482390058893F /* MoveNode.swift */,
 				AACF65492A33C5150058893F /* GameTree.swift */,
 				AAA1A1E929F6DDD6003F153F /* Settings.swift */,
+				AA6A8B7E2A38C02E003DA1C2 /* GameState.swift */,
 			);
 			path = DataStructure;
 			sourceTree = "<group>";
@@ -357,6 +408,15 @@
 			path = SubSettings;
 			sourceTree = "<group>";
 		};
+		AAD283FE2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				AAD283FF2A3B7C00002D5BF7 /* ShareViewController.swift */,
+				AAD284042A3B7C00002D5BF7 /* Info.plist */,
+			);
+			path = OpeningsMastermindShareExtension;
+			sourceTree = "<group>";
+		};
 		AAE4C6DF2A3711A200638E87 /* OldFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,16 +437,17 @@
 				AAA1A17529F02351003F153F /* Frameworks */,
 				AAA1A17629F02351003F153F /* Resources */,
 				AAB5A80C2A1A3161007F1302 /* Copy Files */,
+				AAD2840B2A3B7C00002D5BF7 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AAD284062A3B7C00002D5BF7 /* PBXTargetDependency */,
 			);
 			name = OpeningsMastermind;
 			packageProductDependencies = (
-				AAA1A1A729F02493003F153F /* ChessKit */,
-				AAC889A729F805370079ECE5 /* Popovers */,
 				AA4786B82A1A83E100BB4144 /* ChessKitEngine */,
+				AAD283F72A3B5C07002D5BF7 /* ChessKit */,
 			);
 			productName = ChessOpeningTrainer;
 			productReference = AAA1A17829F02351003F153F /* OpeningsMastermind.app */;
@@ -428,6 +489,23 @@
 			productReference = AAA1A19329F02352003F153F /* OpeningsMastermindUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		AAD283FC2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAD284082A3B7C00002D5BF7 /* Build configuration list for PBXNativeTarget "OpeningsMastermindShareExtension" */;
+			buildPhases = (
+				AAD283F92A3B7C00002D5BF7 /* Sources */,
+				AAD283FA2A3B7C00002D5BF7 /* Frameworks */,
+				AAD283FB2A3B7C00002D5BF7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpeningsMastermindShareExtension;
+			productName = OpeningsMastermindShareExtension;
+			productReference = AAD283FD2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -449,6 +527,9 @@
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = AAA1A17729F02351003F153F;
 					};
+					AAD283FC2A3B7C00002D5BF7 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
 				};
 			};
 			buildConfigurationList = AAA1A17329F02351003F153F /* Build configuration list for PBXProject "OpeningsMastermind" */;
@@ -461,9 +542,8 @@
 			);
 			mainGroup = AAA1A16F29F02351003F153F;
 			packageReferences = (
-				AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */,
-				AAC889A629F805370079ECE5 /* XCRemoteSwiftPackageReference "Popovers" */,
 				AA4786B72A1A83E100BB4144 /* XCRemoteSwiftPackageReference "chesskit-engine" */,
+				AAD283F62A3B5C07002D5BF7 /* XCRemoteSwiftPackageReference "ChessKit" */,
 			);
 			productRefGroup = AAA1A17929F02351003F153F /* Products */;
 			projectDirPath = "";
@@ -472,6 +552,7 @@
 				AAA1A17729F02351003F153F /* OpeningsMastermind */,
 				AAA1A18829F02352003F153F /* OpeningsMastermindTests */,
 				AAA1A19229F02352003F153F /* OpeningsMastermindUITests */,
+				AAD283FC2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -505,6 +586,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AAD283FB2A3B7C00002D5BF7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -512,6 +600,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA6A8B7D2A38BDF1003DA1C2 /* DisplayBoardViewModel.swift in Sources */,
 				AAE4C6D92A362E6100638E87 /* GameNodeOld.swift in Sources */,
 				AAE4C6DA2A362E6100638E87 /* GameTreeOld.swift in Sources */,
 				AACF654C2A3482390058893F /* MoveNode.swift in Sources */,
@@ -524,15 +613,20 @@
 				AAB5A6E42A1916E2007F1302 /* HelpExplorerPageView.swift in Sources */,
 				AADF267E2A16169600CF40ED /* ParentChessBoardProtocol.swift in Sources */,
 				AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */,
+				AA6A8B7B2A38822C003DA1C2 /* PracticeCenterView.swift in Sources */,
 				AADF269F2A17AF4300CF40ED /* LichessUserData.swift in Sources */,
 				AADF26802A16192400CF40ED /* ExploreViewModel.swift in Sources */,
 				AAA1A17E29F02351003F153F /* ContentView.swift in Sources */,
 				AA6960772A05403F00A593BB /* ListView.swift in Sources */,
+				AABC59792A461E9D00E9C17A /* AppControlViewModel.swift in Sources */,
 				AAC6431629F9374B00D1C12E /* PrivacyView.swift in Sources */,
 				AAD219632A1CECE6005BB0FE /* SwitchStudyView.swift in Sources */,
 				AA87F3DD2A013A34009D7017 /* AnnotationView.swift in Sources */,
+				AA6A8B7F2A38C02E003DA1C2 /* GameState.swift in Sources */,
 				AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */,
 				AACF65482A33C0750058893F /* GameNode.swift in Sources */,
+				AA7A71342A4D733200A60706 /* PopoverViewModifier.swift in Sources */,
+				AAB65E382A486CFD002FB687 /* MoveGridView.swift in Sources */,
 				AA69607B2A05461700A593BB /* ChessboardView.swift in Sources */,
 				AAA1A1D529F415F9003F153F /* DataBase.swift in Sources */,
 				AA4786BD2A1B880A00BB4144 /* SelectStudyView.swift in Sources */,
@@ -542,6 +636,7 @@
 				AAC889A329F7DD3A0079ECE5 /* Extension.swift in Sources */,
 				AA930EDA2A09765200026712 /* SortingMethod.swift in Sources */,
 				AA930ED82A093D4100026712 /* BoxArrowShape.swift in Sources */,
+				AAD284112A3C5AAF002D5BF7 /* PracticeCenterViewModel.swift in Sources */,
 				AA4786BB2A1A8AC800BB4144 /* EvalBarView.swift in Sources */,
 				AA41EF022A1CE19900FDB639 /* GNULicence.swift in Sources */,
 				AAE4C6DE2A3710AC00638E87 /* PGNDecoder.swift in Sources */,
@@ -577,6 +672,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AAD283F92A3B7C00002D5BF7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAD284002A3B7C00002D5BF7 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -589,6 +692,11 @@
 			isa = PBXTargetDependency;
 			target = AAA1A17729F02351003F153F /* OpeningsMastermind */;
 			targetProxy = AAA1A19429F02352003F153F /* PBXContainerItemProxy */;
+		};
+		AAD284062A3B7C00002D5BF7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAD283FC2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension */;
+			targetProxy = AAD284052A3B7C00002D5BF7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -709,6 +817,7 @@
 		AAA1A19E29F02352003F153F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -737,7 +846,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 0.7;
+				MARKETING_VERSION = 0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -753,6 +862,7 @@
 		AAA1A19F29F02352003F153F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -781,7 +891,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 0.7;
+				MARKETING_VERSION = 0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -884,6 +994,61 @@
 			};
 			name = Release;
 		};
+		AAD284092A3B7C00002D5BF7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q7XMYQ8965;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OpeningsMastermindShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OpeningsMastermindShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.8;
+				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainer.OpeningsMastermindShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AAD2840A2A3B7C00002D5BF7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q7XMYQ8965;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OpeningsMastermindShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OpeningsMastermindShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.8;
+				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainer.OpeningsMastermindShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -923,6 +1088,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		AAD284082A3B7C00002D5BF7 /* Build configuration list for PBXNativeTarget "OpeningsMastermindShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAD284092A3B7C00002D5BF7 /* Debug */,
+				AAD2840A2A3B7C00002D5BF7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -934,20 +1108,12 @@
 				minimumVersion = 0.2.2;
 			};
 		};
-		AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */ = {
+		AAD283F62A3B5C07002D5BF7 /* XCRemoteSwiftPackageReference "ChessKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/aperechnev/ChessKit";
+			repositoryURL = "https://github.com/christiangleissner/ChessKit";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		AAC889A629F805370079ECE5 /* XCRemoteSwiftPackageReference "Popovers" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/aheze/Popovers";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				branch = "FixIssue#11";
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -958,15 +1124,10 @@
 			package = AA4786B72A1A83E100BB4144 /* XCRemoteSwiftPackageReference "chesskit-engine" */;
 			productName = ChessKitEngine;
 		};
-		AAA1A1A729F02493003F153F /* ChessKit */ = {
+		AAD283F72A3B5C07002D5BF7 /* ChessKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AAA1A1A629F02493003F153F /* XCRemoteSwiftPackageReference "ChessKit" */;
+			package = AAD283F62A3B5C07002D5BF7 /* XCRemoteSwiftPackageReference "ChessKit" */;
 			productName = ChessKit;
-		};
-		AAC889A729F805370079ECE5 /* Popovers */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AAC889A629F805370079ECE5 /* XCRemoteSwiftPackageReference "Popovers" */;
-			productName = Popovers;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

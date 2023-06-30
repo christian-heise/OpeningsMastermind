@@ -24,9 +24,10 @@ import ChessKit
         self.reset()
     }
     
-    var gameCopy: Game? = nil
+    var queueItems: [QueueItem] = []
+    var currentQueueIndex: Int? = nil
     
-    @Published var userColor: PieceColor = .white
+    var userColor: PieceColor = .white
     
     var annotation: (String?, String?) {
         if currentNodes.count > 1 {
@@ -50,7 +51,7 @@ import ChessKit
     var currentMoveColor: PieceColor {
         guard let previousColor = currentNodes.first?.parents.first?.moveColor else { return .white}
         
-        return previousColor == .white ? .black : .white
+        return previousColor.negotiated
     }
     
     func saveUserDefaults() {
@@ -80,14 +81,6 @@ import ChessKit
         }
     }
     
-    func revertMove() {
-        self.game = gameCopy ?? Game(position: startingGamePosition)
-        self.positionHistory.removeLast()
-        self.moveHistory.removeLast()
-        self.positionIndex = self.positionIndex - 1
-        gameState = 0
-    }
-    
     func determineRightMove() {
         self.rightMove = []
         for currentNode in currentNodes {
@@ -96,8 +89,6 @@ import ChessKit
             }
         }
     }
-    
-    func jump(to index: Int) {}
     
     func onAppear() {
         if self.selectedGameTrees.isEmpty { return }
@@ -112,7 +103,11 @@ import ChessKit
     func reset() {
         self.game = Game(position: startingGamePosition)
         self.currentNodes = self.selectedGameTrees.map({$0.rootNode})
-        self.gameState = -1
+        self.gameState = .practice
+        
+        self.userColor = selectedGameTrees.first?.userColor ?? .white
+        
+        self.currentQueueIndex = nil
         
         self.moveHistory = []
         self.positionHistory = []
@@ -122,7 +117,7 @@ import ChessKit
         self.promotionPending = false
         
         if selectedGameTrees.isEmpty { return }
-        if self.userColor == .black {
+        if self.userColor == currentNodes.first?.parents.first?.moveColor ?? .black {
             Task {
                 await performComputerMove(in: 0)
             }
@@ -133,7 +128,7 @@ import ChessKit
         let potentialNodes = currentNodes.filter({!$0.children.isEmpty})
         guard let currentNode = potentialNodes.randomElement() else {
             await MainActor.run {
-                gameState = 2
+                gameState = .endOfLine
             }
             return
         }
@@ -148,11 +143,11 @@ import ChessKit
             self.moveHistory.append((newMove!, san))
             self.positionIndex = self.positionIndex + 1
             
-            addMistake(0)
+            addMistake(false)
             
             self.game.make(move: newMove!)
             if newNode!.children.isEmpty {
-                gameState = 2
+                gameState = .endOfLine
             }
             var newNodes: [GameNode] = []
             for i in 0..<currentNodes.count {
@@ -166,26 +161,24 @@ import ChessKit
     
     override func performMove(_ move: Move) {
         if self.selectedGameTrees.isEmpty { return }
-        if !game.legalMoves.contains(move) || gameState == 1 || gameState == 2 { return }
+        if !game.legalMoves.contains(move) || gameState == .mistake || gameState == .endOfLine { return }
         
         let potentialNodes = currentNodes.filter({!$0.children.isEmpty}).filter({$0.children.contains(where: {$0.move == move})})
         
         let san = SanSerialization.default.correctSan(for: move, in: game)
         
         guard !potentialNodes.isEmpty else {
-            self.gameCopy = self.game.deepCopy()
             if currentNodes.map({$0.children.isEmpty}).contains(where: {!$0}) {
-                self.gameState = 1
+                self.gameState = .mistake
                 determineRightMove()
-                game.make(move: move)
-                
                 self.positionHistory.append(self.game.position)
+                game.make(move: move)
                 self.moveHistory.append((move, san))
-                self.positionIndex = self.positionIndex + 1
+                self.positionIndex += 1
                 
-                self.addMistake(1)
+                self.addMistake(true)
             } else {
-                gameState = 2
+                gameState = .endOfLine
             }
             return
         }
@@ -194,7 +187,7 @@ import ChessKit
         self.moveHistory.append((move, san))
         self.positionIndex = self.positionIndex + 1
         
-        addMistake(0)
+        addMistake(false)
         var newNodes: [GameNode] = []
 
         for i in 0..<currentNodes.count {
@@ -204,16 +197,62 @@ import ChessKit
         }
         self.currentNodes = newNodes
         self.game.make(move: move)
-        gameState = 0
+        gameState = .practice
         Task {
             await performComputerMove(in: 300)
         }
     }
     
-    func addMistake(_ mistake: Int) {
+    func forwardMove() {
+        guard self.positionIndex + 1 < self.positionHistory.count else { return }
+        self.positionIndex += 1
+        self.game.make(move: self.moveHistory[positionIndex].0)
+        
+        if self.positionIndex + 1 == self.positionHistory.count {
+            self.gameState = .practice
+        } else {
+            self.objectWillChange.send()
+        }
+    }
+    
+    func reverseMove() {
+        if self.gameState == .mistake {
+            self.game = Game(position: positionHistory[positionIndex], moves: Array(self.game.movesHistory.prefix(positionIndex)))
+            self.positionHistory.removeLast()
+            self.moveHistory.removeLast()
+            self.positionIndex -= 1
+            gameState = .practice
+        } else {
+            guard self.positionIndex >= 0 else {return}
+            
+            self.game = Game(position: positionHistory[positionIndex], moves: Array(self.game.movesHistory.prefix(positionIndex)))
+            self.positionIndex -= 1
+            
+            self.gameState = .idle
+        }
+    }
+    
+    func jump(to index: Int) {
+        if index == positionIndex {
+            print("Same Index")
+            return
+        } else if index > positionIndex {
+            for _ in 0..<(index - positionIndex) {
+                forwardMove()
+            }
+        } else {
+            for _ in 0..<(positionIndex - index) {
+                reverseMove()
+            }
+        }
+    }
+    
+    func addMistake(_ mistake: Bool) {
         for node in currentNodes {
-            node.mistakesLast5Moves.removeFirst()
-            node.mistakesLast5Moves.append(mistake)
+            if node.mistakesLast5Moves.count == 5, let earliestDate = node.mistakesLast5Moves.keys.min() {
+                node.mistakesLast5Moves.removeValue(forKey: earliestDate)
+            }
+            node.mistakesLast5Moves[Date()] = mistake
         }
         self.database.objectWillChange.send()
         for tree in self.selectedGameTrees {
@@ -222,6 +261,8 @@ import ChessKit
     }
     
     func generateMove(game: Game, node: GameNode) -> (Move?, GameNode?) {
+        if node.children.isEmpty { return (nil,nil)}
+        
         if node.children.count == 1 {
             let moveNode = node.children.first!
             let generatedMove = moveNode.move
@@ -229,26 +270,55 @@ import ChessKit
             return (generatedMove, newNode)
         }
         
-        // Probabilities based on Mistakes
-        let probabilitiesMistakes = node.children.map({$0.child.mistakesRate / node.children.map({$0.child.mistakesRate}).reduce(0, +)})
-        // Probability based on Depth
-        let depthArray: [Double] = node.children.map({Double($0.child.depth) * Double($0.child.depth)})
-        let summedDepth = depthArray.reduce(0, +)
+        var probabilities: [Double] = []
+        
+        // Candidate Moves
+        var moveNodeCandidates = node.children
+        
+        if moveNodeCandidates.contains(where: {$0.child.lastTryWasMistake}) {
+            moveNodeCandidates = moveNodeCandidates.filter({$0.child.lastTryWasMistake})
+            
+            // Probability based on Nodes Below
+            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow).squareRoot()})
+            let summedDepth = depthArray.reduce(0, +)
 
-        var probabilitiesDepth = [Double]()
+            if summedDepth == 0 {
+                probabilities = Array(repeating: 1 / Double(moveNodeCandidates.count), count: moveNodeCandidates.count)
+            } else {
+                probabilities = depthArray.map({$0 / Double(summedDepth)})
+            }
+        } else if moveNodeCandidates.contains(where: {$0.child.dueDate < Date()}) {
+            moveNodeCandidates = moveNodeCandidates.filter({$0.child.dueDate < Date()})
+            // Probability based on Nodes Below
+            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow).squareRoot()})
+            let summedDepth = depthArray.reduce(0, +)
 
-        if summedDepth == 0 {
-            probabilitiesDepth = Array(repeating: 1 / Double(node.children.count), count: node.children.count)
+            if summedDepth == 0 {
+                probabilities = Array(repeating: 1 / Double(moveNodeCandidates.count), count: moveNodeCandidates.count)
+            } else {
+                probabilities = depthArray.map({$0 / Double(summedDepth)})
+            }
         } else {
-            probabilitiesDepth = depthArray.map({$0 / Double(summedDepth)})
+            // Probability based on Nodes Below
+            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow).squareRoot()})
+            let summedDepth = depthArray.reduce(0, +)
+
+            if summedDepth == 0 {
+                probabilities = Array(repeating: 1 / Double(moveNodeCandidates.count), count: moveNodeCandidates.count)
+            } else {
+                probabilities = depthArray.map({$0 / Double(summedDepth)})
+            }
+            if node.children.map({$0.child.mistakesRate}).reduce(0, +) != 0 {
+                // Probabilities based on Mistakes
+                let probabilitiesMistakes = node.children.map({$0.child.mistakesRate / node.children.map({$0.child.mistakesRate}).reduce(0, +)})
+                // Combine probabilities
+                var probabilities = zip(probabilitiesMistakes,probabilities).map() {$0 * Double(probabilitiesMistakes.count) * $1}
+                probabilities = probabilities.map({$0 / probabilities.reduce(0,+)})
+            }
         }
 
-        // Combine probabilities
-        var probabilities = zip(probabilitiesMistakes,probabilitiesDepth).map() {$0 * Double(probabilitiesMistakes.count) * $1}
         probabilities = probabilities.map({$0 / probabilities.reduce(0,+)})
-        
-        print("Depth: \(probabilitiesDepth)")
-        print("Mistake: \(probabilitiesMistakes)")
+
         print("Total: \(probabilities)")
         
         // Make random Int between 0 and 1000
@@ -271,5 +341,41 @@ import ChessKit
         let newNode = moveNode.child
         
         return (generatedMove, newNode)
+    }
+    
+    func initializeQueueItem(queueItem: QueueItem) {
+        self.currentNodes = [queueItem.gameNode]
+        self.selectedGameTrees = Set([queueItem.gameTree])
+        self.game = Game(position: FenSerialization.default.deserialize(fen: queueItem.gameNode.fen))
+        self.gameState = .practice
+        self.userColor = queueItem.gameTree.userColor
+        
+        var moveHistory: [(Move, String)] = []
+        var positionHistory: [Position] = []
+        var currentNode = queueItem.gameNode
+        
+        while true {
+            guard let parentMove = currentNode.parents.first  else { break }
+            moveHistory.insert((parentMove.move, parentMove.moveString), at: 0)
+            guard let parentNode = parentMove.parent else {
+                moveHistory = []
+                positionHistory = []
+                break
+            }
+            positionHistory.insert(FenSerialization.default.deserialize(fen: parentNode.fen), at: 0)
+            currentNode = parentNode
+        }
+        self.moveHistory = moveHistory
+        self.positionHistory = positionHistory
+        self.positionIndex = (queueItem.gameNode.parents.first?.halfMoveNumber ?? 0) - 1
+        
+        self.currentQueueIndex = self.queueItems.firstIndex(where: {$0.id == queueItem.id})
+    }
+    
+    func nextQueueItem() {
+        guard let index = currentQueueIndex else { return }
+        guard queueItems.count > index + 1  else { return }
+        currentQueueIndex! += 1
+        initializeQueueItem(queueItem: queueItems[currentQueueIndex!])
     }
 }

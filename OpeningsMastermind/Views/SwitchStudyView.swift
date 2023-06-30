@@ -11,7 +11,7 @@ struct SwitchStudyView: View {
     
     @ObservedObject var vm: ExploreViewModel
     @ObservedObject var database: DataBase
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
             VStack {
@@ -22,7 +22,7 @@ struct SwitchStudyView: View {
                         .padding(.top, 7)
                     Spacer()
                     Button {
-                        self.presentationMode.wrappedValue.dismiss()
+                        self.dismiss()
                     } label: {
                         Image(systemName: "xmark")
                     }
@@ -32,7 +32,7 @@ struct SwitchStudyView: View {
                 List(database.gametrees.sorted(by: {$0.dateLastPlayed > $1.dateLastPlayed}), id: \.self) { gametree in
                     Button {
                         vm.reset(to: gametree)
-                        self.presentationMode.wrappedValue.dismiss()
+                        self.dismiss()
                     } label: {
                         HStack {
                             Text(gametree.name)

@@ -22,6 +22,12 @@ struct LichessExplorerView: View {
                     }
                     .buttonStyle(.plain)
                         .frame(height: 20)
+                        .if(move.san == vm.engineMove) { view in
+                            view.foregroundColor(.green)
+//                                .overlay() {
+//                                RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(.green)
+//                            }
+                        }
                 }
             }
             VStack(alignment: .trailing) {

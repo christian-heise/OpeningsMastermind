@@ -5,7 +5,6 @@
 //  Created by Christian Gleißner on 22.04.23.
 //
 
-import Popovers
 import SwiftUI
 import ChessKit
 import UniformTypeIdentifiers
@@ -14,13 +13,14 @@ struct AddStudyView: View {
     @ObservedObject var database: DataBase
     @Binding var isLoading: Bool
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.openURL) var openURL
     
     @State private var editMode = EditMode.active
     
-    @State private var pgnString = ""
+    @Binding private var pgnString: String
+    
     @State private var nameString = ""
     @State private var selectedColor = "white"
     @State private var lichessURL = ""
@@ -39,6 +39,12 @@ struct AddStudyView: View {
     @State private var exampleSelection = Set<ExamplePGN>()
     
     let colors = ["white", "black"]
+    
+    init(database: DataBase, isLoading: Binding<Bool>, pgnString: Binding<String>) {
+        self.database = database
+        self._isLoading = isLoading
+        self._pgnString = pgnString
+    }
     
     var selectedPieceColor: PieceColor {
         if self.selectedColor == "white" {
@@ -90,28 +96,22 @@ struct AddStudyView: View {
                             }) {
                                 Image(systemName: "questionmark.circle")
                             }
-                            .popover(present: $showingPGNHelp, attributes: {
-                                $0.position = .absolute(
-                                    originAnchor: .top,
-                                    popoverAnchor: .bottom
-                                )
-                                $0.rubberBandingMode = .none
-                            }) {
-                                Templates.Container(
-                                    arrowSide: .bottom(.centered),
-                                    backgroundColor: [173, 216, 230].getColor()
-                                )
-                                {
-                                    Text("Paste a custom PGN, or use the button below to import a lichess study with its URL. You also have the option to choose from 5 exmaple studies.")
-                                        .foregroundColor(.black)
-                                }
-                                .frame(maxWidth: 200)
-                            }
+                            .popover(isPresented: $showingPGNHelp, attachmentAnchor: .point(.center), arrowEdge: .trailing, content: {
+                                Text("Paste a custom PGN, or use the button below to import a lichess study with its URL. You also have the option to choose from 5 example studies")
+                                    .padding()
+                                    .frame(width: 300)
+                                    .truePopover()
+                            })
                             Spacer()
+                            Button(action: {
+                                self.pgnString = ""
+                            }) {
+                                Image(systemName: "xmark.circle")
+                            }
                         }
 
                             
-                        TextEditor(text: $pgnString)
+                        TextEditor(text: _pgnString)
                             .frame(minHeight: 40)
                             .padding(4)
                             .onSubmit {
@@ -225,7 +225,7 @@ struct AddStudyView: View {
             .environment(\.editMode, $editMode)
             .toolbar {
                 Button(action:{
-                    self.presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 }) {
                     Image(systemName: "xmark")
                 }
@@ -277,7 +277,7 @@ struct AddStudyView: View {
                 let result = await database.addNewGameTree(name: nameString, pgnString: pgnString, userColor: selectedPieceColor)
                 await MainActor.run {
                     if result {
-                        self.presentationMode.wrappedValue.dismiss()
+                        self.dismiss()
                     } else {
                         pgnError = true
                     }
@@ -299,7 +299,7 @@ struct AddStudyView: View {
                 isLoading = false
             }
         }
-        self.presentationMode.wrappedValue.dismiss()
+        self.dismiss()
     }
     
     func getPGNFromLichess(_ urlString: String) async throws -> String {
@@ -325,6 +325,6 @@ struct AddStudyView: View {
 
 struct AddStudyView_Previews: PreviewProvider {
     static var previews: some View {
-        AddStudyView(database: DataBase(), isLoading: .constant(false))
+        AddStudyView(database: DataBase(), isLoading: .constant(false), pgnString: .constant(""))
     }
 }

@@ -12,25 +12,46 @@ struct HelpExplorerPageView: View {
     let maskFrame: CGSize
     
     let text: String
+    let textYPos: CGFloat
+    let textXPos: CGFloat
+    
+    let imageName: String
+    
+    let isLandscape: Bool
+    
+    init(maskPosition: CGPoint, maskFrame: CGSize, text: String, textYPos: CGFloat, textXPos: CGFloat = 0.5, isLandscape: Bool = false) {
+        self.maskPosition = maskPosition
+        self.maskFrame = maskFrame
+        self.text = text
+        self.textYPos = textYPos
+        self.textXPos = textXPos
+        
+        self.isLandscape = isLandscape
+        
+        if isLandscape {
+            self.imageName = "explorer_example_landscape"
+        } else {
+            self.imageName = "explorer_example"
+        }
+    }
     
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                Image("explorer_example")
+                Image(imageName)
                     .resizable()
                     .scaledToFit()
                     .mask({RoundedRectangle(cornerRadius: 10)})
                     .overlay() {
                         GeometryReader { geoImage in
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10).fill(.black).opacity(0.5)
-                                    .reverseMask {
-                                        RoundedRectangle(cornerRadius: 10).frame(width: geoImage.size.width * maskFrame.width,height: geoImage.size.height * maskFrame.height).position(CGPoint(x: geoImage.size.width * maskPosition.x, y: geoImage.size.height * maskPosition.y))
-                                    }
-                                RoundedRectangle(cornerRadius: 10).stroke(.black)
-
-                            }
+                            RoundedRectangle(cornerRadius: 10).fill(.black).opacity(0.5)
+                                .reverseMask {
+                                    RoundedRectangle(cornerRadius: 10).frame(width: geoImage.size.width * maskFrame.width,height: geoImage.size.height * maskFrame.height).position(CGPoint(x: geoImage.size.width * maskPosition.x, y: geoImage.size.height * maskPosition.y))
+                                }
                         }
+                    }
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 10).stroke(.black)
                     }
                     .padding(.horizontal, 3)
                     .frame(height: geo.size.height - 50)
@@ -45,8 +66,13 @@ struct HelpExplorerPageView: View {
                         RoundedRectangle(cornerRadius: 5).fill([224,242,247].getColor())
                             .shadow(radius: 5)
                     }
-                    .frame(width: (geo.size.height - 50)/10*6)
-                    .position(CGPoint(x: geo.size.width/2, y: geo.size.height/3))
+                    .if (isLandscape) { view in
+                        view.frame(width: (geo.size.width)/10*7)
+                    }
+                    .if (!isLandscape) { view in
+                        view.frame(width: (geo.size.height - 50)/10*6)
+                    }
+                    .position(CGPoint(x: geo.size.width*textXPos, y: geo.size.height*textYPos))
             }
         }
     }
@@ -54,6 +80,6 @@ struct HelpExplorerPageView: View {
 
 struct HelpExplorerPageView_Previews: PreviewProvider {
     static var previews: some View {
-        HelpExplorerPageView(maskPosition: CGPoint(x: 0.5, y: 0.5), maskFrame: CGSize(width: 0.5, height: 0.5), text: "Test Test")
+        HelpExplorerPageView(maskPosition: CGPoint(x: 0.5, y: 0.5), maskFrame: CGSize(width: 0.5, height: 0.5), text: "Test Test", textYPos: 0.33)
     }
 }

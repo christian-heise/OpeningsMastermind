@@ -36,6 +36,7 @@ import ChessKitEngine
     @Published var currentExploreNode: ExploreNode
     @Published var evaluation: Double?
     @Published var mateInXMoves: Int?
+    @Published var engineMove: String?
     
     var rootExploreNode: ExploreNode
     
@@ -81,22 +82,29 @@ import ChessKitEngine
         if let engine = engine {
             engine.start(coreCount: 3)
         }
-//        engine.loggingEnabled = true
+        engine?.loggingEnabled = true
         onAppear()
+        
+        self.engine?.receiveResponse = { response in
+            self.receiveEngineReponse(response: response)
+        }
     }
     
     func onAppear() {
         if settings.engineOn && engine == nil {
             self.engine = Engine(type: .stockfish)
             self.engine!.start(coreCount: 3)
+            
+            self.engine!.receiveResponse = { response in
+                self.receiveEngineReponse(response: response)
+            }
         }
         if !settings.engineOn, let engine = self.engine {
             engine.stop()
             self.engine = nil
         }
-        if let engine = engine {
-            engine.send(command: .stop)
-        }
+        getEngineMoves()
+        
         if database.gametrees.isEmpty {
             self.gameTree = nil
             self.reset()
@@ -125,7 +133,7 @@ import ChessKitEngine
         self.positionIndex = -1
         self.promotionMove = nil
         self.showingComment = false
-        gameState = 4
+        gameState = .explore
         
         self.updateLichessExplorer()
         self.determineRightMove()
@@ -146,7 +154,7 @@ import ChessKitEngine
         self.positionIndex = -1
         self.promotionMove = nil
         self.showingComment = false
-        gameState = 4
+        gameState = .explore
         
         self.updateLichessExplorer()
         self.determineRightMove()
@@ -181,7 +189,7 @@ import ChessKitEngine
         if let node = currentExploreNode.children.first(where: {$0.move == moveString}) {
             currentExploreNode = node
         } else {
-            let newColor: PieceColor = currentExploreNode.color == .white ? .black : .white
+            let newColor: PieceColor = currentExploreNode.color.negotiated
             if let moveNode = currentExploreNode.gameNode?.children.first(where: {$0.moveString == moveString}) {
                 let gameNode = moveNode.child
                 
@@ -244,7 +252,6 @@ import ChessKitEngine
         } else {
             makeMainLineMove()
         }
-        
     }
     
     func reverseOneMove() {
@@ -305,51 +312,49 @@ import ChessKitEngine
         guard let engine = engine else { return }
         let position = self.game.position
         let fen = FenSerialization.default.serialize(position: position)
-        let color = self.currentExploreNode.color
         
         guard engineCache[fen] == nil  else {
             self.evaluation = engineCache[fen]
             return
         }
-        
-        DispatchQueue.global(qos: .default).async {
-            engine.send(command: .stop)
-            engine.send(command: .position(.fen(fen)))
-            engine.send(command: .go(depth: 18))
-            engine.receiveResponse = { response in
-                DispatchQueue.main.async {
-                    switch response {
-                    case let .info(info):
-                        if let score = info.score?.cp {
-                            self.mateInXMoves = nil
-                            if color == .white {
-                                self.evaluation = score / 100.0
-                            } else {
-                                self.evaluation = -score / 100.0
-                            }
-                        }
-                        if let mateInXMoves = info.score?.mate {
-                            if color == .white {
-                                if mateInXMoves == 0 {
-                                    self.evaluation = -50
-                                } else {
-                                    self.evaluation = 10 * Double(mateInXMoves)
-                                }
-                                self.mateInXMoves = mateInXMoves
-                            } else {
-                                if mateInXMoves == 0 {
-                                    self.evaluation = 50
-                                } else {
-                                    self.evaluation = -10 * Double(mateInXMoves)
-                                }
-                                self.mateInXMoves = -mateInXMoves
-                            }
-                        }
-                    default:
-                        break
-                    }
+        engine.send(command: .stop)
+        engine.send(command: .position(.fen(fen)))
+        engine.send(command: .go(depth: 18))
+    }
+    
+    func receiveEngineReponse(response: EngineResponse) {
+        let color = self.currentExploreNode.color
+        switch response {
+        case let .info(info):
+            if let score = info.score?.cp {
+                self.mateInXMoves = nil
+                if color == .white {
+                    self.evaluation = score / 100.0
+                } else {
+                    self.evaluation = -score / 100.0
                 }
             }
+            if let mateInXMoves = info.score?.mate {
+                if color == .white {
+                    if mateInXMoves == 0 {
+                        self.evaluation = -50
+                    } else {
+                        self.evaluation = 10 * Double(mateInXMoves)
+                    }
+                    self.mateInXMoves = mateInXMoves
+                } else {
+                    if mateInXMoves == 0 {
+                        self.evaluation = 50
+                    } else {
+                        self.evaluation = -10 * Double(mateInXMoves)
+                    }
+                    self.mateInXMoves = -mateInXMoves
+                }
+            }
+        case let .bestmove(move: moveString, ponder: _):
+            self.engineMove = SanSerialization.default.san(for: Move(string: moveString), in: self.game)
+        default:
+            break
         }
     }
     
@@ -357,31 +362,34 @@ import ChessKitEngine
         self.promotionMove = nil
         self.promotionPending = false
         
+        self.engineMove = nil
+        
         selectedSquare = nil
         getEngineMoves()
         determineRightMove()
         updateLichessExplorer()
         showingComment = false
-        gameState = 4
+        gameState = .explore
     }
     
-    class ExploreNode {
-        let parent: ExploreNode?
-        let move: String
-        var children: [ExploreNode]
-        let gameNode: GameNode?
-        let position: Position
-        let color: PieceColor
-        
-        var evaluation: Double?
-        
-        init(gameNode: GameNode? = nil, move: String="", parentNode: ExploreNode? = nil, position: Position = startingGamePosition, color: PieceColor = .white) {
-            self.parent = parentNode
-            self.children = []
-            self.gameNode = gameNode
-            self.position = position
-            self.move = move
-            self.color = color
-        }
+    
+}
+class ExploreNode {
+    var parent: ExploreNode?
+    var move: String
+    var children: [ExploreNode]
+    let gameNode: GameNode?
+//    let position: Position
+    let color: PieceColor
+    
+    var evaluation: Double?
+    
+    init(gameNode: GameNode? = nil, move: String="", parentNode: ExploreNode? = nil, position: Position = startingGamePosition, color: PieceColor = .white) {
+        self.parent = parentNode
+        self.children = []
+        self.gameNode = gameNode
+//        self.position = position
+        self.move = move
+        self.color = color
     }
 }

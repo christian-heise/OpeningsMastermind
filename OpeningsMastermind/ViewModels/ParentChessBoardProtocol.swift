@@ -11,18 +11,19 @@ import ChessKit
 @MainActor protocol ParentChessBoardModelProtocol: ObservableObject {
     var annotation: (String?, String?) { get }
     var game: Game { get }
-    var gameState: Int { get }
+    var gameState: GameState { get }
     var last2Moves: (Move?, Move?) { get }
     var userColor: PieceColor { get }
     var rightMove: [Move] { get }
     var pieces: [(Square, Piece)] { get }
     var promotionMove: Move? { get }
-    var moveHistory: [(Move, String)] { get }
+    var moveHistory: [(Move, String)] { get set }
     var positionHistory: [Position] { get }
     var positionIndex: Int { get }
     var currentMoveColor: PieceColor { get }
     
     var selectedSquare: (Square, Piece)? { get set }
+    var startingMove: Int { get }
     
     func processMoveAction(piece: Piece, from oldSquare: Square, to newSquare: Square)
     func reset()
@@ -31,13 +32,15 @@ import ChessKit
 }
 
 @MainActor class ParentChessBoardModel: ObservableObject {
-    @Published var gameState: Int = 0
+    @Published var gameState: GameState = .practice
     @Published var selectedSquare: (Square, Piece)? = nil
     
     var game: Game = Game(position: startingGamePosition)
     var rightMove: [Move] = []
     var promotionPending: Bool = false
     var promotionMove: Move? = nil
+    
+    var startingMove: Int = 0
     
     @Published var moveHistory: [(Move, String)] = []
     var positionHistory: [Position] = []
@@ -69,7 +72,7 @@ import ChessKit
             if newSquare.rank == 7 || newSquare.rank == 0 {
                 let move = Move(from: oldSquare, to: newSquare, promotion: .queen)
                 if game.legalMoves.contains(move) {
-                    gameState = 3
+                    gameState = .promotion
                     self.promotionMove = move
                     return
                 }
