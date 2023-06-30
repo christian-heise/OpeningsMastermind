@@ -78,21 +78,21 @@ class GameNode: Codable, Hashable {
         parents = []
         comment = try container.decode(String?.self, forKey: .comment)
 
-        if let mistakesLast5Moves = try container.decodeIfPresent([Date:Bool].self, forKey: .mistakesLast5Moves) {
-            self.mistakesLast5Moves = mistakesLast5Moves
-        } else {
+        if let oldMistakeArray = try container.decodeIfPresent([Int].self, forKey: .mistakesLast5Moves) {
             var dict = [Date:Bool]()
-            let array = try container.decode([Int].self, forKey: .mistakesLast5Moves)
             var flag = false
-            for i in 0..<array.count {
+            for i in 0..<oldMistakeArray.count {
                 let randomDate = Double(Int.random(in: 0..<100000) + i*100000)
-                if array[i] == 0 {
+                if oldMistakeArray[i] == 0 {
                     dict[Date(timeIntervalSince1970: randomDate)] = false
                     flag = true
-                } else if array[i] == 1 && flag {
+                } else if oldMistakeArray[i] == 1 && flag {
                     dict[Date(timeIntervalSince1970: randomDate)] = true
                 }
             }
+            self.mistakesLast5Moves = dict
+        } else {
+            self.mistakesLast5Moves = try container.decodeIfPresent([Date:Bool].self, forKey: .mistakesLast5MovesDict) ?? [:]
         }
 
         fen = try container.decode(String.self, forKey: .fen)
@@ -108,21 +108,21 @@ class GameNode: Codable, Hashable {
         parents = []
         comment = try container.decode(String?.self, forKey: .comment)
         
-        if let mistakesLast5Moves = try container.decodeIfPresent([Date:Bool].self, forKey: .mistakesLast5Moves) {
-            self.mistakesLast5Moves = mistakesLast5Moves
-        } else {
+        if let oldMistakeArray = try container.decodeIfPresent([Int].self, forKey: .mistakesLast5Moves) {
             var dict = [Date:Bool]()
-            let array = try container.decode([Int].self, forKey: .mistakesLast5Moves)
             var flag = false
-            for i in 0..<array.count {
+            for i in 0..<oldMistakeArray.count {
                 let randomDate = Double(Int.random(in: 0..<100000) + i*100000)
-                if array[i] == 0 {
+                if oldMistakeArray[i] == 0 {
                     dict[Date(timeIntervalSince1970: randomDate)] = false
                     flag = true
-                } else if array[i] == 1 && flag {
+                } else if oldMistakeArray[i] == 1 && flag {
                     dict[Date(timeIntervalSince1970: randomDate)] = true
                 }
             }
+            self.mistakesLast5Moves = dict
+        } else {
+            self.mistakesLast5Moves = try container.decodeIfPresent([Date:Bool].self, forKey: .mistakesLast5MovesDict) ?? [:]
         }
         
         fen = try container.decode(String.self, forKey: .fen)
@@ -206,13 +206,14 @@ extension GameNode {
         try container.encode(fen, forKey: .fen)
     }
     enum CodingKeys: String, CodingKey {
-        case children, comment, mistakesLast5Moves, fen
+        case children, comment, mistakesLast5Moves, fen, mistakesLast5MovesDict
     }
 }
 
 extension CodingUserInfoKey {
     static let gameNodeDictionary = CodingUserInfoKey(rawValue: "gameNodeDictionary")!
 }
+
 class GameNodeDictionary {
     var nodes: [String: GameNode] = [:]
 
@@ -224,34 +225,6 @@ class GameNodeDictionary {
         return nodes[fen]
     }
 }
-
-//class GameNodeDecoder: Decoder {
-//    let userInfo: [CodingUserInfoKey: Any] = [:]
-//    let codingPath: [CodingKey] = []
-//    private let innerDecoder: Decoder
-//    private let gameNodeDictionary: GameNodeDictionary
-//
-//    init(decoder: Decoder, gameNodeDictionary: GameNodeDictionary) {
-//        self.innerDecoder = decoder
-//        self.gameNodeDictionary = gameNodeDictionary
-//    }
-//
-//    func container<Key>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> where Key: CodingKey {
-//        return try innerDecoder.container(keyedBy: type)
-//    }
-//
-//    func unkeyedContainer() throws -> UnkeyedDecodingContainer {
-//        return try innerDecoder.unkeyedContainer()
-//    }
-//
-//    func singleValueContainer() throws -> SingleValueDecodingContainer {
-//        return try innerDecoder.singleValueContainer()
-//    }
-//
-//    func decodeGameNode() throws -> GameNode {
-//        return try GameNode(from: innerDecoder, gameNodeDictionary: gameNodeDictionary)
-//    }
-//}
 
 extension KeyedDecodingContainer {
     func decode(_ type: GameNode.Type, forKey key: KeyedDecodingContainer<K>.Key, gameNodeDictionary: GameNodeDictionary) throws -> GameNode {

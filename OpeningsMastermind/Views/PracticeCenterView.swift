@@ -88,38 +88,45 @@ struct PracticeCenterView: View {
                                     .opacity(0.1)
                             }
                         }
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 20)
-                                .opacity(0.1)
-                            VStack(alignment: .leading) {
+                        VStack(alignment: .leading) {
+                            if !database.gametrees.isEmpty {
                                 Text("Practice specific opening")
+                                
                                     .font(.title2)
                                     .padding(.horizontal)
                                     .padding(.top)
-                                VStack(alignment: .leading) {
-                                    ForEach(database.gametrees, id: \.self) { tree in
-                                        HStack() {
-                                            Text(tree.name)
-                                                .padding(.vertical, 10)
-                                                .padding(.leading, 15)
-                                            Spacer()
-                                            Image(systemName: "arrow.right")
-                                                .padding(.trailing, 15)
-                                        }
-                                        .frame(maxWidth: .infinity)
-                                        .background {
-                                            RoundedRectangle(cornerRadius: 5)
-                                                .opacity(0.2)
-                                        }
-                                        .padding(.bottom, 5)
-                                        .onTapGesture {
-                                            self.tappedTree(tree: tree)
-                                        }
+                            } else {
+                                Text("First, add a custom opening or an example in the library")
+                                    .font(.title2)
+                                    .padding()
+                            }
+                            VStack(alignment: .leading) {
+                                ForEach(database.gametrees, id: \.self) { tree in
+                                    HStack() {
+                                        Text(tree.name)
+                                            .padding(.vertical, 10)
+                                            .padding(.leading, 15)
+                                        Spacer()
+                                        Image(systemName: "arrow.right")
+                                            .padding(.trailing, 15)
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .opacity(0.2)
+                                    }
+                                    .padding(.bottom, 5)
+                                    .onTapGesture {
+                                        self.tappedTree(tree: tree)
                                     }
                                 }
+                            }
                             .padding(.horizontal, 10)
                             .padding(.bottom, 10)
-                            }
+                        }
+                        .background {
+                            RoundedRectangle(cornerRadius: 20)
+                                .opacity(0.1)
                         }
                     }
                     .scrollIndicators(.hidden)
