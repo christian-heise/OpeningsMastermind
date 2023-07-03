@@ -78,7 +78,9 @@ class GameNode: Codable, Hashable {
         parents = []
         comment = try container.decode(String?.self, forKey: .comment)
 
-        if let oldMistakeArray = try container.decodeIfPresent([Int].self, forKey: .mistakesLast5Moves) {
+        if let mistakeArray =  try container.decodeIfPresent([Date:Bool].self, forKey: .mistakesLast5MovesDict) {
+            self.mistakesLast5Moves = mistakeArray
+        } else if let oldMistakeArray = try container.decodeIfPresent([Int].self, forKey: .mistakesLast5Moves) {
             var dict = [Date:Bool]()
             var flag = false
             for i in 0..<oldMistakeArray.count {
@@ -92,7 +94,7 @@ class GameNode: Codable, Hashable {
             }
             self.mistakesLast5Moves = dict
         } else {
-            self.mistakesLast5Moves = try container.decodeIfPresent([Date:Bool].self, forKey: .mistakesLast5MovesDict) ?? [:]
+            self.mistakesLast5Moves = [:]
         }
 
         fen = try container.decode(String.self, forKey: .fen)
@@ -108,7 +110,9 @@ class GameNode: Codable, Hashable {
         parents = []
         comment = try container.decode(String?.self, forKey: .comment)
         
-        if let oldMistakeArray = try container.decodeIfPresent([Int].self, forKey: .mistakesLast5Moves) {
+        if let mistakeArray =  try container.decodeIfPresent([Date:Bool].self, forKey: .mistakesLast5MovesDict) {
+            self.mistakesLast5Moves = mistakeArray
+        } else if let oldMistakeArray = try container.decodeIfPresent([Int].self, forKey: .mistakesLast5Moves) {
             var dict = [Date:Bool]()
             var flag = false
             for i in 0..<oldMistakeArray.count {
@@ -122,7 +126,7 @@ class GameNode: Codable, Hashable {
             }
             self.mistakesLast5Moves = dict
         } else {
-            self.mistakesLast5Moves = try container.decodeIfPresent([Date:Bool].self, forKey: .mistakesLast5MovesDict) ?? [:]
+            self.mistakesLast5Moves = [:]
         }
         
         fen = try container.decode(String.self, forKey: .fen)
@@ -202,7 +206,7 @@ extension GameNode {
         
         try container.encode(children, forKey: .children)
         try container.encode(comment, forKey: .comment)
-        try container.encode(mistakesLast5Moves, forKey: .mistakesLast5Moves)
+        try container.encode(mistakesLast5Moves, forKey: .mistakesLast5MovesDict)
         try container.encode(fen, forKey: .fen)
     }
     enum CodingKeys: String, CodingKey {
