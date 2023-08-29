@@ -34,6 +34,7 @@ class Settings: ObservableObject, Codable {
             self.chessComName = nil
         case .lichess:
             self.lichessName = nil
+            self.playerRating = nil
         }
     }
     

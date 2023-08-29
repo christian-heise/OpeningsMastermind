@@ -118,7 +118,7 @@ struct ListView: View {
                 }
             }
             .sheet(isPresented: $showingAddSheet) {
-                AddStudyView(database: database, isLoading: $isLoading, pgnString: $pgnString)
+                AddStudyView(database: database, settings: settings, isLoading: $isLoading, pgnString: $pgnString)
             }
             
         }

@@ -54,7 +54,7 @@ struct AcknowledgementsView: View {
                 NavigationLink {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Copyright © 2023 ChessKit (https://github.com/chesskit-app)")
+                            Text("MIT License\nCopyright © 2023 ChessKit\n<https://github.com/chesskit-app>")
                             Group {
                                 Text("Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:")
                                 
@@ -72,14 +72,14 @@ struct AcknowledgementsView: View {
                         Text("ChessKit Engine")
                             .font(.system(size: 22))
                             .fontWeight(.bold)
-                        Text("Copyright © 2023 ChessKit (https://github.com/chesskit-app)")
+                        Text("MIT License\nCopyright © 2023 ChessKit, <https://github.com/chesskit-app>")
                             .font(.system(size: 16))
                     }
                 }
                 NavigationLink {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Copyright © Cburnett, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons")
+                            Text("CC BY-SA 3.0\n<http://creativecommons.org/licenses/by-sa/3.0/>\nCopyright © Cburnett, via Wikimedia Commons\nhttps://commons.wikimedia.org/wiki/Template:SVG_chess_pieces")
                             Text("The files have not been modified.")
 
                             Group {
@@ -110,21 +110,21 @@ struct AcknowledgementsView: View {
 
                         .padding()
                     }
-                    .navigationTitle("Chess Piece Images")
+                    .navigationTitle("SVG Files of Chess Pieces")
                     .navigationBarTitleDisplayMode(.inline)
                 } label: {
                     VStack(alignment: .leading) {
                         Text("SVG Files of Chess Pieces")
                             .font(.system(size: 22))
                             .fontWeight(.bold)
-                        Text("Copyright © Cburnett, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons")
+                        Text("CC BY-SA 3.0\nCopyright © Cburnett\nhttps://commons.wikimedia.org/wiki/Category:SVG_chess_pieces")
                             .font(.system(size: 16))
                     }
                 }
                 NavigationLink {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Copyright © 2020 Alexander Perechnev")
+                            Text("MIT License\nCopyright © 2020 Alexander Perechnev\nhttps://github.com/aperechnev/ChessKit")
 
                             Group {
                                 Text("Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:")
@@ -144,7 +144,7 @@ struct AcknowledgementsView: View {
                         Text("ChessKit")
                             .font(.system(size: 22))
                             .fontWeight(.bold)
-                        Text("Copyright © 2020 Alexander Perechnev")
+                        Text("MIT License\nCopyright © 2020 Alexander Perechnev\nhttps://github.com/aperechnev/ChessKit")
                             .font(.system(size: 16))
                     }
                 }

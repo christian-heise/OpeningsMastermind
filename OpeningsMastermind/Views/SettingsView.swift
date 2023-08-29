@@ -166,7 +166,7 @@ struct SettingsView: View {
                     Text("Online Accounts")
                         .fontWeight(.bold)
                 } footer: {
-                    Text("Your Lichess information is used to filter moves in the Lichess opening explorer to better match your rating.")
+                    Text("Connect your Lichess Account to import studies from your account easily. Also your blitz rating is used to filter moves in the Lichess opening explorer to better match your rating.")
                 }
                 Section() {
                     NavigationLink(destination: {ImpressumView()}) {

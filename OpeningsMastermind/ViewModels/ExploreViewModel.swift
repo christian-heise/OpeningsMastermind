@@ -79,11 +79,10 @@ import ChessKitEngine
     
     func onAppear() {
         if settings.engineOn && engine == nil {
-            engine?.stop()
             self.engine = Engine(type: .stockfish)
             self.engine!.start(coreCount: 6)
             
-            engine!.loggingEnabled = true
+//            engine!.loggingEnabled = true
             
             self.engine!.receiveResponse = { response in
                 self.receiveEngineReponse(response: response)

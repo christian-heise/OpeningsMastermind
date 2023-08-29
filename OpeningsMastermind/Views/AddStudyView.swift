@@ -11,6 +11,7 @@ import UniformTypeIdentifiers
 
 struct AddStudyView: View {
     @ObservedObject var database: DataBase
+    @ObservedObject var settings: Settings
     @Binding var isLoading: Bool
     
     @Environment(\.dismiss) var dismiss
@@ -37,11 +38,15 @@ struct AddStudyView: View {
     @State private var examplePicker = 0
     
     @State private var exampleSelection = Set<ExamplePGN>()
+    @State private var lichessSelection = Set<LichessStudyMetaData>()
     
     let colors = ["white", "black"]
     
-    init(database: DataBase, isLoading: Binding<Bool>, pgnString: Binding<String>) {
+    @State private var studyList: [LichessStudyMetaData] = []
+    
+    init(database: DataBase, settings: Settings,  isLoading: Binding<Bool>, pgnString: Binding<String>) {
         self.database = database
+        self.settings = settings
         self._isLoading = isLoading
         self._pgnString = pgnString
     }
@@ -179,6 +184,48 @@ struct AddStudyView: View {
                     .alert(isPresented: $duplicateError) {
                         Alert(title: Text("Duplicate"), message: Text("Library already contains study with this name"))
                     }
+                } else if examplePicker == 1 {
+                    List(selection: $lichessSelection) {
+                        ForEach(studyList, id: \.self) { study in
+                            VStack(alignment: .leading) {
+                                Text(study.name)
+                                Text("last updated on " + dateStringFromTimestamp(study.updatedAt/1000))
+                                    .font(Font.caption)
+                            }
+                            .opacity(database.gametrees.contains(where: {$0.name == study.name}) ? 0.5 : 1.0)
+                            .padding(.vertical, 3)
+                            .contextMenu {
+                                Button{openURL(URL(string: "https://lichess.org/study/\(study.id)")!)} label: {
+                                    Label("Visit Study on Lichess.com", systemImage: "safari")
+                                }
+                            }
+                            .if(database.gametrees.contains(where: {$0.name == study.name})) { view in
+                                view._untagged()
+                            }
+                        }
+                        .listRowBackground(colorScheme == .dark ? [28,28,30].getColor():Color.white)
+                    }
+                    .refreshable() {
+                        do {
+                            studyList = try await getUserLichessStudies()
+                            sortStudies()
+                        } catch {
+                            print(error)
+                        }
+                    }
+                    .listStyle(.inset)
+                    
+                    Spacer()
+                    Button(action: {
+                        Task {
+                            await addUserLichessStudies()
+                        }
+                    }) {
+                        Image(systemName: "plus.circle.fill")
+                        Text("Add selected Studies")
+                    }
+                    .foregroundColor(.green)
+                    .padding()
                 } else {
                     List(selection: $exampleSelection) {
                         ForEach(ExamplePGN.list, id: \.self) { listItem in
@@ -214,12 +261,25 @@ struct AddStudyView: View {
                     
                 }
                 Picker("awdawd", selection: $examplePicker) {
-                    Text("Custom Study").tag(0)
-                    Text("Example Studies").tag(1)
+                    Text("Custom PGN").tag(0)
+                    if settings.playerRating != nil {
+                        Text("Lichess").tag(1)
+                    }
+                    Text("Examples").tag(2)
                 }.pickerStyle(.segmented)
                     .padding(.horizontal)
                     .padding(.bottom)
                 
+            }
+            .onAppear() {
+                Task {
+                    do {
+                        studyList = try await getUserLichessStudies()
+                        sortStudies()
+                    } catch {
+                        print(error)
+                    }
+                }
             }
             .navigationTitle(Text("Add Study"))
             .environment(\.editMode, $editMode)
@@ -235,7 +295,7 @@ struct AddStudyView: View {
                 Button("Import") {
                     Task {
                         do {
-                            self.pgnString = try await getPGNFromLichess(lichessURL)
+                            self.pgnString = try await getPGNFromLichess(url: lichessURL)
                         } catch let localError {
                             switch localError {
                             case LichessPGNError.urlInvalid:
@@ -302,7 +362,7 @@ struct AddStudyView: View {
         self.dismiss()
     }
     
-    func getPGNFromLichess(_ urlString: String) async throws -> String {
+    func getPGNFromLichess(url urlString: String) async throws -> String {
         guard let url = URL(string: urlString) else { throw LichessPGNError.urlInvalid }
         let expectedHost = "lichess.org"
         let expectedPath = "/study/"
@@ -318,13 +378,98 @@ struct AddStudyView: View {
         return try String(data: data, encoding: .utf8) ?? {throw LichessPGNError.badResponse}()
     }
     
-    enum LichessPGNError: Error {
-        case urlInvalid, noLichessUrl, badResponse, createdUrlInvalid
+    func getPGNFromLichess(id: String) async throws -> String {
+        guard let apiURL = URL(string: "https://lichess.org/api/study/\(id).pgn") else { throw LichessPGNError.createdUrlInvalid}
+        guard let (data, _) = try? await URLSession.shared.data(from: apiURL) else { throw LichessPGNError.badResponse}
+        return try String(data: data, encoding: .utf8) ?? {throw LichessPGNError.badResponse}()
+    }
+    
+    enum LichessPGNError: String, Error {
+        case urlInvalid, noLichessUrl, badResponse, createdUrlInvalid, decodingError, noUserName
+    }
+    
+    func getUserLichessStudies() async throws -> [LichessStudyMetaData] {
+        guard let name = settings.lichessName else { throw LichessPGNError.noUserName}
+        var studyList: [LichessStudyMetaData] = []
+        let urlString = "https://lichess.org/api/study/by/\(name)"
+        guard let url = URL(string: urlString) else { throw LichessPGNError.urlInvalid }
+        
+        guard let (data, _) = try? await URLSession.shared.data(from: url) else { throw LichessPGNError.badResponse}
+        
+        guard let ndjsonString = String(data: data, encoding: .utf8) else { throw LichessPGNError.decodingError}
+        
+        let lines = ndjsonString.components(separatedBy: .newlines)
+        
+        let decoder = JSONDecoder()
+        
+        for line in lines {
+            // Skip empty lines
+            guard !line.isEmpty else {
+                continue
+            }
+
+            // Decode each line as a separate JSON object
+            let data = Data(line.utf8)
+            let study = try decoder.decode(LichessStudyMetaData.self, from: data)
+            studyList.append(study)
+        }
+        
+        return studyList
+    }
+    
+    func addUserLichessStudies() async {
+        isLoading = true
+        for study in lichessSelection {
+            do {
+                let pgnString = try await getPGNFromLichess(id: study.id)
+                let _ = await database.addNewGameTree(name: study.name, pgnString: pgnString, userColor: .white)
+            } catch { }
+        }
+        await MainActor.run {
+            isLoading = false
+            dismiss()
+        }
+    }
+    
+    func dateStringFromTimestamp(_ timestamp: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
+        let dateFormatter = DateFormatter()
+//        dateFormatter.locale = locale
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        return dateFormatter.string(from: date)
+    }
+    
+    func sortStudies() {
+        studyList.sort(by: {
+            if databaseContainsStudy($0) && !databaseContainsStudy($1) {
+                return false
+            } else if databaseContainsStudy($1) && !databaseContainsStudy($0) {
+                return true
+            } else {
+                return $0.updatedAt > $1.updatedAt
+            }
+        })
+    }
+    
+    func databaseContainsStudy(_ study: LichessStudyMetaData) -> Bool {
+        database.gametrees.contains(where: {$0.name == study.name})
+    }
+}
+
+struct LichessStudyMetaData: Codable, Hashable {
+    let id: String
+    let name: String
+    let createdAt: Int
+    let updatedAt: Int
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
 
 struct AddStudyView_Previews: PreviewProvider {
     static var previews: some View {
-        AddStudyView(database: DataBase(), isLoading: .constant(false), pgnString: .constant(""))
+        AddStudyView(database: DataBase(), settings: Settings(), isLoading: .constant(false), pgnString: .constant(""))
     }
 }
