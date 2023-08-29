@@ -15,8 +15,6 @@ class PGNDecoder {
     
     func decodePGN(pgnString: String) -> [GameNode] {
         
-        
-        
         var game = Game(position: startingGamePosition)
         
         let chapters = pgnString.split(separator: "\n\n\n", omittingEmptySubsequences: true)
@@ -33,6 +31,7 @@ class PGNDecoder {
         
         var dictPosition: [GameNode: Position] = [rootNode:startingGamePosition]
         var dictNode: [Position: GameNode] = [startingGamePosition:rootNode]
+        var dictBoardNode: [Board: GameNode] = [startingGamePosition.board:rootNode]
         
         for i in 0..<chapters.count {
             let chapter = String(chapters[i])
@@ -41,7 +40,7 @@ class PGNDecoder {
                 let fen = fenString.replacingOccurrences(of: "[FEN \"", with: "").replacingOccurrences(of: "\"]", with: "")
                 if fen != startingFEN {
                     let position = FenSerialization.default.deserialize(fen: fen)
-                    if let startingNode = dictNode[position] {
+                    if let startingNode = dictBoardNode[position.board] {
                         currentNode = startingNode
                         game = Game(position: position)
                     } else {
@@ -204,6 +203,7 @@ class PGNDecoder {
                 allNodes.append(newNode)
                 dictNode[game.position] = newNode
                 dictPosition[newNode] = game.position
+                dictBoardNode[game.position.board] = newNode
             }
             return newNode
         }

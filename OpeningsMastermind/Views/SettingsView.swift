@@ -81,13 +81,13 @@ struct SettingsView: View {
                     self.settings.save()
                 }
                 Section {
-                    Picker("Lalala", selection: engineType) {
-                        Text(EngineType.stockfish.name)
-                            .tag(EngineType.stockfish)
-                        Text(EngineType.lc0.name)
-                            .tag(EngineType.lc0)
-                    }
-                    .pickerStyle(.segmented)
+//                    Picker("Lalala", selection: engineType) {
+//                        Text(EngineType.stockfish.name)
+//                            .tag(EngineType.stockfish)
+//                        Text(EngineType.lc0.name)
+//                            .tag(EngineType.lc0)
+//                    }
+//                    .pickerStyle(.segmented)
                     Toggle("Engine Evaluation", isOn: engineOn)
                 } header: {
                     Text("Engine")
