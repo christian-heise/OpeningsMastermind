@@ -66,11 +66,11 @@ import ChessKitEngine
     }
 
     init(database: DataBase, settings: Settings) {
-        if settings.engineOn {
-            engine = Engine(type: .stockfish)
-        } else {
-            engine = nil
-        }
+//        if settings.engineOn {
+//            engine = Engine(type: settings.engineType)
+//        } else {
+//            engine = nil
+//        }
         self.database = database
         self.settings = settings
         self.userRating = settings.playerRating
@@ -79,21 +79,24 @@ import ChessKitEngine
         self.currentExploreNode = self.rootExploreNode
         super.init()
         
-        if let engine = engine {
-            engine.start(coreCount: 3)
-        }
-        engine?.loggingEnabled = true
+//        if let engine = engine {
+//            engine.start(coreCount: 6)
+//        }
+        
         onAppear()
         
-        self.engine?.receiveResponse = { response in
-            self.receiveEngineReponse(response: response)
-        }
+//        self.engine?.receiveResponse = { response in
+//            self.receiveEngineReponse(response: response)
+//        }
     }
     
     func onAppear() {
-        if settings.engineOn && engine == nil {
-            self.engine = Engine(type: .stockfish)
-            self.engine!.start(coreCount: 3)
+        if settings.engineOn {
+            engine?.stop()
+            self.engine = Engine(type: settings.engineType)
+            self.engine!.start(coreCount: 6)
+            
+            engine!.loggingEnabled = true
             
             self.engine!.receiveResponse = { response in
                 self.receiveEngineReponse(response: response)
@@ -103,6 +106,7 @@ import ChessKitEngine
             engine.stop()
             self.engine = nil
         }
+        
         getEngineMoves()
         
         if database.gametrees.isEmpty {

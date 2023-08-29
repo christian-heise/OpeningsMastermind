@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import ChessKitEngine
 
 class Settings: ObservableObject, Codable {
     @Published var boardColorRGB = BoardColorRGB()
@@ -15,6 +15,8 @@ class Settings: ObservableObject, Codable {
     @Published private (set) var chessComName: String?
     
     @Published var engineOn: Bool = true
+    
+    var engineType: EngineType = .stockfish
     
     private (set) var playerRating: Int? = nil
     
@@ -127,6 +129,7 @@ class Settings: ObservableObject, Codable {
             self.lichessName = settings.lichessName
             self.chessComName = settings.chessComName
             self.engineOn = settings.engineOn
+            self.engineType = settings.engineType
         } catch {
             print("Could not load settings")
             self.save()

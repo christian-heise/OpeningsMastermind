@@ -174,8 +174,8 @@
             filePath = "OpeningsMastermind/ViewModels/ExploreViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
             landmarkName = "determineRightMove()"
             landmarkType = "7">
          </BreakpointContent>

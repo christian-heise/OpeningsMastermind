@@ -7,6 +7,7 @@
 
 import SwiftUI
 import StoreKit
+import ChessKitEngine
 
 struct SettingsView: View {
     @ObservedObject var settings: Settings
@@ -34,6 +35,12 @@ struct SettingsView: View {
             get: { self.settings.engineOn },
             set: { self.settings.engineOn = $0 }
         )
+        let engineType = Binding {
+            return settings.engineType
+        } set: { value in
+            settings.engineType = value
+        }
+
         NavigationStack {
             Form {
                 HStack(alignment: .top){
@@ -74,7 +81,14 @@ struct SettingsView: View {
                     self.settings.save()
                 }
                 Section {
-                    Toggle("Stockfish Engine Evaluation", isOn: engineOn)
+                    Picker("Lalala", selection: engineType) {
+                        Text(EngineType.stockfish.name)
+                            .tag(EngineType.stockfish)
+                        Text(EngineType.lc0.name)
+                            .tag(EngineType.lc0)
+                    }
+                    .pickerStyle(.segmented)
+                    Toggle("Engine Evaluation", isOn: engineOn)
                 } header: {
                     Text("Engine")
                         .fontWeight(.bold)
