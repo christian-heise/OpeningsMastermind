@@ -44,6 +44,8 @@ struct AddStudyView: View {
     
     @State private var studyList: [LichessStudyMetaData] = []
     
+    @State private var colorDict: [String: Bool] = [:]
+    
     init(database: DataBase, settings: Settings,  isLoading: Binding<Bool>, pgnString: Binding<String>) {
         self.database = database
         self.settings = settings
@@ -187,17 +189,22 @@ struct AddStudyView: View {
                 } else if examplePicker == 1 {
                     List(selection: $lichessSelection) {
                         ForEach(studyList, id: \.self) { study in
-                            VStack(alignment: .leading) {
-                                Text(study.name)
-                                Text("last updated on " + dateStringFromTimestamp(study.updatedAt/1000))
-                                    .font(Font.caption)
-                            }
-                            .opacity(database.gametrees.contains(where: {$0.name == study.name}) ? 0.5 : 1.0)
-                            .padding(.vertical, 3)
-                            .contextMenu {
-                                Button{openURL(URL(string: "https://lichess.org/study/\(study.id)")!)} label: {
-                                    Label("Visit Study on Lichess.com", systemImage: "safari")
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(study.name)
+                                    Text("last updated on " + dateStringFromTimestamp(study.updatedAt/1000))
+                                        .font(Font.caption)
                                 }
+                                .opacity(database.gametrees.contains(where: {$0.name == study.name}) ? 0.5 : 1.0)
+                                .padding(.vertical, 3)
+                                .contextMenu {
+                                    Button{openURL(URL(string: "https://lichess.org/study/\(study.id)")!)} label: {
+                                        Label("Visit Study on Lichess.com", systemImage: "safari")
+                                    }
+                                }
+//                                Spacer()
+                                Toggle("", isOn: binding(for: study.id))
+                                    .toggleStyle(WhitePieceToggleStyle())
                             }
                             .if(database.gametrees.contains(where: {$0.name == study.name})) { view in
                                 view._untagged()
@@ -220,6 +227,7 @@ struct AddStudyView: View {
                         Task {
                             await addUserLichessStudies()
                         }
+                        dismiss()
                     }) {
                         Image(systemName: "plus.circle.fill")
                         Text("Add selected Studies")
@@ -362,6 +370,13 @@ struct AddStudyView: View {
         self.dismiss()
     }
     
+    private func binding(for key: String) -> Binding<Bool> {
+        Binding<Bool>(
+            get: { self.colorDict[key] ?? true },
+            set: { self.colorDict[key] = $0 }
+        )
+    }
+    
     func getPGNFromLichess(url urlString: String) async throws -> String {
         guard let url = URL(string: urlString) else { throw LichessPGNError.urlInvalid }
         let expectedHost = "lichess.org"
@@ -422,12 +437,15 @@ struct AddStudyView: View {
         for study in lichessSelection {
             do {
                 let pgnString = try await getPGNFromLichess(id: study.id)
-                let _ = await database.addNewGameTree(name: study.name, pgnString: pgnString, userColor: .white)
+                var userColor = PieceColor.white
+                if let colorIsWhite = colorDict[study.id] {
+                    userColor = colorIsWhite ? .white : .black
+                }
+                let _ = await database.addNewGameTree(name: study.name, pgnString: pgnString, userColor: userColor)
             } catch { }
         }
         await MainActor.run {
             isLoading = false
-            dismiss()
         }
     }
     
@@ -450,6 +468,10 @@ struct AddStudyView: View {
                 return $0.updatedAt > $1.updatedAt
             }
         })
+        self.colorDict = [:]
+        for study in studyList {
+            self.colorDict[study.id] = true
+        }
     }
     
     func databaseContainsStudy(_ study: LichessStudyMetaData) -> Bool {
