@@ -14,149 +14,167 @@ class PGNDecoder {
     var progress: Double = 0.0
     
     func decodePGN(pgnString: String) -> [GameNode] {
+        let rootNode = GameNode(fen: startingFEN)
         
         var game = Game(position: startingGamePosition)
-        
-        let chapters = pgnString.split(separator: "\n\n\n", omittingEmptySubsequences: true)
-
-        let rootNode = GameNode(fen: startingFEN)
         var currentNode = rootNode
-
+        
         var allNodes: [GameNode] = [rootNode]
         var variationNodes: [GameNode] = []
-        
-        var commentActive = false
-        
-        var comment: String = ""
         
         var dictPosition: [GameNode: Position] = [rootNode:startingGamePosition]
         var dictNode: [Position: GameNode] = [startingGamePosition:rootNode]
         var dictBoardNode: [Board: GameNode] = [startingGamePosition.board:rootNode]
         
-        for i in 0..<chapters.count {
-            let chapter = String(chapters[i])
-            if let fenRange = chapter.range(of: "\\[FEN \"[^\"]+\"\\]", options: .regularExpression) {
-                let fenString = String(chapter[fenRange])
-                let fen = fenString.replacingOccurrences(of: "[FEN \"", with: "").replacingOccurrences(of: "\"]", with: "")
-                if fen != startingFEN {
-                    let position = FenSerialization.default.deserialize(fen: fen)
-                    if let startingNode = dictBoardNode[position.board] {
-                        currentNode = startingNode
-                        game = Game(position: position)
+        var currentString = ""
+        var currentToken: Token = .unknown
+        var specialCharacter = false
+        var stringActive = false
+        var nagActive = false
+        
+        var tagPairs: [String:String] = [:]
+        
+        var tagKey = ""
+        
+        for char in pgnString {
+            switch currentToken {
+            case .comment:
+                switch char {
+                case "}":
+                    if currentNode.comment == nil {
+                        currentNode.comment = currentString
                     } else {
-                        continue
+                        currentNode.comment!.append("\n" + currentString)
+                    }
+                    currentString = ""
+                    currentToken = .unknown
+                default:
+                    currentString.append(char)
+                }
+            case .tagPair:
+                if stringActive {
+                    switch char {
+                    case "\\":
+                        if specialCharacter {
+                            currentString.append(char)
+                            specialCharacter = false
+                        } else {
+                            specialCharacter = true
+                        }
+                    case "\"":
+                        if stringActive && !specialCharacter {
+                            stringActive = false
+                        } else if !stringActive {
+                            stringActive = true
+                            currentString = ""
+                            specialCharacter = false
+                        } else {
+                            currentString.append(char)
+                            specialCharacter = false
+                        }
+                    default:
+                        currentString.append(char)
                     }
                 } else {
-                    currentNode = rootNode
-                    game = Game(position: startingGamePosition)
-                }
-            } else {
-                currentNode = rootNode
-                game = Game(position: startingGamePosition)
-            }
-            
-            guard let range = chapter.range(of: "(?<=\\n|^)1\\.", options: .regularExpression) else { continue }
-            let pgnChapter = String(chapter[range.lowerBound...])
-            let rawMoves = pgnChapter.components(separatedBy: .whitespacesAndNewlines).filter({$0 != ""})
-            
-            for rawMove in rawMoves {
-                var modifiedString = rawMove
-                
-                if modifiedString.hasPrefix("{") {
-                    commentActive = true
-                    modifiedString = String(modifiedString.dropFirst())
-                    if modifiedString.isEmpty {
-                        continue
+                    switch char {
+                    case "]":
+                        tagPairs[tagKey] = currentString
+                        currentToken = .unknown
+                        currentString = ""
+                        break
+                    case " ":
+                        tagKey = currentString
+                        currentString = ""
+                    case "\"":
+                        stringActive = true
+                        currentString = ""
+                    default:
+                        currentString.append(char)
                     }
                 }
-                
-                if modifiedString.contains("}") {
-                    let rest = modifiedString.split(separator: "}")
-                    if rest.count == 2 {
-                        comment.append(String(rest.first!))
-                        finishComment()
-                        modifiedString = String(rest.last!)
-                    } else if rest.count == 1 {
-                        if modifiedString.hasPrefix("}") {
-                            modifiedString = String(modifiedString.dropFirst())
-                            finishComment()
-                        } else if modifiedString.hasSuffix("}") {
-                            modifiedString = String(modifiedString.dropLast())
-                            comment.append(String(rest.first!))
-                            finishComment()
-                            continue
-                        } else {
-                            print("Whaaaat")
-                        }
-                    } else if rest.count == 0 {
-                        finishComment()
-                        continue
-                    } else {
-                        print("Really Whaaat")
-                    }
-                }
-                
-                if commentActive {
-                    comment.append(modifiedString + " ")
-                    continue
-                }
-                
-                if isMoveNumberWhite(modifiedString) {
-                    continue
-                } else if isMoveNumberBlack(modifiedString) {
-                    continue
-                }
-                
-                if isVariationMoveNumber(modifiedString) {
+            case .unknown:
+                switch char {
+                case "[":
+                    currentString = ""
+                    currentToken = .tagPair
+                case "{":
+                    currentString = ""
+                    currentToken = .comment
+                case "(":
+                    currentNode = addMoveToTree(currentString)
+                    currentString = ""
+                    
                     variationNodes.append(currentNode)
                     currentNode = currentNode.parents.last!.parent!
                     game = Game(position: dictPosition[currentNode]!)
-                    continue
-                }
-                if modifiedString.hasSuffix(")") {
-                    var modifiedMove = modifiedString
-                    while modifiedMove.hasSuffix(")") {
-                        modifiedMove = String(modifiedMove.dropLast())
-                        if !modifiedMove.isEmpty && !modifiedMove.hasPrefix("$") && !modifiedMove.hasSuffix(")") {
-                            currentNode = addMoveToTree(modifiedMove)
-                            
-                            currentNode = variationNodes.last!
-                            variationNodes.removeLast()
-                            
-                            game = Game(position: dictPosition[currentNode]!)
-                        } else if modifiedMove.isEmpty || (modifiedMove.hasPrefix("$") && !modifiedMove.hasSuffix(")")) {
-                            currentNode = variationNodes.last!
-                            variationNodes.removeLast()
-                            game = Game(position: dictPosition[currentNode]!)
+                case ")":
+                    currentNode = addMoveToTree(currentString)
+                    currentString = ""
+                    
+                    currentNode = variationNodes.last!
+                    variationNodes.removeLast()
+                    game = Game(position: dictPosition[currentNode]!)
+                case " ":
+                    currentNode = addMoveToTree(currentString)
+                    currentString = ""
+                case "\n":
+                    // Check if there is an alternate starting fen
+                    if let fen = tagPairs["FEN"] {
+                        let position = FenSerialization.default.deserialize(fen: fen)
+                        if let startingNode = dictBoardNode[position.board] {
+                            currentNode = startingNode
+                            game = Game(position: position)
                         } else {
-                            variationNodes.removeLast()
+                            currentNode = rootNode
+                            game = Game(position: startingGamePosition)
                         }
+                    } else {
+                        currentNode = rootNode
+                        game = Game(position: startingGamePosition)
                     }
-                } else if modifiedString == "*" {
-                    continue
-                } else if modifiedString == "1-0" || modifiedString == "0-1"{
-                continue
-                } else if modifiedString.hasPrefix("$") {
-                 continue
-                } else {
-                    currentNode = addMoveToTree(modifiedString)
+                    currentString = ""
+                case "$":
+                    currentNode = addMoveToTree(currentString)
+                    currentString = ""
+                    nagActive = true
+                case ".":
+                    currentString = ""
+                case "*":
+                    currentNode = addMoveToTree(currentString)
+                    currentString = ""
+                    // Save everything
+                    tagPairs = [:]
+                default:
+                    currentString.append(char)
+                }
+            case .termination:
+                if char == "\n" {
+                    currentToken = .unknown
+                    currentString = ""
                 }
             }
         }
         
         return allNodes
-        
-        func finishComment() {
-            commentActive = false
-            if currentNode.comment == nil {
-                currentNode.comment = comment
-            } else {
-                currentNode.comment!.append("\n" + comment)
-            }
-            comment = ""
+
+        enum Token {
+            case tagPair, comment, unknown, termination
         }
         
         func addMoveToTree(_ rawMove: String) -> GameNode {
+            if rawMove.isEmpty { return currentNode }
+            if nagActive {
+                // Save NAG
+                nagActive = false
+                return currentNode
+            }
+            
+            let pattern = "\\d-\\d"
+            let regex = try! NSRegularExpression(pattern: pattern)
+            let matches = regex.matches(in: rawMove, range: NSRange(rawMove.startIndex..., in: rawMove))
+            
+            if !matches.isEmpty { return currentNode }
+            
             var newNode = rootNode
             
             if rawMove == "" || rawMove == "\n" {
@@ -173,10 +191,6 @@ class PGNDecoder {
                 moveString =  String(rawMove.dropLast())
             } else {
                 moveString =  rawMove
-            }
-            
-            if moveString == ")" {
-                print("whaaat")
             }
             
             let move = SanSerialization.default.move(for: moveString, in: game)
