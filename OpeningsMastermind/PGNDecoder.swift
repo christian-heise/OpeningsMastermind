@@ -32,6 +32,8 @@ class PGNDecoder {
         var stringActive = false
         var nagActive = false
         
+        var positionIncompatible = false
+        
         var tagPairs: [String:String] = [:]
         
         var tagKey = ""
@@ -41,11 +43,7 @@ class PGNDecoder {
             case .comment:
                 switch char {
                 case "}":
-                    if currentNode.comment == nil {
-                        currentNode.comment = currentString
-                    } else {
-                        currentNode.comment!.append("\n" + currentString)
-                    }
+                    addComment()
                     currentString = ""
                     currentToken = .unknown
                 default:
@@ -95,40 +93,36 @@ class PGNDecoder {
             case .unknown:
                 switch char {
                 case "[":
+                    nagActive = false
                     currentString = ""
                     currentToken = .tagPair
                 case "{":
+                    nagActive = false
                     currentString = ""
                     currentToken = .comment
                 case "(":
-                    currentNode = addMoveToTree(currentString)
-                    currentString = ""
-                    
-                    variationNodes.append(currentNode)
-                    currentNode = currentNode.parents.last!.parent!
-                    game = Game(position: dictPosition[currentNode]!)
+                    startVariation()
                 case ")":
-                    currentNode = addMoveToTree(currentString)
-                    currentString = ""
-                    
-                    currentNode = variationNodes.last!
-                    variationNodes.removeLast()
-                    game = Game(position: dictPosition[currentNode]!)
+                    endVariation()
                 case " ":
                     currentNode = addMoveToTree(currentString)
                     currentString = ""
                 case "\n":
+                    nagActive = false
                     // Check if there is an alternate starting fen
-                    if let fen = tagPairs["FEN"] {
+                    if let fen = tagPairs["FEN"], fen != startingFEN {
                         let position = FenSerialization.default.deserialize(fen: fen)
                         if let startingNode = dictBoardNode[position.board] {
+                            positionIncompatible = false
                             currentNode = startingNode
                             game = Game(position: position)
                         } else {
+                            positionIncompatible = true
                             currentNode = rootNode
                             game = Game(position: startingGamePosition)
                         }
                     } else {
+                        positionIncompatible = false
                         currentNode = rootNode
                         game = Game(position: startingGamePosition)
                     }
@@ -138,6 +132,7 @@ class PGNDecoder {
                     currentString = ""
                     nagActive = true
                 case ".":
+                    nagActive = false
                     currentString = ""
                 case "*":
                     currentNode = addMoveToTree(currentString)
@@ -161,7 +156,41 @@ class PGNDecoder {
             case tagPair, comment, unknown, termination
         }
         
+        func addComment() {
+            if positionIncompatible { return }
+            
+            if currentNode.comment == nil {
+                currentNode.comment = currentString
+            } else {
+                currentNode.comment!.append("\n" + currentString)
+            }
+        }
+        
+        func startVariation() {
+            if positionIncompatible { return }
+            
+            currentNode = addMoveToTree(currentString)
+            currentString = ""
+            
+            variationNodes.append(currentNode)
+            currentNode = currentNode.parents.last!.parent!
+            game = Game(position: dictPosition[currentNode]!)
+        }
+        
+        func endVariation() {
+            if positionIncompatible { return }
+            
+            currentNode = addMoveToTree(currentString)
+            currentString = ""
+            
+            currentNode = variationNodes.last!
+            variationNodes.removeLast()
+            game = Game(position: dictPosition[currentNode]!)
+        }
+        
         func addMoveToTree(_ rawMove: String) -> GameNode {
+            if positionIncompatible { return currentNode }
+            
             if rawMove.isEmpty { return currentNode }
             if nagActive {
                 // Save NAG
@@ -177,9 +206,6 @@ class PGNDecoder {
             
             var newNode = rootNode
             
-            if rawMove == "" || rawMove == "\n" {
-                print("Alarm")
-            }
             var moveString = ""
             var annotation: String = ""
             
@@ -199,14 +225,12 @@ class PGNDecoder {
             
             if currentNode.children.contains(where: {$0.moveString==moveString}) {
                 newNode = currentNode.children.first(where: {$0.moveString==moveString})!.child
-            }
-            else if let node = dictNode[game.position] {
+            } else if let node = dictNode[game.position] {
                 let moveNode = MoveNode(moveString: moveString, move: move, annotation: annotation, child: node, parent: currentNode)
                 currentNode.children.append(moveNode)
                 newNode = node
                 newNode.parents.append(moveNode)
-            }
-            else {
+            } else {
                 let fen = FenSerialization.default.serialize(position: game.position)
                 newNode = GameNode(fen: fen)
                 
