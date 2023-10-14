@@ -12,11 +12,13 @@ import ChessKit
     
     @Published var selectedGameTrees: Set<GameTree>
     let database: DataBase
+    let settings: Settings
     @Published var currentNodes: [GameNode]
     
-    init(database: DataBase) {
+    init(database: DataBase, settings: Settings) {
         self.currentNodes = []
         self.database = database
+        self.settings = settings
         self.selectedGameTrees = Set()
         super.init()
         
@@ -199,7 +201,7 @@ import ChessKit
         self.game.make(move: move)
         gameState = .practice
         Task {
-            await performComputerMove(in: 300)
+            await performComputerMove(in: Int(settings.moveDelay_ms))
         }
     }
     

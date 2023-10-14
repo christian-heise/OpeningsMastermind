@@ -21,6 +21,9 @@ struct SettingsView: View {
     
     @State private var userName = ""
     
+    @State private var delay: Double = 0
+    @State private var animationOn: Bool = false
+    
     @Environment(\.requestReview) var requestReview
     
     init(settings: Settings, database: DataBase) {
@@ -39,6 +42,16 @@ struct SettingsView: View {
             return settings.engineType
         } set: { value in
             settings.engineType = value
+        }
+        let moveDelay_ms = Binding {
+            return settings.moveDelay_ms
+        } set: { value in
+            settings.moveDelay_ms = value
+        }
+        let moveAnimation = Binding {
+            return settings.moveAnimation
+        } set: { value in
+            settings.moveAnimation = value
         }
 
         NavigationStack {
@@ -69,7 +82,7 @@ struct SettingsView: View {
                         self.colorBlack = settings.boardColorRGB.black.getColor()
                     }
                 } header: {
-                    Text("Board Style")
+                    Text("Board Customization")
                         .fontWeight(.bold)
                 }
                 .onChange(of: self.colorWhite) { newValue in
@@ -90,7 +103,25 @@ struct SettingsView: View {
 //                    .pickerStyle(.segmented)
                     Toggle("Engine Evaluation", isOn: engineOn)
                 } header: {
-                    Text("Engine")
+                    Text("Explorer")
+                        .fontWeight(.bold)
+                }
+                Section {
+                    Text("Computer Move delay: \(settings.moveDelay_ms, specifier: "%.0f")ms")
+                    HStack {
+                        Text("0ms")
+                        Slider(value: moveDelay_ms, in: 0...1000)
+                            .onTapGesture(count: 2) {
+                                settings.moveDelay_ms = 300.0
+                            }
+                        Text("\(1000)ms")
+                    }
+//                    Toggle(isOn: moveAnimation) {
+//                        Text("Move Animation")
+//                    }
+                    
+                } header: {
+                    Text("Practice")
                         .fontWeight(.bold)
                 }
                 Section {

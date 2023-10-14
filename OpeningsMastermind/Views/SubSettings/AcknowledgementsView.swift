@@ -150,6 +150,7 @@ struct AcknowledgementsView: View {
                 }
             }
             .navigationTitle("Acknowledgements")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

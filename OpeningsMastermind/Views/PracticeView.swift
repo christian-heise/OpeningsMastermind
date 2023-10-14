@@ -292,11 +292,11 @@ struct PracticeView: View {
 struct PracticeView_Previews: PreviewProvider {
     static var previews: some View {
         let database = DataBase()
-        PracticeView(database: database, settings: Settings(), vm: PracticeViewModel(database: database))
+        PracticeView(database: database, settings: Settings(), vm: PracticeViewModel(database: database, settings: Settings()))
             .previewDevice(PreviewDevice(rawValue: "iPhone SE (3rd generation)"))
-        PracticeView(database: database, settings: Settings(), vm: PracticeViewModel(database: database))
+        PracticeView(database: database, settings: Settings(), vm: PracticeViewModel(database: database, settings: Settings()))
             .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (6th generation))"))
-        PracticeView(database: database, settings: Settings(), vm: PracticeViewModel(database: database))
+        PracticeView(database: database, settings: Settings(), vm: PracticeViewModel(database: database, settings: Settings()))
             .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro"))
     }
 }

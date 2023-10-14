@@ -59,6 +59,6 @@ struct SelectStudyView: View {
 
 struct SelectStudyView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectStudyView(gametrees: [GameTree.example(),GameTree.example()], vm: PracticeViewModel(database: DataBase()))
+        SelectStudyView(gametrees: [GameTree.example(),GameTree.example()], vm: PracticeViewModel(database: DataBase(), settings: Settings()))
     }
 }
