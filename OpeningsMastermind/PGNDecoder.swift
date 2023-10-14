@@ -162,7 +162,7 @@ class PGNDecoder {
             if currentNode.comment == nil {
                 currentNode.comment = currentString
             } else {
-                currentNode.comment!.append("\n" + currentString)
+                currentNode.comment!.append("\n\n" + currentString)
             }
         }
         

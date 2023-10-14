@@ -51,14 +51,12 @@ import ChessKitEngine
     var comment: String {
         guard let comment = currentExploreNode.gameNode?.comment else { return ""}
         
-        let regex = try! NSRegularExpression(pattern: "\\[%cal.*?\\]", options: .dotMatchesLineSeparators)
+        let regex = try! NSRegularExpression(pattern: "\\[%cal.*?\\]|\\[%csl.*?\\]", options: .dotMatchesLineSeparators)
         let output = regex.stringByReplacingMatches(in: comment, options: [], range: NSRange(location: 0, length: comment.utf16.count), withTemplate: "")
         
-        if output.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            return ""
-        } else {
-            return output
-        }
+        let trimmedString = output.replacingOccurrences(of: "\\s*\n\\s*", with: "\n", options: .regularExpression)
+        
+        return trimmedString.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     var currentMoveColor: PieceColor {
