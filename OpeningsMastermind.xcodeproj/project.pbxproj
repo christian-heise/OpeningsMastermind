@@ -72,6 +72,9 @@
 		AAE4C6DA2A362E6100638E87 /* GameTreeOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1A1B829F14D33003F153F /* GameTreeOld.swift */; };
 		AAE4C6DC2A370A5400638E87 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE4C6DB2A370A5400638E87 /* LoadingView.swift */; };
 		AAE4C6DE2A3710AC00638E87 /* PGNDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE4C6DD2A3710AC00638E87 /* PGNDecoder.swift */; };
+		AAF1D5D52A9E3A1400797F49 /* EngineClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF1D5D42A9E3A1400797F49 /* EngineClass.swift */; };
+		AAF1D5D72A9E4AD400797F49 /* AddStudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF1D5D62A9E4AD400797F49 /* AddStudyViewModel.swift */; };
+		AAF1D5D92A9F622000797F49 /* CustomToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF1D5D82A9F622000797F49 /* CustomToggle.swift */; };
 		AAF78B9B2A07B35B00FC8282 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */; };
 /* End PBXBuildFile section */
 
@@ -193,6 +196,9 @@
 		AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardViewModel.swift; sourceTree = "<group>"; };
 		AAE4C6DB2A370A5400638E87 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		AAE4C6DD2A3710AC00638E87 /* PGNDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PGNDecoder.swift; sourceTree = "<group>"; };
+		AAF1D5D42A9E3A1400797F49 /* EngineClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EngineClass.swift; sourceTree = "<group>"; };
+		AAF1D5D62A9E4AD400797F49 /* AddStudyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStudyViewModel.swift; sourceTree = "<group>"; };
+		AAF1D5D82A9F622000797F49 /* CustomToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggle.swift; sourceTree = "<group>"; };
 		AAF78B9A2A07B35B00FC8282 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -236,6 +242,7 @@
 				AA69607C2A06473800A593BB /* PracticeViewModel.swift */,
 				AADF267F2A16192400CF40ED /* ExploreViewModel.swift */,
 				AAD284102A3C5AAF002D5BF7 /* PracticeCenterViewModel.swift */,
+				AAF1D5D62A9E4AD400797F49 /* AddStudyViewModel.swift */,
 				AABC59782A461E9D00E9C17A /* AppControlViewModel.swift */,
 				AA6A8B7C2A38BDF1003DA1C2 /* DisplayBoardViewModel.swift */,
 				AAE367F72A0BED95006A2574 /* ChessBoardViewModel.swift */,
@@ -287,6 +294,7 @@
 				AAC889A229F7DD3A0079ECE5 /* Extension.swift */,
 				AAE4C6DF2A3711A200638E87 /* OldFiles */,
 				AAE4C6DD2A3710AC00638E87 /* PGNDecoder.swift */,
+				AAF1D5D42A9E3A1400797F49 /* EngineClass.swift */,
 				AAA1A17F29F02352003F153F /* Assets.xcassets */,
 				AAA1A18129F02352003F153F /* OpeningsMastermind.entitlements */,
 				AAA1A18229F02352003F153F /* Preview Content */,
@@ -368,6 +376,7 @@
 			isa = PBXGroup;
 			children = (
 				AA87F3DC2A013A34009D7017 /* AnnotationView.swift */,
+				AAF1D5D82A9F622000797F49 /* CustomToggle.swift */,
 				AAA1A1C929F2CC44003F153F /* ArrowShape.swift */,
 				AA930ED72A093D4100026712 /* BoxArrowShape.swift */,
 			);
@@ -514,7 +523,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					AAA1A17729F02351003F153F = {
 						CreatedOnToolsVersion = 14.3;
@@ -610,7 +619,9 @@
 				AAC6431429F9374100D1C12E /* ImpressumView.swift in Sources */,
 				AAC889A529F802450079ECE5 /* PGNHelpView.swift in Sources */,
 				AAE4C6DC2A370A5400638E87 /* LoadingView.swift in Sources */,
+				AAF1D5D52A9E3A1400797F49 /* EngineClass.swift in Sources */,
 				AAB5A6E42A1916E2007F1302 /* HelpExplorerPageView.swift in Sources */,
+				AAF1D5D92A9F622000797F49 /* CustomToggle.swift in Sources */,
 				AADF267E2A16169600CF40ED /* ParentChessBoardProtocol.swift in Sources */,
 				AAA1A1D729F42E7F003F153F /* AddStudyView.swift in Sources */,
 				AA6A8B7B2A38822C003DA1C2 /* PracticeCenterView.swift in Sources */,
@@ -623,6 +634,7 @@
 				AAD219632A1CECE6005BB0FE /* SwitchStudyView.swift in Sources */,
 				AA87F3DD2A013A34009D7017 /* AnnotationView.swift in Sources */,
 				AA6A8B7F2A38C02E003DA1C2 /* GameState.swift in Sources */,
+				AAF1D5D72A9E4AD400797F49 /* AddStudyViewModel.swift in Sources */,
 				AAA1A1EA29F6DDD6003F153F /* Settings.swift in Sources */,
 				AACF65482A33C0750058893F /* GameNode.swift in Sources */,
 				AA7A71342A4D733200A60706 /* PopoverViewModifier.swift in Sources */,
@@ -734,9 +746,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -752,6 +766,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -793,9 +808,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -806,6 +823,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;
@@ -824,6 +842,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpeningsMastermind/OpeningsMastermind.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"OpeningsMastermind/Preview Content\"";
 				DEVELOPMENT_TEAM = Q7XMYQ8965;
 				ENABLE_PREVIEWS = YES;
@@ -846,7 +865,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 0.8;
+				MARKETING_VERSION = 0.8.3;
 				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -869,6 +888,7 @@
 				CODE_SIGN_ENTITLEMENTS = OpeningsMastermind/OpeningsMastermind.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"OpeningsMastermind/Preview Content\"";
 				DEVELOPMENT_TEAM = Q7XMYQ8965;
 				ENABLE_PREVIEWS = YES;
@@ -891,7 +911,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 0.8;
+				MARKETING_VERSION = 0.8.3;
 				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -911,6 +931,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Q7XMYQ8965;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
@@ -934,6 +955,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Q7XMYQ8965;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
@@ -956,6 +978,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Q7XMYQ8965;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
@@ -978,6 +1001,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Q7XMYQ8965;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;

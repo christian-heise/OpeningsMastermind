@@ -41,7 +41,7 @@ struct PawnPromotionView<ParentVM>: View where ParentVM: ParentChessBoardModelPr
 
 struct PawnPromotionView_Previews: PreviewProvider {
     static var previews: some View {
-        PawnPromotionView(color: .black, width: 70, parentVM: PracticeViewModel(database: DataBase()))
+        PawnPromotionView(color: .black, width: 70, parentVM: PracticeViewModel(database: DataBase(), settings: Settings()))
     }
 }
 

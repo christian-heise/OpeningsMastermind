@@ -7,6 +7,7 @@
 
 import SwiftUI
 import StoreKit
+import ChessKitEngine
 
 struct SettingsView: View {
     @ObservedObject var settings: Settings
@@ -19,6 +20,9 @@ struct SettingsView: View {
     @State private var showingChessComConnect = false
     
     @State private var userName = ""
+    
+    @State private var delay: Double = 0
+    @State private var animationOn: Bool = false
     
     @Environment(\.requestReview) var requestReview
     
@@ -34,6 +38,22 @@ struct SettingsView: View {
             get: { self.settings.engineOn },
             set: { self.settings.engineOn = $0 }
         )
+        let engineType = Binding {
+            return settings.engineType
+        } set: { value in
+            settings.engineType = value
+        }
+        let moveDelay_ms = Binding {
+            return settings.moveDelay_ms
+        } set: { value in
+            settings.moveDelay_ms = value
+        }
+        let moveAnimation = Binding {
+            return settings.moveAnimation
+        } set: { value in
+            settings.moveAnimation = value
+        }
+
         NavigationStack {
             Form {
                 HStack(alignment: .top){
@@ -62,7 +82,7 @@ struct SettingsView: View {
                         self.colorBlack = settings.boardColorRGB.black.getColor()
                     }
                 } header: {
-                    Text("Board Style")
+                    Text("Board Customization")
                         .fontWeight(.bold)
                 }
                 .onChange(of: self.colorWhite) { newValue in
@@ -74,9 +94,34 @@ struct SettingsView: View {
                     self.settings.save()
                 }
                 Section {
-                    Toggle("Stockfish Engine Evaluation", isOn: engineOn)
+//                    Picker("Lalala", selection: engineType) {
+//                        Text(EngineType.stockfish.name)
+//                            .tag(EngineType.stockfish)
+//                        Text(EngineType.lc0.name)
+//                            .tag(EngineType.lc0)
+//                    }
+//                    .pickerStyle(.segmented)
+                    Toggle("Engine Evaluation", isOn: engineOn)
                 } header: {
-                    Text("Engine")
+                    Text("Explorer")
+                        .fontWeight(.bold)
+                }
+                Section {
+                    Text("Computer Move delay: \(settings.moveDelay_ms, specifier: "%.0f")ms")
+                    HStack {
+                        Text("0ms")
+                        Slider(value: moveDelay_ms, in: 0...1000)
+                            .onTapGesture(count: 2) {
+                                settings.moveDelay_ms = 300.0
+                            }
+                        Text("\(1000)ms")
+                    }
+//                    Toggle(isOn: moveAnimation) {
+//                        Text("Move Animation")
+//                    }
+                    
+                } header: {
+                    Text("Practice")
                         .fontWeight(.bold)
                 }
                 Section {
@@ -152,7 +197,7 @@ struct SettingsView: View {
                     Text("Online Accounts")
                         .fontWeight(.bold)
                 } footer: {
-                    Text("Your Lichess information is used to filter moves in the Lichess opening explorer to better match your rating.")
+                    Text("Connect your Lichess Account to import studies from your account easily. Also your blitz rating is used to filter moves in the Lichess opening explorer to better match your rating.")
                 }
                 Section() {
                     NavigationLink(destination: {ImpressumView()}) {

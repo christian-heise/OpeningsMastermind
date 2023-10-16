@@ -51,14 +51,12 @@ import ChessKitEngine
     var comment: String {
         guard let comment = currentExploreNode.gameNode?.comment else { return ""}
         
-        let regex = try! NSRegularExpression(pattern: "\\[%cal.*?\\]", options: .dotMatchesLineSeparators)
+        let regex = try! NSRegularExpression(pattern: "\\[%cal.*?\\]|\\[%csl.*?\\]", options: .dotMatchesLineSeparators)
         let output = regex.stringByReplacingMatches(in: comment, options: [], range: NSRange(location: 0, length: comment.utf16.count), withTemplate: "")
         
-        if output.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            return ""
-        } else {
-            return output
-        }
+        let trimmedString = output.replacingOccurrences(of: "\\s*\n\\s*", with: "\n", options: .regularExpression)
+        
+        return trimmedString.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     var currentMoveColor: PieceColor {
@@ -66,11 +64,6 @@ import ChessKitEngine
     }
 
     init(database: DataBase, settings: Settings) {
-        if settings.engineOn {
-            engine = Engine(type: .stockfish)
-        } else {
-            engine = nil
-        }
         self.database = database
         self.settings = settings
         self.userRating = settings.playerRating
@@ -79,21 +72,15 @@ import ChessKitEngine
         self.currentExploreNode = self.rootExploreNode
         super.init()
         
-        if let engine = engine {
-            engine.start(coreCount: 3)
-        }
-        engine?.loggingEnabled = true
         onAppear()
-        
-        self.engine?.receiveResponse = { response in
-            self.receiveEngineReponse(response: response)
-        }
     }
     
     func onAppear() {
         if settings.engineOn && engine == nil {
             self.engine = Engine(type: .stockfish)
-            self.engine!.start(coreCount: 3)
+            self.engine!.start(coreCount: 6)
+            
+//            engine!.loggingEnabled = true
             
             self.engine!.receiveResponse = { response in
                 self.receiveEngineReponse(response: response)
@@ -103,6 +90,7 @@ import ChessKitEngine
             engine.stop()
             self.engine = nil
         }
+        
         getEngineMoves()
         
         if database.gametrees.isEmpty {
@@ -319,7 +307,7 @@ import ChessKitEngine
         }
         engine.send(command: .stop)
         engine.send(command: .position(.fen(fen)))
-        engine.send(command: .go(depth: 18))
+        engine.send(command: .go(depth: 20))
     }
     
     func receiveEngineReponse(response: EngineResponse) {

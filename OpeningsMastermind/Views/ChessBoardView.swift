@@ -175,6 +175,6 @@ struct ChessboardView<ParentVM>: View where ParentVM: ParentChessBoardModelProto
 
 struct ChessboardViewOld_Previews: PreviewProvider {
     static var previews: some View {
-        ChessboardView(vm: PracticeViewModel(database: DataBase()), settings: Settings())
+        ChessboardView(vm: PracticeViewModel(database: DataBase(), settings: Settings()), settings: Settings())
     }
 }

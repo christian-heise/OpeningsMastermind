@@ -12,11 +12,13 @@ import ChessKit
     
     @Published var selectedGameTrees: Set<GameTree>
     let database: DataBase
+    let settings: Settings
     @Published var currentNodes: [GameNode]
     
-    init(database: DataBase) {
+    init(database: DataBase, settings: Settings) {
         self.currentNodes = []
         self.database = database
+        self.settings = settings
         self.selectedGameTrees = Set()
         super.init()
         
@@ -199,7 +201,7 @@ import ChessKit
         self.game.make(move: move)
         gameState = .practice
         Task {
-            await performComputerMove(in: 300)
+            await performComputerMove(in: Int(settings.moveDelay_ms))
         }
     }
     
@@ -275,9 +277,30 @@ import ChessKit
         // Candidate Moves
         var moveNodeCandidates = node.children
         
-        if moveNodeCandidates.contains(where: {$0.child.lastTryWasMistake}) {
-            moveNodeCandidates = moveNodeCandidates.filter({$0.child.lastTryWasMistake})
-            
+//        if moveNodeCandidates.contains(where: {$0.child.lastTryWasMistake}) {
+//            moveNodeCandidates = moveNodeCandidates.filter({$0.child.lastTryWasMistake})
+//
+//            // Probability based on Nodes Below
+//            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow).squareRoot()})
+//            let summedDepth = depthArray.reduce(0, +)
+//
+//            if summedDepth == 0 {
+//                probabilities = Array(repeating: 1 / Double(moveNodeCandidates.count), count: moveNodeCandidates.count)
+//            } else {
+//                probabilities = depthArray.map({$0 / Double(summedDepth)})
+//            }
+//        } else if moveNodeCandidates.contains(where: {$0.child.dueDate < Date()}) {
+//            moveNodeCandidates = moveNodeCandidates.filter({$0.child.dueDate < Date()})
+//            // Probability based on Nodes Below
+//            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow).squareRoot()})
+//            let summedDepth = depthArray.reduce(0, +)
+//
+//            if summedDepth == 0 {
+//                probabilities = Array(repeating: 1 / Double(moveNodeCandidates.count), count: moveNodeCandidates.count)
+//            } else {
+//                probabilities = depthArray.map({$0 / Double(summedDepth)})
+//            }
+//        } else {
             // Probability based on Nodes Below
             let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow).squareRoot()})
             let summedDepth = depthArray.reduce(0, +)
@@ -285,37 +308,18 @@ import ChessKit
             if summedDepth == 0 {
                 probabilities = Array(repeating: 1 / Double(moveNodeCandidates.count), count: moveNodeCandidates.count)
             } else {
-                probabilities = depthArray.map({$0 / Double(summedDepth)})
+                probabilities = depthArray.map({pow($0 / Double(summedDepth), 1.5)})
             }
-        } else if moveNodeCandidates.contains(where: {$0.child.dueDate < Date()}) {
-            moveNodeCandidates = moveNodeCandidates.filter({$0.child.dueDate < Date()})
-            // Probability based on Nodes Below
-            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow).squareRoot()})
-            let summedDepth = depthArray.reduce(0, +)
-
-            if summedDepth == 0 {
-                probabilities = Array(repeating: 1 / Double(moveNodeCandidates.count), count: moveNodeCandidates.count)
-            } else {
-                probabilities = depthArray.map({$0 / Double(summedDepth)})
-            }
-        } else {
-            // Probability based on Nodes Below
-            let depthArray: [Double] = moveNodeCandidates.map({Double($0.child.nodesBelow).squareRoot()})
-            let summedDepth = depthArray.reduce(0, +)
-
-            if summedDepth == 0 {
-                probabilities = Array(repeating: 1 / Double(moveNodeCandidates.count), count: moveNodeCandidates.count)
-            } else {
-                probabilities = depthArray.map({$0 / Double(summedDepth)})
-            }
+            print("Depth: \(probabilities)")
             if node.children.map({$0.child.mistakesRate}).reduce(0, +) != 0 {
                 // Probabilities based on Mistakes
                 let probabilitiesMistakes = node.children.map({$0.child.mistakesRate / node.children.map({$0.child.mistakesRate}).reduce(0, +)})
+                print("Mistakes: \(probabilitiesMistakes)")
                 // Combine probabilities
-                var probabilities = zip(probabilitiesMistakes,probabilities).map() {$0 * Double(probabilitiesMistakes.count) * $1}
+                probabilities = zip(probabilitiesMistakes,probabilities).map() {$0 * Double(probabilitiesMistakes.count) * $1}
                 probabilities = probabilities.map({$0 / probabilities.reduce(0,+)})
             }
-        }
+//        }
 
         probabilities = probabilities.map({$0 / probabilities.reduce(0,+)})
 
@@ -332,7 +336,7 @@ import ChessKit
                 let moveNode = node.children[i]
                 let generatedMove = moveNode.move
                 let newNode = moveNode.child
-                
+                print(probabilities[i])
                 return (generatedMove, newNode)
             }
         }

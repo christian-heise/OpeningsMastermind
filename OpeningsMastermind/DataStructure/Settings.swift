@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import ChessKitEngine
 
 class Settings: ObservableObject, Codable {
     @Published var boardColorRGB = BoardColorRGB()
@@ -15,6 +15,11 @@ class Settings: ObservableObject, Codable {
     @Published private (set) var chessComName: String?
     
     @Published var engineOn: Bool = true
+    
+    @Published var moveDelay_ms: Double = 200
+    @Published var moveAnimation: Bool = false
+    
+    var engineType: EngineType = .stockfish
     
     private (set) var playerRating: Int? = nil
     
@@ -32,6 +37,7 @@ class Settings: ObservableObject, Codable {
             self.chessComName = nil
         case .lichess:
             self.lichessName = nil
+            self.playerRating = nil
         }
     }
     
@@ -127,6 +133,9 @@ class Settings: ObservableObject, Codable {
             self.lichessName = settings.lichessName
             self.chessComName = settings.chessComName
             self.engineOn = settings.engineOn
+            self.engineType = settings.engineType
+            self.moveDelay_ms = settings.moveDelay_ms
+            self.moveAnimation = settings.moveAnimation
         } catch {
             print("Could not load settings")
             self.save()
@@ -146,6 +155,8 @@ class Settings: ObservableObject, Codable {
         self.lichessName = try container.decodeIfPresent(String.self, forKey: .lichessName)
         self.chessComName = try container.decodeIfPresent(String.self, forKey: .chessComName)
         self.engineOn = try container.decodeIfPresent(Bool.self, forKey: .engineOn) ?? true
+        self.moveDelay_ms = try container.decodeIfPresent(Double.self, forKey: .delay) ?? 300.0
+        self.moveAnimation = try container.decodeIfPresent(Bool.self, forKey: .animation) ?? false
     }
     
     func encode(to encoder: Encoder) throws {
@@ -156,10 +167,12 @@ class Settings: ObservableObject, Codable {
         try container.encode(lichessName, forKey: .lichessName)
         try container.encode(chessComName, forKey: .chessComName)
         try container.encode(engineOn, forKey: .engineOn)
+        try container.encode(moveDelay_ms, forKey: .delay)
+        try container.encode(moveAnimation, forKey: .animation)
     }
     
     enum CodingKeys: String, CodingKey {
-            case boardColorRGB, playerRating, lichessName, chessComName, engineOn
+            case boardColorRGB, playerRating, lichessName, chessComName, engineOn, delay, animation
     }
 }
 

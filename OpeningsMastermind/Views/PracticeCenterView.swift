@@ -20,7 +20,7 @@ struct PracticeCenterView: View {
     @State private var isShowingHelp = false
     
     init(database: DataBase, settings: Settings) {
-        self._vm_child = StateObject(wrappedValue: PracticeViewModel(database: database))
+        self._vm_child = StateObject(wrappedValue: PracticeViewModel(database: database, settings: settings))
         self._vm = StateObject(wrappedValue: PracticeCenterViewModel(database: database))
         self.database = database
         self.settings = settings

@@ -73,6 +73,7 @@ struct PrivacyView: View {
             }
             .padding(.horizontal)
             .navigationTitle("Privacy Policy")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
