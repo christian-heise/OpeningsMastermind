@@ -1,0 +1,500 @@
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.04"]
+[Round "9.14"]
+[White "Supi, Luis Paulo"]
+[Black "Rapport, Richard"]
+[Result "0-1"]
+[WhiteElo "2575"]
+[WhiteTitle "GM"]
+[WhiteFideId "2106388"]
+[BlackElo "2740"]
+[BlackTitle "GM"]
+[BlackFideId "738590"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "B41"]
+[Opening "Sicilian Defense: Kan Variation"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Supi, Luis Paulo - Rapport, Richard"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/uhrAGYe7"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 { Rapport, known for his wide and erratic range in his repertoire, chose the Kan variation } 5. a3 Nf6 6. Nc3 d6 7. Be3 Be7 8. Bc4 { An opening error, allows black tempo when he wants to get b5 } 8... O-O 9. Qe2 b5 10. Ba2 Qc7 11. g4?! { Supi tries to surprise Rapport, but the king is still in the center } (11. O-O-O Nc6 12. Nxc6 Qxc6 13. Bd4 Rb8 { Would have been the way to continue with complex equality for both sides }) 11... d5! { Rapport hits the center, where the king is, but has a hidden motive in this move } 12. exd5 Bxa3!! { The hidden motive behind d5! } 13. Nd1 (13. bxa3?? Qxc3+ 14. Kf1 Qxa1+ $19) 13... e5 14. Nf5 Bxf5 15. gxf5 Bb4+ 16. c3 Bd6 $17 { Black has the better setup, active pieces, better pawn structure, and a safer King! } 17. Bg5 Nbd7 18. Ne3 b4 19. Qc4 Qb8 20. Qh4 Kh8 21. Nc4 a5 22. O-O!? { White King looks for safety in a fort without doors, as the g2 pawn stays missing } 22... Bc5 23. Rad1 a4?! { Black lets the advantage slip } (23... b3 24. Bb1 a4 $15 { As the white squared bishop sits at home blocked by his own ugly pawns }) 24. cxb4 Qxb4 25. Bd2 Qb8 26. Bc3 Bb4?! 27. d6? (27. Bxe5! Nxe5 28. Nxe5 Qxe5 29. Qxb4 { Would have helped white restore balance in the game and hold on! }) 27... Bxc3 28. bxc3 a3 { Passed pawn must be pushed! } 29. Rfe1 Ra4 30. Qg3 Re8 31. Rb1 (31. Rxe5! Nxe5 (31... Rc8! { The right way to play for black } 32. Rd4 Rcxc4 33. Rxc4 Rxc4 34. Bxc4 Qb1+ 35. Kg2 a2 36. Bxa2 Qxa2 $15) 32. Nxe5 { Activates the bishop and the knight, forcing black to return the exchange } 32... Rxe5 33. Qxe5 $14) (31. Nxe5?? { Is not a free pawn } 31... Nxe5 32. Rxe5 Rg4 $19) 31... Qa8 32. Rb4 e4 33. Qe3 Rxb4 34. cxb4 Qd5 35. Qf4 h6 36. f3 e3! { The pawn is poisoned } 37. Rxe3 (37. Nxe3 Qxa2 $19) 37... Qd1+ 38. Kg2 Qc2+ 39. Kh3 Rxe3 40. Qxe3 Qxa2 41. Nxa3 Qd5 { Rapport with a beautiful display of his dynamic abilities, as he wins his fist game in the event! } 0-1
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.05"]
+[Round "10.12"]
+[White "Nepomniachtchi, Ian"]
+[Black "Ghosh, Diptayan"]
+[Result "0-1"]
+[WhiteElo "2732"]
+[WhiteTitle "GM"]
+[WhiteFideId "4168119"]
+[BlackElo "2573"]
+[BlackTitle "GM"]
+[BlackFideId "5045207"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "C88"]
+[Opening "Ruy Lopez: Closed, Anti-Marshall"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Nepomniachtchi, Ian - Ghosh, Diptayan"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/5S6eKtUc"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O { Diptayan rarely ever played the Marshall, and chose to surprise the 2 time World Championship challenger, Ian Nepomniachtchi } 8. a4 b4 9. d4 { Nepo decided to go for the anti Marsall setup, denying black the opportunity to play d5 } 9... d6 (9... Nxd4? 10. Bxf7+!! Kxf7 (10... Rxf7 11. Nxe5 Nc6 12. Nxf7 Kxf7 13. e5 $18 { White dominates the black pieces }) 11. Nxe5+ Kg8 12. Qxd4 $16) (9... exd4 10. e5 Ne8 11. Bd5 $16 { Ties down black }) 10. dxe5 Nxe5 11. Nbd2 a5 12. Nxe5 dxe5 13. Qe2 Bc5 14. Nf3 (14. Nc4 { The more natural plan for white } 14... Ng4 15. Ne3 Qh4 16. h3 Nf6 17. Nf5) 14... Qe7 15. h3? { Nepo gets too casual } (15. Be3 Ba6 16. Bc4 Bxe3 17. Bxa6 Bb6 18. Bc4 { Would have been a balanced game }) 15... Ba6! { Comes with brute force and a tactical resource for black } 16. Qd1? (16. Bc4 { The very natural move } 16... Bxf2+ 17. Kxf2 (17. Qxf2 { Would have been the most ideal way to play for white } 17... Bxc4 18. Bg5 h6 19. Bxf6 Qxf6 20. Qc5 Qb6 21. Qxb6 cxb6 22. Nxe5 Be6 $15) 17... Qc5+ 18. Be3 Qxc4 19. Qxc4 Bxc4 20. Nxe5 Nxe4+ $17 { Black is just a pawn up }) 16... Rad8 17. Nd2 Bd4 { Black is very comfortable, white's pieces are tied down } 18. Qf3 Bxb2! { A tactical shot, collecting a pawn } 19. Bxb2 Rxd2 20. Qe3 Rdd8 21. f4 { Whites only desperate attempt to create counterplay } 21... exf4 22. Qxf4 c5! { Diptayan spots the crucial moment and the essential move, to keep his position favourable and latch on to the advantage } 23. Bd5 (23. Bxf6 Qxf6 24. Qxf6 gxf6 $19 { With an extra pawn that will roll down the Queen side }) 23... Nxd5 24. exd5 Qd6! { It is time to force the Queens off the board } 25. Qg4 (25. Qxd6 Rxd6 26. Rad1 Bc4 $19) 25... Qg6 26. Qxg6 hxg6 27. Rad1 Rd7 28. d6 Rfd8 29. Be5 Bb7 { Changing the course towards the next weakness, the pawn on a4 } 30. Bg3 Bc6 31. Ra1 f6 32. Kf2 Kf7 33. h4 c4 34. Red1 Re8 35. Bf4 c3 36. g3 Re6 37. Rd4 g5 38. hxg5 fxg5 39. Bxg5 Rdxd6 40. Rc4 Rd5 41. Be3 Rde5 42. Rf1 Kg8 43. g4 Rxe3 44. Rxc6 Re2+ 45. Kf3 Rxc6 46. Kxe2 Rd6 { A very clean tecnhique and display from Diptayan that helped him get his biggest career victory and head on to Round 3 after eliminating the Russian powerhouse } 0-1
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.05"]
+[Round "10.24"]
+[White "Harikrishna, Pentala"]
+[Black "Nesterov, Arseniy"]
+[Result "1-0"]
+[WhiteElo "2690"]
+[WhiteTitle "GM"]
+[WhiteFideId "5007003"]
+[BlackElo "2595"]
+[BlackTitle "GM"]
+[BlackFideId "24198455"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "C43"]
+[Opening "Petrov's Defense: Modern Attack"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Harikrishna, Pentala - Nesterov, Arseniy"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/KjoW39vb"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. e4 e5 2. Nf3 Nf6 { Petroff...known for its calm tendencies and used as a reliable shield! } 3. d4 Nxe4 4. dxe5 Bc5 5. Qd5 { The intentions here are clear, Harikrishna is out for blood } 5... Bxf2+ (5... Nxf2 6. Qxc5 Nxh1 7. Bg5 $18) 6. Ke2 f5 7. Nc3 c6 8. Nxe4! { The idea Hari kept in his pocket for 9 years, before he could finally reveal it } 8... cxd5 9. Nd6+ Kf8 10. Kxf2 Nc6 11. Be3 d4 12. Bf4 Qb6 13. Bd3 { White now has the upper hand } 13... Ne7 14. Bd2 Nd5 15. Bxf5 Ne3 (15... d3+ 16. Kg3 $18 { Whites king is safe in the open, black king at home is in danger }) 16. Bd3 Ke7 17. Rhe1 Rf8 18. Rxe3!! { Sacrifice the roooook! Going for the king! } 18... dxe3+ 19. Bxe3 Rxf3+ (19... Qxb2 20. Bg5+ Ke6 (20... Rf6 21. Re1 $18 { Carnage }) 21. Bc4#) 20. Kxf3! Qxb2 21. Bg5+ Ke6 22. Re1 b5 23. Bf5+ Kd5 24. Be4+ Ke6 25. Bxa8 Qc3+ 26. Re3 Qxc2 27. Be4 Qd1+ 28. Kg3 Qh5 29. h4 { A perfect game by Harikrishna! Summoning his inner Tal! } 1-0
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.04"]
+[Round "9.27"]
+[White "Esipenko, Andrey"]
+[Black "Abasov, Nijat"]
+[Result "1-0"]
+[WhiteElo "2681"]
+[WhiteTitle "GM"]
+[WhiteFideId "24175439"]
+[BlackElo "2587"]
+[BlackTitle "GM"]
+[BlackFideId "13402960"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "C55"]
+[Opening "Italian Game: Two Knights Defense, Modern Bishop's Opening"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Esipenko, Andrey - Abasov, Nijat"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/rUWb8R74"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. d3 d5 { Abasov choses to play the more direct and forcing line } 5. exd5 Nxd5 6. O-O Be7 7. Re1 f6 8. Bd2 { Andrey Esipenko chooses a not so popular line, to put Abasov off guard and prep } (8. d4 { The most common choice in practice } 8... Nb6 9. Bb5 { And it goes on }) 8... Bg4 9. h3 Bh5 10. Nc3 Nxc3?! (10... Nb6 11. Bb3 Nd4 12. g4 Nxb3 13. axb3 Bg6 { An equal but complex position }) 11. Bxc3 Qd6? (11... Bf7 12. Bxf7+ Kxf7 13. Qe2 Re8 $14 { White enjoys more flexibility and comfort in the position }) 12. Rb1 (12. b4! { Starts the roll of the pawns! } 12... O-O-O 13. Rb1 f5 14. b5 Nd4 15. Bxd4 exd4 16. Re6 Qc5 17. Qe1 $18) 12... O-O-O? (12... a6 13. a4 Bf7 14. Bxf7+ Kxf7 $14) 13. b4 Bxf3 14. Qxf3 $18 Nd4 15. Bxd4 Qxd4 16. c3 Qd7 (16... Qxc3 17. Ba6! { Seals it! } 17... bxa6 18. Rec1 Qd4 19. Qa8+ Kd7 20. Qc6+ Kc8 21. Qxc7#) 17. d4 Bd6 18. Ba6!! { Andrey Esipenkoo spots it! } 18... c6 (18... bxa6 19. Qa8#) 19. b5 c5 20. b6 bxa6 21. bxa7 Qxa7 22. Qc6+ Bc7 23. Qe6+ Rd7 24. dxc5 Qxc5 25. Qxa6+ Kd8 26. Qa8+ { The forcing line chosen by Abasov did not work out well, Andrey Esipenko took the advantage and made sure to convert it to a full point! } 1-0
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.05"]
+[Round "10.20"]
+[White "Aravindh, Chithambaram VR."]
+[Black "Karthik Venkataraman"]
+[Result "0-1"]
+[WhiteElo "2713"]
+[WhiteTitle "GM"]
+[WhiteFideId "5072786"]
+[BlackElo "2576"]
+[BlackTitle "GM"]
+[BlackFideId "25006479"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "A07"]
+[Opening "King's Indian Attack"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Aravindh, Chithambaram VR. - Karthik Venkataraman"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/VhM3HyHo"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. Nf3 d5 2. g3 c6 3. Bg2 Bf5 4. O-O e6 5. d3 h6 6. c4 dxc4 7. dxc4 Qxd1 8. Rxd1 Nf6 9. Bf4 Nbd7 10. Nc3 g5 11. Be3 Ng4 12. Bd2 Bc2 { Deviating from the general course of games } (12... Bc5 13. Be1 Nge5 14. Nxe5 Nxe5 15. Ne4 { and the game goes on }) 13. Rdc1 Bg6 14. h4?! { A very ambitious move from Aravindh } 14... Nge5 (14... gxh4! 15. Nxh4 Bh7 16. Be4 f5 17. Bc2 O-O-O $15 { Black enjoys a superior position, with more active pieces }) 15. Nxe5 Nxe5 16. Ne4 Bxe4 17. Bxe4 f5 18. Bc2 Rg8 19. hxg5 hxg5 20. c5 Rd8 (20... Bxc5!? 21. Bb3 (21. Bxf5? Bxf2+ 22. Kxf2 exf5 23. Rc5 Ng4+ $15 { An extra pawn for black }) 21... Bd4 22. Bxe6 Rf8 23. Rd1 { White is prefered due to the 2 active bishops }) 21. Ba5 Rd7 22. Bb3 Rg6 23. Kg2 Bg7 24. Rh1 Ke7 25. f3 Nf7 26. Rab1 Bd4 27. Bb4 Be3 28. Rh7 { Both players are actively improving their own camp! } 28... Rh6 29. Rxh6 Nxh6 30. Rh1 Nf7 31. Bc2 Rd5 32. g4? { Panic sets in, as Aravindh is makes the first grave error } 32... Bd2! { Karthik spots it! } (32... Bxc5 33. e4 fxe4 34. fxe4 Bxb4 35. exd5 cxd5 { Would be interesting but not ideal as black }) 33. Ba3 (33. Bxd2? Rxd2 $19 { The activity of the rook decides the fate }) (33. e4 fxe4 34. fxe4 Rd4 35. Ba3 Bb4 36. Bxb4 Rxb4 37. b3 Rb5 $19 { The pawn on c5 is lost }) 33... fxg4 34. fxg4 Rd4 35. Kg3 Bf4+ (35... Ne5! { More decisive } 36. Rh7+ Kf8 37. Rxb7 Rxg4+ 38. Kf2 Rf4+ 39. Kg2 Be3 $19 { White king faces the wrath of the pieces surroundig them, as white pieces are wandering on the other end }) 36. Kf2 Be5 37. Bg6 Rxg4 $17 { An extra pawn } 38. Rh7 Rf4+ 39. Kg2 Kf8 40. b3 Rg4+ 41. Kf3 Rf4+ 42. Kg2 Rf6 43. Bd3 Bd4 44. b4 { Looking to get the dark squared bishop back into action } 44... a6 (44... Rf2+! 45. Kg3 Rf1 { Not allowing any counterplay for black } 46. Kg2 Rg1+ 47. Kh2 g4 $19) 45. Rh1 Ne5 46. Rh8+ Ke7 47. Rh7+ Rf7?! (47... Kf8 48. Rh8+ Kf7 49. Rh7+ Kg8 { Black must avoid the exchange of the rook } 50. Rxb7 Rf2+ $19) 48. Bc1 Nxd3? { White now gets his chance to bouce back } (48... Bc3 49. Bxg5+ Ke8 50. Rh8+ Kd7 $17 { Black still in the driver seat }) 49. Bxg5+ Ke8 (49... Bf6!? 50. Bxf6+ { Essential to play this first } (50. Rxf7+?? Kxf7 51. Bxf6 Kxf6 52. exd3 Ke5 53. Kf3 Kd4 54. Ke2 Kc3 $19 { The black King is faster and sweeps the white pawns on the Queen side }) 50... Kxf6 51. Rxf7+ Kxf7 52. exd3 Kf6 53. d4 e5 54. Kf3! exd4 55. Ke4) 50. Rxf7 Ne1+ 51. Kf1 Kxf7 52. Kxe1 Kg6 53. Bd2 Kf5 { White has a more active king, a better bishop, and safe pawns, but there are not enough weaknesses for white } 54. Kd1 Ke4 55. Kc2 Be3 56. Bc3?! (56. Be1 Bh6 57. Bf2 { Essential to hold on to the e3 square }) 56... Bf4 57. a3 Bg5 (57... Ke3? 58. Bd2+ Ke4 59. Bxf4 Kxf4 60. Kd3) 58. Bb2 Bh4 59. Bc3? Bf2 (59... Ke3! { The black king gets in } 60. Kd1 Be7 61. Bb2 a5 62. Bc3 axb4 63. axb4 Bh4 64. Ba1 Ke4 65. Kd2 (65. Kc2 Be1 66. Kb3 Ke3 $19) 65... Bf2 { Intending to force exchanges } 66. Bf6 e5 $19) 60. Bd2 Kd4 61. Kb3 Bg3 62. Bg5 e5 63. Kc2? (63. Bd8 Ke3 64. Ka4! e4 65. Ka5 { White heads towards the black pawns } 65... Kxe2 66. Kb6 Kd3 67. Bg5 Kc4 68. Kxb7 Kb5 69. Be3) 63... Kc4! $17 { The black king is positioned perfectly to take a step to either side } 64. Bd8 e4 65. Kb2 Bf4 66. Kc2 Bh6 67. Bc7 Bg5 { The white bishop is restricted to the diagonal to prevent black from pushing a5 } 68. Kb2 Kd4 { The direction of the king is decided } 69. Kc2 Ke3 70. Kd1 Bf6 71. Bh2 Bb2 72. Bg1+ Kf4 73. Kd2 Bxa3 74. Bh2+ Kf5 75. Kc3 Bc1 76. Bd6 Bg5 77. Kc4 Bf6 78. Bg3 Kg4 79. Bf2 Kf4 { The king forces its way in } 80. Bd4 Bh4 81. Kc3 Be1+ 82. Kc4 Bd2 83. Bf2 Be3 { The long way in } 84. Bh4 Kg4 85. Be1 Kh3 86. Kb3 Kg2 87. Kc2 Kf1 88. Kd1 Bd4 89. Bd2 Bf6 { A beautiful display by Karthik, manouvering the king and bishop masterfully to get the better of Aravindh, and head on to Round 3! } (89... e3) 0-1
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.05"]
+[Round "10.5"]
+[White "Stremavicius, Titas"]
+[Black "So, Wesley"]
+[Result "1-0"]
+[WhiteElo "2544"]
+[WhiteTitle "GM"]
+[WhiteFideId "12804444"]
+[BlackElo "2764"]
+[BlackTitle "GM"]
+[BlackFideId "5202213"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "D37"]
+[Opening "Queen's Gambit Declined: Three Knights Variation"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Stremavicius, Titas - So, Wesley"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/95AcAFYI"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. d4 d5 2. Nf3 Nf6 3. c4 e6 4. Nc3 Be7 5. cxd5 exd5 6. Bf4 c6 7. h3 { An interesting idea by Titas, making space for the bishop on h2, and also hinting at a possible g4! } 7... Qb6 8. Qc2 g6 9. e3 Bf5 10. Qc1 O-O 11. g4!? { Here it is! White waited for black to 0-0 } 11... Be4 12. Be2 Nbd7 13. O-O Bxf3 14. Bxf3 Qd8 15. Qc2 { The play for white is easier } 15... Ne8 16. e4 dxe4 17. Bxe4 Ndf6 18. Rad1 Nc7?! (18... Nxe4 { Getting rid of the bishop pair, would have been more ideal for So to do so } 19. Qxe4 Bg5 20. Bg3 Nf6 21. Qf3 Nd5 { The position completely neutralised }) 19. Bg2 Qd7 20. Qb3 (20. d5! { Would have given white dominant chances } 20... Nfxd5?? (20... cxd5 21. Qb3 { The black defenders can easily be targeted } 21... Rad8 22. Bxc7 Qxc7 23. g5 Nh5 24. Nxd5 $18 { With an extremely comfortable and active position for white }) (20... Ncxd5 21. g5 Nh5 22. Bxd5 Qc8! { A very tough find, albeit, a necessary one for black to stay alive } (22... Nxf4?? 23. Bxf7+! Rxf7 24. Rxd7 $18) (22... cxd5 23. Nxd5 Nxf4?? 24. Nf6+ Bxf6 25. Rxd7 $18) 23. Qe4 Nxf4 24. Qxf4 cxd5 25. Nxd5 $14) 21. Bxc7 Qxc7 22. Nxd5 $18) 20... Ncd5 21. Be5 Rfe8?! 22. g5! { White now finally decides, to commit to the push! } 22... Nxc3 (22... Nh5 23. Nxd5 cxd5 24. Qxd5 Qf5 25. h4 $18 { With an healthy extra pawn for white }) 23. gxf6 Nxd1 24. fxe7 Nxf2 25. Bf6 Rxe7 26. Bxe7 Qxe7 27. Rxf2 $18 { A position many would giveup as black, but not Wesley said, not So early! } 27... Rd8 28. d5 cxd5 29. Bxd5 Qg5+ 30. Bg2 Rd7 31. Qc3 Qe7 32. Rf1 b6 33. Re1 Qd8 34. Qe5 Rd1 35. Rxd1 Qxd1+ 36. Kh2 { White has a piece, for just 2 pawns, but the king is weak, and the black Queen eyes any potential perpetuals } 36... h5 37. a3 (37. Qb8+ Kg7 38. Qxa7?? { Is not the way white would want to grab the pawn } 38... Qd6+ 39. Kg1 Qd4+ 40. Kf1 Qd1+ 41. Kf2 Qd2+ { With perpetual checks to follow }) 37... h4 38. Qe8+ Kg7 39. Qe3 Kg8 40. Qf2 Qd8 41. Kg1 Qg5 42. Qd4 Qg3 43. Kf1 { White treads carefully, to get the king to safety, and avoid any incoming repetitions } 43... Kh7 44. Qc3 Qg5 45. Bc6 Qe7 46. Bf3 Qd6 47. Be2 Qf4+ 48. Ke1 f5 49. Kd1 { The King eading towards the Queen side, where the barricade of small pawns will help white shield his king } 49... Kh6 50. Qd2 Kg5 51. Bb5? { Allows the trade of Queens in a position where the black king is into the white camp } (51. Qxf4+?? { Fails } 51... Kxf4 52. Bd3 Kg3 53. Ke2 Kxh3 54. Kf3 Kh2 { And the 3 black pawns neutralise the effect of the extra white bishop }) (51. Qd8+ Kh6 52. Qd3 $18 { Preserving the queen would have been the right thing to do }) 51... Qxd2+ 52. Kxd2 Kf4 53. Be8 g5 54. Bd7 g4 55. hxg4 fxg4 56. Ke2 g3 57. Bc6 { Titas, playing whtie, wants to push hard, as he does not want to believe this has slipped away } 57... Ke5 58. Ke3 h3?? { Black breaks open his own fort } (58... Kd6 59. Bg2 Ke5 60. a4 a5 61. b3 Kd6 62. Kd4 Ke6 63. Bh3+ Kd6 { Black holds on with the pawn on h4 and g3, as black cannot reach them in time and defend his Queen side too }) 59. Bd7! h2 60. Bc6 $18 { The bishop now overpowers the 2 pawns } 60... Kd6 61. Bg2 Kc5 62. b3 a5 63. Kd3 b5 64. Bf3 Kd6 65. Kd4 Ke6 66. Be4 Kf6 67. Kd5 Kg5 68. Ke5 Kg4 69. Bg2 Kg5 70. a4?? (70. Ke4 Kg4 71. Ke3 Kf5 72. Kf3 a4 73. b4 Ke5 74. Ke3 Kf5 75. Bc6 Kg4 76. Ke2 Kf4 77. Kf1 $18 { The right technique! }) 70... b4 71. Ke4 Kg4 72. Ke3 { Wesley SO resigned in a completely drawn positions } 1-0
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.06"]
+[Round "11.4"]
+[White "Lodici, Lorenzo"]
+[Black "Niemann, Hans Moke"]
+[Result "1-0"]
+[WhiteElo "2572"]
+[WhiteTitle "GM"]
+[WhiteFideId "884189"]
+[BlackElo "2729"]
+[BlackTitle "GM"]
+[BlackFideId "2093596"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "C85"]
+[Opening "Ruy Lopez: Closed, Delayed Exchange"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Lodici, Lorenzo - Niemann, Hans Moke"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/G6oEI6BO"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Bxc6 { Opting for a not so common line, the delayed exchange variation in the Spanish } 6... dxc6 7. Re1 Nd7 8. c3 c5 9. d4 exd4 10. cxd4 O-O 11. Nc3 b5 { Hans being ambitious } (11... cxd4 { A simpler way to play this position } 12. Nxd4 Ne5 13. Bf4 Bf6 14. Nd5 c6 15. Nxf6+ Qxf6 16. Bg3) 12. a4 b4?! { This makes weaknesses for the black side } 13. Nd5 Bb7 14. Nxe7+ Qxe7 15. d5 Rfe8?! (15... f5! { Black hits the center, and this would give great chances for black } 16. e5 f4 { Hampering the bishops movement } 17. Qb3 c4! 18. Qxc4 Qc5 19. Qd4 (19. Qxc5 Nxc5 20. Bd2 a5 21. e6 Nd3 22. e7 Rfe8 23. Re4 Nxb2 $15) 19... Bxd5 20. Bd2 Qxd4 21. Nxd4 c5) 16. Bg5 Qd6 17. Qd2 $16 { White now has a dominant position } 17... a5 18. Bf4 Qb6 19. Rac1 { The pawns in the center overpower the Black bishop } 19... Rad8 20. Qc2 Ba6 21. Nd2 Rc8 22. b3 Qf6 23. Bg3 c6 24. d6! { The pawn finally takes a step ahead, when now Black has blocked the a8-h1 diagonal himself } 24... Rcd8 25. Nf3 Qg6 26. Nh4 Qe6 27. Nf5 { The knight reroutes itself into the Black territory } 27... c4 28. Nd4 Qf6 29. e5 Qg6 (29... Nxe5 30. Bxe5 Rxe5 31. Rxe5 Qxe5 32. Nxc6 { Forked! } 32... cxb3 33. Qxb3 Qg5 34. Rd1 Rd7 35. Qe3 Qxe3 36. fxe3 g6 37. Nxa5 $18 { White has 2 many passed pawns }) 30. Qxg6 hxg6 31. bxc4 c5 32. Nc6 Ra8 (32... Rc8 33. Ne7+ $18) 33. Nxa5 Bc8 34. Nb3 Rxa4 35. f4 { The pawns at the center of the board pin down the Black pieces } 35... Ra3 36. Rb1 Ba6 37. Bf2 Rc8 (37... Bxc4 38. Nxc5 Nxc5 39. Bxc5 $18 { Black is helpless as the b4 pawn falls too }) 38. Nxc5! { There was no saving the pawn } 38... Nxc5 39. Bxc5 Bxc4 (39... Rxc5 40. d7 { Unstoppable } 40... Rd3 41. Rbd1 Rxd7 42. Rxd7 $18) 40. Bxb4 Rd3 41. Rbd1 Rxd1 42. Rxd1 $18 { White is up 2 healthy pawns } 42... Be6 43. Ba5 (43. d7?? Rd8) 43... Bd7 44. Rb1 Kf8 45. Bc7 Ke8 46. Ra1 { White is a bit slow in his plans, the Black bishop making it tough for the white pawns to advance any further } 46... Be6 47. Kf2 Kd7 48. h3 Bd5 49. g4 Ra8 50. Ba5 (50. Rxa8 { Would have made life easier for White } 50... Bxa8 51. Ke3 Bg2 52. h4 Bh3 53. Kf3 Bf1 54. f5 { Too many pawns for Black to play against }) 50... Ke6 51. f5+ gxf5 52. gxf5+ Kd7 (52... Kxf5 53. d7 $18 { The pawn finally promotes }) (52... Kxe5 53. d7 $18 { Faces similar fate }) 53. Ke3 Rh8 54. Kd4 Bb7 55. Be1 f6 56. Bg3 (56. e6+! Kxd6 57. Rc1 { A move that finishes the game on the spot! } 57... Rd8 (57... Ke7 58. Rc7+ $18) (57... Bc6 58. Bg3+ Ke7 59. Rxc6 $18) 58. Bb4#) 56... fxe5+ 57. Kxe5 Re8+ 58. Kf4 Kxd6 59. Kg5+ Kc6 (59... Kd7 { Would have been better resistance } 60. Rd1+ Kc8 61. Rc1+ Kd8 62. Bc7+ Ke7 63. Be5 Rc8 64. Rd1 $16) (59... Ke7? 60. Ra7 $18) 60. Rc1+ Kb6 61. h4 Bc8 62. Bc7+ Kb7 63. Bd6 Kb6 64. Bc5+ Kb7 65. Bd4?! { White misses the trick } 65... Re4!? { A great practical choice from Hans } 66. Rxc8? (66. Bxg7? Bxf5 67. Kxf5 Rxh4 { Is known to be a draw }) (66. Bf2 Bd7 67. Rc5 $16 { Is good practical chances for white }) 66... Kxc8 { White has let the advantage slip away } 67. Bxg7 Kd7 68. h5 Ke7 { The Black king rushes to stop the pawns, aided by the rook } 69. h6 Kf7 70. Bf6 Kg8 71. Kg6 Rg4+ 72. Bg5 Rg1?? { g1, The only square along the g file the rook should not have touched } (72... Rg2 73. f6 Rf2 74. h7+ Kh8 75. f7 Rxf7 76. Kxf7 Kxh7) (72... Rg3 { Works as well for Black }) 73. f6 Rf1 74. Be3! { This is the reason why Rg1 fails, white now holds the g1 square } 74... Rf3 75. h7+ Kh8 76. f7 Rg3+ (76... Rxf7 77. Bd4+ (77. Kxf7?? Kxh7) 77... Rf6+ 78. Bxf6#) 77. Bg5 { 2 Lodici takes the lead and then goes on to eliminate Hans Niemann in the Round } 1-0
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.06"]
+[Round "11.7"]
+[White "Kourkoulos-Arditis, Stamatis"]
+[Black "Nihal Sarin"]
+[Result "1-0"]
+[WhiteElo "2585"]
+[WhiteTitle "GM"]
+[WhiteFideId "4221990"]
+[BlackElo "2704"]
+[BlackTitle "GM"]
+[BlackFideId "25092340"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "C50"]
+[Opening "Italian Game: Paris Defense"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Kourkoulos-Arditis, Stamatis - Nihal Sarin"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/oUgLaXiT"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. e4 e5 2. Nf3 Nc6 3. Bc4 d6 4. c3 f5?! { A very offbeat line by Nihal, opting to surprise his opponent early on in the tie-breaks } 5. d3 f4 { Black on a mission, to initiate the attack on the kingside and stop white pieces from heading there } 6. h4 Qf6 7. b4 { White heads to the queenside } 7... Nh6 8. Nbd2 Ng4 9. Bb2 Bd7 10. a4 Be7 11. Qe2 Nd8 12. d4! { It is now time to break open, White takes action } 12... Nf7 13. Bb3 O-O-O? { A very ambitious decision, to walk into the fire } (13... O-O 14. O-O-O Kh8 $14 { White stays better, but both kings are safer for the moment }) 14. b5! { Rolling the pawns towards the enemy king } 14... Kb8 15. a5 Bc8 16. b6 c6 17. a6! { The 2 pawns invincible, taking charge of opening the gates to the black king } 17... Rd7 (17... axb6? 18. a7+ Ka8 19. Nc4 b5 20. Nb6#) (17... bxa6 18. d5 c5 19. bxa7+ Kxa7 20. Bc4 $18) 18. d5 axb6 19. axb7 Bxb7 20. dxc6 (20. Ng5! { A move that would speed up the devastation } 20... Nxg5 (20... h5 21. dxc6 Bxc6 22. Bxf7 $18 { Wins a piece, and soon the game }) 21. Qxg4 $18 { And black will lose a piece }) 20... Bxc6 21. Qa6 Rc8 22. Bd5 Bxd5 23. exd5 Kc7 { Black tries to flee the king to the side where his pieces rest } 24. Nc4! Rb8 25. Qa7+ Rb7 26. Qa8 (26. Qa4! { Threatens instant checkmate } 26... Nd8 (26... Kd8 27. Qa8+ Kc7 28. Ra7 Rxa7 29. Qxa7+ Kc8 30. Nxb6+ Kd8 31. Qb8# { Would be game over }) 27. Na3 Kc8 28. Nb5 $18) 26... Rd8 27. Qa4 b5 28. Qa5+ Kd7 { The rook move to d8 has made space for the Black king } 29. Qa6 Ke8 30. Qxb7 bxc4 31. Qc6+? { White has let the massive advantage slip away } (31. Ra7 e4 32. Ng5 Nfe5 33. Nxe4 Nd3+ 34. Kd2 Qe5 35. Ng5 $18 { White is better, but the position remains very complicated }) 31... Kf8 32. Qxc4 Qg6 33. h5 Qf5 34. Nd2 Qc2 (34... Ng5! { Would turn the tide, and is now blacks turn to push } 35. Ra4 h6 36. Ba3 e4 37. Nxe4 f3 38. gxf3 Qxf3 $15 { Black with the safer king and the better pieces, now targets the fragile white king }) 35. Bc1 (35. Qb3 Qf5 36. c4 $14 { Would be the more ideal way to play for white }) 35... Nf6 36. f3 e4? { Black rushes again?! } (36... Qf5 37. Ne4 Nxh5 38. Ra7 Qg6 39. Qc7 Re8 40. O-O Ng5 $13 { Unclear, but a balanced position }) 37. Qb3 Qd3 38. c4 Qxb3 39. Nxb3 { White is now comfortably up material, as the queens are forced off the board } 39... Ne5 40. fxe4 Nxe4 41. O-O { After 40 moves, White finally finds a spot to rest his king away from the storm } 41... f3 42. gxf3 Ng3 43. Rf2 Nxh5 44. Nd4 Rc8 45. c5!? dxc5 (45... Rxc5 46. Ne6+ $18) 46. Ne6+ Kf7 47. Ra7 { Tying down the king and the bishop } 47... Nf6 48. Ng5+ { White can sense the final blow incoming } 48... Kf8 49. Re2 Ng6 50. d6 Bxd6 51. Ne6+ Kg8 52. Rxg7+ Kh8 53. Bb2 { All the White pieces are now in action, the king that ran away from the storm, finds himself back in another one } 53... Nf4 54. Bxf6 Nxe2+ 55. Kf2 h5 56. Rc7+ (56. Ng5 { Would lead to a quicker mate } 56... Bg3+ 57. Kxe2 Re8+ 58. Re7+ Kg8 59. Rxe8#) 56... Kg8 57. Rxc8+ Kf7 58. Kxe2 { 1-0 White wins. } 1-0
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.04"]
+[Round "9.7"]
+[White "Wei, Yi"]
+[Black "Piorun, Kacper"]
+[Result "1-0"]
+[WhiteElo "2753"]
+[WhiteTitle "GM"]
+[WhiteFideId "8603405"]
+[BlackElo "2557"]
+[BlackTitle "GM"]
+[BlackFideId "1130420"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "C53"]
+[Opening "Italian Game: Classical Variation, La Bourdonnais Variation"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Wei, Yi - Piorun, Kacper"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/oI0oTthn"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 d6 { Kacper chooses a relatively rare line in the Italian with the Black pieces } (4... Nf6 { The most mainstream response }) 5. d4 { Wei Yi reacts with a generic break in the center } 5... exd4 6. cxd4 Bb6 7. Nc3 { Wei Yi decides to delay the decision to castle } (7. O-O Bg4 { Heads into a tricky line } 8. Bb5 (8. d5 Bxf3 9. Qxf3 (9. gxf3 Ne5 10. Bb5+ c6 11. Be2 cxd5 12. f4 Nd7 $13) 9... Ne5 10. Qe2 Qh4 $15) 8... a6 9. Ba4 Ba7 10. d5 b5 11. dxc6 bxa4 $14) 7... Nf6 (7... Bg4 { Is lesser effective now } 8. Bb5 a6 (8... Bd7 { A sad retreat } 9. Be3 $16) 9. Ba4 Ba7 10. d5 b5 11. Nxb5 axb5 12. Bxb5 $18) 8. Be3 Nxe4?! { Black rushes too soon, with the king still in the center } (8... O-O 9. Bb3 { Getting away from the Nxe4 threat } 9... Bg4 10. Qd3 Nb4 11. Qc4 c5 12. O-O { Black is fine }) 9. Nxe4 d5 10. Bb3 dxe4 11. Ng5 { Black king is stuck in the center, as the White pieces target beside it } 11... Be6 (11... O-O? { Risks the king safety even more } 12. Qh5 h6 13. Nxf7 $18) (11... Qe7 12. Bxf7+ Kf8 13. Bb3 Nxd4 14. Bxd4 Qxg5 15. h4 Qe7 16. Rc1 $16 { White has the safer king and the active pieces }) 12. Nxe6 { Wei Yi loses the advantage, but holds the 2 strong bishops } (12. Bxe6 { The right capture } 12... fxe6 13. Nxe6 Qd5 14. Qg4 g6 15. O-O $18) 12... fxe6 13. O-O Bxd4? { Kacper ignores the king safety again } (13... Qf6 { Would help Black keep balance } 14. Qg4 Qf5 15. Bxe6 Qxg4 16. Bxg4 Nxd4) 14. Qh5+ g6 15. Qg4? { Not the right square for the queen } (15. Qb5! { Moves across the board hitting the b7 pawn } 15... O-O 16. Qxb7 Bxe3 17. fxe3 Qd6 18. Rfd1 Qc5 19. Bxe6+ Kh8 20. Qxc7 Qxe3+ 21. Kh1 Qb6 22. Qxb6 axb6 23. Bd5 Rac8 24. Bxe4 $16 { White has an extra pawn heading to the endgame }) 15... Qf6?? (15... Bxe3 { The right way to go about and ensure the Black king is safe } 16. fxe3 (16. Qxe6+ Qe7) 16... Qe7 17. Rad1 Rd8 18. Bxe6 Rxd1 19. Rxd1 Ne5 20. Qh3 Kf8 21. Qh6+ Ke8) 16. Bxe6 { The bishop on e6 makes sure the Black king does not reach safety now } 16... Ne5 (16... Bxe3 17. fxe3 Qe5 18. Rad1 $18 { The Black king gets sandwiched at home }) 17. Qxe4 Bxe3 (17... Qxe6 18. Bxd4 $18) 18. Bf7+!! { A brilliant intermezzo by Wei Yi, missed by Kacper Piorun, the 6 time Puzzle solving champion himself } 18... Kxf7 (18... Qxf7 19. Qxe5+ Qe7 20. Qxh8+ $18) 19. fxe3 { White now gets the queen! } 19... Rhe8 20. Qxb7 { The queen isn't running anywhere } 20... Qxf1+ 21. Rxf1+ Kg8 22. Qxc7 a5 23. a4 Rad8 24. Qxa5 Nc4 25. Qc3 Nd2 26. Rd1 { A brilliant start to the event for Wei Yi, with a game to showcase his strength in calculation and class! } 1-0
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.07"]
+[Round "20.2"]
+[White "Erigaisi Arjun"]
+[Black "Vokhidov, Shamsiddin"]
+[Result "1-0"]
+[WhiteElo "2769"]
+[WhiteTitle "GM"]
+[WhiteFideId "35009192"]
+[BlackElo "2640"]
+[BlackTitle "GM"]
+[BlackFideId "14204223"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "D41"]
+[Opening "Queen's Gambit Declined: Semi-Tarrasch Defense"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Erigaisi Arjun - Vokhidov, Shamsiddin"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/k08PhJhw"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c5 5. cxd5 cxd4 { Vokhidov opts for the Semi-Tarrasch, known for its drawing tendencies } 6. Qa4+ Bd7 7. Qxd4 exd5 8. Nxd5 Qa5+ 9. Nc3 Nc6 10. Qd1 Ne4 { Black is well prepared, Arjun had played the same line as White against Wei Yi, at the Norway chess } 11. Bd2 Nxd2 12. Nxd2 (12. Qxd2 O-O-O 13. Qc1 Bf5 14. a3 g5 $13 { Leads to a complex position with good compensation for the pawn for black }) 12... Bb4 13. Rc1 Bxc3 14. Rxc3 Qxa2 15. Nc4 Be6 16. e4 Rd8 17. Nd6+ Kf8 { Vokhidov heads the right way! } (17... Ke7? { The mistake Wei Yi had made at Norway chess } 18. Qc1! Rxd6 (18... Qa4 19. Nxb7 Rc8 (19... Qxe4+ 20. Be2 Qxg2 21. Bf3 $18) 20. Qg5+ { The reason why Ke7 is a mistake } 20... Kf8 21. Nc5 $18 Qa1+ 22. Qc1 Qxc1+ 23. Rxc1 $18) 19. Ra3 $18 { traps the Queen }) 18. Qd2 { Arjun, all ready to outprep his opponents prep } (18. Qc1 { Is the more usual way of playing } 18... Qa4 19. Nxb7 Qxe4+ 20. Qe3 Qxe3+ 21. fxe3) 18... Qa4 (18... Qa1+ 19. Rc1 Qa4 20. Bb5 Qd4) 19. f4!? { White heads on to roll on his pawns in the center, as black pieces remain uncoordinated } 19... Qb4 20. e5 f6? (20... g5! { Hits right in the center } 21. Bb5 Ne7! 22. fxg5 Ng6 23. Rd3 Qxd2+ 24. Rxd2 Nxe5) 21. Bd3 (21. Bb5! { Was the better choice } 21... Ne7 22. Bd3 $16) 21... fxe5 (21... Ke7 22. O-O Rhf8 $14 { Is a very computer way to play }) 22. fxe5 Nxe5 23. O-O+ Kg8 (23... Ke7 24. Nf5+ Bxf5 (24... Kd7 25. Bb5#) 25. Rc7+ $18 { Drops the Black queen }) 24. Bf5! Bf7 (24... Bb3 25. Qe3 Qxd6 26. Rxb3 $18) 25. Rc8! Qb6+ (25... Qxd2 { A queen sacrifice } 26. Rxd8+ Be8 27. Rxe8# { Gets the king }) (25... Qxd6 26. Qxd6 $18) 26. Rf2 (26. Kh1 { Would work as well } 26... g6 27. Rxd8+ Qxd8 28. Qd4 Nc6 (28... Qe7 29. Re1 Nc6 30. Rxe7 Nxd4 31. Nxf7 Nxf5 32. Rxb7 $18 { The rook on h8 is trapped }) 29. Qxh8+! Kxh8 30. Nxf7+ Kg7 31. Nxd8 $18 { A rook up! }) 26... Rxc8 27. Bxc8 h5 28. Nxf7 { The final blow! } 28... Nxf7 29. Qd5 Kh7 (29... Qc7 30. Be6 $18) 30. Qxf7 { 1-0 White wins. } 1-0
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.07"]
+[Round "20.24"]
+[White "Harikrishna, Pentala"]
+[Black "Dardha, Daniel"]
+[Result "1-0"]
+[WhiteElo "2690"]
+[WhiteTitle "GM"]
+[WhiteFideId "5007003"]
+[BlackElo "2598"]
+[BlackTitle "GM"]
+[BlackFideId "240990"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "B66"]
+[Opening "Sicilian Defense: Richter-Rauzer Variation, Neo-Modern Variation, Early Deviations"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Harikrishna, Pentala - Dardha, Daniel"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/aejsDu7X"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 Nc6 6. Bg5 e6 { Black opts for classical variation } 7. Qd2 a6 8. Nxc6 bxc6 9. O-O-O { A line that has been trending in the recent times } 9... Be7 (9... d5 { The immediate push in the center makes play tough for Black } 10. Qe3 Be7 11. Bxf6 gxf6 (11... Bxf6? 12. exd5 cxd5 13. Nxd5 $18) 12. Bc4 Bb7 13. Bb3 $14) 10. Bxf6 { Forces black to take with the g pawn } 10... gxf6 (10... Bxf6? 11. Qxd6 $16) 11. Bc4 Bb7 12. Rhe1 Qa5 13. Kb1 { White has his camp ready, and king tucked into safety } 13... Qc5? { The queen does not belong there } (13... h5!? { A very generic plan of the classical, avoiding Qh6 for white, and intending to push further } 14. h4 Rd8 15. Bb3 d5) 14. Bb3 d5 15. Na4 $16 { strikes at the misplaced queen } 15... Qa7 (15... Qb4 16. c3 Qa5 17. Qe3 $16 { A flurry of threats }) 16. c4 { Harikrishna decides to strike at the center where the Black king rests } 16... Rd8? 17. cxd5 cxd5 18. Nc3! { The white knight retreats as it's job is done, and opens space for the bishop on a4 } 18... dxe4 (18... h5 19. exd5 Kf8 20. Qe2 e5 21. f4 $18 { Only helps black prolong the inevitable }) 19. Ba4+ Kf8 20. Qh6+ { Hunting the Black king } 20... Kg8 21. Rxd8+ Bxd8 22. Re3 { All the pieces in action } 22... Bc7 23. Nxe4 Bxe4+ 24. Rxe4 f5 25. Rxe6 { A fancy finish to an exceptional game from Harikrishna } 1-0
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.07"]
+[Round "21.1"]
+[White "Gukesh D"]
+[Black "Svane, Frederik"]
+[Result "0-1"]
+[WhiteElo "2763"]
+[WhiteTitle "GM"]
+[WhiteFideId "46616543"]
+[BlackElo "2640"]
+[BlackTitle "GM"]
+[BlackFideId "12923044"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "C50"]
+[Opening "Italian Game: Giuoco Pianissimo, Normal"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Gukesh D - Svane, Frederik"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/FcrBSisd"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. d3 { The World Champion opted to play the Italian } 4... Bc5 5. O-O d6 6. c3 a5 { Frederik playing a very mainstream idea, and both locked in and ready for a long game } 7. Re1 O-O 8. h3 h6 9. Nbd2 Bb6 10. a4 Bd7 { A rare move chosen by Frederik } (10... Ne7 11. Nf1 Ng6 12. Ng3 c6 13. Bb3 d5 { A common idea used by Black in the setups against the Italian }) 11. b3 Be6!? { Defying the usual opening principles, of not moving the same piece twice } 12. Bb2 { Gukesh thus defends the c3 pawn, anticipating d5 } (12. Nf1 { played in games before } 12... d5 13. exd5 Nxd5 14. Bd2 (14. Nxe5? { Does not work } 14... Nxc3 15. Qc2 Nxe5 16. Rxe5 Bxc4 17. bxc4 Bd4 18. Re1 Ne2+ 19. Qxe2 Bxa1 $19) 14... Qf6 { fizzles out into relatively dry equality }) 12... Kh8 (12... d5? 13. exd5 Nxd5 14. Nxe5 Nxe5 15. Rxe5 $16 { The c3 pawn is now defended }) 13. Ra2 Nh5 14. Nf1 (14. Nxe5?? { Black generally has to keep an eye out for a discover attack like this } 14... Qh4 { Helps Black get the decisive advantage } (14... dxe5? 15. Qxh5 $14) 15. d4 Nxe5 16. dxe5 Qxf2+ 17. Kh2 Qf4+ 18. Kh1 Ng3+ 19. Kh2 Nf1+ 20. Kh1 Qh2#) 14... Nf4 15. Bc1 Qf6 16. Ng3 g5!? { Frederik realises it is now time to pose threats for the White king } 17. Nh2 Qg6 { Keeping all the pawn breaks on radar } 18. Be3 d5 { The time is right to breakthrough } 19. exd5 Bxd5 20. Bxb6 cxb6 21. Nf3 Rad8 { The position remains equal, but very dynamic } 22. Rd2 Bxc4 23. dxc4 f6 24. Ne4 Rxd2 25. Qxd2 Rd8 26. Qe3 f5 27. Ng3 Nd3 28. Rd1 (28. Re2 { An essential move, to keep the balance in the position } 28... f4 29. Qe4 Kh7 30. Qxg6+ Kxg6 31. Ne4 Nc1 32. Rb2 Rd1+ 33. Kh2 Nd3 34. Rd2 { As the dust settles, both sides head into an equal endgame }) 28... f4 29. Qe4 Kh7 30. Qxg6+ Kxg6 31. Ne4 Kf5 $15 { White now has to be more precise, Black, has more freedom } 32. Nfd2 (32. g4+!? { An alternative } 32... fxg3 33. Nxg3+ Ke6 34. Kf1 Nc5 35. Rxd8 Nxd8 36. Nd2 $15) 32... Nc5 (32... h5! { Black should expand towards the White king } 33. f3 Nc5 34. Re1 g4 $15) 33. Re1 (33. g4+! { An essential move } 33... Ke6 34. Rb1 Rd3 35. Kf1 Ke7 36. Nxc5 bxc5 37. Ne4 Nd8 38. Ke2 Rxh3 39. Rd1 Nf7 40. Nxc5 { White holds on }) 33... Nd3 (33... h5 $15 { Important for black to keep expanding }) 34. Rb1 { Gukesh realises he has the chance to equalise } (34. Rd1 h5 $15 { Black would not want to repeat again }) 34... h5 35. Kf1 Nc5 36. f3 Rd3 37. Kf2 g4 { Time to make the break! } 38. hxg4+ hxg4 39. Re1? (39. Rh1! { Gukesh misses his chance to create his own counterplay } 39... g3+ 40. Ke2 Re3+ 41. Kd1 Nxe4 42. Nxe4) 39... g3+ 40. Ke2 Re3+ 41. Kd1 Rxe1+ $17 42. Kxe1 { With the rooks off the board, the Black knights are ready to wreak havoc on the loose enemy pawns } 42... Ke6 43. Kd1 Ne7! { Black sees his chances, as he heads towards the hole on the e3 square } 44. Ke2 Nf5 45. Ng5+ Ke7 46. Nge4 Ke6 47. Ng5+ Kf6 { Frederik knows, he is close, and says no to the repetition } 48. Nge4+ Ke7 49. Nxc5 bxc5 $19 { Black is now practically a pawn up, as white has a double pawn, with no effective break } 50. Ne4 (50. Nf1 { An attempt to stop Ne3 and defend g2 goes in vain } 50... Nh4 $19) 50... b6 51. Kd3 Nh4 { The pawn is now lost } 52. b4 Nxg2 53. bxc5 bxc5 54. Nxc5 Ne3 55. Ke2 Nxc4 { Black pawns are strongly marching down the board, as white pawns will fall 1 by 1. Amazing display of technique by Frederik in the Knight endgame, as he knocks the World Champion, out of the World Cup in round 3 } 0-1
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.08"]
+[Round "21.4"]
+[White "Donchenko, Alexander"]
+[Black "Giri, Anish"]
+[Result "1-0"]
+[WhiteElo "2641"]
+[WhiteTitle "GM"]
+[WhiteFideId "24603295"]
+[BlackElo "2769"]
+[BlackTitle "GM"]
+[BlackFideId "24116068"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "E47"]
+[Opening "Nimzo-Indian Defense: Normal Variation"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Donchenko, Alexander - Giri, Anish"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/PFBha4jm"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. d4 Nf6 2. c4 e6 3. Nc3 Bb4 { The Nizmo, a top choice of many, was chosen by Anish, who has already qualified himself for the Candidates event, through the Grand Swiss } 4. e3 O-O 5. Bd3 Re8 6. Ne2 { A very subtle line chosen by Alexander Donchenko } 6... d5 7. O-O Bf8 8. e4!? { Breaking open the center quick! } 8... dxe4 9. Nxe4 Nxe4 10. Bxe4 Nd7 (10... e5!? { Black could opt to open up the game too! } 11. dxe5 Qxd1 12. Rxd1 Rxe5 13. Nc3 Re8 14. Bf4 { White enjoys better developed and more active pieces }) 11. Qc2 f5!? { A bold move from Anish, a committal move! } (11... Nf6 12. Bf3 e5 13. dxe5 Ng4! 14. Be4 g6 15. Bf4 Nxe5 { Black can soon release his pieces }) 12. Bf3 c6 13. g3 e5 { Anish picks the right time to push the pawn! } 14. Bg2 (14. Qxf5? exd4 { Opening the e5 square for the knight in order to attack the misplaced White queen } 15. Nxd4 (15. Bg5 Qb6 16. Rfd1 Ne5 17. Qe4 d3 $19) 15... Ne5 16. Qf4 Qxd4 17. Qxd4 Nxf3+ 18. Kg2 Nxd4 $19) 14... exd4?! { rushed too soon } (14... e4 { Would have been more ideal, keeping the center locked } 15. f3 exf3 16. Bxf3 Nf6 17. Bf4 Be6 18. Rad1 Qd7) 15. Nxd4 Ne5 16. Rd1 Qf6 17. c5! { White now is ready to mobilise his pieces to the right square, but first ensures, that the Black pieces are locked } 17... a5 18. b3 Qf7? { Anish finds it tough to make a choice with less space to play } (18... Nd7 { Hitting at the c5 pawn! } 19. Bb2 Qg6 20. Ba3 f4 { Essential for Black to get the queens off the board } 21. Qxg6 hxg6 22. Re1 (22. Rac1 fxg3 23. hxg3 Ne5) 22... Rxe1+ 23. Rxe1 fxg3 24. hxg3 Bxc5 { Begins a forced sequence of moves for Black } 25. Bxc5 Nxc5 26. Re8+ Kf7 27. Rh8 Ke7 28. Bh3 Nd7) 19. h3 h6 20. Re1! $14 { Donchenko now senses the need to freeze Black pieces even more } 20... Bd7 (20... Nd7 21. Ba3 $16 { Is now a better version for White }) 21. f4 Ng6 22. Be3 { In a position where White enjoys space, Alexander wants more pieces on the board } 22... Re7 23. Bf2 Rae8 { Anish Giri finally gets his final rook where it is wanted, but is late } 24. Rxe7 (24. Red1 { White should keep his pieces alive, and now Black has no life in his pieces } 24... Nh8 25. Rd2 g5 { Desperate ways to untangle the pieces } 26. Bf1 Qf6 27. Rad1 Nf7 28. Bd3 $18) 24... Nxe7 { The ugly knight on g6 heads out in search of a new life at d5 } 25. Re1 Nd5 26. Rxe8 Qxe8 27. Nxf5 $14 { White is now a pawn up, but Black pieces are finally able to breathe! } 27... Nb4 (27... Qg6?? { This pin backfires } 28. Bxd5+ cxd5 29. Ne7+ { Drops the Black queen } 29... Bxe7 30. Qxg6 $18) 28. Qb1 Qh5? { Not the right square } (28... Qe6 { The right way for Black to hit the knight, holding d6 square too } 29. Nh4 g5!? 30. fxg5 hxg5 31. Nf3 g4 32. hxg4 Qxg4 33. Ne5 Qf5 $14 { With good chances to hold for Black }) 29. Nd6 { The knight is again pressing the Black bishops } 29... Bxh3 30. Bxh3 Qxh3 31. Qg6 $18 { The greed to get back the lost pawn for Black does not end well, as the Black king suffers } 31... Qd7 32. f5? { The f5 square was supposed to be for the White knight } (32. Kh2 { Away from all threats } 32... Qe7 (32... Nd5 33. Nf5 Kh8 34. Bd4 $18) 33. Nf5 Qe2 34. Nxh6+ Kh8 35. Ng4 $18) 32... Nd5 33. Bd4 Qe7 $14 { Black has managed to stop the vicious f6 threat, and all of white pieces are now frozen } 34. Kf1 b5 35. a4 bxa4 36. bxa4 { The queen side is now fixed } 36... Qd7?? (36... Ne3+! { The only move for black to maintain balance } 37. Bxe3 (37. Kf2 Nc2 38. Bc3 Qe3+ 39. Kg2 Qxc3 40. Qe6+ Kh7 41. Qg6+ Kg8 42. Qe6+) 37... Qxe3 38. Qe6+ Qxe6 39. fxe6 g6) 37. f6 { White waited for this for 5 moves } 37... Nxf6 38. Bxf6 Qe6 (38... Qh3+ 39. Kg1 $18 { No more checks }) 39. Ne4 Qc4+ 40. Kg2 Qe2+ 41. Kh3 { The king on its way to run for safety } 41... Qf1+ 42. Kg4 Qd1+ 43. Kf5 Qd7+ 44. Kf4 { Finally a safe spot, close to the center of the board } 44... Qe6 (44... Qc7+ 45. Be5 $18 { Saves the bishop and the king }) 45. g4 Qc4 46. Bc3 Qf1+ 47. Ke5 { Alexander wins king of the hill too! A whole extra piece for White, Alexander knocks out Anish out in round 3 } 1-0
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.08"]
+[Round "21.8"]
+[White "Martinez Alcantara, Jose Eduardo"]
+[Black "Abdusattorov, Nodirbek"]
+[Result "1-0"]
+[WhiteElo "2644"]
+[WhiteTitle "GM"]
+[WhiteFideId "3805662"]
+[BlackElo "2750"]
+[BlackTitle "GM"]
+[BlackFideId "14204118"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "B22"]
+[Opening "Sicilian Defense: Alapin Variation"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Martinez Alcantara, Jose Eduardo - Abdusattorov, Nodirbek"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/BgJnteeq"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. e4 c5 2. c3 { Jose Martinez chooses the Alapin, a safe line when he has the lead } 2... Nf6 3. e5 Nd5 4. d4 e6 5. Nf3 cxd4 6. cxd4 b6 { Abdusattarov goes for a lesser played move, as he finds himself in a must win game } 7. Bd2 Bb7 8. Nc3 Nxc3 9. Bxc3 Na6 10. a3 { Both players already found themselves in unkown waters, but the play being more easier for White } 10... Nc7 11. Bd3 Be7 (11... f5!? { Black forces disruption of the center pawns } 12. exf6 (12. O-O Be7 $15 { With a blunt pair of bishops, White finds it tough to make a good plan } 13. Qe2) 12... gxf6 (12... Qxf6?! 13. d5 Qh6 14. dxe6 Qxe6+ 15. Qe2 $14 { White has 2 very powerful bishops }) 13. O-O Qe7 14. Re1 Qg7 { Complicates matters enough for both sides to have their chances }) 12. Qe2 O-O 13. h4!? { White decides to head towards the Black king! } 13... h6?! { A panic move } (13... f5!? { Black must hit the center } 14. exf6 Rxf6 15. Ne5 d6 16. Nf3 h6 { With open play }) 14. Bd2 { The dark square bishop heads back to where the action is } 14... f5 15. exf6 Bxf6 16. Rh3 { White pieces are now all working in tandem to head to the Black king } (16. Rc1 Ne8 17. O-O Nd6 18. Bb4 $14 { Would be suffient for White to hold an small edge }) 16... d6? (16... Bxf3 { Black should act quick } 17. Qxf3 (17. gxf3 Bxd4 18. Bxh6 Qf6 (18... gxh6 19. Qe4 Bg7 20. Qh7+ Kf7 21. Qg6+ Kg8 22. Qh7+ { Would be enough for Jose Martines to go into the next round }) 19. Bg5 Qe5 20. Qxe5 Bxe5) (17. Rxf3? Bxd4 18. O-O-O Rxf3 19. Qxf3 Qxh4 $17) 17... Bg5 18. Qxf8+! { White sacrifices the queen! } 18... Qxf8 19. hxg5 h5 { The only move for Black to keep balance } (19... hxg5?? 20. Bh7+ Kh8 (20... Kf7 21. Rf3+ Ke8 22. Rxf8+ $18) 21. Bxg5 Nd5 22. Bg6+ Kg8 23. Ke2 $18 { The battery of rooks will be unstoppable }) 20. Rxh5 Nd5 21. Rh4 $14) 17. Rc1 (17. O-O-O Qd7 18. Rg3 Kh8 19. Kb1 $18 { White has tucked away his king and now will target the Black king }) 17... Qd7 18. Bb1 { Jose opts for the more straightforward plan } (18. Ng5! e5 (18... hxg5? 19. hxg5 Bxg2 20. Rh8+!! { Sacrifice the roooook! } 20... Kf7 (20... Kxh8 21. Qh5+ Kg8 22. Bh7+ Kh8 23. Bg6+ Kg8 24. Qh7#) 21. Qh5+ Ke7 22. gxf6+ Rxf6 23. Qg5 $18) (18... Bxg2 19. Rg3 Bd5 20. Qg4 { Threatens Nh7 } 20... Bd8 21. Nh3 Rf6 22. Nf4 $18 { Too many threats for white against the fragile pawns on the king side }) 19. Be4 d5 20. Bh7+ Kh8 21. Qh5 $16 { Whites attack proves too strong for Black }) 18... Nd5? { Allows White to continue with his plan without any resistance } (18... e5! { The time is now to strike for Black } 19. dxe5 dxe5 { Black has managed to create chaos, and find balance }) 19. Qd3 Kf7 { The king on the run to desperately find a safe square } 20. Rg3? (20. g4! Ke7? (20... Ke8 21. g5 hxg5 22. hxg5 Be7 23. Nh4 $18 { White pieces work well in sync, while Black struggles to finds himself misplaced all over the board }) 21. g5 { traps the bishop }) 20... Ke8 { White king is now safe in the center } 21. Kf1 Kd8 22. Re1 Kc7 23. Qe2 Rae8 { Black has bounced back, the king stays safer and the pieces are coordinated too } 24. Bd3 Bc6 25. Kg1 Kb8 26. Bg6 Re7 27. Be4 { Black finds it tough to create an active plan } 27... Bb7 28. Qd3 Rc8 29. Qb3 { White just moves across the board, improving the pieces } 29... Qd8 30. a4 a6 31. Bd3 Ka7 32. Rg4 Qd7 33. Ne5!? { White spots his chance! } 33... Qd8 (33... dxe5 34. dxe5 Bxe5 35. Rxe5 Qd6 36. Re1 { White is preferred due to healthy bishops }) 34. Nc4 g5 35. hxg5 Bxg5 (35... hxg5 { The ideal way to play on } 36. Be4 (36. Rxg5? { Does not work now } 36... Bxd4 $19) 36... Qc7 37. Rc1 Qd7) 36. Rxg5 hxg5 37. Bxg5 { Pawn up and sets up a pin } 37... Qc7 38. Bxe7 Qxe7 39. Be4 Qc7 40. Nd2 { The position remains balanced, but White enjoys an extra pawn } 40... Qg7 41. Nc4 Qc7 42. Nd2 Rh8?! { A desperate attempt from Abdusattarov } 43. Qg3 Qf7 { Eyeing the White king } 44. Nc4 (44. a5 { Would have been better } 44... bxa5 (44... Qh5 45. axb6+ Nxb6 46. f4 $18) 45. Nc4 Qh5 46. f4 { Making an escape route for the king } 46... Qf7 47. Nxd6 Qf6 48. Qf2 $14) 44... Nf4 45. Nxd6 Qf6 (45... Qf8 46. Bxb7 { Begins a sequence of few only moves for both sides to hold on to equality } (46. Nxb7 Qh6 { Would transpose to the game }) 46... Qh6! 47. f3 Nd3 48. Kf1 Qd2 49. Nc8+ Kxb7 50. Qg7+ Kb8 51. Qa7+ Kxc8 52. Qxa6+ Kc7 53. Qa7+ Kc8 54. Qa6+) 46. Nxb7 (46. a5 { White could try on } 46... bxa5 47. Qb3 Bxe4 48. Rxe4 Rh7 49. Nc8+ Ka8 50. Qf3 Nh3+ 51. Kf1 Qxf3 52. gxf3) 46... Qh6 47. f3 Qf6 48. Re3! (48. Rd1?? Ne2+ $19 { Has to be aware of the small tricks }) 48... Rf8?? { The final error by Abdusattarov } (48... Qxd4 49. Qxf4 Qd1+ 50. Kf2 Qd2+ 51. Kg1 (51. Kg3?? Rg8+ 52. Kh4 Qxg2 $19 { The king is in trouble }) 51... Qd1+ { The game ends in a draw }) 49. Nd6 Qxd4 50. Kf1! { Spots it! } 50... Kb8 (50... Qxe3 51. Qg7+ Kb8 52. Qb7#) (50... Qxd6 51. Qg7+ Kb8 52. Qb7#) 51. Nf5 Qe5 (51... Rxf5 52. Rd3 { Using the pin } 52... Qxb2 53. Bxf5 $18) 52. Qg7 { Jose Martinez won a rollercoaster of a game, and won the Round against Abdusattarov with a comprehensive, 2-0 victory! } 1-0
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.08"]
+[Round "21.18"]
+[White "Wojtaszek, Radoslaw"]
+[Black "Fedoseev, Vladimir"]
+[Result "1-0"]
+[WhiteElo "2660"]
+[WhiteTitle "GM"]
+[WhiteFideId "1118358"]
+[BlackElo "2717"]
+[BlackTitle "GM"]
+[BlackFideId "24130737"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "A40"]
+[Opening "English Defense"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Wojtaszek, Radoslaw - Fedoseev, Vladimir"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/37niZ0fN"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. d4 e6 2. c4 b6 3. e4 Bb7 4. Bd3 f5?! { A must win game with Black for Fedoseev, and he shows desperation early on } 5. exf5 (5. Nc3 { The simple Nc3, comes with its fair share of challenges } 5... Bb4 6. Ne2 fxe4 7. Bc2 Nf6 8. O-O O-O $13) 5... Bxg2 6. Qh5+ { Radoslow Wojtasek accepts the challenge! } 6... g6 7. fxg6 Bg7 (7... Nf6?? 8. g7+! Nxh5 9. gxh8=Q $18 { Replaces the lost queen and White is winning }) 8. gxh7+ { Blacks whole king side is set ablaze, but White has a rook that is stuck at home } 8... Kf8 9. Bg5 (9. hxg8=Q+? { Loses White all his advantage } 9... Kxg8 10. Qg4 Bxh1 11. Bg5 Qe8 12. h4 $13 { Complex equality }) 9... Nf6 10. Qh4 Bxh1 { Black is up a rook for just 2 pawns, but the Black king is not safe yet } 11. Ne2 Nc6 12. Nbc3? { Radoslaw makes his first big error of the game } (12. Nd2 { Essential to hold the f3 square to trap the h1 bishop in } 12... e5 13. f3 Qe7 (13... Nb4 14. Bf5 $18) 14. O-O-O Qf7 15. Rxh1 exd4 16. Rg1 $18 { White will soon rush in and destroy enemy camp }) (12. Nf4? { Is too soon } 12... e5! 13. Ng6+ Kf7 14. dxe5 Rxh7 15. Qg3 Nh5 16. Qg4 Bf6! 17. exf6 Nxf6 18. Qf4 Rh3 $13 { Very impractical play, that black would enjoy having for the game }) 12... e5! { Black takes action, hitting in the center } 13. O-O-O exd4 { The knight is now attacked, and black is opening the position chances for himself } 14. Rxh1? (14. Nxd4 Nxd4 15. Qxd4 { Would hold the position for white } 15... Ne4 16. Qxg7+ Kxg7 17. Bxd8 Nxc3 18. Rg1+ Kf7 19. bxc3 Rhxd8 20. Rxh1 Kg7 { The pawn on h7 is dangerous }) 14... dxc3 { Black will enjoy consolidating the pieces and to enjoy the material advantage } 15. Nf4 Ne5 16. Bc2? (16. Be4 { The right square for the bishop } 16... c6 17. Nh5 Rxh7 18. Bxh7 Nf3 19. Bxf6 Nxh4 20. Bxd8 cxb2+ 21. Kc2 Rxd8 22. Nxg7 Kxg7 23. Be4 { As the dust settles, both players find themselves in a drawn endgame }) 16... Kf7? (16... Nf3! { Looking to trade as many pieces as possible } 17. Ng6+ (17. Qg3 cxb2+ 18. Kd1 (18. Kb1 Nd2+ 19. Kxb2 Nfe4+ 20. Kc1 Nxg3 21. Bxd8 Nxh1 $19) 18... Nxg5 19. Ng6+ Ke8 20. Qxg5 Rxh7 21. Re1+ Kf7 $19 { Black enjoys the material advantage }) 17... Ke8 (17... Kf7 { Allows a check on h8 } 18. Nxh8+ Bxh8 19. Qh6 Nxg5 20. Bg6+ Ke7 21. Qxg5 $15) 18. Qf4 Nxg5 19. Qxg5 Rxh7 $19 { Black finds himself with an extra rook }) 17. Nh5! { White finds the move, disrupting Black's major defensive pieces } 17... Nf3 { A move too late } (17... Rxh7 18. Bxh7 cxb2+ 19. Kb1 Qh8 20. Nxf6 Bxf6 21. Qh5+ Ke6 22. h4 $18 { Black has now regained the rook and has 2 pawns that will run outside }) 18. Qf4 Nxg5 19. Qxg5 { The king is stuck } 19... Qf8 (19... Nxh5 20. Qxh5+ Kf8 21. Qf3+ Qf6 (21... Bf6 22. Rd1 { The extra Black rook on h8 is held by a single White pawn } 22... cxb2+ 23. Kb1 d6 24. Re1 $18) 22. Qxa8+ $18) 20. Bg6+ { Black resigned seeing what was to come. The desperation from Fedoseev had backfired, as Radoslaw Wojtasek made it through! } 1-0
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.09"]
+[Round "25.2"]
+[White "Vidit, Santosh Gujrathi"]
+[Black "Shankland, Sam"]
+[Result "0-1"]
+[WhiteElo "2715"]
+[WhiteTitle "GM"]
+[WhiteFideId "5029465"]
+[BlackElo "2649"]
+[BlackTitle "GM"]
+[BlackFideId "2004887"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "C41"]
+[Opening "Philidor Defense: Lion Variation"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Vidit, Santosh Gujrathi - Shankland, Sam"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/xk3Ftle5"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. e4 d6 2. d4 Nf6 3. Nc3 e5 { Sam Shankland makes a bold choice, the philidor defence with the black pieces } 4. Nf3 (4. dxe5 dxe5 5. Qxd8+ Kxd8 { The early queen trade is known to equalize quick }) 4... Nbd7 5. Bc4 { Vidit opts for the most natural move } (5. g4!? { An interesting pawn sac that has gained traction in recent times } 5... Nxg4 6. Rg1 Ngf6 7. Bc4 { Leads to an equal but complex position for both sides }) 5... Be7 6. O-O O-O 7. Re1 c6 8. a4 Re8 9. h3 (9. Ng5 Rf8 10. Nf3 Re8 { Would just repeat }) 9... h6 10. a5 exd4 { Sam decides to break open the center } (10... Bf8 11. dxe5 Nxe5 12. Nxe5 Rxe5 13. Bf4 Re8 { Would have been another way to play }) 11. Nxd4 Bf8 12. Bf4 Nc5 { Black targets the white center } 13. e5 (13. Qf3 Ne6 14. Bxe6 Bxe6 15. a6 bxa6 16. Rxa6 Bc8 17. Rxc6 Bb7 18. Rc4 d5 $13 { Leads to a very unclear position }) 13... dxe5 14. Bxe5 Ncd7 15. Bf4 Rxe1+ 16. Qxe1 { White enjoys active pieces and healthy space } 16... Nc5 (16... Nb6!? { Forcing trades } 17. axb6 (17. Nxc6 bxc6 18. axb6 Qxb6 19. b3) 17... Qxd4 18. Rxa7 Rxa7 19. bxa7 Qxa7) 17. Qe3 Bd7 18. Be5 Qe7 19. Re1 Re8 { All pieces are battle ready at the center of the board } 20. Qf3 Qd8? (20... Na4! { Black looks to trade more pieces to compensate for the lesser space } 21. Nxa4 Qb4 22. Qc3 (22. Bxf7+ Kxf7 23. Qb3+ Qxb3 24. Nxb3 Bf5 25. Nd4 Bh7 26. Re2 Nd5 { The active pieces compensate the shortage of 1 pawn }) 22... Qxa4 23. b3 Qb4 24. Qa1 Qa3) 21. Re3 $14 { White now seizes the opportunity } (21. Re2 $16 { More ideal } 21... Qxa5 { fails now as } 22. Bxf6 Rxe2 23. Bxf7+ Kxf7 24. Bd8+ { The rook on e3 would have an attack on the White queen } 24... Kg8 25. Bxa5 $18) 21... a6 (21... Qxa5 22. Bxf6 Rxe3 23. fxe3 gxf6 24. Qxf6 $14 { White is strategically better }) 22. b4 Ne6 23. Bxe6? { Misses the opportunity } (23. Bxf6 Qxf6 24. Qxf6 gxf6 25. Ne4! Rd8 (25... Be7 26. Nf5 Kf8 27. c3 $18 { Better pawns and better pieces }) (25... Bg7 26. Nd6 Rb8 27. N4f5 $18 { The knights dominate the ugly bishop pair }) (25... Nxd4?? 26. Nxf6+ Kg7 27. Nxe8+ $18) 26. Nxf6+ Kg7 27. Nh5+ Kg8 28. Nf5 $18 { An extra pawn and attack }) 23... Bxe6 24. Bxf6 Qxf6 25. Qxf6 gxf6 26. Ne4 $14 { White has more chances, but the lesser the pieces, the happier Black is } 26... Be7 27. c3 Kf8 28. g4 { Dampening the bishops } (28. Nc5 Bc8 29. Kf1 { Would have been possible too }) 28... Bc8 29. Nb3 f5 { Black takes his opportunity to open up and get his bishops active } 30. gxf5 Bxf5 31. Nec5 Bc8 { Back to defend the b7 pawn } 32. Kg2 Rd8 33. Kg3 Rd6 34. Ne4 Rg6+ 35. Kh2 Be6 36. Nbc5 f5 { Forcing matters } 37. Nxe6+?! (37. Ng3 Bc8 38. Nd3) 37... Rxe6 { Black senses freedom, finally not forced to defend the b7 pawn with the bishop } 38. Ng3?? { A big error, Vidit misjudges the endgame } (38. Nc5 { The only way to survive } 38... Rxe3 39. fxe3 Bxc5 40. bxc5 Ke7 41. Kg3 Kf7 42. Kf4 Ke6 43. e4) 38... Rxe3 $19 39. fxe3 Bf6 { Black hits the pawns settled on the dark squares } 40. Ne2 (40. Nxf5 Bxc3 41. Nxh6 Bxb4 $18 { Drops another pawn and has 3 connected passers }) (40. c4 Bc3 41. b5 cxb5 42. cxb5 axb5 43. Nxf5 b4 $19) 40... Ke7? (40... Bg5! { Hitiing all the weak White pawn } 41. Nd4 (41. Nf4 Bxf4+ 42. exf4 { The trade benefits the Black king which reaches the pawns quicker } 42... Ke7 43. Kg3 Kd6 44. Kh4 Kd5 45. Kh5 Ke4 $18) 41... Bxe3 42. Nxf5 Bd2 $19) 41. Kg3 Ke6 42. c4 { White blocks the entry of the Black king } 42... Be7 { Hitting the weaker target } 43. Nf4+ (43. b5 { Does not work well as } 43... axb5 44. cxb5 cxb5 45. Nd4+ Ke5 46. Nxb5 Bd8 $19 { The a5 pawn falls inevitably }) 43... Kd7 44. Nd3 Ke6 45. Kf3 { White has managed to survive a big scare } 45... Bd6 46. e4 fxe4+ 47. Kxe4 Kf6 48. c5 (48. Nc5 { Would have been easier as it would have forced trade of the minor pieces } 48... Bxc5 49. bxc5 Ke6 (49... Kg5?? { Black cannot get greedy } 50. Ke5 Kh4 51. Kd6 Kxh3 52. Kc7 h5 53. Kxb7 h4 54. Kxc6 Kg3 55. Kb6 h3 56. c6 h2 57. c7 h1=Q 58. c8=Q $18) 50. h4 h5 51. Kf4 Kf6 52. Ke4 Ke6) 48... Bc7 49. Nb2 Be5 50. Nc4 Bc3 51. Nd6 Bxb4 52. Nxb7 { White defends the 2 pawns, but the knight can be kicked by the Black king } 52... Ke7 53. Kd4? (53. Nd6! { White survives } 53... Bxc5 (53... Bxa5 54. Nf5+ Ke6 55. Nxh6) (53... h5 54. Nf5+ Kf6 55. Nd4 Bxc5 56. Nxc6) 54. Nf5+ Kf6 55. Nxh6) 53... Kd7 (53... h5 { Essential for Black to push the pawn to stop quick attacks by the knight } 54. Kc4 Be1 55. Nd6 Bxa5 $18) 54. Kc4 (54. Nd6 Bxa5 55. Nf7 h5 56. Ne5+ Kc7 57. Nd3 Bd2 58. Kc4 { Would hold on for White }) 54... Be1 $18 { White pawns now are destined to drop soon } 55. Kd3 Bg3 { Traps the knight on b7 } 56. Ke4 Kc7 57. Nd6 Bxd6 58. cxd6+ Kxd6 59. h4 c5 60. h5 Kc6 { Sam Shankland wins the game and advances through, as he shows great temperament and skill, in the endgame, to knock out Vidit } 0-1
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.12"]
+[Round "32.4"]
+[White "Donchenko, Alexander"]
+[Black "Bluebaum, Matthias"]
+[Result "1-0"]
+[WhiteElo "2641"]
+[WhiteTitle "GM"]
+[WhiteFideId "24603295"]
+[BlackElo "2680"]
+[BlackTitle "GM"]
+[BlackFideId "24651516"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "D31"]
+[Opening "Queen's Gambit Declined: Charousek Variation"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Donchenko, Alexander - Bluebaum, Matthias"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/NmuaqqFX"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. c4 e6 2. Nc3 d5 3. d4 Be7 4. cxd5 exd5 5. Bf4 Nf6 6. e3 O-O 7. h3 { A relatively rare choice by Alexander Donchenko, looking to make space for the bishop on h2 early on } 7... c5 8. Nf3 Nc6 9. Bb5 cxd4 10. Nxd4 { Black has the IQP } { [%csl Bd5] } 10... Qb6 11. O-O Nxd4 12. Qxd4 Qxd4 13. exd4 { both the players play with symmetrical pawn structures, heading to an endgame } 13... Be6 14. Bd3 a6 { A commital move } (14... Rfc8 15. Rfc1 h6 16. Rc2 Kf8 { Goes on }) 15. Na4 { White reacts instantly to Blacks last move } 15... Nd7 16. b4! { A great practical decision, opening space on the queen side, and gaining great control of the c5 square } 16... Bf6 (16... Bxb4 17. Rfb1 a5 18. a3 Be7 19. Rxb7 $14 { With the more active pieces, White is preferred }) 17. Be3 Nb8!? { Black tries to manouver the knight to c6, and hit at the d4 pawn } (17... Rfc8 18. Rfb1 h5 19. Nc5 Nb8 20. Nxb7 Nc6 { Would be equally interesting }) 18. Nb6 Ra7 { The rook is trapped on a7, but White cannot get there } 19. f4 Bd8 (19... Nd7 { Pushing back the knight } 20. Na4 b5 21. Nc5 Nb6 { More active play } 22. a4 bxa4 23. Nxa4 Nxa4 24. Rxa4 Rc7 25. Rxa6 Rc3) 20. Na4 (20. f5!? { White could get a bishop pair for himself } 20... Bxb6 21. fxe6 g6 (21... fxe6?? 22. Bxh7+ Kxh7 23. Rxf8 $18) 22. exf7+ Rxf7 23. Rxf7 Kxf7 24. Be2 Nc6 25. Rd1 Nxb4 26. Bf3) 20... Nc6 21. a3 f5?! { Black tries to lock the center, the knight has journeyed to c6, and wishes, it could be at e4 } 22. Rac1 Bf6 23. Rfe1 Raa8 (23... Bxd4? { Is not a free pawn } 24. Rxc6 bxc6 (24... Bxe3+ 25. Rxe3 bxc6 26. Rxe6 $18) 25. Bxd4 $18) (23... Nxd4 24. Nb6 Nc6 25. Bc5 Bd4+ 26. Bxd4 Nxd4 27. Kf2 $18 { White is happier and the Black pieces struggle }) 24. Nc5 Bc8 { Black is forced to return his bishop to the starting position } 25. Bb1 Nxd4? { Black grabs the pawn, but White is happier without it } (25... Rd8 26. Bf2 Rb8 27. Kh2 Kf8 28. Red1 $14 { White enjoys marginal edge, but the game goes on }) 26. Ba2 $16 { Hitting at the weak diagonal, that has been abandoned by the light square Black bishop } 26... Rd8 27. Bf2 (27. Rcd1? { Should not rush } 27... Nc2 28. Rxd5 Rxd5 29. Bxd5+ Kh8 30. Re2 Nxe3 31. Nb3 (31. Rxe3 Bd4 $19) 31... Rb8 (31... Nxd5 32. Re8#) 32. Rxe3 Bd7) 27... Kf8 28. Na4! $18 { A great retreat. The knight heads back again to b6, but this time with more motives } 28... b5 29. Nb6 Rb8 30. Nxd5 { White is now in full control, Black pieces are passive and closer to being arranged again into starting position } 30... Rd6 31. Nxf6 gxf6 32. Kf1 { Taking careful steps } (32. Rcd1 { Walks into tricks } 32... Ne2+ 33. Kf1 Rxd1 34. Rxd1 Nc3 35. Ra1 Nxa2 36. Rxa2 { Black happy with the exchanges }) 32... Bb7 33. Rc7 { The monstrous rook gets in, unchallenged } 33... Be4 34. Rxh7 Rbd8 35. Rd1 Ne6 36. Rh8+ (36. Bc5 { Would have been quick too! } 36... Nxc5 37. Rh8+ Ke7 38. Rxd8 Rxd8 39. Rxd8 Kxd8 40. bxc5 { And as the pieces are chopped off the board the h pawn marches to the end }) 36... Ke7 37. Rxd8 Rxd8 38. Rxd8 Nxd8 39. Bc5+ Kd7 40. h4 { Passed pawns must be pushed } 40... Ne6 41. g3 Bd3+ 42. Ke1 Ng7 43. Bf7 { The Black king finds it impossible to get to the king side } 43... Bc4 44. Bg6 { Alexander wins the game and slays the another player after Anish Giri that has already qualified for the Candidates event, and heads on to the next round! } 1-0
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.11"]
+[Round "31.8"]
+[White "Sarana, Alexey"]
+[Black "Martinez Alcantara, Jose Eduardo"]
+[Result "0-1"]
+[WhiteElo "2675"]
+[WhiteTitle "GM"]
+[WhiteFideId "24133795"]
+[BlackElo "2644"]
+[BlackTitle "GM"]
+[BlackFideId "3805662"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "D31"]
+[Opening "Semi-Slav Defense: Marshall Gambit, Main Line"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Sarana, Alexey - Martinez Alcantara, Jose Eduardo"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/JWrRNIu7"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. d4 d5 2. c4 e6 3. Nc3 c6 4. e4 { Alexey Sarana, opts for a sharp line } 4... dxe4 5. Nxe4 Bb4+ 6. Bd2 Qxd4 7. Bxb4 Qxe4+ { Jose Martinez is up for the challenge, as he accepts the extra pawn, that comes along with the complications } 8. Be2 Na6 (8... Qxg2? { Is too greedy } 9. Bf3 Qg5 10. Ne2 $16 { White is ready to pounce, while Black only has the queen ready for battle }) 9. Ba5 { Threatens a mate on d8 } 9... f6 10. Nf3 (10. Qd8+ { Is now met with } 10... Kf7 11. Nf3 b6 12. Bc3 Bb7 { Black unravels his pieces } 13. Qd2 (13. Qd7+ Ne7 14. Qxb7 Nc5 15. Qc7 Rhc8 16. Qg3 Nf5 17. Qg5 h6 18. Qh5+ g6 19. Nd2 gxh5 20. Nxe4 Nxe4 { A very long line that gives equal chances to both }) 13... Ne7) 10... b6 11. Nd2 Qf4 (11... Qxg2?? 12. Bf3 Qg5 13. Bxc6+ $18) 12. Bh5+ g6 13. Bf3 { White has forced Black to commit to pushing the pawns, and target them as weaknesses } 13... Qe5+ 14. Kf1 Qc7 15. Bc3 e5 { Black is now awaiting his chances to develop the pieces } 16. Ne4 Bf5 17. Nd6+ (17. Qa4 { More ideal play } 17... Nb8 18. h4 Nd7 { In order to get the g8 knight out, Black must defend f6 } 19. h5 O-O-O 20. hxg6 Bxg6 21. Re1 $13) 17... Kf8 18. Nxf5 gxf5 19. Qa4 Nc5 20. Qxc6 { Getting back the pawn, but the position is far from easy yet } 20... Qxc6 21. Bxc6 Rd8 22. Bf3?! { Not the bet square to rest the bishop } (22. g3 Ne7 23. Bg2 { The better square for the bishop }) 22... Ne7 { Black heads out with his pieces and he gets a strong center of pawns } 23. b3 Kg7 24. Re1?! (24. Rd1 { White should look to trade pieces } 24... Ne4 25. Be1) 24... Ng6 25. g3 Rd3 $17 { The ugly placement of the bishops comes under attack } 26. Re3 Rhd8 { Black is now ready to charge } 27. Be2 (27. Ke2 e4 28. Bh5 f4 { Finaly, the pawns roll down the board to take control } 29. Rxd3 Rxd3 30. Rc1 f3+ 31. Kf1 a5 $19) 27... R3d7 { Preserving the rooks is essential } (27... Rxe3?! 28. fxe3 a5 29. Kg2 $15 { Gives White a chance to breathe }) 28. Rg1 { The rook struggles to get out } (28. Kg2? f4 29. gxf4 exf4 30. Rh3 Ne4 $19 { Black owns the board, White just spectates }) 28... Ne4 (28... f4 { Was the right time to move in } 29. gxf4 exf4 30. Rh3 Ne4 31. Be1 Nd2+ 32. Kg2 Re7 $17) 29. Be1 Nd2+ 30. Kg2 (30. Bxd2? Rxd2 31. a3 Ra2 32. b4 Rdd2 $19 { The rooks make their way in and freeze White }) 30... f4 { It is now time to get in } 31. Rc3 (31. gxf4 { Important to make this trade } 31... exf4 32. Rc3 Re7 33. Bg4 Ne4 34. Rc1 $15 { White tries to cling on }) 31... e4 { Black senses it, the e pawn is now active } 32. Bg4 (32. gxf4 Nxf4+ 33. Kh1+ Kf7 34. Bg4 Rd3 { Whites fate will be decided soon } 35. Rxd3 Nxd3 36. Bxd2 Nxf2+ 37. Kg2 Nxg4 $19) 32... Rd3 33. Rc2 (33. Rxd3 Rxd3 34. gxf4 Nxf4+ 35. Kh1 Kh6 36. Bxd2 Rxd2 37. Bf5 Nd3 $19) 33... Ne5 $19 { The final piece into the attack } 34. Bf5 Ndf3 { The knight jump all over creating havoc } 35. Bxe4 (35. Rf1 { Is futile as } 35... Nd4 $19 { fork }) 35... Nxg1 36. Bxd3 Ngf3 (36... Nxd3?? { Must be careful } 37. Bc3 { The knight is trapped on g1 } 37... Kg6 38. Kxg1) 37. Bc3 Rxd3 38. b4 Nd4 39. Bxd4 f3+ { Jose Martinez' knights jumped across the board and pressed the white pieces to perfection, as Black won a comfotable game } 0-1
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.13"]
+[Round "34.3"]
+[White "Praggnanandhaa R"]
+[Black "Dubov, Daniil"]
+[Result "0-1"]
+[WhiteElo "2768"]
+[WhiteTitle "GM"]
+[WhiteFideId "25059530"]
+[BlackElo "2674"]
+[BlackTitle "GM"]
+[BlackFideId "24126055"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "C56"]
+[Opening "Italian Game: Scotch Invitation Declined"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Praggnanandhaa R - Dubov, Daniil"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/xoAoy3iw"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. e4 e5 2. Nf3 Nc6 3. Bc4 { The Italian was the choice made by Pragg for the tie-break game with the White pieces } 3... Nf6 4. d4 { An agressive setup } (4. d3 { Generally been the choice used by White to get a more non forcing game }) 4... d6 { Daniil Dubov decides to avoid the complexities } (4... exd4 { Leads to various complex lines } 5. O-O { The more common gambit } (5. e5 Ne4 6. Qe2 Nc5 7. O-O Ne6 8. c3 d5 9. exd6 Bxd6 10. Bg5 Be7 $13 { Interesting line, goes on }) 5... Nxe4 6. Re1 d5 7. Bxd5 Qxd5 8. Nc3 Qd7 9. Nxe4 Be7 10. Bg5 O-O 11. Bxe7 Qxe7 12. Nxd4 Bd7 { White does regain the pawn, but Black gets a comfortable position }) 5. d5 (5. dxe5 { Does not promise much for White } 5... dxe5 6. Qxd8+ Nxd8 7. Nxe5 Bd6 8. Nd3 Nxe4) 5... Nb8 { Daniil wants the knight to get to d7 } (5... Ne7 { The more common idea } 6. Nc3 g6 { Brings on a different setup }) 6. Nc3 Be7 7. a4 a5?! { This prophylactic decision weakens Blacks hold on the position } 8. Qe2 (8. h3!? { Preventing Bg4, and hinting at a probable king side attack } 8... Na6 9. Be3 O-O 10. g4 Nb4 11. Qe2 c6 12. O-O-O $16 { White enjoys the abundant space and attacking prospects }) 8... c6 9. h3 { Pragg spots it now } 9... Na6 10. O-O (10. Be3 O-O 11. O-O-O $16 { Hinting at a kingside attack for White }) 10... O-O 11. Rd1 Qc7 12. Bg5 (12. Be3 { The better square for the bishop } 12... Nb4 13. Bb3 Bd7 14. Nd2 $16) 12... h6 13. Bxf6 Bxf6 14. Nd2?! { Pragg misjudges the plan for the position } (14. Bxa6 { It is essential to trade the knight for the bishop } 14... Rxa6 15. Nd2 Ra8 16. Ra3 Be7 17. Nc4 $14) 14... Nc5 { Daniil swings the knight at the center } 15. Ba2 (15. Nb3 Nd7 { Denying the trade now }) 15... Be7 { Black hints at a new plan } 16. Nc4 Bd7 17. Rab1 { White wants b4 } 17... Rad8 (17... Be8 { A very deep move that stops white from pushing b4 } 18. b4 axb4 19. Rxb4 b5 { The reason why Be8 is essential! } 20. Ne3 (20. axb5 cxb5 21. Ne3 (21. Nxb5 Bxb5 22. Rxb5 Rxa2 $19) 21... Ra3 22. Qe1 Bg5 $19 { The Black pieces active and press White completely }) (20. dxc6 { Does not attack the bishop anymore, and does not give White the extra tempo }) 20... Nxa4 $17) 18. b4 (18. Nxa5! { More trades } 18... Nxa4 (18... Qxa5 19. b4 Qa7 20. bxc5 Qxc5) 19. Nxc6 Bxc6 20. dxc6 Nxc3 21. bxc3 bxc6) 18... axb4 19. Rxb4 Ra8 { The rook gets back to the half open file } 20. Nb6 Ra7 21. Nxd7?! { A rushed decision } (21. Bc4 { White should hold the knight on b6 } 21... Be8 22. Ra1 Nd7 23. Rab1 Nc5 24. Ra1) 21... Qxd7 22. Qf3 (22. Qg4 Qxg4 23. hxg4 Rfa8 24. Bb3 Kf8 { Leads to a solid endgame }) 22... Raa8 23. Qf5 Qc7 { Black avoids the trade, as the White queen roams the king side alone } 24. Qg4 Kh7 25. h4 Bd8!? { Black decides to find a good spot for the bishop, heading towards the queen side } 26. h5 Qe7 27. dxc6?! bxc6 { The trade favours Black } 28. Bb3 (28. Ne2 { Getting away from the immediate Ba5 threats } 28... Nxa4 29. Bc4 Nc5 30. Ng3 g6 $17 { Position is still complex }) 28... Ba5 $17 { The bishop finds its purpose } 29. Rc4 Rad8 30. Qf3 Kh8 (30... f5! { Breaking open the center } 31. exf5 (31. Rxc5 dxc5 32. Rxd8 Qxd8 $19) 31... d5 { Pawnstorm! } 32. Rxc5 (32. Rg4 e4 33. Qe3 Nxb3 34. cxb3 Rxf5 $19 { Black position is far superior }) 32... Qxc5 $19) 31. Ne2 d5 { Daniil Dubov finally strikes } 32. exd5 cxd5 33. Rg4 (33. Rxd5 e4 34. Qf5 Rxd5 35. Qxd5 Rd8 { White queen is stuck, as the rook heads to d1 } 36. Qxc5 (36. Qf5 Rd1+ 37. Kh2 Qh4+ 38. Qh3 Qxf2 $19 { Too many threats! }) (36. Rxc5 Rxd5 37. Rxd5 Qb4 $19 { White does not have enough for the strong Black queen }) 36... Rd1+ 37. Kh2 Qh4#) 33... e4 34. Qf5 e3 (34... Bc7 { A strong alternative } 35. Bxd5 (35. Rxd5 Nxb3 36. Rxe4 (36. cxb3 Rxd5 37. Qxd5 Rd8 38. Qc4 Rd1#) 36... Qc5! { queen sacrifice! } 37. Rxc5 (37. Rxd8 Rxd8 38. Qxc5 Nxc5 $19) 37... Rd1#) (35. g3 e3 36. f3 Nxb3 37. cxb3 Be5 $19) 35... Qe6!! { A beautiful queen sacrifice! } 36. Bxe6 (36. Qxe6 fxe6 37. Nc3 exd5 $19) 36... Rxd1#) 35. Bxd5? (35. f3 { Would have been better resistance } 35... Bc7 36. Rgd4 Qe6 37. Qxe6 fxe6 38. Rb4 Rb8 $17) 35... exf2+ 36. Qxf2 (36. Kxf2 Rfe8 37. Qf3 Nd7 $19 { White struggles to hold together }) 36... Bb6 37. Kh1 (37. Kh2 Nd7 38. Qf3 Ne5 $19) 37... Nd3! { Black now gets material } 38. Qxb6 Qxe2 39. Rxd3 Qxg4 $19 40. Kg1 Qxa4 41. c4 Qa1+ 42. Kf2 Qe5 43. Qd4 Qxh5 { Picking up all the loose pawns along the way } 44. Rg3 Qf5+ 45. Kg1 f6 46. Kh2 Rfe8 47. Qb6 Qh5+ 48. Rh3 Qe5+ 49. Rg3 Qd6 50. Qa7 Re7 51. Qf2 Re5 52. Kg1 Rde8 53. Kf1 { A clean finish from Dubov to eliminate the Indian star, Praggnanandhaa, who has his last chance to book his Candidates spot, through the Grand Chess Tour } 0-1
+
+
+[Event "FIDE World Cup 2025"]
+[Site "lichess.org"]
+[Date "2025.11.15"]
+[Round "43.2"]
+[White "Aronian, Levon"]
+[Black "Erigaisi Arjun"]
+[Result "0-1"]
+[WhiteElo "2728"]
+[WhiteTitle "GM"]
+[WhiteFideId "13300474"]
+[BlackElo "2769"]
+[BlackTitle "GM"]
+[BlackFideId "35009192"]
+[Annotator "https://lichess.org/@/kingnb"]
+[Variant "Standard"]
+[ECO "C54"]
+[Opening "Italian Game: Classical Variation, Giuoco Pianissimo, with a5"]
+[StudyName "FIDE World Cup 2025 - Annotations"]
+[ChapterName "Aronian, Levon - Erigaisi Arjun"]
+[ChapterURL "https://lichess.org/study/9c2VHkcn/GV9TkMM3"]
+
+{ Annotated by IM Nitish Belurkar https://lichess.org/@/kingnb }
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 { Arjun with the Black pieces goes for the mainstream Guico Piano, against the most experienced of World Cup players, Levon Aronian } 4. c3 Nf6 5. d3 (5. d4 { Played a lot in the earlier days, has now lost its trend } 5... exd4 6. e5 (6. cxd4 Bb4+ 7. Nbd2) 6... d5 7. Bb5 Ne4 8. cxd4 Bb4+ { Is still in vast opening territory }) 5... a5 { Stopping potenial b4 from White } 6. O-O d6 7. Re1 O-O 8. Nbd2 Be6 9. Bb5 { White avoids the trade of the light squared bishop, and tuck itself later into c2 } 9... Ba7 { Black wants to relocate the c6 knight, and avoids any immediate d4 attacks on the bishop } (9... Qb8 { A common idea used in these positions } 10. Nf1 Qa7 11. Be3 Bxe3 12. Nxe3 Ne7) 10. Nf1 Ne7 { Going with the plan } 11. d4 Ng6 12. Ng3 c6 13. Bf1 { White heads his bishop back home } 13... Bg4 14. Be3 exd4 { Arjun commits in the center } 15. cxd4 d5 16. e5 Ne8 17. Be2 (17. h3 { Would be more forcing } 17... Bxf3 18. Qxf3 f6 19. Qh5 fxe5 20. dxe5 Bxe3 21. Rxe3) 17... f6 { Breaks open the center } 18. exf6 Nxf6 19. Qb3 Bxf3 { Arjun decides his pair of knights are more essential } 20. Bxf3 Qd7 21. Rad1 h6 22. Be2 Rae8 { Black is setup for action } 23. Bd3 Nh4 24. f3 Nh7!? { Rerouting the knights towards the White king } 25. Bb1 Ng5 26. Qc2 (26. f4 Nh3+ 27. gxh3 Qxh3 28. Qc2 Nf3+ { Gives Black nothing substantial } (28... Rf6!? 29. Qf2 Rfe6 $13 { Unclear }) 29. Kh1 Nxe1 30. Qh7+ Kf7 31. Bg6+ Kf6 32. Rxe1 $18) 26... g6 { Arjun goes for the subtle move } (26... Ngxf3+! { A vicious blow! } 27. gxf3 Rxf3 28. Qh7+ (28. Bf2 Rxe1+ 29. Rxe1 (29. Bxe1 Qg4 30. Kh1 Nf5 $19 { Blacks vicious attack compensates the lack of a piece }) 29... Qh3 30. Be3 Rxe3 31. Rxe3 Bxd4 $19) 28... Kf7 { The knight holds the g6 square } 29. Bf5! { White needs to desperately stop Qh3 } (29. Rf1 Rxe3 $19) 29... Nxf5 30. Rf1 Rexe3 31. Nxf5 Qxf5 32. Qxf5+ Rxf5 33. Rxf5+ Ke6 34. Rf8 Kd6 35. Rf7 Re4 36. Rxb7 Bxd4+ 37. Kf1 g5 $17 { And after a vey lengthy line, Black has the upper hand }) 27. Kh1 Qf7 (27... Bb8 { Getting in the final piece would be interesting } 28. Bf2 Nh3!? { Leads to a crazy position } 29. gxh3 Qxh3 30. Rg1 (30. Bg1 Bxg3 $19 { The inclusion of the bishop works out }) 30... Re6 31. f4 Rxf4 32. Rd3 Nf3 33. Rg2 Nh4) 28. Qf2 Bb8 29. Nf1 Nf5 { Forced to retreat } 30. Bd2 Bc7 31. Ne3 (31. Bxf5 { An important trade to get off the knight } 31... gxf5 32. b4 a4 33. b5 cxb5 34. Bb4 Rxe1 35. Rxe1 Re8 36. Rxe8+ Qxe8 37. Qc2 Qd7 38. Ne3) 31... Nxe3 32. Bxe3 Kg7 33. Qf1 Re6 (33... Bxh2! { A cheeky pawn grab! } 34. Kxh2 (34. Bxg5 Bg3 35. Rxe8 Rxe8 36. Bd2 Qf6 $19 { Forces checkmate via Qh4 }) 34... Rxe3 35. Rxe3 Qf4+ 36. Kh1 Qxe3 $19) 34. Bg1 Rfe8 35. Rxe6 Rxe6 36. a3 { White is not in a position to make waiting moves on the queen side } (36. Qd3 Qf4 37. Rf1 { threatening g3 } 37... Qh4 38. Qc3 h5 39. Bd3 $13) 36... h5 $17 37. Qf2 Qf4 { The queen heads in } 38. Re1?? { The big blunder } 38... Nh3!! { A brilliant move to end the game! Arjun gets the better of the 2 time World cup winner, Levon Aronian. } 0-1
+
+

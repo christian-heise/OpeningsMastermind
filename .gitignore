@@ -1,0 +1,18 @@
+.claude
+OpeningsMastermind/Config.xcconfig
+
+# Per-user Xcode state (breakpoints, scheme order, workspace UI) — churns on every open
+xcuserdata/
+
+# Stockfish NNUE networks — large immutable binaries, not committed.
+# Run ./Scripts/download_nnue.sh to fetch them before the first build.
+OpeningsMastermind/Data/*.nnue
+
+# Fastlane generated artifacts (metadata/Fastfile/Appfile are tracked)
+fastlane/.DS_Store
+fastlane/report.xml
+fastlane/test_output/
+
+# Real App Review demo credentials (see *.example for the expected format)
+fastlane/metadata/review_information/demo_user.txt
+fastlane/metadata/review_information/demo_password.txt

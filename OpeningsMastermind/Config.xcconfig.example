@@ -1,0 +1,5 @@
+// Copy this file to Config.xcconfig (gitignored) and fill in real values.
+TelemetryDeckAppId = yourAppId123
+// Optional: a Lichess personal access token for local Debug auto-sign-in
+// (read from the DEBUG_LICHESS_TOKEN launch env var). Leave blank otherwise.
+DEBUG_LICHESS_TOKEN =

@@ -1,0 +1,868 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 71;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA4786B92A1A83E100BB4144 /* ChessKitEngine in Frameworks */ = {isa = PBXBuildFile; productRef = AA4786B82A1A83E100BB4144 /* ChessKitEngine */; };
+		AA5455572FE341960062E168 /* Textual in Frameworks */ = {isa = PBXBuildFile; productRef = AA5455562FE341960062E168 /* Textual */; };
+		AA80F2032FDDC723000281B8 /* TelemetryDeck in Frameworks */ = {isa = PBXBuildFile; productRef = AA80F2022FDDC723000281B8 /* TelemetryDeck */; };
+		AAD283F82A3B5C07002D5BF7 /* ChessKit in Frameworks */ = {isa = PBXBuildFile; productRef = AAD283F72A3B5C07002D5BF7 /* ChessKit */; };
+		AAD284072A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AAD283FD2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AAA1A18A29F02352003F153F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AAA1A17029F02351003F153F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAA1A17729F02351003F153F;
+			remoteInfo = ChessOpeningTrainer;
+		};
+		AAA1A19429F02352003F153F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AAA1A17029F02351003F153F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAA1A17729F02351003F153F;
+			remoteInfo = ChessOpeningTrainer;
+		};
+		AAD284052A3B7C00002D5BF7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AAA1A17029F02351003F153F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAD283FC2A3B7C00002D5BF7;
+			remoteInfo = OpeningsMastermindShareExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AAB5A80C2A1A3161007F1302 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAD2840B2A3B7C00002D5BF7 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				AAD284072A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		AAA1A17829F02351003F153F /* OpeningsMastermind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpeningsMastermind.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAA1A18929F02352003F153F /* OpeningsMastermindTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpeningsMastermindTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAA1A19329F02352003F153F /* OpeningsMastermindUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpeningsMastermindUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAD283FD2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OpeningsMastermindShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		AA80F2512FDFD4A3000281B8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ShareViewController.swift,
+			);
+			target = AAD283FC2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension */;
+		};
+		AA80F3912FDFD6B3000281B8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Config.xcconfig,
+				Info.plist,
+			);
+			target = AAA1A17729F02351003F153F /* OpeningsMastermind */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		AA80F24F2FDFD4A2000281B8 /* OpeningsMastermindShareExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (AA80F2512FDFD4A3000281B8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = OpeningsMastermindShareExtension; sourceTree = "<group>"; };
+		AA80F2542FDFD4A8000281B8 /* OpeningsMastermindUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = OpeningsMastermindUITests; sourceTree = "<group>"; };
+		AA80F25A2FDFD4E8000281B8 /* OpeningsMastermindTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = OpeningsMastermindTests; sourceTree = "<group>"; };
+		AA80F3482FDFD6B2000281B8 /* OpeningsMastermind */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (AA80F3912FDFD6B3000281B8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = OpeningsMastermind; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AAA1A17529F02351003F153F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAD283F82A3B5C07002D5BF7 /* ChessKit in Frameworks */,
+				AA4786B92A1A83E100BB4144 /* ChessKitEngine in Frameworks */,
+				AA5455572FE341960062E168 /* Textual in Frameworks */,
+				AA80F2032FDDC723000281B8 /* TelemetryDeck in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAA1A18629F02352003F153F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAA1A19029F02352003F153F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAD283FA2A3B7C00002D5BF7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA930EDF2A0A4C1B00026712 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AAA1A16F29F02351003F153F = {
+			isa = PBXGroup;
+			children = (
+				AA80F3482FDFD6B2000281B8 /* OpeningsMastermind */,
+				AA80F25A2FDFD4E8000281B8 /* OpeningsMastermindTests */,
+				AA80F2542FDFD4A8000281B8 /* OpeningsMastermindUITests */,
+				AA80F24F2FDFD4A2000281B8 /* OpeningsMastermindShareExtension */,
+				AAA1A17929F02351003F153F /* Products */,
+				AA930EDF2A0A4C1B00026712 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		AAA1A17929F02351003F153F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AAA1A17829F02351003F153F /* OpeningsMastermind.app */,
+				AAA1A18929F02352003F153F /* OpeningsMastermindTests.xctest */,
+				AAA1A19329F02352003F153F /* OpeningsMastermindUITests.xctest */,
+				AAD283FD2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AAA1A17729F02351003F153F /* OpeningsMastermind */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAA1A19D29F02352003F153F /* Build configuration list for PBXNativeTarget "OpeningsMastermind" */;
+			buildPhases = (
+				AAA1A17429F02351003F153F /* Sources */,
+				AAA1A17529F02351003F153F /* Frameworks */,
+				AAA1A17629F02351003F153F /* Resources */,
+				AAB5A80C2A1A3161007F1302 /* Copy Files */,
+				AAD2840B2A3B7C00002D5BF7 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AAD284062A3B7C00002D5BF7 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AA80F3482FDFD6B2000281B8 /* OpeningsMastermind */,
+			);
+			name = OpeningsMastermind;
+			packageProductDependencies = (
+				AA4786B82A1A83E100BB4144 /* ChessKitEngine */,
+				AAD283F72A3B5C07002D5BF7 /* ChessKit */,
+				AA80F2022FDDC723000281B8 /* TelemetryDeck */,
+				AA5455562FE341960062E168 /* Textual */,
+			);
+			productName = ChessOpeningTrainer;
+			productReference = AAA1A17829F02351003F153F /* OpeningsMastermind.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AAA1A18829F02352003F153F /* OpeningsMastermindTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAA1A1A029F02352003F153F /* Build configuration list for PBXNativeTarget "OpeningsMastermindTests" */;
+			buildPhases = (
+				AAA1A18529F02352003F153F /* Sources */,
+				AAA1A18629F02352003F153F /* Frameworks */,
+				AAA1A18729F02352003F153F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AAA1A18B29F02352003F153F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AA80F25A2FDFD4E8000281B8 /* OpeningsMastermindTests */,
+			);
+			name = OpeningsMastermindTests;
+			productName = ChessOpeningTrainerTests;
+			productReference = AAA1A18929F02352003F153F /* OpeningsMastermindTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AAA1A19229F02352003F153F /* OpeningsMastermindUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAA1A1A329F02352003F153F /* Build configuration list for PBXNativeTarget "OpeningsMastermindUITests" */;
+			buildPhases = (
+				AAA1A18F29F02352003F153F /* Sources */,
+				AAA1A19029F02352003F153F /* Frameworks */,
+				AAA1A19129F02352003F153F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AAA1A19529F02352003F153F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AA80F2542FDFD4A8000281B8 /* OpeningsMastermindUITests */,
+			);
+			name = OpeningsMastermindUITests;
+			productName = ChessOpeningTrainerUITests;
+			productReference = AAA1A19329F02352003F153F /* OpeningsMastermindUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		AAD283FC2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAD284082A3B7C00002D5BF7 /* Build configuration list for PBXNativeTarget "OpeningsMastermindShareExtension" */;
+			buildPhases = (
+				AAD283F92A3B7C00002D5BF7 /* Sources */,
+				AAD283FA2A3B7C00002D5BF7 /* Frameworks */,
+				AAD283FB2A3B7C00002D5BF7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpeningsMastermindShareExtension;
+			productName = OpeningsMastermindShareExtension;
+			productReference = AAD283FD2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AAA1A17029F02351003F153F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					AAA1A17729F02351003F153F = {
+						CreatedOnToolsVersion = 14.3;
+					};
+					AAA1A18829F02352003F153F = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = AAA1A17729F02351003F153F;
+					};
+					AAA1A19229F02352003F153F = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = AAA1A17729F02351003F153F;
+					};
+					AAD283FC2A3B7C00002D5BF7 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+				};
+			};
+			buildConfigurationList = AAA1A17329F02351003F153F /* Build configuration list for PBXProject "OpeningsMastermind" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				de,
+			);
+			mainGroup = AAA1A16F29F02351003F153F;
+			packageReferences = (
+				AA4786B72A1A83E100BB4144 /* XCRemoteSwiftPackageReference "chesskit-engine" */,
+				AAD283F62A3B5C07002D5BF7 /* XCRemoteSwiftPackageReference "ChessKit" */,
+				AA80F2012FDDC723000281B8 /* XCRemoteSwiftPackageReference "SwiftSDK" */,
+				AA5455552FE341960062E168 /* XCRemoteSwiftPackageReference "textual" */,
+			);
+			productRefGroup = AAA1A17929F02351003F153F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AAA1A17729F02351003F153F /* OpeningsMastermind */,
+				AAA1A18829F02352003F153F /* OpeningsMastermindTests */,
+				AAA1A19229F02352003F153F /* OpeningsMastermindUITests */,
+				AAD283FC2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AAA1A17629F02351003F153F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAA1A18729F02352003F153F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAA1A19129F02352003F153F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAD283FB2A3B7C00002D5BF7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AAA1A17429F02351003F153F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAA1A18529F02352003F153F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAA1A18F29F02352003F153F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAD283F92A3B7C00002D5BF7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AAA1A18B29F02352003F153F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAA1A17729F02351003F153F /* OpeningsMastermind */;
+			targetProxy = AAA1A18A29F02352003F153F /* PBXContainerItemProxy */;
+		};
+		AAA1A19529F02352003F153F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAA1A17729F02351003F153F /* OpeningsMastermind */;
+			targetProxy = AAA1A19429F02352003F153F /* PBXContainerItemProxy */;
+		};
+		AAD284062A3B7C00002D5BF7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAD283FC2A3B7C00002D5BF7 /* OpeningsMastermindShareExtension */;
+			targetProxy = AAD284052A3B7C00002D5BF7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		AAA1A19B29F02352003F153F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Q7XMYQ8965;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AAA1A19C29F02352003F153F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Q7XMYQ8965;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		AAA1A19E29F02352003F153F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = AA80F3482FDFD6B2000281B8 /* OpeningsMastermind */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = OpeningsMastermind/OpeningsMastermind.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"OpeningsMastermind/Preview Content\"";
+				ENABLE_ENHANCED_SECURITY = NO;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OpeningsMastermind/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Openings;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 0.9;
+				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AAA1A19F29F02352003F153F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = AA80F3482FDFD6B2000281B8 /* OpeningsMastermind */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = OpeningsMastermind/OpeningsMastermind.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"OpeningsMastermind/Preview Content\"";
+				ENABLE_ENHANCED_SECURITY = NO;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OpeningsMastermind/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Openings;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.board-games";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 0.9;
+				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AAA1A1A129F02352003F153F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 0.9;
+				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpeningsMastermind.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OpeningsMastermind";
+			};
+			name = Debug;
+		};
+		AAA1A1A229F02352003F153F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 0.9;
+				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpeningsMastermind.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OpeningsMastermind";
+			};
+			name = Release;
+		};
+		AAA1A1A429F02352003F153F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 0.9;
+				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = OpeningsMastermind;
+			};
+			name = Debug;
+		};
+		AAA1A1A529F02352003F153F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 0.9;
+				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = OpeningsMastermind;
+			};
+			name = Release;
+		};
+		AAD284092A3B7C00002D5BF7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OpeningsMastermindShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OpeningsMastermindShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 0.9;
+				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainer.OpeningsMastermindShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AAD2840A2A3B7C00002D5BF7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OpeningsMastermindShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OpeningsMastermindShareExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 0.9;
+				PRODUCT_BUNDLE_IDENTIFIER = gleissnerchristian.ChessOpeningTrainer.OpeningsMastermindShareExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AAA1A17329F02351003F153F /* Build configuration list for PBXProject "OpeningsMastermind" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAA1A19B29F02352003F153F /* Debug */,
+				AAA1A19C29F02352003F153F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAA1A19D29F02352003F153F /* Build configuration list for PBXNativeTarget "OpeningsMastermind" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAA1A19E29F02352003F153F /* Debug */,
+				AAA1A19F29F02352003F153F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAA1A1A029F02352003F153F /* Build configuration list for PBXNativeTarget "OpeningsMastermindTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAA1A1A129F02352003F153F /* Debug */,
+				AAA1A1A229F02352003F153F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAA1A1A329F02352003F153F /* Build configuration list for PBXNativeTarget "OpeningsMastermindUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAA1A1A429F02352003F153F /* Debug */,
+				AAA1A1A529F02352003F153F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAD284082A3B7C00002D5BF7 /* Build configuration list for PBXNativeTarget "OpeningsMastermindShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAD284092A3B7C00002D5BF7 /* Debug */,
+				AAD2840A2A3B7C00002D5BF7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AA4786B72A1A83E100BB4144 /* XCRemoteSwiftPackageReference "chesskit-engine" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/chesskit-app/chesskit-engine/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.2;
+			};
+		};
+		AA5455552FE341960062E168 /* XCRemoteSwiftPackageReference "textual" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/textual";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
+		AA80F2012FDDC723000281B8 /* XCRemoteSwiftPackageReference "SwiftSDK" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TelemetryDeck/SwiftSDK";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.14.1;
+			};
+		};
+		AAD283F62A3B5C07002D5BF7 /* XCRemoteSwiftPackageReference "ChessKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/christiangleissner/ChessKit";
+			requirement = {
+				branch = "FixIssue#11";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AA4786B82A1A83E100BB4144 /* ChessKitEngine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA4786B72A1A83E100BB4144 /* XCRemoteSwiftPackageReference "chesskit-engine" */;
+			productName = ChessKitEngine;
+		};
+		AA5455562FE341960062E168 /* Textual */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA5455552FE341960062E168 /* XCRemoteSwiftPackageReference "textual" */;
+			productName = Textual;
+		};
+		AA80F2022FDDC723000281B8 /* TelemetryDeck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA80F2012FDDC723000281B8 /* XCRemoteSwiftPackageReference "SwiftSDK" */;
+			productName = TelemetryDeck;
+		};
+		AAD283F72A3B5C07002D5BF7 /* ChessKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAD283F62A3B5C07002D5BF7 /* XCRemoteSwiftPackageReference "ChessKit" */;
+			productName = ChessKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = AAA1A17029F02351003F153F /* Project object */;
+}
